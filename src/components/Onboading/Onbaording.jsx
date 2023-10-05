@@ -7,8 +7,13 @@ const Onbaording = () => {
   return (
     <>
       <div className="flex w-full h-screen  justify-between pr-[100px]">
-        <img src={AuthBG} className="w-fit h-screen" />
-        <img src={LogoWhite} className="w-[400px] absolute bottom-10 left-10" />
+        <div className="relative">
+          <img src={AuthBG} className="w-fit h-screen" />
+          <img
+            src={LogoWhite}
+            className="lg:w-[400px] w-[50rem] absolute bottom-7 right-10"
+          />
+        </div>
         <OnboadingBanner />
       </div>
     </>

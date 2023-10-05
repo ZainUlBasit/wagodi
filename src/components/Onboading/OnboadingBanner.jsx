@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import Onboading from "../../assets/images/onboarding.png";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import OnboadingComp from "./OnboadingComp";
+import { useNavigate } from "react-router-dom";
 
 const OnboadingBanner = () => {
   const [OpenComp, setOpenComp] = useState(true);
+  const navigate = useNavigate();
   return (
     <>
       <div className="flex flex-col justify-center items-center h-screen w-fit mr-[80px]">
@@ -45,7 +47,10 @@ const OnboadingBanner = () => {
           ></div>
         </div>
 
-        <button className="p-[10px] border-[2px] border-[#465462] text-[#465462] rounded-full hover:bg-[#465462] hover:text-white transition-all duration-500">
+        <button
+          className="p-[10px] border-[2px] border-[#465462] text-[#465462] rounded-full hover:bg-[#465462] hover:text-white transition-all duration-500"
+          onClick={() => navigate("/auth")}
+        >
           <ArrowForwardIcon />
         </button>
       </div>

@@ -5,7 +5,7 @@ const AuthBtn = ({ title, navigateTo }) => {
   const navigate = useNavigate();
   return (
     <button
-      className="mt-[-40px] w-[197px] h-[53px] bg-[#465462] rounded-[40px] text-white text-[30px] font-[700]"
+      className={`mt-[20px] w-[197px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[30px] font-[700] transition-all duration-500 ease-in-out`}
       onClick={() => navigate(navigateTo)}
     >
       {title}
