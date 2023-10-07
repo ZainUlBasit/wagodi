@@ -10,7 +10,12 @@ const OnboadingBanner = () => {
   return (
     <>
       <div className="flex flex-col justify-center items-center h-screen w-fit mr-[80px]">
-        <button className="absolute top-10 right-40 text-[24px]">Skip</button>
+        <button
+          className="absolute top-10 right-40 text-[24px]"
+          onClick={() => navigate("/auth")}
+        >
+          Skip
+        </button>
         <img src={Onboading} className="w-fit h-[40vh]" />
         {OpenComp ? (
           <OnboadingComp

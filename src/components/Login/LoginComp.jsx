@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import AuthInput from "../Input/AuthInput";
 import AuthInputPassword from "../Input/AuthInputPassword";
 import AuthBtn from "../buttons/AuthBtn";
+import { useNavigate } from "react-router-dom";
 
 const LoginComp = () => {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const navigate = useNavigate()
   return (
     <>
       <div className="w-[343px] h-[440px] shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] flex items-center flex-col rounded-md pt-[20px] font-[Quicksand]">
@@ -42,9 +44,9 @@ const LoginComp = () => {
               Remember Me
             </label>
           </div>
-          <div>Forget Password?</div>
+          <div className="cursor-pointer" onClick={() => navigate("/forgot-password")}>Forget Password?</div>
         </div>
-        <AuthBtn title={"Sign In"} navigateTo={"/forgot-password"} />
+        <AuthBtn title={"Sign In"} navigateTo={"/home"} />
       </div>
     </>
   );

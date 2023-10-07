@@ -64,7 +64,7 @@ const SetNewPasswordComp = () => {
               Sign In
             </span>
           </p>
-          <AuthBtn title={"Continue"} navigateTo={"/home"} />
+          <AuthBtn title={"Continue"} navigateTo={"/auth"} />
         </div>
       </div>
     </>

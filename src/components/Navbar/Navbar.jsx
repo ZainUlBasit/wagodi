@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavbarLogo from "../../assets/images/logoNavbar.png";
 import { Link, useLocation } from "react-router-dom";
 import { RiNotification3Fill, RiSettings2Fill } from "react-icons/ri"; // Import eye icons from react-icons
@@ -16,6 +16,13 @@ const Navbar = () => {
   const handleNotificationClick = () => {
     setShowNotificationDot(false);
   };
+
+  const pathname = location.pathname;
+  useEffect(() => {
+    if ("/home" === pathname) handleNavItemClick("HOME");
+    else if ("/ongoing-orders" === pathname)
+      handleNavItemClick("ONGOING ORDERS");
+  }, []);
 
   return (
     <>
@@ -35,7 +42,7 @@ const Navbar = () => {
               HOME
             </Link>
             <Link
-              to={"/home"}
+              to={"/ongoing-orders"}
               className={`text-[18px] font-[700] ${
                 activeNavItem === "ONGOING ORDERS"
                   ? "border-b-2 border-[#475562]"

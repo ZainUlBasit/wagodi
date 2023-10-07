@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import StationReport from "../Modals/StationReport";
 
 const StationDetail = ({
   StationName,
@@ -10,23 +11,23 @@ const StationDetail = ({
   OctaneCapacity,
   HiOctaneCapacity,
   DieselCapacity,
-  Healthy,
-  BeReady,
-  MakeOrder,
+  status,
   favourites,
 }) => {
+  const [open, setOpen] = useState(false);
   return (
     <>
       <div
         className={`${
-          Healthy
+          status === "Healthy"
             ? "bg-[#2EB100]"
-            : BeReady
+            : status === "BeReady"
             ? "bg-[#6877DC]"
-            : MakeOrder
+            : status === "MakeOrder"
             ? "bg-[#C93D33]"
             : ""
-        } text-white rounded-[16px] h-[165px]`}
+        } text-white rounded-[16px] h-[165px] cursor-pointer`}
+        onClick={() => setOpen(!open)}
       >
         {/* Header (Station Name*/}
         <div className="flex justify-between items-center w-full px-5 pr-5 pt-4">
@@ -72,6 +73,7 @@ const StationDetail = ({
             </div>
           )}
         </div>
+        {open && <StationReport StationName={StationName} open={open} setOpen={setOpen} />}
       </div>
     </>
   );
