@@ -3,10 +3,19 @@ import Navbar from "../../components/Navbar/Navbar";
 import OngoingOrdersTable from "../../components/Tables/OngoingOrdersTable";
 import { LuFilter } from "react-icons/lu";
 import { BsSearch } from "react-icons/bs";
+import { Popover, Typography } from "@mui/material";
+import SendReport from "../../components/Modals/SendReport";
+import ReservationDetails from "../../components/Modals/ReservationDetails";
 
 const OngoingOrder = () => {
-  const [Favourites, setFavourites] = useState(false);
+  const [Filter, setFilter] = useState("");
+  const [OpenSendReport, setOpenSendReport] = useState(false);
+  const [CurrentID, setCurrentID] = useState("");
+  const [OpenReservationDetailsModal, setOpenReservationDetailsModal] =
+    useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [SearchText, setSearchText] = useState("");
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -31,13 +40,18 @@ const OngoingOrder = () => {
           <div className="flex items-center gap-x-4">
             <button
               className={`border-2 border-[##90898E] px-4 py-1 rounded-3xl font-[Quicksand] font-[700] bg-[#90898E] text-white transition-all duration-500 ease-in-out`}
-              onClick={() => setFavourites(!Favourites)}
+              onClick={() => setOpenSendReport(!OpenSendReport)}
             >
               Send Report
             </button>
             <div className="flex border-[1px] w-[300px] border-black items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden">
               <BsSearch />
-              <input className="outline-none" placeholder="Search Station name "/>
+              <input
+                className="outline-none w-full"
+                placeholder="Search Station name"
+                value={SearchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
             </div>
             <LuFilter
               className="text-[2rem] cursor-pointer"
@@ -45,7 +59,7 @@ const OngoingOrder = () => {
               variant="contained"
               onClick={handleClick}
             />
-            {/* <Popover
+            <Popover
               id={id}
               open={open}
               anchorEl={anchorEl}
@@ -56,6 +70,7 @@ const OngoingOrder = () => {
                   backgroundColor: "white", // Set background color to white
                   width: "400px", // Set the width as needed
                   overflow: "hidden", // Hide overflowing content
+                  marginTop: "6px",
                 },
               }}
               anchorOrigin={{
@@ -77,66 +92,70 @@ const OngoingOrder = () => {
                   borderRadius: "25px",
                 }}
               >
-                <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px] overflow-hidden">
-                  <p className="h-[2px] w-[54px] bg-[#90898E]"></p>
-                  <p className="h-[2px] w-full bg-[#FFFFFF5C] mt-7 mb-3 rounded-full"></p>
-
-                  <div className="font-[Quicksand] font-[700] text-[1.8rem] mb-6">
+                <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
+                  <div className="font-[Quicksand] font-[700] text-[1.5rem] mb-3">
                     Choose Your Filter
                   </div>
-                  <div className="w-[260px] flex flex-col justify-between">
-                    <div className="flex my-2 justify-between">
-                      <div
-                        className="rounded-[16px] bg-[#2EB100] px-4 py-2 w-[194px] font-[600] text-[1.2rem] text-center text-white font-[Quicksand] flex justify-center items-center cursor-pointer"
-                        onClick={() => {
-                          handleClose();
-                          setFilter("Healthy");
-                        }}
-                      >
-                        Healthy
-                      </div>
-                      <div className="h-full border-2 border-[#2EB100] px-5 py-2 text-[20px] font-[600] rounded-[10px]">
-                        3
-                      </div>
+                  <p className="h-[2px] w-full bg-[#FFFFFF5C] mb-3 rounded-full"></p>
+                  <div className="w-full flex flex-col justify-between gap-y-3 items-start">
+                    <div
+                      className="flex gap-x-3 items-center cursor-pointer"
+                      onClick={() => setFilter("Ordered")}
+                    >
+                      <input
+                        type="checkbox"
+                        className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                        checked={Filter === "Ordered"}
+                      />
+                      <span>Ordered</span>
                     </div>
-                    <div className="flex my-2 justify-between">
-                      <div
-                        className="rounded-[16px] bg-[#6877DC] px-4 py-2 w-[194px] font-[600] text-[1.2rem] text-center text-white font-[Quicksand] flex justify-center items-center cursor-pointer"
-                        onClick={() => {
-                          handleClose();
-                          setFilter("BeReady");
-                        }}
-                      >
-                        Be Ready
-                      </div>
-                      <div className="h-full border-2 border-[#6877DC] px-5 py-2 text-[20px] font-[600] rounded-[10px]">
-                        7
-                      </div>
+                    <div
+                      className="flex gap-x-3 items-center cursor-pointer"
+                      onClick={() => setFilter("En Route")}
+                    >
+                      <input
+                        type="checkbox"
+                        className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                        checked={Filter === "En Route"}
+                      />
+                      <span>En Route</span>
                     </div>
-                    <div className="flex my-2 justify-between">
-                      <div
-                        className="rounded-[16px] bg-[#C93D33] px-4 py-2 w-[194px] font-[600] text-[1.2rem] text-center text-white font-[Quicksand] flex justify-center items-center cursor-pointer"
-                        onClick={() => {
-                          setFilter("MakeOrder");
-                          handleClose();
-                        }}
-                      >
-                        Make an Order
-                      </div>
-                      <div className="h-full border-2 border-[#C93D33] px-4 py-2 text-[20px] font-[600] rounded-[10px]">
-                        10
-                      </div>
+                    <div
+                      className="flex gap-x-3 items-center cursor-pointer"
+                      onClick={() => setFilter("Delivered")}
+                    >
+                      <input
+                        type="checkbox"
+                        className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                        checked={Filter === "Delivered"}
+                      />
+                      <span>Delivered</span>
                     </div>
                   </div>
                 </div>
               </Typography>
-            </Popover> */}
+            </Popover>
           </div>
         </div>
-        <div className="w-[90%] max-w-[1200px] border-[1px] border-black rounded-[10px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px]">
-          <OngoingOrdersTable />
+        <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px]">
+          <OngoingOrdersTable
+            Filter={Filter}
+            Search={SearchText}
+            setCurrentID={setCurrentID}
+            setOpen={setOpenReservationDetailsModal}
+          />
         </div>
       </div>
+      {OpenSendReport && (
+        <SendReport Open={OpenSendReport} setOpen={setOpenSendReport} />
+      )}
+      {OpenReservationDetailsModal && (
+        <ReservationDetails
+          Open={OpenReservationDetailsModal}
+          setOpen={setOpenReservationDetailsModal}
+          SelectedID={CurrentID}
+        />
+      )}
     </>
   );
 };

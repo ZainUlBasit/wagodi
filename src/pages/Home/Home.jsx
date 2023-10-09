@@ -5,11 +5,14 @@ import StationDetail from "../../components/Cards/StationDetail";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import { data } from "./DemoData";
+import StationReport from "../../components/Modals/StationReport";
 
 const Home = () => {
   const [Favourites, setFavourites] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [Filter, setFilter] = useState("");
+  const [Open, setOpen] = useState(false);
+  const [CurrentStationName, setCurrentStationName] = useState("");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -171,11 +174,21 @@ const Home = () => {
                   Diesel={dt?.Diesel || false}
                   DieselCapacity={dt?.DieselCapacity || 0}
                   status={dt.status}
+                  setOpen={setOpen}
+                  Open={Open}
+                  setCurrentStationName={setCurrentStationName}
                 />
               );
             })}
         </div>
       </div>
+      {Open && (
+        <StationReport
+          StationName={CurrentStationName}
+          open={Open}
+          setOpen={setOpen}
+        />
+      )}
     </>
   );
 };

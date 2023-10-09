@@ -13,8 +13,10 @@ const StationDetail = ({
   DieselCapacity,
   status,
   favourites,
+  setOpen,
+  Open,
+  setCurrentStationName,
 }) => {
-  const [open, setOpen] = useState(false);
   return (
     <>
       <div
@@ -27,7 +29,10 @@ const StationDetail = ({
             ? "bg-[#C93D33]"
             : ""
         } text-white rounded-[16px] h-[165px] cursor-pointer`}
-        onClick={() => setOpen(!open)}
+        onClick={() => {
+          setOpen(!Open);
+          setCurrentStationName(StationName);
+        }}
       >
         {/* Header (Station Name*/}
         <div className="flex justify-between items-center w-full px-5 pr-5 pt-4">
@@ -73,7 +78,6 @@ const StationDetail = ({
             </div>
           )}
         </div>
-        {open && <StationReport StationName={StationName} open={open} setOpen={setOpen} />}
       </div>
     </>
   );

@@ -21,59 +21,111 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
-export default function BasicTable() {
+export default function OngoingOrdersTable({
+  Filter,
+  setCurrentID,
+  setOpen,
+  Search,
+}) {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
-        <TableHead style={{ borderBottomWidth: 2, borderColor: "black" }}>
+        <TableHead style={{ borderBottomWidth: 2, borderColor: "#465462" }}>
           <TableRow>
-            <TableCell sx={{ fontWeight: "bold", fontFamily: "Quicksand" }}>
+            <TableCell
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Quicksand",
+                paddingTop: "12px",
+                paddingBottom: "12px",
+              }}
+            >
               Order Number
             </TableCell>
             <TableCell
-              sx={{ fontWeight: "bold", fontFamily: "Quicksand" }}
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Quicksand",
+                paddingTop: "12px",
+                paddingBottom: "12px",
+              }}
               align="center"
             >
               Reservation Date
             </TableCell>
             <TableCell
-              sx={{ fontWeight: "bold", fontFamily: "Quicksand" }}
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Quicksand",
+                paddingTop: "12px",
+                paddingBottom: "12px",
+              }}
               align="center"
             >
               Receipt number
             </TableCell>
             <TableCell
-              sx={{ fontWeight: "bold", fontFamily: "Quicksand" }}
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Quicksand",
+                paddingTop: "12px",
+                paddingBottom: "12px",
+              }}
               align="center"
             >
               Station Name
             </TableCell>
             <TableCell
-              sx={{ fontWeight: "bold", fontFamily: "Quicksand" }}
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Quicksand",
+                paddingTop: "12px",
+                paddingBottom: "12px",
+              }}
               align="center"
             >
               Paid Amount
             </TableCell>
             <TableCell
-              sx={{ fontWeight: "bold", fontFamily: "Quicksand" }}
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Quicksand",
+                paddingTop: "12px",
+                paddingBottom: "12px",
+              }}
               align="center"
             >
               Driver Name
             </TableCell>
             <TableCell
-              sx={{ fontWeight: "bold", fontFamily: "Quicksand" }}
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Quicksand",
+                paddingTop: "12px",
+                paddingBottom: "12px",
+              }}
               align="center"
             >
               Delivery Date And Time
             </TableCell>
             <TableCell
-              sx={{ fontWeight: "bold", fontFamily: "Quicksand" }}
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Quicksand",
+                paddingTop: "12px",
+                paddingBottom: "12px",
+              }}
               align="center"
             >
               Status
             </TableCell>
             <TableCell
-              sx={{ fontWeight: "bold", fontFamily: "Quicksand" }}
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "Quicksand",
+                paddingTop: "12px",
+                paddingBottom: "12px",
+              }}
               align="center"
             >
               View
@@ -81,7 +133,25 @@ export default function BasicTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {Data.map((row) => (
+          {Data.filter((dt) => {
+            if (Filter === "") {
+              if (Search === "") return dt;
+              else {
+                if (dt.stationName.startsWith(Search)) {
+                  return dt;
+                }
+              }
+            } else if (Filter !== "") {
+              if (Filter === dt.status) {
+                if (Search === "") return dt;
+                else {
+                  if (dt.stationName.startsWith(Search)) {
+                    return dt;
+                  }
+                }
+              }
+            }
+          }).map((row, i) => (
             <TableRow
               key={row.name}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -166,7 +236,15 @@ export default function BasicTable() {
                 }}
                 align="center"
               >
-                <div className="bg-[#5CD2E6] py-1 px-2 rounded-full text-white font-bold">
+                <div
+                  className={`${
+                    row.status === "Ordered"
+                      ? "bg-[#5CD2E6]"
+                      : row.status === "En Route"
+                      ? "bg-[#F4E869]"
+                      : "bg-[#2EB100]"
+                  } py-1 px-2 rounded-full text-white font-bold cursor-pointer`}
+                >
                   {row.status}
                 </div>
               </TableCell>
@@ -175,15 +253,21 @@ export default function BasicTable() {
                   fontWeight: 400,
                   fontFamily: "Quicksand",
                   borderBottomWidth: 0,
-                  display:"flex",
-                  justifyContent:"center",
-                  alignItems:"center",
-                  fontSize:"20px",
-                //   color:"#76808B"
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontSize: "20px",
                 }}
                 align="center"
               >
-                <AiFillEye className="cursor-pointer text-[#76808B] hover:text-black transition-all duration-500 ease-in-out" />
+                <AiFillEye
+                  className="cursor-pointer text-[#76808B] hover:text-black transition-all duration-500 ease-in-out"
+                  onClick={() => {
+                    console.log(i);
+                    setOpen(true);
+                    setCurrentID(i);
+                  }}
+                />
               </TableCell>
             </TableRow>
           ))}

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import NavbarLogo from "../../assets/images/logoNavbar.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { RiNotification3Fill, RiSettings2Fill } from "react-icons/ri"; // Import eye icons from react-icons
 
 const Navbar = () => {
   const [activeNavItem, setActiveNavItem] = useState(""); // State to track the active navigation item
   const location = useLocation(); // Get the current location from react-router-dom
   const [showNotificationDot, setShowNotificationDot] = useState(true);
+  const navigate = useNavigate();
 
   // Function to handle click on navigation items and set the active item
   const handleNavItemClick = (item) => {
@@ -22,6 +23,9 @@ const Navbar = () => {
     if ("/home" === pathname) handleNavItemClick("HOME");
     else if ("/ongoing-orders" === pathname)
       handleNavItemClick("ONGOING ORDERS");
+    else if ("/orders-report" === pathname) handleNavItemClick("ORDER REPORTS");
+    else if ("/users" === pathname) handleNavItemClick("USERS");
+    else if ("/notification" === pathname) handleNavItemClick("Notification");
   }, []);
 
   return (
@@ -53,7 +57,7 @@ const Navbar = () => {
               ONGOING ORDERS
             </Link>
             <Link
-              to={"/home"}
+              to={"/orders-report"}
               className={`text-[18px] font-[700] ${
                 activeNavItem === "ORDER REPORTS"
                   ? "border-b-2 border-[#475562]"
@@ -64,7 +68,7 @@ const Navbar = () => {
               ORDER REPORTS
             </Link>
             <Link
-              to={"/home"}
+              to={"/users"}
               className={`text-[18px] font-[700] ${
                 activeNavItem === "USERS" ? "border-b-2 border-[#475562]" : ""
               }`}
@@ -105,12 +109,23 @@ const Navbar = () => {
           {/* Right Side Icons */}
           <div className="flex items-center gap-x-7 relative h-fit">
             {showNotificationDot && (
-              <div className="h-[8px] w-[8px] bg-[#FF4423] rounded-full absolute top-[-5px] left-[15px]"></div>
+              <div className="h-[9px] w-[9px] bg-[#FF4423] rounded-full absolute top-[2px] left-[24px]"></div>
             )}
-            <RiNotification3Fill
-              className="cursor-pointer"
-              onClick={handleNotificationClick}
-            />
+            <div
+              className={`cursor-pointer py-[6px] px-[6px] border-2 rounded-full ${
+                activeNavItem === "Notification"
+                  ? "border-[#475562]"
+                  : "border-[#fff]"
+              }`}
+            >
+              <RiNotification3Fill
+                onClick={() => {
+                  handleNotificationClick();
+                  handleNavItemClick("Notification");
+                  navigate("/notification")
+                }}
+              />
+            </div>
             <RiSettings2Fill className="cursor-pointer" />
           </div>
         </div>
