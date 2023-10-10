@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import Splash from "./pages/Splash/splash";
 import Onbaording from "./components/Onboading/Onbaording";
 import Auth from "./pages/Auth/Auth";
