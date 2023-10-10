@@ -15,6 +15,7 @@ const OngoingOrder = () => {
     useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [SearchText, setSearchText] = useState("");
+  const [ApplyFilter, setApplyFilter] = useState("");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -28,7 +29,6 @@ const OngoingOrder = () => {
   const id = open ? "simple-popover" : undefined;
   return (
     <>
-      <Navbar />
       <div className="w-full flex flex-col justify-center items-center mb-5">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex justify-between mt-6 mb-5">
@@ -100,6 +100,17 @@ const OngoingOrder = () => {
                   <div className="w-full flex flex-col justify-between gap-y-3 items-start">
                     <div
                       className="flex gap-x-3 items-center cursor-pointer"
+                      onClick={() => setFilter("")}
+                    >
+                      <input
+                        type="checkbox"
+                        className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                        checked={Filter === ""}
+                      />
+                      <span>No Filter</span>
+                    </div>
+                    <div
+                      className="flex gap-x-3 items-center cursor-pointer"
                       onClick={() => setFilter("Ordered")}
                     >
                       <input
@@ -132,6 +143,15 @@ const OngoingOrder = () => {
                       <span>Delivered</span>
                     </div>
                   </div>
+                  <button
+                    className={`mt-[20px] w-[197px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+                    onClick={() => {
+                      handleClose();
+                      setApplyFilter(Filter);
+                    }}
+                  >
+                    Show
+                  </button>
                 </div>
               </Typography>
             </Popover>
@@ -139,7 +159,7 @@ const OngoingOrder = () => {
         </div>
         <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px]">
           <OngoingOrdersTable
-            Filter={Filter}
+            Filter={ApplyFilter}
             Search={SearchText}
             setCurrentID={setCurrentID}
             setOpen={setOpenReservationDetailsModal}

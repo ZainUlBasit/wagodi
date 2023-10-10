@@ -26,12 +26,13 @@ const Navbar = () => {
     else if ("/orders-report" === pathname) handleNavItemClick("ORDER REPORTS");
     else if ("/users" === pathname) handleNavItemClick("USERS");
     else if ("/notification" === pathname) handleNavItemClick("Notification");
+    else if ("/stations" === pathname) handleNavItemClick("STATION");
   }, []);
 
   return (
     <>
-      <div className="w-full h-fit flex justify-center items-center">
-        <div className="w-[90%] max-w-[1200px] flex justify-between items-center">
+      <div className="w-full flex justify-center items-center">
+        <div className="w-[90%] max-w-[1300px] flex justify-between items-center">
           {/* Left side Logo */}
           <img src={NavbarLogo} className="h-[76px] w-fit" />
           {/* Nav Items */}
@@ -77,7 +78,7 @@ const Navbar = () => {
               USERS
             </Link>
             <Link
-              to={"/home"}
+              to={"/stations"}
               className={`text-[18px] font-[700] ${
                 activeNavItem === "STATION" ? "border-b-2 border-[#475562]" : ""
               }`}
@@ -117,14 +118,13 @@ const Navbar = () => {
                   ? "border-[#475562]"
                   : "border-[#fff]"
               }`}
+              onClick={() => {
+                handleNotificationClick();
+                handleNavItemClick("Notification");
+                navigate("/notification");
+              }}
             >
-              <RiNotification3Fill
-                onClick={() => {
-                  handleNotificationClick();
-                  handleNavItemClick("Notification");
-                  navigate("/notification")
-                }}
-              />
+              <RiNotification3Fill />
             </div>
             <RiSettings2Fill className="cursor-pointer" />
           </div>

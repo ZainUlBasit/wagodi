@@ -27,7 +27,6 @@ const Home = () => {
 
   return (
     <>
-      <Navbar />
       {/* Main wrapper */}
       <div className="w-full flex flex-col items-center justify-center">
         {/* Header */}
@@ -137,13 +136,19 @@ const Home = () => {
                       </div>
                     </div>
                   </div>
+                  <div
+                    className="mt-2 border-b-[#465462] border-b-[1px] hover:border-b-[#fff] transition-all duration-500 ease-in-out cursor-pointer"
+                    onClick={() => setFilter("")}
+                  >
+                    Clear Filter
+                  </div>
                 </div>
               </Typography>
             </Popover>
           </div>
         </div>
         {/* Body */}
-        <div className="grid grid-cols-3 gap-x-3 gap-y-3 w-[90%] max-w-[1200px] mt-4">
+        <div className="grid grid-cols-3 gap-x-3 gap-y-3 w-[90%] max-w-[1200px] my-4">
           {data
             .filter((dt) => {
               if (Favourites) {

@@ -40,7 +40,6 @@ const OnboadingBanner = () => {
                 ? "w-[29px] h-[7px] bg-[#465462] rounded-[15px]"
                 : "w-[42px] h-[7px] bg-[#465462] rounded-[15px]"
             }
-            onClick={() => setOpenComp(true)}
           ></div>
           <div
             className={
@@ -48,13 +47,12 @@ const OnboadingBanner = () => {
                 ? "w-[42px] h-[7px] bg-[#465462] rounded-[15px]"
                 : "w-[29px] h-[7px] bg-[#465462] rounded-[15px]"
             }
-            onClick={() => setOpenComp(false)}
           ></div>
         </div>
 
         <button
           className="p-[10px] border-[2px] border-[#465462] text-[#465462] rounded-full hover:bg-[#465462] hover:text-white transition-all duration-500"
-          onClick={() => navigate("/auth")}
+          onClick={() => setOpenComp(!OpenComp)}
         >
           <ArrowForwardIcon />
         </button>

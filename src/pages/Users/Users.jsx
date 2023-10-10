@@ -4,12 +4,13 @@ import { FaChevronDown } from "react-icons/fa";
 import { Popover, Typography } from "@mui/material";
 import { BsPlusCircle, BsSearch } from "react-icons/bs";
 import UserTable from "../../components/Tables/UserTable";
+import AddUser from "../../components/Modals/AddUser";
 
 const Users = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [Filter, setFilter] = useState("");
   const [UserID, setUserID] = useState("");
-  const [OpenEditModal, setOpenEditModal] = useState(false);
+  const [OpenAddModal, setOpenAddModal] = useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -23,8 +24,7 @@ const Users = () => {
   const id = open ? "simple-popover" : undefined;
   return (
     <>
-      <Navbar />
-      <div className="flex flex-col justify-center items-center w-full">
+      <div className="flex flex-col justify-center items-center w-full font-[Quicksand]">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex justify-between mt-6 mb-10">
           {/* Left */}
@@ -143,7 +143,7 @@ const Users = () => {
           <div className="flex items-center gap-x-4">
             <button
               className={`border-2 border-[#465462] px-4 py-[5px] rounded-3xl font-[Quicksand] font-[700] bg-[#fff] text-[#465462] transition-all duration-500 ease-in-out flex gap-x-6 items-center hover:text-white hover:bg-[#465462]`}
-              //   onClick={() => setOpenSendReport(!OpenSendReport)}
+              onClick={() => setOpenAddModal(!OpenAddModal)}
             >
               <span className="px-3">Create</span>
               <BsPlusCircle />
@@ -160,11 +160,13 @@ const Users = () => {
               />
             </div>
           </div>
-          <UserTable setUserID={setUserID} setOpen={setOpenEditModal} />
+          <UserTable setUserID={setUserID} setOpen={setOpenAddModal} />
         </div>
       </div>
       {/* Create Modal and Implement */}
-      {/* {OpenEditModal && } */}
+      {OpenAddModal && (
+        <AddUser Open={OpenAddModal} setOpen={setOpenAddModal} />
+      )}
     </>
   );
 };

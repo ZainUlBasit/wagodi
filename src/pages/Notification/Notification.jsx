@@ -12,7 +12,6 @@ const Notification = () => {
   }, [FromDate, ToDate]);
   return (
     <>
-      <Navbar />
       <div className="flex flex-col justify-center items-center w-full">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex justify-between items-center mt-6 mb-5">
