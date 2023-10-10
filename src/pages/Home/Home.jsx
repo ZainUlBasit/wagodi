@@ -190,7 +190,7 @@ const Home = () => {
       {Open && (
         <StationReport
           StationName={CurrentStationName}
-          open={Open}
+          Open={Open}
           setOpen={setOpen}
         />
       )}

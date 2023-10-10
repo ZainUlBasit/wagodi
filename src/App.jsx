@@ -36,8 +36,8 @@ const App = () => {
         <Route path="/ongoing-orders" element={<OngoingOrder />} />
         <Route path="/orders-report" element={<OrderReports />} />
         <Route path="/notification" element={<Notification />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/stations" element={<Stations />} />
+        {/* <Route path="/users" element={<Users />} /> */}
+        {/* <Route path="/stations" element={<Stations />} /> */}
       </Routes>
     </>
   );

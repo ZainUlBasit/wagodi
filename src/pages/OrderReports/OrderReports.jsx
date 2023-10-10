@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import { BsSearch } from "react-icons/bs";
 import SendReport from "../../components/Modals/SendReport";
@@ -6,12 +6,15 @@ import ApprovedOrderTable from "../../components/Tables/ApprovedOrderTable";
 import { ApprovedOrder } from "../../components/Tables/DemoData/ApprovedOrders";
 import { FiDownload } from "react-icons/fi";
 import { Popover, Typography } from "@mui/material";
+import DateInput from "../../components/Input/DateInput";
+import MonthPicker from "../../components/Select/MonthPickerSelect";
 
 const OrderReports = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [SendType, setSendType] = useState("");
   const [SearchText, setSearchText] = useState("");
+  const [CurDate, setCurDate] = useState("");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -34,6 +37,12 @@ const OrderReports = () => {
           </div>
           {/* Right */}
           <div className="flex items-center gap-x-4">
+            <DateInput
+              label="Date"
+              required={false}
+              Value={CurDate}
+              setValue={setCurDate}
+            />
             <button
               className={`border-2 border-[##90898E] px-4 py-1 rounded-3xl font-[Quicksand] font-[700] bg-[#90898E] text-white transition-all duration-500 ease-in-out`}
               onClick={() => setOpenSendReport(!OpenSendReport)}

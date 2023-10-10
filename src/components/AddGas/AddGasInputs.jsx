@@ -33,15 +33,19 @@ const AddGasInputs = ({ AllGases, setAllGases, setNumberOfGases }) => {
         <button
           className={`mb-[13px] w-[120px] h-fit py-1 bg-[#90898E] hover:bg-[#465462] rounded-[30px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
           onClick={() => {
-            setNumberOfGases([]);
-            setAllGases([
-              ...AllGases,
-              {
-                type: FuelType,
-                volume: FuelVolume,
-                price: SellingPrice,
-              },
-            ]);
+            if (FuelType === "" || FuelVolume === "" || SellingPrice === "") {
+              alert("All field are mandatory")
+            } else {
+              setNumberOfGases([]);
+              setAllGases([
+                ...AllGases,
+                {
+                  type: FuelType,
+                  volume: FuelVolume,
+                  price: SellingPrice,
+                },
+              ]);
+            }
           }}
         >
           Add

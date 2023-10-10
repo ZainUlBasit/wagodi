@@ -73,7 +73,9 @@ const AddStation = ({ Open, setOpen }) => {
             <label
               htmlFor="file-input"
               className="cursor-pointer flex items-center w-fit border-[1px] border-[#DCDCDC] py-[5px] px-[20px] pl-[10px] rounded-[7.94px] text-[13.9px]"
-              onClick={() => setNumberOfGases([...NumberOfGases, ""])}
+              onClick={() => {
+                setNumberOfGases([...NumberOfGases, ""]);
+              }}
             >
               <FaPlus className="text-[#465462] text-[1.1rem] font-bold mr-5 ml-2" />
               Add Gas
@@ -89,7 +91,7 @@ const AddStation = ({ Open, setOpen }) => {
             </button>
             <button
               className={`mt-[5px] mb-[30px] w-[197px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-              onClick={() => {}}
+              onClick={() => setOpen(false)}
             >
               Cancel
             </button>
