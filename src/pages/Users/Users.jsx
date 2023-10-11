@@ -5,12 +5,16 @@ import { Popover, Typography } from "@mui/material";
 import { BsPlusCircle, BsSearch } from "react-icons/bs";
 import UserTable from "../../components/Tables/UserTable";
 import AddUser from "../../components/Modals/AddUser";
+import "../../assets/Style/style.css";
+import EditUser from "../../components/Modals/EditUser";
+import { UserData } from "../../components/Tables/DemoData/UserData";
 
 const Users = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [Filter, setFilter] = useState("");
   const [UserID, setUserID] = useState("");
   const [OpenAddModal, setOpenAddModal] = useState(false);
+  const [OpenEditModal, setOpenEditModal] = useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -24,7 +28,7 @@ const Users = () => {
   const id = open ? "simple-popover" : undefined;
   return (
     <>
-      <div className="flex flex-col justify-center items-center w-full font-[Quicksand]">
+      <div className="flex flex-col justify-center items-center w-full font-[Quicksand] fade-in">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex justify-between mt-6 mb-10">
           {/* Left */}
@@ -36,10 +40,7 @@ const Users = () => {
             >
               All <FaChevronDown aria-describedby={id} variant="contained" />
             </span>
-            {/* <LuFilter
-              className="text-[2rem] cursor-pointer"
-              onClick={handleClick}
-            /> */}
+
             <Popover
               id={id}
               open={open}
@@ -160,12 +161,19 @@ const Users = () => {
               />
             </div>
           </div>
-          <UserTable setUserID={setUserID} setOpen={setOpenAddModal} />
+          <UserTable setUserID={setUserID} setOpen={setOpenEditModal} />
         </div>
       </div>
       {/* Create Modal and Implement */}
       {OpenAddModal && (
         <AddUser Open={OpenAddModal} setOpen={setOpenAddModal} />
+      )}
+      {OpenEditModal && (
+        <EditUser
+          Open={OpenEditModal}
+          setOpen={setOpenEditModal}
+          CurrentUser={UserData[UserID]}
+        />
       )}
     </>
   );

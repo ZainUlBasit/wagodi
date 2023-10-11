@@ -6,6 +6,7 @@ import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import { data } from "./DemoData";
 import StationReport from "../../components/Modals/StationReport";
+import "../../assets/Style/style.css";
 
 const Home = () => {
   const [Favourites, setFavourites] = useState(false);
@@ -28,7 +29,7 @@ const Home = () => {
   return (
     <>
       {/* Main wrapper */}
-      <div className="w-full flex flex-col items-center justify-center">
+      <div className="w-full flex flex-col items-center justify-center fade-in">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex justify-between mt-6">
           {/* Left */}

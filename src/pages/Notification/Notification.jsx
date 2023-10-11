@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import NotificationTable from "../../components/Tables/NotificationTable";
 import { BiSolidChevronRight } from "react-icons/bi";
+import "../../assets/Style/style.css";
 
 const Notification = () => {
   const [FromDate, setFromDate] = useState("2023-12-11");
@@ -12,7 +13,7 @@ const Notification = () => {
   }, [FromDate, ToDate]);
   return (
     <>
-      <div className="flex flex-col justify-center items-center w-full">
+      <div className="flex flex-col justify-center items-center w-full fade-in">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex justify-between items-center mt-6 mb-5">
           {/* Left */}

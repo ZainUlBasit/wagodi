@@ -11,6 +11,7 @@ const AuthInputPopOver = ({ label, placeholder, required, Value, onClick }) => {
       <input
         type="text"
         required={required}
+        disabled
         id="outlined-required"
         placeholder={placeholder}
         className="px-3 py-2 pr-10 border border-gray-300 rounded-[7.94px] w-full outline-none"

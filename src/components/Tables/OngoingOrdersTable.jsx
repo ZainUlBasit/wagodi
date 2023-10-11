@@ -134,10 +134,11 @@ export default function OngoingOrdersTable({
         </TableHead>
         <TableBody>
           {Data.filter((dt) => {
+            const searchLowerCase = Search.toLowerCase();
             if (Filter === "") {
               if (Search === "") return dt;
               else {
-                if (dt.stationName.startsWith(Search)) {
+                if (dt.stationName.toLowerCase().startsWith(searchLowerCase)) {
                   return dt;
                 }
               }
@@ -145,7 +146,7 @@ export default function OngoingOrdersTable({
               if (Filter === dt.status) {
                 if (Search === "") return dt;
                 else {
-                  if (dt.stationName.startsWith(Search)) {
+                  if (dt.stationName.startsWith(searchLowerCase)) {
                     return dt;
                   }
                 }

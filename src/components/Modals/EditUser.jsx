@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomModal from "./CustomModal";
 import AuthInput from "../Input/AuthInput";
 import AuthInputPopOver from "../Input/AuthInputPopOver";
@@ -6,7 +6,7 @@ import { Popover, Typography } from "@mui/material";
 import AuthTextArea from "../Input/AuthTextArea";
 import AuthInputPassword from "../Input/AuthInputPassword";
 
-const AddUser = ({ Open, setOpen }) => {
+const EditUser = ({ Open, setOpen, CurrentUser }) => {
   const [Username, setUsername] = useState("");
   const [Email, setEmail] = useState("");
   const [Authority, setAuthority] = useState("");
@@ -16,6 +16,14 @@ const AddUser = ({ Open, setOpen }) => {
   const [Role, setRole] = useState("");
   const [StationName, setStationName] = useState("");
   const [Gender, setGender] = useState("");
+
+  useEffect(() => {
+    setUsername(CurrentUser.Username);
+    setEmail(CurrentUser.Email);
+    setAuthority(CurrentUser.AuthorityandPrivlages);
+    setPhoneNumber(CurrentUser.PhoneNumber);
+    setRole(CurrentUser.Role);
+  }, []);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorElRole, setAnchorElRole] = useState(null);
@@ -63,7 +71,7 @@ const AddUser = ({ Open, setOpen }) => {
     <CustomModal open={Open} setOpen={setOpen}>
       <div>
         <h1 className="w-full text-center font-[700] text-3xl py-8 font-[Quicksand]">
-          Add User
+          Edit User
         </h1>
         <div className="">
           <div className="flex gap-x-10 px-10">
@@ -433,7 +441,7 @@ const AddUser = ({ Open, setOpen }) => {
               className={`mt-[5px] mb-[30px] w-[197px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
               onClick={onSubmit}
             >
-              Add
+              Edit
             </button>
             <button
               className={`mt-[5px] mb-[30px] w-[197px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
@@ -448,4 +456,4 @@ const AddUser = ({ Open, setOpen }) => {
   );
 };
 
-export default AddUser;
+export default EditUser;

@@ -3,6 +3,7 @@ import AuthInput from "../Input/AuthInput";
 import AuthInputPassword from "../Input/AuthInputPassword";
 import AuthBtn from "../buttons/AuthBtn";
 import { useNavigate } from "react-router-dom";
+import "../../assets/Style/style.css"
 
 const LoginComp = () => {
   const [Email, setEmail] = useState("");
@@ -11,11 +12,11 @@ const LoginComp = () => {
   const navigate = useNavigate()
   return (
     <>
-      <div className="w-[343px] h-[440px] shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] flex items-center flex-col rounded-md pt-[20px] font-[Quicksand]">
+      <div className="w-[383px] h-[496px] shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] flex items-center flex-col rounded-md pt-[40px] font-[Quicksand] fade-in">
         <h1 className="w-full text-[1.9rem] font-[700] text-center">
           WELCOME BACK!
         </h1>
-        <p className="mb-[50px] font-[300]">
+        <p className="mb-[80px] font-[300]">
           Use Credentials to access your account
         </p>
         <AuthInput
@@ -25,6 +26,7 @@ const LoginComp = () => {
           setValue={setEmail}
           required={false}
         />
+          <div className="mb-1"></div>
         <AuthInputPassword
           label={"Password"}
           placeholder={"*************"}
@@ -32,6 +34,7 @@ const LoginComp = () => {
           setValue={setPassword}
           required={false}
         />
+          <div className="mb-1"></div>
         <div className="w-[297px] flex justify-between mt-[-10px] mb-[60px]">
           <div>
             <label>

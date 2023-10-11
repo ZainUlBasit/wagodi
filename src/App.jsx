@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Splash from "./pages/Splash/splash";
 import Onbaording from "./components/Onboading/Onbaording";
@@ -13,11 +13,22 @@ import Notification from "./pages/Notification/Notification";
 import Users from "./pages/Users/Users";
 import Stations from "./pages/Station/Stations";
 import Navbar from "./components/Navbar/Navbar";
+import PageLoader from "./components/Loaders/PageLoader";
 
 const App = () => {
+  const [Loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const pathname = location.pathname;
-  return (
+  useEffect(() => {
+    setInterval(() => {
+      setLoading(false);
+    }, 3000);
+  }, []);
+  return Loading ? (
+    <div className="flex h-screen w-full items-center justify-center">
+      <PageLoader />
+    </div>
+  ) : (
     <>
       {pathname !== "/" &&
         pathname !== "/onboarding" &&
@@ -36,8 +47,8 @@ const App = () => {
         <Route path="/ongoing-orders" element={<OngoingOrder />} />
         <Route path="/orders-report" element={<OrderReports />} />
         <Route path="/notification" element={<Notification />} />
-        {/* <Route path="/users" element={<Users />} /> */}
-        {/* <Route path="/stations" element={<Stations />} /> */}
+        <Route path="/users" element={<Users />} />
+        <Route path="/stations" element={<Stations />} />
       </Routes>
     </>
   );

@@ -7,16 +7,19 @@ import UserTable from "../../components/Tables/UserTable";
 import AddUser from "../../components/Modals/AddUser";
 import StationTable from "../../components/Tables/StationTable";
 import AddStation from "../../components/Modals/AddStation";
+import "../../assets/Style/style.css";
+import EditStation from "../../components/Modals/EditStation";
+import { StationData } from "../../components/Tables/DemoData/StationData";
 
 const Stations = () => {
   const [Filter, setFilter] = useState("");
-  const [UserID, setUserID] = useState("");
+  const [StationID, setStationID] = useState("");
   const [OpenAddModal, setOpenAddModal] = useState(false);
   const [OpenEditModal, setOpenEditModal] = useState(false);
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center w-full font-[Quicksand]">
+      <div className="flex flex-col justify-center items-center w-full font-[Quicksand] fade-in">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex justify-end mt-6 mb-10">
           {/* Right */}
@@ -40,12 +43,30 @@ const Stations = () => {
               />
             </div>
           </div>
-          <StationTable setUserID={setUserID} setOpen={setOpenEditModal} />
+          <StationTable
+            setStationID={setStationID}
+            setOpen={setOpenEditModal}
+          />
         </div>
       </div>
       {/* Create Modal and Implement */}
       {OpenAddModal && (
         <AddStation Open={OpenAddModal} setOpen={setOpenAddModal} />
+      )}
+
+      {OpenEditModal && (
+        <EditStation
+          Open={OpenEditModal}
+          setOpen={setOpenEditModal}
+          CurrentStation={[
+            {
+              StationNumber: "50",
+              StationName: "MCJD-1016",
+              Address: "Lorem ipsum dolor sit amet",
+              Gasses: [{ type: "95", volume: "50", price: "10000" },{ type: "91", volume: "40", price: "9000" }],
+            },
+          ]}
+        />
       )}
     </>
   );

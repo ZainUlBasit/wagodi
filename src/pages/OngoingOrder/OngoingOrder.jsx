@@ -7,6 +7,7 @@ import { Popover, Typography } from "@mui/material";
 import SendReport from "../../components/Modals/SendReport";
 import ReservationDetails from "../../components/Modals/ReservationDetails";
 import DateInput from "../../components/Input/DateInput";
+import "../../assets/Style/style.css";
 
 const OngoingOrder = () => {
   const [Filter, setFilter] = useState("");
@@ -30,7 +31,7 @@ const OngoingOrder = () => {
   const id = open ? "simple-popover" : undefined;
   return (
     <>
-      <div className="w-full flex flex-col justify-center items-center mb-5">
+      <div className="w-full flex flex-col justify-center items-center mb-5 fade-in">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex justify-between mt-6 mb-5">
           {/* Left */}

@@ -3,6 +3,8 @@ import LogoWhite from "../../assets/images/logoWhite.png";
 import LoginComp from "../../components/Login/LoginComp";
 import Register from "../../components/Register/Register";
 import React, { useState } from "react";
+import "../../assets/Style/style.css"
+
 const Auth = () => {
   const [IsLogin, setIsLogin] = useState(true);
   return (
@@ -15,7 +17,7 @@ const Auth = () => {
             className="lg:w-[400px] w-[50rem] absolute bottom-7 right-10"
           />
         </div>
-        <div className="flex justify-center flex-col items-center w-[55%]">
+        <div className="flex justify-center flex-col items-center w-[55%] fade-in">
           <div className="bg-[#EFE7EC] text-[#586571] overflow-hidden rounded-[100px] font-[Quicksand] font-[700] w-fit mb-5">
             <button
               className={

@@ -8,6 +8,7 @@ import { FiDownload } from "react-icons/fi";
 import { Popover, Typography } from "@mui/material";
 import DateInput from "../../components/Input/DateInput";
 import MonthPicker from "../../components/Select/MonthPickerSelect";
+import "../../assets/Style/style.css";
 
 const OrderReports = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -28,7 +29,7 @@ const OrderReports = () => {
   const id = open ? "simple-popover" : undefined;
   return (
     <>
-      <div className="flex flex-col justify-center items-center w-full">
+      <div className="flex flex-col justify-center items-center w-full fade-in">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex justify-between mt-6 mb-10">
           {/* Left */}

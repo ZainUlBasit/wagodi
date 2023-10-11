@@ -8,14 +8,28 @@ import AuthInputPassword from "../Input/AuthInputPassword";
 import { FaPlus } from "react-icons/fa";
 import AddGasInputs from "../AddGas/AddGasInputs";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { BiEdit } from "react-icons/bi";
+import AddGasInputsPrefilled from "../AddGas/AddGasInputsPrefilled";
 
-const AddStation = ({ Open, setOpen }) => {
+const EditStation = ({ Open, setOpen, CurrentStation }) => {
   const [StationNumber, setStationNumber] = useState("");
   const [StationName, setStationName] = useState("");
   const [Address, setAddress] = useState("");
+  const [EditIndex, setEditIndex] = useState("");
+
+  useEffect(() => {
+    // console.log(CurrentStation[0].Gasses);
+    setStationName(CurrentStation[0].StationName);
+    setStationNumber(CurrentStation[0].StationNumber);
+    setAddress(CurrentStation[0].Address);
+    setAllGases(CurrentStation[0].Gasses);
+    // console.log(CurrentStation[0].Gasses);
+  }, []);
 
   const [AllGases, setAllGases] = useState([]);
   const [ShowAddGassInputs, setShowAddGassInputs] = useState(false);
+  const [ShowAddGassInputsPrefilled, setShowAddGassInputsPrefilled] =
+    useState(false);
 
   const deleteGas = (index) => {
     const updatedGases = [...AllGases];
@@ -27,7 +41,7 @@ const AddStation = ({ Open, setOpen }) => {
     <CustomModal open={Open} setOpen={setOpen}>
       <div>
         <h1 className="w-full text-center font-[700] text-3xl py-8 font-[Quicksand] mb-4">
-          Add Station
+          Edit Station
         </h1>
         <div>
           <div className="flex gap-x-10 px-10">
@@ -63,6 +77,18 @@ const AddStation = ({ Open, setOpen }) => {
           </div>
           {/* Show data of array of Gasses */}
           {AllGases.map((ag, index) => {
+            if (index === EditIndex) {
+              return (
+                <AddGasInputsPrefilled
+                  setAllGases={setAllGases}
+                  AllGases={AllGases}
+                  setShowAddGassInputsPrefilled={setShowAddGassInputsPrefilled}
+                  CurrentGas={AllGases[EditIndex]}
+                  index={EditIndex}
+                  setEditIndex={setEditIndex}
+                />
+              );
+            }
             return (
               <div className="ml-10 flex gap-x-2 my-3 font-[Quicksand] text-[13.9px]">
                 <span className="font-[700]">Gas Type:</span>
@@ -76,7 +102,14 @@ const AddStation = ({ Open, setOpen }) => {
                   <div className="w-[100px] text-right">{ag.price}</div>
                   <RiDeleteBin6Line
                     onClick={() => deleteGas(index)}
-                    className="ml-4 text-[1.3rem] cursor-pointer hover:text-[red] transition-all duration-500"
+                    className="ml-4 text-[1.2rem] cursor-pointer hover:text-[red] transition-all duration-500"
+                  />
+                  <BiEdit
+                    onClick={() => {
+                      setShowAddGassInputsPrefilled(true);
+                      setEditIndex(index);
+                    }}
+                    className="ml-1 text-[1.2rem] cursor-pointer hover:text-[green] transition-all duration-500"
                   />
                 </div>
               </div>
@@ -108,7 +141,7 @@ const AddStation = ({ Open, setOpen }) => {
               className={`mt-[5px] mb-[30px] w-[197px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
               onClick={() => {}}
             >
-              Add
+              Edit
             </button>
             <button
               className={`mt-[5px] mb-[30px] w-[197px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
@@ -123,4 +156,4 @@ const AddStation = ({ Open, setOpen }) => {
   );
 };
 
-export default AddStation;
+export default EditStation;

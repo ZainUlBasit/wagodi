@@ -52,6 +52,7 @@ const StationReport = ({ StationName, Open, setOpen }) => {
                 placeholder="Month"
                 value={CurrentMonth}
                 className="w-[100px] outline-none font-[700] text-[1.1rem] text-center"
+                disabled
               />
               <BiSolidChevronDown
                 className="text-[1.5rem] cursor-pointer"

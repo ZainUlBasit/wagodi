@@ -2,10 +2,18 @@ import React, { useState } from "react";
 import AuthInput from "../Input/AuthInput";
 import GasInput from "../Input/GasInput";
 
-const AddGasInputs = ({ AllGases, setAllGases, setShowAddGassInputs }) => {
-  const [FuelType, setFuelType] = useState("");
-  const [FuelVolume, setFuelVolume] = useState("");
-  const [SellingPrice, setSellingPrice] = useState("");
+const AddGasInputsPrefilled = ({
+  AllGases,
+  setAllGases,
+  setShowAddGassInputsPrefilled,
+  CurrentGas,
+  index,
+  setEditIndex,
+}) => {
+  const [FuelType, setFuelType] = useState(CurrentGas.type);
+  const [FuelVolume, setFuelVolume] = useState(CurrentGas.volume);
+  const [SellingPrice, setSellingPrice] = useState(CurrentGas.price);
+
   return (
     <>
       <div className="flex items-center gap-x-4 ml-10 mt-8">
@@ -36,23 +44,27 @@ const AddGasInputs = ({ AllGases, setAllGases, setShowAddGassInputs }) => {
             if (FuelType === "" || FuelVolume === "" || SellingPrice === "") {
               alert("All field are mandatory");
             } else {
-              setAllGases([
-                ...AllGases,
-                {
-                  type: FuelType,
-                  volume: FuelVolume,
-                  price: SellingPrice,
-                },
-              ]);
-              setShowAddGassInputs(false);
+              setShowAddGassInputsPrefilled(false);
+              setEditIndex("");
+              setAllGases(
+                AllGases.map((ag, i) => {
+                  if (i === index)
+                    return {
+                      type: FuelType,
+                      volume: FuelVolume,
+                      price: SellingPrice,
+                    };
+                  else return ag;
+                })
+              );
             }
           }}
         >
-          Add
+          Edit
         </button>
       </div>
     </>
   );
 };
 
-export default AddGasInputs;
+export default AddGasInputsPrefilled;

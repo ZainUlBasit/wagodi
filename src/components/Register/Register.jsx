@@ -4,6 +4,7 @@ import AuthTextArea from "../Input/AuthTextArea";
 import AuthInputPassword from "../Input/AuthInputPassword";
 import { FaPlus } from "react-icons/fa";
 import AuthBtn from "../buttons/AuthBtn";
+import "../../assets/Style/style.css"
 
 const Register = () => {
   const [Email, setEmail] = useState("");
@@ -22,7 +23,7 @@ const Register = () => {
   };
   return (
     <>
-      <div className="w-fit font-[Quicksand] flex flex-col justify-center items-center shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] px-5 py-8 rounded-md h-[496px]">
+      <div className="w-fit font-[Quicksand] flex flex-col justify-center items-center shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] px-5 py-8 rounded-md h-[496px] fade-in">
         <h1 className="w-full text-[26px] font-[700] text-center">
           REGISTER
         </h1>

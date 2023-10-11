@@ -12,7 +12,7 @@ import { UserData } from "./DemoData/UserData";
 import { BiEdit } from "react-icons/bi";
 import { StationData } from "./DemoData/StationData";
 
-export default function StationTable({ setUserID, setOpen }) {
+export default function StationTable({ setStationID, setOpen }) {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -105,7 +105,7 @@ export default function StationTable({ setUserID, setOpen }) {
                     <BiEdit
                       className="text-[1.2rem] cursor-pointer "
                       onClick={() => {
-                        setUserID(i);
+                        setStationID(i);
                         setOpen(true);
                       }}
                     />

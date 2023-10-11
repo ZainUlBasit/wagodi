@@ -41,18 +41,7 @@ const SetNewPasswordComp = () => {
             />
           </div>
           <div className="w-[320px] flex justify-start mt-[-15px] mb-[20px] pl-2">
-            <div className="w-full flex items-center justify-start">
-              <Checkbox
-                onChange={() => setRememberMe(!rememberMe)}
-                checked={rememberMe}
-                {...label}
-                defaultChecked
-                color="success"
-              />
-              <span className="font-[Quicksand] font-[300] ml-[-8px]">
-                Remember Me
-              </span>
-            </div>
+            
           </div>
           <p className="mt-[35px]">
             Remember Password?{" "}
