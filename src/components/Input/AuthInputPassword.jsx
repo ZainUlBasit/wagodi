@@ -11,7 +11,7 @@ const AuthInputPassword = ({
   const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="relative mb-[15px] w-[297px] font-[Quicksand]">
-      <p className="absolute top-[-11px] left-4 w-fit bg-white font-[Quicksand] text-[15px] z-10">
+      <p className="absolute top-[-11px] left-3 w-fit bg-white font-[Quicksand] text-[15px] z-10 font-bold">
         {label}
       </p>
       <div className="relative font-[Quicksand]">

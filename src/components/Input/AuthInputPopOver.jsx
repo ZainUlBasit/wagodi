@@ -5,7 +5,7 @@ import { BsChevronDown } from "react-icons/bs";
 const AuthInputPopOver = ({ label, placeholder, required, Value, onClick }) => {
   return (
     <div className="relative mb-[15px] w-[297px] font-[Quicksand]" onClick={onClick}>
-      <p className="absolute top-[-11px] left-4 w-fit bg-white font-[Quicksand] text-[15px]">
+      <p className="absolute top-[-11px] left-3 w-fit bg-white font-[Quicksand] text-[15px] font-bold">
         {label}
       </p>
       <input

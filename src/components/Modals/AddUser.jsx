@@ -223,7 +223,7 @@ const AddUser = ({ Open, setOpen }) => {
               </Popover>
               {Role === "Station Manager" && (
                 <AuthInputPopOver
-                  label={"Authority and Privlages"}
+                  label={"Authority and Privileges"}
                   placeholder={"Lorem ipsum"}
                   required={false}
                   Value={Authority}
@@ -270,58 +270,31 @@ const AddUser = ({ Open, setOpen }) => {
                         className="flex gap-x-3 items-center cursor-pointer"
                         onClick={() => {
                           handleClose();
-                          setAuthority("Lorem 1");
+                          setAuthority("Sales");
                         }}
                       >
                         <input
                           type="checkbox"
                           className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "Lorem 1"}
+                          checked={Authority === "Sales"}
                         />
-                        <span>Lorem 1</span>
+                        <span>Sales</span>
                       </div>
                       <div
                         className="flex gap-x-3 items-center cursor-pointer"
                         onClick={() => {
                           handleClose();
-                          setAuthority("Lorem 2");
+                          setAuthority("Orders");
                         }}
                       >
                         <input
                           type="checkbox"
                           className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "Lorem 2"}
+                          checked={Authority === "Orders"}
                         />
-                        <span>Lorem 2</span>
+                        <span>Orders</span>
                       </div>
-                      <div
-                        className="flex gap-x-3 items-center cursor-pointer"
-                        onClick={() => {
-                          handleClose();
-                          setAuthority("Lorem 3");
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "Lorem 3"}
-                        />
-                        <span>Lorem 3</span>
-                      </div>
-                      <div
-                        className="flex gap-x-3 items-center cursor-pointer"
-                        onClick={() => {
-                          handleClose();
-                          setAuthority("Lorem 4");
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "Lorem 4"}
-                        />
-                        <span>Lorem 4</span>
-                      </div>
+                      
                     </div>
                   </div>
                 </Typography>
