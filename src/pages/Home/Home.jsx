@@ -28,6 +28,7 @@ const Home = () => {
 
   return (
     <>
+      <Navbar />
       {/* Main wrapper */}
       <div className="w-full flex flex-col items-center justify-center fade-in">
         {/* Header */}
@@ -149,7 +150,8 @@ const Home = () => {
           </div>
         </div>
         {/* Body */}
-        <div className="grid grid-cols-3 gap-x-3 gap-y-3 w-[90%] max-w-[1200px] my-4">
+        {/* <div className="grid grid-cols-3 gap-x-5 gap-y-3 w-[90%] max-w-[1200px] my-4"> */}
+        <div className="w-[90%] max-w-[1200px] flex flex-wrap xl:justify-start justify-center items-center my-4">
           {data
             .filter((dt) => {
               if (Favourites) {

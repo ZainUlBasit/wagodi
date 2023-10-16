@@ -10,8 +10,13 @@ import Paper from "@mui/material/Paper";
 import { AiFillEye } from "react-icons/ai";
 import { UserData } from "./DemoData/UserData";
 import { BiEdit } from "react-icons/bi";
+import { date } from "yup";
 
-export default function UserTable({ setUserID, setOpen }) {
+export default function UserTable({ setUserID, setOpen, Filter, Search }) {
+  React.useEffect(() => {
+    console.log(Filter);
+    console.log(Search);
+  }, [Search, Filter]);
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -97,7 +102,24 @@ export default function UserTable({ setUserID, setOpen }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {UserData.map((Data, i) => {
+          {UserData.filter((data) => {
+            if (Filter === "All") {
+              if (Search === "") return data;
+              else if (
+                data.Username.toLowerCase().startsWith(Search.toLowerCase())
+              ) {
+                return data;
+              }
+            } else if (Filter !== "All") {
+              if (Search === "") {
+                if (Filter === data.Role) return data;
+              } else if (
+                data.Username.toLowerCase().startsWith(Search.toLowerCase())
+              ) {
+                if (Filter === data.Role) return data;
+              }
+            }
+          }).map((Data, i) => {
             return (
               <TableRow
                 key={i}

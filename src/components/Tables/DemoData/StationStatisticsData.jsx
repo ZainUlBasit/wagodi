@@ -1,0 +1,51 @@
+export const StationStatisticsData = [
+  {
+    StationNumber: "50",
+    StationName: "MCJD-1016",
+    MoneyEarned: "10,000",
+    MoneySpent: "10,000",
+    Address: "Lorem ipsum dolor sit amet",
+  },
+  {
+    StationNumber: "50",
+    StationName: "MCJD-1016",
+    MoneyEarned: "10,000",
+    MoneySpent: "10,000",
+    Address: "Lorem ipsum dolor sit amet",
+  },
+  {
+    StationNumber: "50",
+    StationName: "MCJD-1016",
+    MoneyEarned: "10,000",
+    MoneySpent: "10,000",
+    Address: "Lorem ipsum dolor sit amet",
+  },
+  {
+    StationNumber: "50",
+    StationName: "MCJD-1016",
+    MoneyEarned: "10,000",
+    MoneySpent: "10,000",
+    Address: "Lorem ipsum dolor sit amet",
+  },
+  {
+    StationNumber: "50",
+    StationName: "MCJD-1016",
+    MoneyEarned: "10,000",
+    MoneySpent: "10,000",
+    Address: "Lorem ipsum dolor sit amet",
+  },
+  {
+    StationNumber: "50",
+    StationName: "MCJD-1016",
+    MoneyEarned: "10,000",
+    MoneySpent: "10,000",
+    Address: "Lorem ipsum dolor sit amet",
+  },
+  {
+    StationNumber: "50",
+    StationName: "MCJD-1016",
+    MoneyEarned: "10,000",
+    MoneySpent: "10,000",
+    Address: "Lorem ipsum dolor sit amet",
+  },
+];

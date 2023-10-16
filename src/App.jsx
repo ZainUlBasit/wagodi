@@ -14,6 +14,12 @@ import Users from "./pages/Users/Users";
 import Stations from "./pages/Station/Stations";
 import Navbar from "./components/Navbar/Navbar";
 import PageLoader from "./components/Loaders/PageLoader";
+import Vendor from "./pages/Vendor/Vendor";
+import Statistics from "./pages/Statistics/Statistics";
+import Setting from "./pages/Setting/Setting";
+import AddReservation from "./pages/AddReservation/AddReservation";
+import OrderManagerOrderReports from "./pages/OrderReports/OrderManagerOrderReports";
+import OrderInfo from "./components/Cards/OrderInfo";
 
 const App = () => {
   const [Loading, setLoading] = useState(true);
@@ -30,12 +36,6 @@ const App = () => {
     </div>
   ) : (
     <>
-      {pathname !== "/" &&
-        pathname !== "/onboarding" &&
-        pathname !== "/auth" &&
-        pathname !== "/forgot-password" &&
-        pathname !== "/otp-verification" &&
-        pathname !== "/set-new-password" && <Navbar />}
       <Routes>
         <Route path="/" element={<Splash />} />
         <Route path="/onboarding" element={<Onbaording />} />
@@ -46,9 +46,15 @@ const App = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/ongoing-orders" element={<OngoingOrder />} />
         <Route path="/orders-report" element={<OrderReports />} />
+        <Route path="/order-manager-orders-report" element={<OrderManagerOrderReports />} />
+        <Route path="/orders-report-info" element={<OrderInfo />} />
         <Route path="/notification" element={<Notification />} />
         <Route path="/users" element={<Users />} />
         <Route path="/stations" element={<Stations />} />
+        <Route path="/vendor" element={<Vendor />} />
+        <Route path="/statistics" element={<Statistics />} />
+        <Route path="/setting" element={<Setting />} />
+        <Route path="/add-reservation" element={<AddReservation />} />
       </Routes>
     </>
   );

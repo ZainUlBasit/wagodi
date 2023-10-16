@@ -16,9 +16,11 @@ const Stations = () => {
   const [StationID, setStationID] = useState("");
   const [OpenAddModal, setOpenAddModal] = useState(false);
   const [OpenEditModal, setOpenEditModal] = useState(false);
+  const [SearchText, setSearchText] = useState("");
 
   return (
     <>
+      <Navbar />
       <div className="flex flex-col justify-center items-center w-full font-[Quicksand] fade-in">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex justify-end mt-6 mb-10">
@@ -40,12 +42,15 @@ const Stations = () => {
               <input
                 className="outline-none bg-inherit text-white w-full"
                 placeholder="Search Station name"
+                value={SearchText}
+                onChange={(e) => setSearchText(e.target.value)}
               />
             </div>
           </div>
           <StationTable
             setStationID={setStationID}
             setOpen={setOpenEditModal}
+            Search={SearchText}
           />
         </div>
       </div>
@@ -63,7 +68,10 @@ const Stations = () => {
               StationNumber: "50",
               StationName: "MCJD-1016",
               Address: "Lorem ipsum dolor sit amet",
-              Gasses: [{ type: "95", volume: "50", price: "10000" },{ type: "91", volume: "40", price: "9000" }],
+              Gasses: [
+                { type: "95", volume: "50", price: "10000" },
+                { type: "91", volume: "40", price: "9000" },
+              ],
             },
           ]}
         />

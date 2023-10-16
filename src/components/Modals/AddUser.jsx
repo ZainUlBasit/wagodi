@@ -83,109 +83,14 @@ const AddUser = ({ Open, setOpen }) => {
                 Value={Email}
                 setValue={setEmail}
               />
-              <AuthInputPopOver
-                label={"Authority and Privlages"}
-                placeholder={"Lorem ipsum"}
+              <AuthInputPassword
+                label={"Password"}
+                placeholder={"***************"}
                 required={false}
-                Value={Authority}
-                onClick={handleClick}
+                Value={Password}
+                setValue={setPassword}
               />
-              {/* Authority Popover */}
-              <Popover
-                id={id}
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                PaperProps={{
-                  sx: {
-                    borderRadius: "25px", // Add rounded corners
-                    backgroundColor: "white", // Set background color to white
-                    width: "300px", // Set the width as needed
-                    overflow: "hidden", // Hide overflowing content
-                    //   marginTop: "6px",
-                  },
-                }}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
-                }}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-              >
-                <Typography
-                  sx={{
-                    p: 2,
-                    borderColor: "#465462",
-                    backgroundColor: "#465462",
-                    width: "400px",
-                    overflow: "hidden",
-                    borderRadius: "25px",
-                  }}
-                >
-                  <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
-                    <div className="w-full flex flex-col justify-between gap-y-3 items-start">
-                      <div
-                        className="flex gap-x-3 items-center cursor-pointer"
-                        onClick={() => {
-                          handleClose();
-                          setAuthority("Lorem 1");
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "Lorem 1"}
-                        />
-                        <span>Lorem 1</span>
-                      </div>
-                      <div
-                        className="flex gap-x-3 items-center cursor-pointer"
-                        onClick={() => {
-                          handleClose();
-                          setAuthority("Lorem 2");
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "Lorem 2"}
-                        />
-                        <span>Lorem 2</span>
-                      </div>
-                      <div
-                        className="flex gap-x-3 items-center cursor-pointer"
-                        onClick={() => {
-                          handleClose();
-                          setAuthority("Lorem 3");
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "Lorem 3"}
-                        />
-                        <span>Lorem 3</span>
-                      </div>
-                      <div
-                        className="flex gap-x-3 items-center cursor-pointer"
-                        onClick={() => {
-                          handleClose();
-                          setAuthority("Lorem 4");
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "Lorem 4"}
-                        />
-                        <span>Lorem 4</span>
-                      </div>
-                    </div>
-                  </div>
-                </Typography>
-              </Popover>
+
               <AuthTextArea
                 label={"Address"}
                 placeholder={
@@ -212,13 +117,7 @@ const AddUser = ({ Open, setOpen }) => {
                 Value={Gender}
                 setValue={setGender}
               />
-              <AuthInputPassword
-                label={"Password"}
-                placeholder={"***************"}
-                required={false}
-                Value={Password}
-                setValue={setPassword}
-              />
+
               <AuthInputPopOver
                 label={"Role"}
                 placeholder={"Station Manager"}
@@ -317,6 +216,111 @@ const AddUser = ({ Open, setOpen }) => {
                           checked={Authority === "Station Manager"}
                         />
                         <span>Station Manager</span>
+                      </div>
+                    </div>
+                  </div>
+                </Typography>
+              </Popover>
+              {Role === "Station Manager" && (
+                <AuthInputPopOver
+                  label={"Authority and Privlages"}
+                  placeholder={"Lorem ipsum"}
+                  required={false}
+                  Value={Authority}
+                  onClick={handleClick}
+                />
+              )}
+              {/* Authority Popover */}
+              <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                PaperProps={{
+                  sx: {
+                    borderRadius: "25px", // Add rounded corners
+                    backgroundColor: "white", // Set background color to white
+                    width: "300px", // Set the width as needed
+                    overflow: "hidden", // Hide overflowing content
+                    //   marginTop: "6px",
+                  },
+                }}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+              >
+                <Typography
+                  sx={{
+                    p: 2,
+                    borderColor: "#465462",
+                    backgroundColor: "#465462",
+                    width: "400px",
+                    overflow: "hidden",
+                    borderRadius: "25px",
+                  }}
+                >
+                  <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
+                    <div className="w-full flex flex-col justify-between gap-y-3 items-start">
+                      <div
+                        className="flex gap-x-3 items-center cursor-pointer"
+                        onClick={() => {
+                          handleClose();
+                          setAuthority("Lorem 1");
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                          checked={Authority === "Lorem 1"}
+                        />
+                        <span>Lorem 1</span>
+                      </div>
+                      <div
+                        className="flex gap-x-3 items-center cursor-pointer"
+                        onClick={() => {
+                          handleClose();
+                          setAuthority("Lorem 2");
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                          checked={Authority === "Lorem 2"}
+                        />
+                        <span>Lorem 2</span>
+                      </div>
+                      <div
+                        className="flex gap-x-3 items-center cursor-pointer"
+                        onClick={() => {
+                          handleClose();
+                          setAuthority("Lorem 3");
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                          checked={Authority === "Lorem 3"}
+                        />
+                        <span>Lorem 3</span>
+                      </div>
+                      <div
+                        className="flex gap-x-3 items-center cursor-pointer"
+                        onClick={() => {
+                          handleClose();
+                          setAuthority("Lorem 4");
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                          checked={Authority === "Lorem 4"}
+                        />
+                        <span>Lorem 4</span>
                       </div>
                     </div>
                   </div>

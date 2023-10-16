@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 
 const GasInput = ({ label, placeholder, required, Value, setValue }) => {
   return (
-    <div className="relative mb-[15px] w-[155px]">
+    <div className="relative mb-[15px] w-[155px] font-[Quicksand]">
       <p className="absolute top-[-11px] left-4 w-fit bg-white font-[Quicksand] text-[15px]">
         {label}
       </p>

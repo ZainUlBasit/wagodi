@@ -29,6 +29,7 @@ const OrderReports = () => {
   const id = open ? "simple-popover" : undefined;
   return (
     <>
+      <Navbar />
       <div className="flex flex-col justify-center items-center w-full fade-in">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex justify-between mt-6 mb-10">
@@ -62,9 +63,10 @@ const OrderReports = () => {
           </div>
         </div>
         {ApprovedOrder.filter((ao) => {
+          console.log(ao.StationName);
           if (SearchText === "") return ao;
           else {
-            if (ao.StationName.startsWith(SearchText)) return ao;
+            if (ao.StationName.toLowerCase().includes(SearchText)) return ao;
           }
         }).map((AO) => {
           return (

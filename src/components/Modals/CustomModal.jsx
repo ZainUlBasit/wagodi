@@ -15,7 +15,9 @@ const style = {
   bgcolor: "background.paper",
   boxShadow: 24,
   border: "0px solid #fff !important",
-  borderRadius: 2,
+  borderRadius: 4,
+  outline: "none",
+  overflow:"hidden"
 };
 
 export default function CustomModal({ open, setOpen, children }) {

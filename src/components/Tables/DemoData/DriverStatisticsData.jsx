@@ -1,0 +1,51 @@
+export const DriverStatisticsData = [
+  {
+    UserNumber: "1234",
+    Email: "123@Gmail.com",
+    Description: "Driver",
+    Gender: "Male",
+    TripsCompleted: "25",
+  },
+  {
+    UserNumber: "1234",
+    Email: "123@Gmail.com",
+    Description: "Driver",
+    Gender: "Male",
+    TripsCompleted: "25",
+  },
+  {
+    UserNumber: "1234",
+    Email: "123@Gmail.com",
+    Description: "Driver",
+    Gender: "Male",
+    TripsCompleted: "25",
+  },
+  {
+    UserNumber: "1234",
+    Email: "123@Gmail.com",
+    Description: "Driver",
+    Gender: "Male",
+    TripsCompleted: "25",
+  },
+  {
+    UserNumber: "1234",
+    Email: "123@Gmail.com",
+    Description: "Driver",
+    Gender: "Male",
+    TripsCompleted: "25",
+  },
+  {
+    UserNumber: "1234",
+    Email: "123@Gmail.com",
+    Description: "Driver",
+    Gender: "Male",
+    TripsCompleted: "25",
+  },
+  {
+    UserNumber: "1234",
+    Email: "123@Gmail.com",
+    Description: "Driver",
+    Gender: "Male",
+    TripsCompleted: "25",
+  },
+];

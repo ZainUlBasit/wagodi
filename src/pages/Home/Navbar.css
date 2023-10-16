@@ -1,0 +1,14 @@
+/* Navbar.css */
+/* ...Other styles */
+
+.box-below-link {
+  position: absolute;
+  /* bottom: 0; */
+  top: 0;
+  left: 0%;
+  transform: translateX(100%);
+  transform: translateY(100%);
+  width: 150px; /* Adjust the width of the box */
+  height: 30px; /* Adjust the height of the box */
+  background-color: red; /* Box color */
+}

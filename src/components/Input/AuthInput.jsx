@@ -3,8 +3,8 @@ import TextField from "@mui/material/TextField";
 
 const AuthInput = ({ label, placeholder, required, Value, setValue }) => {
   return (
-    <div className="relative mb-[15px] w-[297px]">
-      <p className="absolute top-[-11px] left-4 w-fit bg-white font-[Quicksand] text-[15px]">
+    <div className="relative mb-[15px] w-[297px] font-[Quicksand]">
+      <p className="absolute top-[-11px] left-3 w-fit bg-white text-[15px] font-bold">
         {label}
       </p>
       <input

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import StationReport from "../Modals/StationReport";
 
@@ -18,8 +18,9 @@ const StationDetail = ({
   setCurrentStationName,
 }) => {
   const [Fav, setFav] = useState(favourites);
+
   return (
-    <div className="relative">
+    <div className="relative mx-5 my-3 w-[350px] rounded-[16px] h-[165px] overflow-hidden">
       <div
         className={`${
           status === "Healthy"
@@ -29,7 +30,7 @@ const StationDetail = ({
             : status === "MakeOrder"
             ? "bg-[#C93D33]"
             : ""
-        } text-white rounded-[16px] h-[165px] cursor-pointer`}
+        } text-white cursor-pointer h-full`}
         onClick={() => {
           setOpen(!Open);
           setCurrentStationName(StationName);

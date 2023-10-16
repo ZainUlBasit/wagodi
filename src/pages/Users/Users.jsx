@@ -11,10 +11,12 @@ import { UserData } from "../../components/Tables/DemoData/UserData";
 
 const Users = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [Filter, setFilter] = useState("");
+  const [Filter, setFilter] = useState("All");
+  const [ApplyFilter, setApplyFilter] = useState("All");
   const [UserID, setUserID] = useState("");
   const [OpenAddModal, setOpenAddModal] = useState(false);
   const [OpenEditModal, setOpenEditModal] = useState(false);
+  const [SearchText, setSearchText] = useState("");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -28,6 +30,7 @@ const Users = () => {
   const id = open ? "simple-popover" : undefined;
   return (
     <>
+      <Navbar />
       <div className="flex flex-col justify-center items-center w-full font-[Quicksand] fade-in">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex justify-between mt-6 mb-10">
@@ -38,7 +41,8 @@ const Users = () => {
               className="flex items-center gap-x-[20px] bg-[#465462] rounded-full px-3 py-1 h-fit text-white font-[Quicksand] cursor-pointer"
               onClick={handleClick}
             >
-              All <FaChevronDown aria-describedby={id} variant="contained" />
+              {ApplyFilter}{" "}
+              <FaChevronDown aria-describedby={id} variant="contained" />
             </span>
 
             <Popover
@@ -85,6 +89,17 @@ const Users = () => {
                   <div className="w-full flex flex-col justify-between gap-y-3 pt-3 items-start">
                     <div
                       className="flex gap-x-3 items-center cursor-pointer"
+                      onClick={() => setFilter("All")}
+                    >
+                      <input
+                        type="checkbox"
+                        className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                        checked={Filter === "All"}
+                      />
+                      <span>All</span>
+                    </div>
+                    <div
+                      className="flex gap-x-3 items-center cursor-pointer"
                       onClick={() => setFilter("Administrator")}
                     >
                       <input
@@ -118,19 +133,23 @@ const Users = () => {
                     </div>
                     <div
                       className="flex gap-x-3 items-center cursor-pointer"
-                      onClick={() => setFilter("Station manager")}
+                      onClick={() => setFilter("Station Manager")}
                     >
                       <input
                         type="checkbox"
                         className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                        checked={Filter === "Station manager"}
+                        checked={Filter === "Station Manager"}
                       />
-                      <span>Station manager</span>
+                      <span>Station Manager</span>
                     </div>
                     <div className="flex w-full justify-center">
                       <button
                         className={`mt-[10px] w-[197px] h-fit py-2 bg-[#90898E] hover:bg-[white] hover:text-[#90898E] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-                        onClick={() => {}}
+                        onClick={() => {
+                          handleClose();
+                          setApplyFilter(Filter);
+                          setFilter(Filter);
+                        }}
                       >
                         Show
                       </button>
@@ -157,11 +176,18 @@ const Users = () => {
               <BsSearch className="text-[1.2rem]" />
               <input
                 className="outline-none bg-inherit text-white w-full"
-                placeholder="Search Station name"
+                placeholder="Search Role"
+                value={SearchText}
+                onChange={(e) => setSearchText(e.target.value)}
               />
             </div>
           </div>
-          <UserTable setUserID={setUserID} setOpen={setOpenEditModal} />
+          <UserTable
+            setUserID={setUserID}
+            setOpen={setOpenEditModal}
+            Filter={ApplyFilter}
+            Search={SearchText}
+          />
         </div>
       </div>
       {/* Create Modal and Implement */}

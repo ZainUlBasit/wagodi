@@ -8,9 +8,9 @@ const Splash = () => {
   const navigate = useNavigate();
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center fade-in">
-      <img src={Logo} className="w-[590px] h-[330px]" />
+      <img src={Logo} className="h-[330px]" />
       <button
-        className={`mt-[-40px] w-[197px] h-[53px] bg-[#465462] rounded-[40px] text-white text-[30px] font-[700]`}
+        className={`mt-[30px] w-[197px] h-[53px] bg-[#465462] rounded-[40px] text-white text-[30px] font-[700]`}
         onClick={() => navigate("/onboarding")}
       >
         Continue

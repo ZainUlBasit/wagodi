@@ -41,7 +41,7 @@ const StationReport = ({ StationName, Open, setOpen }) => {
     <CustomModal title={StationName} open={Open} setOpen={setOpen}>
       <div className="flex flex-col justify-center">
         {/* header */}
-        <div className="w-full text-center bg-[#465462] text-white font-[600] font-[Quicksand] text-[1.6rem] py-2 border-b-[1px] border-b-white">
+        <div className="w-full text-center bg-[#465462] text-white font-[600] font-[Quicksand] text-[1.6rem] py-2 border-b-[1px] border-b-white rounded-t-[10px]">
           <span>{StationName}</span>
           <div className="px-4 py-[6px] bg-white border-2 border-white rounded-full text-black absolute top-[6px] right-6 cursor-pointer">
             <div className="flex items-center">

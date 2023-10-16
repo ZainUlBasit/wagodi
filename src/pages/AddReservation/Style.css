@@ -1,0 +1,11 @@
+/* Styles for connecting lines */
+.Tab::before {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 3px;
+  background-color: #96ADC5;
+  top: 50%;
+  left: 40px;
+  z-index: -1;
+}

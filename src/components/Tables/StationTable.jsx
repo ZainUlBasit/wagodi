@@ -12,7 +12,7 @@ import { UserData } from "./DemoData/UserData";
 import { BiEdit } from "react-icons/bi";
 import { StationData } from "./DemoData/StationData";
 
-export default function StationTable({ setStationID, setOpen }) {
+export default function StationTable({ setStationID, setOpen, Search }) {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -85,7 +85,14 @@ export default function StationTable({ setStationID, setOpen }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {StationData.map((Data, i) => {
+          {StationData.filter((data) => {
+            if (Search === "") return data;
+            else if (
+              data.StationName.toLowerCase().startsWith(Search.toLowerCase())
+            ) {
+              return data;
+            }
+          }).map((Data, i) => {
             return (
               <TableRow
                 key={i}

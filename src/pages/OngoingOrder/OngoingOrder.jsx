@@ -10,13 +10,13 @@ import DateInput from "../../components/Input/DateInput";
 import "../../assets/Style/style.css";
 
 const OngoingOrder = () => {
-  const [Filter, setFilter] = useState("");
   const [OpenSendReport, setOpenSendReport] = useState(false);
   const [CurrentID, setCurrentID] = useState("");
   const [OpenReservationDetailsModal, setOpenReservationDetailsModal] =
-    useState(false);
+  useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [SearchText, setSearchText] = useState("");
+  const [Filter, setFilter] = useState("");
   const [ApplyFilter, setApplyFilter] = useState("");
 
   const handleClick = (event) => {
@@ -31,6 +31,7 @@ const OngoingOrder = () => {
   const id = open ? "simple-popover" : undefined;
   return (
     <>
+    <Navbar/>
       <div className="w-full flex flex-col justify-center items-center mb-5 fade-in">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex justify-between mt-6 mb-5">
