@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiMenuAltLeft } from "react-icons/bi";
 import { RiNotification3Fill, RiSettings2Fill } from "react-icons/ri"; // Import eye icons from react-icons
 import Box from "@mui/material/Box";
@@ -16,21 +16,22 @@ import { MobNavData } from "./MobNavData";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { Typography } from "@mui/material";
 import Logo from "../../assets/images/logoWhite.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { TbLogout } from "react-icons/tb";
+import Logout from "../Modals/Logout";
 
 const MobNavbar = () => {
   const [showNotificationDot, setShowNotificationDot] = useState(true);
+  const [ActiveNavItem, setActiveNavItem] = useState("");
+  const [OpenLogoutModal, setOpenLogoutModal] = useState(false);
 
   const handleNotificationClick = () => {
     setShowNotificationDot(false);
   };
 
   const [state, setState] = useState({
-    top: false,
     left: false,
-    bottom: false,
-    right: false,
+    menu: false,
   });
 
   const navigate = useNavigate();
@@ -45,6 +46,29 @@ const MobNavbar = () => {
 
     setState({ ...state, [anchor]: open });
   };
+
+  const handleNavItemClick = (item) => {
+    setActiveNavItem(item);
+  };
+
+  const location = useLocation(); // Get the current location from react-router-dom
+  const pathname = location.pathname;
+  useEffect(() => {
+    if ("/home" === pathname) handleNavItemClick("HOME");
+    else if ("/ongoing-orders" === pathname)
+      handleNavItemClick("ONGOING ORDERS");
+    else if ("/orders-report" === pathname) handleNavItemClick("ORDER REPORTS");
+    else if ("/users" === pathname) handleNavItemClick("USERS");
+    else if ("/notification" === pathname) handleNavItemClick("Notification");
+    else if ("/setting" === pathname) handleNavItemClick("Setting");
+    else if ("/stations" === pathname) handleNavItemClick("STATION");
+    else if ("/statistics" === pathname) handleNavItemClick("STATISTICS");
+    else if ("/vendor" === pathname) handleNavItemClick("VENDOR");
+    setState({
+      left: false,
+      menu: false,
+    });
+  }, [pathname]);
 
   const list = (anchor) => (
     <Box
@@ -75,6 +99,7 @@ const MobNavbar = () => {
                 disablePadding
                 onClick={() => {
                   navigate(text.link);
+                  handleNavItemClick(text.title);
                 }}
               >
                 <ListItemButton className="w-full flex">
@@ -104,7 +129,9 @@ const MobNavbar = () => {
             className="w-full flex justify-between py-1"
             key={"logout"}
             disablePadding
-            onClick={() => {}}
+            onClick={() => {
+              setOpenLogoutModal(!OpenLogoutModal);
+            }}
           >
             <ListItemButton className="w-full flex bg-yellow-300">
               <Typography
@@ -146,7 +173,7 @@ const MobNavbar = () => {
             {list("left")}
           </Drawer>
         </div>
-        <div className="font-bold text-[1.2rem]">Home</div>
+        <div className="font-bold text-[1.2rem]">{ActiveNavItem}</div>
         <div className="relative">
           {showNotificationDot && (
             <div className="h-[9px] w-[9px] bg-[#FF4423] rounded-full absolute top-[2px] left-[24px]"></div>
@@ -164,6 +191,9 @@ const MobNavbar = () => {
           </div>
         </div>
       </div>
+      {OpenLogoutModal && (
+        <Logout Open={OpenLogoutModal} setOpen={setOpenLogoutModal} />
+      )}
     </div>
   );
 };

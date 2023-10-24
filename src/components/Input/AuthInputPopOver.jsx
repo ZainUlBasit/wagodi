@@ -1,10 +1,14 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
 import { BsChevronDown } from "react-icons/bs";
+import { v4 } from "uuid";
 
 const AuthInputPopOver = ({ label, placeholder, required, Value, onClick }) => {
   return (
-    <div className="relative mb-[15px] w-[297px] font-[Quicksand]" onClick={onClick}>
+    <div
+      className="relative mb-[15px] w-[297px] font-[Quicksand]"
+      onClick={onClick}
+    >
       <p className="absolute top-[-11px] left-3 w-fit bg-white font-[Quicksand] text-[15px] font-bold">
         {label}
       </p>
@@ -12,7 +16,7 @@ const AuthInputPopOver = ({ label, placeholder, required, Value, onClick }) => {
         type="text"
         required={required}
         disabled
-        id="outlined-required"
+        id={v4()}
         placeholder={placeholder}
         className="px-3 py-2 pr-10 border border-gray-300 rounded-[7.94px] w-full outline-none"
         value={Value}

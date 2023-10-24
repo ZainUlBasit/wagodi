@@ -12,7 +12,6 @@ const Setting = () => {
   const [OpenModal, setOpenModal] = useState(false);
   return (
     <>
-      <Navbar />
       {/* Main wrapper */}
       <div className="w-full flex justify-start fade-in h-[calc(100vh-88px)]">
         {/* Left Side */}

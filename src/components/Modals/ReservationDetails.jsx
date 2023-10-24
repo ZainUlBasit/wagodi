@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CustomModal from "./CustomModal";
 import AuthInput from "../Input/AuthInput";
+import { ImCross } from "react-icons/im";
 
 const ReservationDetails = ({ Open, setOpen, SelectedID }) => {
   const [OrderNumber, setOrderNumber] = useState("");
@@ -15,6 +16,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID }) => {
   const [UOM, setUOM] = useState("");
   const [BalanceVolume, setBalanceVolume] = useState("");
   const [RequireVolume, setRequireVolume] = useState("");
+  const [CursorOnCross, setCursorOnCross] = useState(false);
   return (
     <CustomModal open={Open} setOpen={setOpen}>
       {/* Main Wrapper */}
@@ -22,6 +24,18 @@ const ReservationDetails = ({ Open, setOpen, SelectedID }) => {
         {/* title */}
         <div className="flex font-[Quicksand] font-[700] text-[1.5rem] py-6 pl-7">
           Reservation Details
+          <div
+            className="absolute right-4 border-2 p-2 rounded-full border-black hover:bg-black cursor-pointer"
+            onMouseOver={() => setCursorOnCross(true)}
+            onMouseOut={() => setCursorOnCross(false)}
+            onClick={() => setOpen(false)}
+          >
+            <ImCross
+              className={`${
+                CursorOnCross ? "text-white" : "text-black"
+              } text-[1rem] transition-all duration-500 ease-in-out`}
+            />
+          </div>
         </div>
         {/* body */}
         <div className="flex px-7 gap-x-4 max767:flex-col">

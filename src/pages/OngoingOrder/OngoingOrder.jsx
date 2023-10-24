@@ -32,8 +32,6 @@ const OngoingOrder = () => {
   const id = open ? "simple-popover" : undefined;
   return (
     <>
-      <Navbar />
-      <MobNavbar />
       <div className="w-full flex flex-col justify-center items-center mb-5 fade-in">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex justify-between mt-6 mb-5">

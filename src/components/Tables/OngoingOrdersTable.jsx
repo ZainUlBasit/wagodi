@@ -143,7 +143,9 @@ export default function OngoingOrdersTable({
           }).map((row, i) => (
             <TableRow
               key={row.name}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              sx={{
+                "&:last-child td, &:last-child th": { border: 0 },
+              }}
             >
               <TableCell
                 sx={{
@@ -242,21 +244,20 @@ export default function OngoingOrdersTable({
                   fontWeight: 400,
                   fontFamily: "Quicksand",
                   borderBottomWidth: 0,
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
                   fontSize: "20px",
                 }}
                 align="center"
               >
-                <AiFillEye
-                  className="cursor-pointer text-[#76808B] hover:text-black transition-all duration-500 ease-in-out"
-                  onClick={() => {
-                    console.log(i);
-                    setOpen(true);
-                    setCurrentID(i);
-                  }}
-                />
+                <span className="flex justify-center items-center">
+                  <AiFillEye
+                    className="cursor-pointer text-[#76808B] hover:text-black transition-all duration-500 ease-in-out"
+                    onClick={() => {
+                      console.log(i);
+                      setOpen(true);
+                      setCurrentID(i);
+                    }}
+                  />
+                </span>
               </TableCell>
             </TableRow>
           ))}

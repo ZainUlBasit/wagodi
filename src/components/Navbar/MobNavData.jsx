@@ -1,7 +1,7 @@
 export const MobNavData = [
   { title: "Home", link: "/home" },
-  { title: "Order Reports", link: "/ongoing-orders" },
-  { title: "Ongoing Reports", link: "/orders-report" },
+  { title: "Ongoing Orders", link: "/ongoing-orders" },
+  { title: "Order Reports", link: "/orders-report" },
   { title: "Users", link: "/users" },
   { title: "Station", link: "/stations" },
   { title: "Statistics", link: "/statistics" },

@@ -6,6 +6,7 @@ import { BiSolidChevronDown } from "react-icons/bi";
 
 const DriverReport = ({ Open, setOpen }) => {
   const [CurrentMonth, setCurrentMonth] = useState("");
+  const [CurrentMonthIndex, setCurrentMonthIndex] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
   const months = [
     "January",

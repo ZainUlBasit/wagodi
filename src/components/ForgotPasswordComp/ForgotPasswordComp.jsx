@@ -12,8 +12,8 @@ const ForgotPasswordComp = () => {
     <>
       <div className=" flex flex-col items-center">
         <img src={forgotpassword} className="w-fit h-[25vh]" />
-        <div className="mt-10 pb-7 rounded-lg flex flex-col items-center w-full shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)]">
-          <div className="mt-5 px-7">
+        <div className="mt-10 pb-7 rounded-lg flex flex-col items-center w-full shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] font-[Quicksand]">
+          <div className="mt-5 px-7 flex flex-col justify-center items-center">
             <h1 className="w-full text-[1.9rem] font-[700] text-center">
               FORGOT PASSWORD?
             </h1>

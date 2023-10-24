@@ -7,7 +7,6 @@ const ChangePassword = () => {
   const [ConfirmPassword, setConfirmPassword] = useState("");
   return (
     <>
-      <MobNavbar />
       <div className="pl-5 max767:pl-0 max767:justify-center max767:items-center max767:flex max767:flex-col fade-in max767:mt-4">
         <div className="flex w-[90%] font-[600] text-[1.9rem] mb-8">Edit Password</div>
         <div className="w-[100%] flex flex-col justify-center items-center">

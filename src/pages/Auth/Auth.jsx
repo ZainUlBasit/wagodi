@@ -36,8 +36,8 @@ const Auth = () => {
             <button
               className={
                 !IsLogin
-                  ? " h-full py-3 px-5 text-[30px]"
-                  : "bg-[#465462E5] text-[#EFE7EC] h-full py-3 px-5 rounded-[100px] text-[30px]"
+                  ? " h-full py-3 max767:py-2 px-5 text-[30px]"
+                  : "bg-[#465462E5] text-[#EFE7EC] h-full py-3 max767:py-2 px-5 rounded-[100px] text-[30px]"
               }
               onClick={() => setIsLogin(true)}
             >
@@ -46,8 +46,8 @@ const Auth = () => {
             <button
               className={
                 IsLogin
-                  ? " h-full py-3 px-5 text-[30px]"
-                  : "bg-[#465462E5] text-[#EFE7EC] h-full py-3 px-5 rounded-[100px] text-[30px]"
+                  ? " h-full py-3 max767:py-2 px-5 text-[30px]"
+                  : "bg-[#465462E5] text-[#EFE7EC] h-full py-3 max767:py-2 px-5 rounded-[100px] text-[30px]"
               }
               onClick={() => setIsLogin(false)}
             >

@@ -21,7 +21,6 @@ const CompanyDetails = () => {
   };
   return (
     <>
-      <MobNavbar />
       {/* Main Wrapper */}
       <div className="fade-in max767:mt-4 max767:flex max767:flex-col max767:justify-center max767:items-center">
         <div className="flex justify-between items-center mb-8 font-[600] font-[Quicksand] text-[1.8rem] px-5 max767:w-[90%] max767:px-0">

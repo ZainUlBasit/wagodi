@@ -1,14 +1,9 @@
 import { useState } from "react";
 import { RiEyeFill, RiEyeCloseFill } from "react-icons/ri"; // Import eye icons from react-icons
 import { FaRegEdit } from "react-icons/fa";
+import { v4 } from "uuid";
 
-const InputPassword = ({
-  label,
-  placeholder,
-  required,
-  Value,
-  setValue,
-}) => {
+const InputPassword = ({ label, placeholder, required, Value, setValue }) => {
   const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="relative mb-[15px] w-[297px] font-[Quicksand]">
@@ -19,7 +14,7 @@ const InputPassword = ({
         <input
           type={!showPassword ? "text" : "password"} // Toggle between 'text' and 'password'
           required={required}
-          id="outlined-required"
+          id={v4()}
           placeholder={placeholder}
           disabled={showPassword}
           className="px-3 py-2 pr-10 border border-gray-300 rounded-[7.94px] w-full outline-none"

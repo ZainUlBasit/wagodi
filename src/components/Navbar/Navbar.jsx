@@ -6,7 +6,6 @@ import "./Navbar.css";
 
 const Navbar = () => {
   const [activeNavItem, setActiveNavItem] = useState(""); // State to track the active navigation item
-  const location = useLocation(); // Get the current location from react-router-dom
   const [showNotificationDot, setShowNotificationDot] = useState(true);
   const navigate = useNavigate();
 
@@ -19,6 +18,7 @@ const Navbar = () => {
     setShowNotificationDot(false);
   };
 
+  const location = useLocation(); // Get the current location from react-router-dom
   const pathname = location.pathname;
   useEffect(() => {
     if ("/home" === pathname) handleNavItemClick("HOME");

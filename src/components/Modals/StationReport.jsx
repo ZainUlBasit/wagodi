@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import CustomModal from "./CustomModal";
-import MonthPicker from "../Select/MonthPickerSelect";
-import { BiSolidChevronDown } from "react-icons/bi";
+import DriverDetailTable from "../Tables/DriverDetailTable";
 import { Popover, Typography } from "@mui/material";
+import { BiSolidChevronDown } from "react-icons/bi";
+import StationDetailTable from "../Tables/StationDetailTable";
 
-const StationReport = ({ StationName, Open, setOpen }) => {
-  const [selectedMonth, setSelectedMonth] = useState(new Date());
-  const [anchorEl, setAnchorEl] = useState(null);
+const StationReport = ({ Open, setOpen }) => {
   const [CurrentMonth, setCurrentMonth] = useState("");
   const [CurrentMonthIndex, setCurrentMonthIndex] = useState("");
+  const [anchorEl, setAnchorEl] = useState(null);
   const months = [
     "January",
     "February",
@@ -33,34 +33,28 @@ const StationReport = ({ StationName, Open, setOpen }) => {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-
-  const handleMonthChange = (date) => {
-    setSelectedMonth(date);
-  };
   return (
-    <CustomModal title={StationName} open={Open} setOpen={setOpen}>
-      <div className="flex flex-col justify-center">
-        {/* header */}
-        <div className="w-full text-center bg-[#465462] text-white font-[600] font-[Quicksand] text-[1.6rem] py-2 border-b-[1px] border-b-white rounded-t-[10px]">
-          <span>{StationName}</span>
-          <div className="px-4 py-[6px] bg-white border-2 border-white rounded-full text-black absolute top-[6px] right-6 cursor-pointer">
-            <div className="flex items-center">
-              <input
-                type="text"
-                name="date"
-                id="date"
-                placeholder="Month"
-                value={CurrentMonth}
-                className="w-[100px] outline-none font-[700] text-[1.1rem] text-center"
-                disabled
-              />
-              <BiSolidChevronDown
-                className="text-[1.5rem] cursor-pointer"
-                aria-describedby={id}
-                variant="contained"
-                onClick={handleClick}
-              />
-            </div>
+    <CustomModal open={Open} setOpen={setOpen}>
+      <div className="w-[900px] max767:w-auto">
+        <div className="bg-[#56636F] text-white py-3 flex justify-center items-center border-b-[1px] border-b-white">
+          <div
+            className="flex items-center w-fit text-[#56636F] bg-white py-3 px-3 rounded-full"
+            onClick={handleClick}
+          >
+            <input
+              type="text"
+              name="date"
+              id="date"
+              placeholder="Month"
+              value={CurrentMonth}
+              className="w-[100px] outline-none font-[700] text-[1.1rem] text-cente"
+              disabled
+            />
+            <BiSolidChevronDown
+              className="text-[1.5rem] cursor-pointer"
+              aria-describedby={id}
+              variant="contained"
+            />
           </div>
           <Popover
             id={id}
@@ -125,65 +119,50 @@ const StationReport = ({ StationName, Open, setOpen }) => {
             </Typography>
           </Popover>
         </div>
-        {/* titles */}
-        <div className="flex w-[750px] py-3 bg-[#465462] text-white rounded-br-[20px] rounded-bl-[20px]">
-          {/* Date */}
-          <div className="font-[Quicksand] text-center font-[600] text-[1.5rem] w-[150px]">
-            DATE
-          </div>
-          {/* Sold Volume */}
-          <div className="font-[Quicksand] text-center font-[600] text-[1.5rem] w-[300px]">
-            SOLD VOLUME
-          </div>
-          {/* Recieved Volume */}
-          <div className="font-[Quicksand] text-center font-[600] text-[1.5rem] w-[300px]">
-            RECEIVED VOLUME
-          </div>
-        </div>
-
-        {/* body */}
-        <div className="flex w-[750px] text-[#465462] h-[20vh] items-center border-b-[1px] border-b-[#46546266]">
-          {/* Date */}
-          <div className="font-[Quicksand] text-center font-[600] text-[1.1rem] w-[150px] flex flex-col justify-center border-r-[1px]  border-r-[#46546266] h-full">
-            12 <span className="font-[300] text-[.9rem]">Sep, 23</span>
-          </div>
-          {/* Sold Volume */}
-          <div className="font-[Quicksand] text-center font-[600] text-[1.5rem] w-[300px] border-r-[1px]  border-r-[#46546266] h-full flex justify-center items-center">
-            2000
-          </div>
-          {/* Recieved Volume */}
-          <div className="font-[Quicksand] text-center font-[600] text-[1.5rem] w-[300px] border-r-[1px]  border-r-[#46546266] h-full flex justify-center items-center">
-            -
-          </div>
-        </div>
-        <div className="flex w-[750px] text-[#465462] h-[20vh] items-center border-b-[1px] border-b-[#46546266]">
-          {/* Date */}
-          <div className="font-[Quicksand] text-center font-[600] text-[1.1rem] w-[150px] flex flex-col justify-center border-r-[1px]  border-r-[#46546266] h-full">
-            13 <span className="font-[300] text-[.9rem]">Sep, 23</span>
-          </div>
-          {/* Sold Volume */}
-          <div className="font-[Quicksand] text-center font-[600] text-[1.5rem] w-[300px] border-r-[1px]  border-r-[#46546266] h-full flex justify-center items-center">
-            -
-          </div>
-          {/* Recieved Volume */}
-          <div className="font-[Quicksand] text-center font-[600] text-[1.5rem] w-[300px] border-r-[1px]  border-r-[#46546266] h-full flex justify-center items-center">
-            1000
-          </div>
-        </div>
-        <div className="flex w-[750px] text-[#465462] h-[20vh] items-center border-b-[1px] border-b-[#46546266]">
-          {/* Date */}
-          <div className="font-[Quicksand] text-center font-[600] text-[1.1rem] w-[150px] flex flex-col justify-center border-r-[1px]  border-r-[#46546266] h-full">
-            14 <span className="font-[300] text-[.9rem]">Sep, 23</span>
-          </div>
-          {/* Sold Volume */}
-          <div className="font-[Quicksand] text-center font-[600] text-[1.5rem] w-[300px] border-r-[1px]  border-r-[#46546266] h-full flex justify-center items-center">
-            5000
-          </div>
-          {/* Recieved Volume */}
-          <div className="font-[Quicksand] text-center font-[600] text-[1.5rem] w-[300px] border-r-[1px]  border-r-[#46546266] h-full flex justify-center items-center">
-            10,000
-          </div>
-        </div>
+        <StationDetailTable
+          StationData={[
+            {
+              date: "12 Sept",
+              sold:"20000",
+              received:"10000"
+            },
+            {
+              date: "12 Sept",
+              sold:"20000",
+              received:"10000"
+            },
+            {
+              date: "12 Sept",
+              sold:"20000",
+              received:"10000"
+            },
+            {
+              date: "12 Sept",
+              sold:"20000",
+              received:"10000"
+            },
+            {
+              date: "12 Sept",
+              sold:"20000",
+              received:"10000"
+            },
+            {
+              date: "12 Sept",
+              sold:"20000",
+              received:"10000"
+            },
+            {
+              date: "12 Sept",
+              sold:"20000",
+              received:"10000"
+            },
+            {
+              date: "12 Sept",
+              sold:"99999",
+              received:"9999"
+            },
+          ]}
+        />
       </div>
     </CustomModal>
   );

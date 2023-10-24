@@ -22,6 +22,7 @@ import OrderManagerOrderReports from "./pages/OrderReports/OrderManagerOrderRepo
 import OrderInfo from "./components/Cards/OrderInfo";
 import ChangePassword from "./components/Setting/ChangePassword";
 import CompanyDetails from "./components/Setting/CompanyDetails";
+import MobNavbar from "./components/Navbar/MobNavbar";
 
 const App = () => {
   const [Loading, setLoading] = useState(true);
@@ -38,6 +39,18 @@ const App = () => {
     </div>
   ) : (
     <>
+      {pathname !== "/" &&
+        pathname !== "/onboarding" &&
+        pathname !== "/auth" &&
+        pathname !== "/forgot-password" &&
+        pathname !== "/otp-verification" &&
+        pathname !== "/set-new-password" && <Navbar />}
+      {pathname !== "/" &&
+        pathname !== "/onboarding" &&
+        pathname !== "/auth" &&
+        pathname !== "/forgot-password" &&
+        pathname !== "/otp-verification" &&
+        pathname !== "/set-new-password" && <MobNavbar />}
       <Routes>
         <Route path="/" element={<Splash />} />
         <Route path="/onboarding" element={<Onbaording />} />
