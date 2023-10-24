@@ -38,7 +38,7 @@ export default function DriverDetailTable({ DriverData }) {
               }}
               align="center"
             >
-              Date
+              <div className="max767:text-[1rem]">Date</div>
             </TableCell>
 
             <TableCell
@@ -53,7 +53,7 @@ export default function DriverDetailTable({ DriverData }) {
               }}
               align="center"
             >
-              Start Point
+              <div className="max767:text-[1rem]">Start Point</div>
             </TableCell>
 
             <TableCell
@@ -63,12 +63,14 @@ export default function DriverDetailTable({ DriverData }) {
                 fontFamily: "Quicksand",
                 paddingTop: "35px",
                 paddingBottom: "35px",
+                paddingLeft: "0px",
+                paddingRight: "0px",
                 color: "white",
                 borderWidth: 0,
               }}
               align="center"
             >
-              Station Name
+              <div className="max767:text-[1rem]">Station Name</div>
             </TableCell>
 
             <TableCell
@@ -84,7 +86,7 @@ export default function DriverDetailTable({ DriverData }) {
               }}
               align="center"
             >
-              Fuel Delivered
+              <div className="max767:text-[1rem]">Fuel Delivered</div>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -105,8 +107,12 @@ export default function DriverDetailTable({ DriverData }) {
                   align="center"
                 >
                   <div className="flex flex-col font-[Quicksand]">
-                    <div className="text-[1.8rem]">{dd.date.split(" ")[0]}</div>
-                    <div className="text-[1rem]">{dd.date.split(" ")[1]}</div>
+                    <div className="text-[1.8rem] max767:text-[1.2rem]">
+                      {dd.date.split(" ")[0]}
+                    </div>
+                    <div className="text-[1rem] max767:text-[1rem]">
+                      {dd.date.split(" ")[1]}
+                    </div>
                   </div>
                 </TableCell>
                 <TableCell
@@ -121,7 +127,7 @@ export default function DriverDetailTable({ DriverData }) {
                   }}
                   align="center"
                 >
-                  {dd.StartPoint}
+                  <div className="text-[1.6rem] max767:text-[1.2rem]">{dd.StartPoint}</div>
                 </TableCell>
                 <TableCell
                   sx={{
@@ -135,7 +141,7 @@ export default function DriverDetailTable({ DriverData }) {
                   }}
                   align="center"
                 >
-                  {dd.StationName}
+                  <div className="text-[1.6rem] max767:text-[1.2rem]">{dd.StationName}</div>
                 </TableCell>
                 <TableCell
                   sx={{
@@ -148,7 +154,7 @@ export default function DriverDetailTable({ DriverData }) {
                   }}
                   align="center"
                 >
-                  {dd.FuelDelivered}
+                  <div className="text-[1.6rem] max767:text-[1.2rem]">{dd.FuelDelivered}</div>
                 </TableCell>
               </TableRow>
             );

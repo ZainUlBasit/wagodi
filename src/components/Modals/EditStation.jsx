@@ -44,7 +44,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
           Edit Station
         </h1>
         <div>
-          <div className="flex gap-x-10 px-10">
+          <div className="flex gap-x-10 px-10 max767:flex-col max767:items-center">
             {/* left */}
             <div>
               <AuthInput
@@ -93,13 +93,13 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
               <div className="ml-10 flex gap-x-2 my-3 font-[Quicksand] text-[13.9px]">
                 <span className="font-[700]">Gas Type:</span>
                 <div className="flex font-[Quicksand] font-[300] items-center">
-                  <div className="w-[100px] border-r-[1px] border-r-[#606060]">
+                  <div className="w-[60px] border-r-[1px] border-r-[#606060]">
                     {ag.type}
                   </div>
-                  <div className="w-[100px] border-r-[1px] border-r-[#606060] text-center">
+                  <div className="w-[60px] border-r-[1px] border-r-[#606060] text-center">
                     {ag.volume}
                   </div>
-                  <div className="w-[100px] text-right">{ag.price}</div>
+                  <div className="w-[60px] text-right">{ag.price}</div>
                   <RiDeleteBin6Line
                     onClick={() => deleteGas(index)}
                     className="ml-4 text-[1.2rem] cursor-pointer hover:text-[red] transition-all duration-500"
@@ -138,13 +138,13 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
           {/* buttons */}
           <div className="w-full flex justify-center items-center gap-x-5 mb-5">
             <button
-              className={`mt-[5px] mb-[30px] w-[197px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+              className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
               onClick={() => {}}
             >
               Edit
             </button>
             <button
-              className={`mt-[5px] mb-[30px] w-[197px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+              className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
               onClick={() => setOpen(false)}
             >
               Cancel

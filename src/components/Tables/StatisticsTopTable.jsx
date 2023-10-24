@@ -36,7 +36,7 @@ export default function StatisticsTopTable({ StationInfo }) {
               }}
               align="center"
             >
-              Number of Station
+              <div className="max767:text-[1.1rem]">Number of Station</div>
             </TableCell>
 
             <TableCell
@@ -51,7 +51,7 @@ export default function StatisticsTopTable({ StationInfo }) {
               }}
               align="center"
             >
-              Number of Drivers
+              <div className="max767:text-[1.1rem]">Number of Drivers</div>
             </TableCell>
 
             <TableCell
@@ -66,7 +66,7 @@ export default function StatisticsTopTable({ StationInfo }) {
               }}
               align="center"
             >
-              Monthly Sales (L)
+              <div className="max767:text-[1.1rem]">Monthly Sales (L)</div>
             </TableCell>
 
             <TableCell
@@ -79,11 +79,10 @@ export default function StatisticsTopTable({ StationInfo }) {
                 color: "white",
                 border: "0px solid white",
                 borderBottomRightRadius: "15px",
-
               }}
               align="center"
             >
-              Monthly Orders (L)
+              <div className="max767:text-[1.1rem]">Monthly Orders (L)</div>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -94,51 +93,51 @@ export default function StatisticsTopTable({ StationInfo }) {
                 fontWeight: "600",
                 fontSize: "1.6rem",
                 fontFamily: "Quicksand",
-                paddingTop:"30px",
-                paddingBottom:"30px",
+                paddingTop: "30px",
+                paddingBottom: "30px",
                 borderRight: "2px solid #46546266",
               }}
               align="center"
             >
-              20
+              <div className="max767:text-[1.3rem]">20</div>
             </TableCell>
             <TableCell
               sx={{
                 fontWeight: "600",
                 fontSize: "1.6rem",
                 fontFamily: "Quicksand",
-                paddingTop:"30px",
-                paddingBottom:"30px",
+                paddingTop: "30px",
+                paddingBottom: "30px",
                 borderRight: "2px solid #46546266",
               }}
               align="center"
             >
-              6
+              <div className="max767:text-[1.3rem]">6</div>
             </TableCell>
             <TableCell
               sx={{
                 fontWeight: "600",
                 fontSize: "1.6rem",
                 fontFamily: "Quicksand",
-                paddingTop:"30px",
-                paddingBottom:"30px",
+                paddingTop: "30px",
+                paddingBottom: "30px",
                 borderRight: "2px solid #46546266",
               }}
               align="center"
             >
-              120,000
+              <div className="max767:text-[1.3rem]">120,000</div>
             </TableCell>
             <TableCell
               sx={{
                 fontWeight: "600",
                 fontSize: "1.6rem",
                 fontFamily: "Quicksand",
-                paddingTop:"30px",
-                paddingBottom:"30px",
+                paddingTop: "30px",
+                paddingBottom: "30px",
               }}
               align="center"
             >
-              20,000
+              <div className="max767:text-[1.3rem]">20,000</div>
             </TableCell>
           </TableRow>
         </TableBody>

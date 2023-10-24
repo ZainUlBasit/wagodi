@@ -8,6 +8,7 @@ import AddUser from "../../components/Modals/AddUser";
 import "../../assets/Style/style.css";
 import EditUser from "../../components/Modals/EditUser";
 import { UserData } from "../../components/Tables/DemoData/UserData";
+import MobNavbar from "../../components/Navbar/MobNavbar";
 
 const Users = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -31,19 +32,20 @@ const Users = () => {
   return (
     <>
       <Navbar />
+      <MobNavbar />
       <div className="flex flex-col justify-center items-center w-full font-[Quicksand] fade-in">
         {/* Header */}
-        <div className="w-[90%] max-w-[1200px] flex justify-between mt-6 mb-10">
+        <div className="w-[90%] max-w-[1200px] flex justify-between mt-6 mb-10 max767:mb-7 max767:flex-col">
           {/* Left */}
-          <div className="font-[Quicksand] font-[700] text-[1.3rem] gap-x-3 flex items-center justify-center">
-            <span className="text-[30px] font-[600]">Role</span>
-            <span
+          <div className="font-[Quicksand] font-[700] text-[1.3rem] gap-x-3 flex items-center justify-start max767:w-[100%]">
+            <div className="text-[30px] font-[600]">Role</div>
+            <div
               className="flex items-center gap-x-[20px] bg-[#465462] rounded-full px-3 py-1 h-fit text-white font-[Quicksand] cursor-pointer"
               onClick={handleClick}
             >
-              {ApplyFilter}{" "}
+              <span className="max767:text-[1rem]">{ApplyFilter}</span>
               <FaChevronDown aria-describedby={id} variant="contained" />
-            </span>
+            </div>
 
             <Popover
               id={id}
@@ -160,7 +162,7 @@ const Users = () => {
             </Popover>
           </div>
           {/* Right */}
-          <div className="flex items-center gap-x-4">
+          <div className="flex items-center gap-x-4 max767:justify-end max767:mt-2">
             <button
               className={`border-2 border-[#465462] px-4 py-[5px] rounded-3xl font-[Quicksand] font-[700] bg-[#fff] text-[#465462] transition-all duration-500 ease-in-out flex gap-x-6 items-center hover:text-white hover:bg-[#465462]`}
               onClick={() => setOpenAddModal(!OpenAddModal)}
@@ -170,7 +172,7 @@ const Users = () => {
             </button>
           </div>
         </div>
-        <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] mb-10 relative mt-6">
+        <div className="w-[90%] max767:w-[95%] max-w-[1200px] border-[1px] border-[#465462] shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] mb-10 relative mt-6">
           <div className="flex justify-between items-center px-5 text-white font-[Quicksand] absolute -top-9 left-[-1px] w-[calc(100%+2px)] bg-[#465462] rounded-[15px]">
             <div className="flex border-[1px] w-[300px] border-white items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden my-[10px]">
               <BsSearch className="text-[1.2rem]" />

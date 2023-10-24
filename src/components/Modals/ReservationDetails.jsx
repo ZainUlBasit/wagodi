@@ -24,7 +24,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID }) => {
           Reservation Details
         </div>
         {/* body */}
-        <div className="flex px-7 gap-x-4">
+        <div className="flex px-7 gap-x-4 max767:flex-col">
           {/* Left Side */}
           <div className="flex flex-col">
             <AuthInput

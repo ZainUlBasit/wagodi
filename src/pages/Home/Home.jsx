@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { data } from "./DemoData";
 import StationReport from "../../components/Modals/StationReport";
 import "../../assets/Style/style.css";
+import MobNavbar from "../../components/Navbar/MobNavbar";
 
 const Home = () => {
   const [Favourites, setFavourites] = useState(false);
@@ -29,6 +30,7 @@ const Home = () => {
   return (
     <>
       <Navbar />
+      <MobNavbar />
       {/* Main wrapper */}
       <div className="w-full flex flex-col items-center justify-center fade-in">
         {/* Header */}

@@ -35,7 +35,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="w-full flex justify-center items-center">
+      <div className="w-full flex justify-center items-center max767:hidden">
         <div className="w-[90%] max-w-[1300px] flex justify-between items-center">
           {/* Left side Logo */}
           <Link to={"/home"} onClick={() => handleNavItemClick("HOME")}>

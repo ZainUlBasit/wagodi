@@ -5,6 +5,7 @@ import AddVendor from "../../components/Modals/AddVendor";
 import EditVendor from "../../components/Modals/EditVendor";
 import { VendorData } from "../../components/Tables/DemoData/VendorData";
 import Navbar from "../../components/Navbar/Navbar";
+import MobNavbar from "../../components/Navbar/MobNavbar";
 
 const Vendor = () => {
   const [VendorID, setVendorID] = useState("");
@@ -14,6 +15,7 @@ const Vendor = () => {
   return (
     <>
       <Navbar />
+      <MobNavbar />
       <div className="flex flex-col justify-center items-center w-full font-[Quicksand] fade-in">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex justify-end mt-6 mb-10">

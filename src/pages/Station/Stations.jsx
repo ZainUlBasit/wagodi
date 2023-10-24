@@ -10,6 +10,7 @@ import AddStation from "../../components/Modals/AddStation";
 import "../../assets/Style/style.css";
 import EditStation from "../../components/Modals/EditStation";
 import { StationData } from "../../components/Tables/DemoData/StationData";
+import MobNavbar from "../../components/Navbar/MobNavbar";
 
 const Stations = () => {
   const [Filter, setFilter] = useState("");
@@ -21,6 +22,7 @@ const Stations = () => {
   return (
     <>
       <Navbar />
+      <MobNavbar />
       <div className="flex flex-col justify-center items-center w-full font-[Quicksand] fade-in">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex justify-end mt-6 mb-10">

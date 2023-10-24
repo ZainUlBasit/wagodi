@@ -12,7 +12,7 @@ const LoginComp = () => {
   const navigate = useNavigate()
   return (
     <>
-      <div className="w-[383px] h-[496px] shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] flex items-center flex-col rounded-md pt-[40px] font-[Quicksand] fade-in">
+      <div className="w-[383px] max767:w-[95%] max767:mb-4 h-[496px] shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] flex items-center flex-col rounded-md pt-[40px] font-[Quicksand] fade-in">
         <h1 className="w-full text-[1.9rem] font-[700] text-center">
           WELCOME BACK!
         </h1>

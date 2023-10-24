@@ -23,7 +23,7 @@ const Register = () => {
   };
   return (
     <>
-      <div className="w-fit font-[Quicksand] flex flex-col justify-center items-center shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] px-5 py-8 rounded-md h-[496px] fade-in">
+      <div className="w-fit font-[Quicksand] flex flex-col justify-center items-center shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] px-5 py-8 rounded-md sm:h-fit fade-in sm:w-[90%] max767:mb-4">
         <h1 className="w-full text-[26px] font-[700] text-center">
           REGISTER
         </h1>
@@ -31,7 +31,7 @@ const Register = () => {
           Just Some Information and you are in
         </p>
         {/* main wrapper */}
-        <div className="w-full flex gap-x-6">
+        <div className="w-full flex gap-x-6 max1200:flex-col  max1200:items-center">
           {/* left side */}
           <div>
             <AuthInput

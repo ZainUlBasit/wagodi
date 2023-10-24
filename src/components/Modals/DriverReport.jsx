@@ -33,8 +33,8 @@ const DriverReport = ({ Open, setOpen }) => {
   const id = open ? "simple-popover" : undefined;
   return (
     <CustomModal open={Open} setOpen={setOpen}>
-      <div className="w-[900px]">
-        <div className="bg-[#56636F] text-white py-3 flex justify-center items-center">
+      <div className="w-[900px] max767:w-auto">
+        <div className="bg-[#56636F] text-white py-3 flex justify-center items-center border-b-[1px] border-b-white">
           <div
             className="flex items-center w-fit text-[#56636F] bg-white py-3 px-3 rounded-full"
             onClick={handleClick}

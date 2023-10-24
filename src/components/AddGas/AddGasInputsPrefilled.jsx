@@ -16,7 +16,7 @@ const AddGasInputsPrefilled = ({
 
   return (
     <>
-      <div className="flex items-center gap-x-4 ml-10 mt-8">
+      <div className="flex items-center gap-x-4 ml-10 mt-8 max767:flex-wrap">
         <GasInput
           label={"Fuel Type"}
           placeholder={"91"}

@@ -9,6 +9,7 @@ import StationReport from "../../components/Modals/StationReport";
 import { StationStatisticsData } from "../../components/Tables/DemoData/StationStatisticsData";
 import DriverReport from "../../components/Modals/DriverReport";
 import Navbar from "../../components/Navbar/Navbar";
+import MobNavbar from "../../components/Navbar/MobNavbar";
 
 const Statistics = () => {
   const [selectedMonth, setSelectedMonth] = useState(new Date());
@@ -51,16 +52,17 @@ const Statistics = () => {
   return (
     <>
       <Navbar />
+      <MobNavbar />
       <div className="w-full flex flex-col justify-center items-center mb-5 fade-in">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex justify-between mt-6 mb-3">
           {/* Left */}
-          <div className="font-[Quicksand] font-[700] text-[2rem]">
+          <div className="font-[Quicksand] font-[700] text-[2rem] max767:text-[1.3rem]">
             Station Statistics
           </div>
           {/* Right */}
           <div className="flex items-center gap-x-4">
-            <div className="px-4 py-[6px] border-2 border-white rounded-full text-black cursor-pointer bg-[#465462] text-white">
+            <div className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white">
               <div className="flex items-center">
                 <input
                   type="text"
@@ -161,7 +163,7 @@ const Statistics = () => {
               CurrentTab === "stations"
                 ? "bg-[#576370] text-white"
                 : "bg-[#EFE7EC] text-[#576370]"
-            } py-3 transition-all ease-in-out duration-700 cursor-pointer`}
+            } py-3 transition-all ease-in-out duration-700 cursor-pointer max767:py-2`}
             onClick={() => setCurrentTab("stations")}
           >
             Stations
@@ -171,7 +173,7 @@ const Statistics = () => {
               CurrentTab === "drivers"
                 ? "bg-[#576370] text-white"
                 : "bg-[#EFE7EC] text-[#576370]"
-            } py-3 transition-all ease-in-out duration-700 cursor-pointer`}
+            } py-3 transition-all ease-in-out duration-700 cursor-pointer max767:py-2`}
             onClick={() => setCurrentTab("drivers")}
           >
             Drivers

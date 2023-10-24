@@ -24,7 +24,7 @@ export default function NotificationTable() {
                 fontWeight: 400,
                 fontFamily: "Quicksand",
                 borderBlockWidth: 0,
-                padding: 0,
+                paddingLeft: 3,
               }}
               component="th"
               scope="row"
@@ -72,8 +72,8 @@ export default function NotificationTable() {
                 scope="row"
                 align="left"
               >
-                <div className="flex flex-col">
-                  <span className="font-[700] text-[26px]">
+                <div className="flex flex-col max767:pl-2">
+                  <span className="font-[700] text-[26px] max767:text-[1.3rem]">
                     {row.date.split(" ")[0]}
                   </span>
                   <span className="font-[600] text-[.8rem]">
@@ -90,7 +90,7 @@ export default function NotificationTable() {
                 }}
                 align="left"
               >
-                {row.description}
+                <span className="max767:text-[1.2rem]">{row.description}</span>
               </TableCell>
               <TableCell
                 sx={{
@@ -102,7 +102,9 @@ export default function NotificationTable() {
               >
                 <div className="flex justify-center items-center gap-x-1 text-[#A5A5A5]">
                   <AiOutlineClockCircle className="text-[1.2rem]" />
-                  <span className="font-[700]">{row.time}</span>
+                  <span className="font-[700] max767:text-[.8rem]">
+                    {row.time}
+                  </span>
                 </div>
               </TableCell>
             </TableRow>

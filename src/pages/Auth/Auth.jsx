@@ -2,22 +2,36 @@ import AuthBG from "../../assets/images/AuthBg.png";
 import LogoWhite from "../../assets/images/logoWhite.png";
 import LoginComp from "../../components/Login/LoginComp";
 import Register from "../../components/Register/Register";
-import React, { useState } from "react";
-import "../../assets/Style/style.css"
+import React, { useEffect, useState } from "react";
+import "../../assets/Style/style.css";
+import LogoDesign from "../../components/LogoDesign/LogoDesign";
+import MobLogoDesign from "../../components/LogoDesign/MobLogoDesign";
 
 const Auth = () => {
   const [IsLogin, setIsLogin] = useState(true);
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  // Update the width value when the window is resized
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Clean up the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []); // Empty dependency array ensures that this effect runs once after the initial render
+
   return (
     <>
-      <div className="flex w-full h-screen  justify-between items-center pr-[100px]">
-        <div className="relative">
-          <img src={AuthBG} className="w-fit h-screen" />
-          <img
-            src={LogoWhite}
-            className="lg:w-[400px] w-[50rem] absolute bottom-7 right-10"
-          />
-        </div>
-        <div className="flex justify-center flex-col items-center w-[55%] fade-in">
+      <div className="flex w-[100vw] h-screen justify-between items-center max767:items-start pr-[100px] max950:flex-col max950:pr-0">
+        {windowWidth > 767 ? <LogoDesign /> : <MobLogoDesign />}
+        <div className="flex justify-center flex-col items-center w-[55%] fade-in max550:w-full">
           <div className="bg-[#EFE7EC] text-[#586571] overflow-hidden rounded-[100px] font-[Quicksand] font-[700] w-fit mb-5">
             <button
               className={

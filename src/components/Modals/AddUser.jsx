@@ -66,7 +66,7 @@ const AddUser = ({ Open, setOpen }) => {
           Add User
         </h1>
         <div className="">
-          <div className="flex gap-x-10 px-10">
+          <div className="flex gap-x-10 px-10 max767:flex-col">
             {/* left */}
             <div>
               <AuthInput
@@ -405,15 +405,15 @@ const AddUser = ({ Open, setOpen }) => {
               </Popover>
             </div>
           </div>
-          <div className="w-full flex justify-center items-center gap-x-5">
+          <div className="w-full flex justify-center items-center gap-x-5 font-[Quicksand]">
             <button
-              className={`mt-[5px] mb-[30px] w-[197px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+              className={`mt-[5px] mb-[30px] w-[197px] max767:w-[120px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
               onClick={onSubmit}
             >
               Add
             </button>
             <button
-              className={`mt-[5px] mb-[30px] w-[197px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+              className={`mt-[5px] mb-[30px] w-[197px] max767:w-[120px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
               onClick={() => setOpen(false)}
             >
               Cancel

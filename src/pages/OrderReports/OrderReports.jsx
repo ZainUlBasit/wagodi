@@ -9,6 +9,8 @@ import { Popover, Typography } from "@mui/material";
 import DateInput from "../../components/Input/DateInput";
 import MonthPicker from "../../components/Select/MonthPickerSelect";
 import "../../assets/Style/style.css";
+import MobNavbar from "../../components/Navbar/MobNavbar";
+import SendReportDate from "../../components/Modals/SendReportDate";
 
 const OrderReports = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -29,16 +31,17 @@ const OrderReports = () => {
   const id = open ? "simple-popover" : undefined;
   return (
     <>
+      <MobNavbar />
       <Navbar />
-      <div className="flex flex-col justify-center items-center w-full fade-in">
+      <div className="flex flex-col justify-center items-center max767:items-start w-full fade-in">
         {/* Header */}
-        <div className="w-[90%] max-w-[1200px] flex justify-between mt-6 mb-10">
+        <div className="w-[100%] max-w-[1200px] flex max767:flex-col justify-between mt-6 mb-10 max767:pl-4">
           {/* Left */}
           <div className="font-[Quicksand] font-[700] text-[2rem]">
             Approved Orders
           </div>
           {/* Right */}
-          <div className="flex items-center gap-x-4">
+          <div className="flex items-center gap-x-4  max767:w-full max767:justify-end  max767:mt-3">
             <DateInput
               label="Date"
               required={false}
@@ -51,7 +54,7 @@ const OrderReports = () => {
             >
               Send Report
             </button>
-            <div className="flex border-[1px] w-[300px] border-black items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden">
+            <div className="flex border-[1px] w-[300px] border-black items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden max767:hidden">
               <BsSearch />
               <input
                 className="outline-none w-full"
@@ -71,7 +74,7 @@ const OrderReports = () => {
         }).map((AO) => {
           return (
             <>
-              <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] mb-10 relative">
+              <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] mb-10 relative min-w-[1200px]">
                 <div className="flex justify-between items-center px-5 text-white font-[Quicksand] absolute -top-5 left-[-1px] w-[calc(100%+2px)] h-[44px] bg-[#465462] rounded-[15px]">
                   <div className="font-[700] text-[13.9px]">
                     RecieptNumber:
@@ -214,7 +217,7 @@ const OrderReports = () => {
         })}
       </div>
       {OpenSendReport && (
-        <SendReport Open={OpenSendReport} setOpen={setOpenSendReport} />
+        <SendReportDate Open={OpenSendReport} setOpen={setOpenSendReport} />
       )}
     </>
   );

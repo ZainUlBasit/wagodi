@@ -3,6 +3,7 @@ import AuthInput from "../Input/AuthInput";
 import { FaRegEdit } from "react-icons/fa";
 import AuthTextArea from "../Input/AuthTextArea";
 import { FaPlus } from "react-icons/fa";
+import MobNavbar from "../Navbar/MobNavbar";
 
 const CompanyDetails = () => {
   const [CompanyName, setCompanyName] = useState("");
@@ -20,15 +21,16 @@ const CompanyDetails = () => {
   };
   return (
     <>
+      <MobNavbar />
       {/* Main Wrapper */}
-      <div className="fade-in">
-        <div className="flex justify-between items-center mb-8 font-[600] font-[Quicksand] text-[1.8rem] px-5">
+      <div className="fade-in max767:mt-4 max767:flex max767:flex-col max767:justify-center max767:items-center">
+        <div className="flex justify-between items-center mb-8 font-[600] font-[Quicksand] text-[1.8rem] px-5 max767:w-[90%] max767:px-0">
           <div>Details</div>
           <div>
             <FaRegEdit />
           </div>
         </div>
-        <div className="flex gap-x-5 px-5">
+        <div className="flex gap-x-5 px-5 max767:flex-col max767:items-center max767:px-0">
           {/* Left Side */}
           <div>
             <AuthInput
@@ -101,9 +103,9 @@ const CompanyDetails = () => {
             </div>
           </div>
         </div>
-        <div>
+        <div className="max767:w-[90%] max767:flex  max767:justify-center ">
           <button
-            className={`mt-[20px] w-[297px] h-fit py-2 ml-5 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+            className={`mt-[20px] w-[297px] h-fit py-2 ml-5 max767:ml-0 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
             onClick={() => {}}
           >
             Save

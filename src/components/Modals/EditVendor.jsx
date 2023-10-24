@@ -21,7 +21,7 @@ const EditVendor = ({ Open, setOpen, Data }) => {
           Edit Vendor
         </h1>
         <div className="">
-          <div className="flex gap-x-10 px-10">
+          <div className="flex gap-x-10 px-10 max767:flex-col">
             {/* left */}
             <div>
               <AuthInput
@@ -45,7 +45,7 @@ const EditVendor = ({ Open, setOpen, Data }) => {
                 Price per/L
               </div>
               <div className="flex gap-x-2">
-                <div className="relative mb-[15px] w-[110px]">
+                <div className="relative mb-[15px] w-[110px] max767:w-[90px]">
                   <p className="absolute top-[-11px] left-4 w-fit bg-white font-[Quicksand] text-[15px] font-[600]">
                     95
                   </p>
@@ -58,7 +58,7 @@ const EditVendor = ({ Open, setOpen, Data }) => {
                     onChange={(e) => set_95(e.target.value)}
                   />
                 </div>
-                <div className="relative mb-[15px] w-[110px]">
+                <div className="relative mb-[15px] w-[110px] max767:w-[90px]">
                   <p className="absolute top-[-11px] left-4 w-fit bg-white font-[Quicksand] text-[15px] font-[600]">
                     91
                   </p>
@@ -71,7 +71,7 @@ const EditVendor = ({ Open, setOpen, Data }) => {
                     onChange={(e) => set_91(e.target.value)}
                   />
                 </div>
-                <div className="relative mb-[15px] w-[110px]">
+                <div className="relative mb-[15px] w-[110px] max767:w-[90px]">
                   <p className="absolute top-[-11px] left-4 w-fit bg-white font-[Quicksand] text-[15px] font-[600]">
                     D
                   </p>
@@ -87,15 +87,15 @@ const EditVendor = ({ Open, setOpen, Data }) => {
               </div>
             </div>
           </div>
-          <div className="w-full flex justify-center items-center gap-x-5 mt-5 mb-3">
+          <div className="w-full flex justify-center items-center gap-x-5 mt-5 mb-3 font-[Quicksand]">
             <button
-              className={`mt-[5px] mb-[30px] w-[197px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+              className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
               onClick={onSubmit}
             >
               Edit
             </button>
             <button
-              className={`mt-[5px] mb-[30px] w-[197px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+              className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
               onClick={() => setOpen(false)}
             >
               Cancel

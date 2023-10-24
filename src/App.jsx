@@ -20,6 +20,8 @@ import Setting from "./pages/Setting/Setting";
 import AddReservation from "./pages/AddReservation/AddReservation";
 import OrderManagerOrderReports from "./pages/OrderReports/OrderManagerOrderReports";
 import OrderInfo from "./components/Cards/OrderInfo";
+import ChangePassword from "./components/Setting/ChangePassword";
+import CompanyDetails from "./components/Setting/CompanyDetails";
 
 const App = () => {
   const [Loading, setLoading] = useState(true);
@@ -46,7 +48,10 @@ const App = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/ongoing-orders" element={<OngoingOrder />} />
         <Route path="/orders-report" element={<OrderReports />} />
-        <Route path="/order-manager-orders-report" element={<OrderManagerOrderReports />} />
+        <Route
+          path="/order-manager-orders-report"
+          element={<OrderManagerOrderReports />}
+        />
         <Route path="/orders-report-info" element={<OrderInfo />} />
         <Route path="/notification" element={<Notification />} />
         <Route path="/users" element={<Users />} />
@@ -55,6 +60,8 @@ const App = () => {
         <Route path="/statistics" element={<Statistics />} />
         <Route path="/setting" element={<Setting />} />
         <Route path="/add-reservation" element={<AddReservation />} />
+        <Route path="/change-password" element={<ChangePassword />} />
+        <Route path="/company-details" element={<CompanyDetails />} />
       </Routes>
     </>
   );

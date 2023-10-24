@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import NotificationTable from "../../components/Tables/NotificationTable";
 import { BiSolidChevronRight } from "react-icons/bi";
 import "../../assets/Style/style.css";
+import MobNavbar from "../../components/Navbar/MobNavbar";
 
 const Notification = () => {
   const [FromDate, setFromDate] = useState("2023-12-11");
@@ -14,15 +15,16 @@ const Notification = () => {
   return (
     <>
       <Navbar />
+      <MobNavbar />
       <div className="flex flex-col justify-center items-center w-full fade-in">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex justify-between items-center mt-6 mb-5">
           {/* Left */}
-          <div className="font-[Quicksand] font-[700] text-[2rem]">
+          <div className="font-[Quicksand] font-[700] text-[2rem] max767:text-[1.8rem]">
             General Notifications
           </div>
           {/* Right */}
-          <div className="font-[Quicksand] font-[700] flex gap-x-2 items-center">
+          <div className="font-[Quicksand] font-[700] flex gap-x-2 items-center max767:hidden">
             <div className="relative w-[200px]">
               <p className="absolute top-[-11px] left-4 px-[4px] w-fit bg-white font-[Quicksand] text-[15px]">
                 From
