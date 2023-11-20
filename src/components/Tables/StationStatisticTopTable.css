@@ -1,7 +1,7 @@
 /* DriverDetailTable.css */
 .custom-table-container {
-  max-height: 470px;
-  /* overflow-y: auto; */
+  max-height: 360px;
+  overflow-y: auto;
   /* Hide the scrollbar */
   scrollbar-width: thin;
   scrollbar-color: transparent transparent; /* Hide scrollbar in Firefox */

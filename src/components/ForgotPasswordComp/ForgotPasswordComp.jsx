@@ -4,10 +4,25 @@ import forgotpassword from "../../assets/images/forgotpassword.png";
 import AuthInput from "../Input/AuthInput";
 import AuthBtn from "../buttons/AuthBtn";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { ForgetPasswordApi } from "../../Https";
 
 const ForgotPasswordComp = () => {
   const [Email, setEmail] = useState("");
   const navigate = useNavigate();
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await ForgetPasswordApi({ email: Email });
+      console.log(response);
+      toast.success(response.data.data.msg);
+      navigate("/otp-verification", {
+        state: { userId: response.data.data.userId },
+      });
+    } catch (err) {
+      toast.error(err.response.data.error.msg);
+    }
+  };
   return (
     <>
       <div className=" flex flex-col items-center">
@@ -38,7 +53,7 @@ const ForgotPasswordComp = () => {
               Sign In
             </span>
           </p>
-          <AuthBtn title={"Continue"} navigateTo={"/otp-verification"} />
+          <AuthBtn title={"Continue"} onSubmit={onSubmit} />
         </div>
       </div>
     </>

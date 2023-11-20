@@ -8,4 +8,5 @@ export const MobNavData = [
   { title: "Vendor", link: "/vendor" },
   { title: "Company Detail", link: "/company-details" },
   { title: "Change Password", link: "/change-password" },
+  { title: "Subscription", link: "/subscription" },
 ];

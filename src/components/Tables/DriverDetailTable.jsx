@@ -53,7 +53,7 @@ export default function DriverDetailTable({ DriverData }) {
               }}
               align="center"
             >
-              <div className="max767:text-[1rem]">Start Point</div>
+              <div className="max767:text-[1rem]">From</div>
             </TableCell>
 
             <TableCell
@@ -70,7 +70,7 @@ export default function DriverDetailTable({ DriverData }) {
               }}
               align="center"
             >
-              <div className="max767:text-[1rem]">Station Name</div>
+              <div className="max767:text-[1rem]">To</div>
             </TableCell>
 
             <TableCell

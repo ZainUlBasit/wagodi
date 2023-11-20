@@ -5,6 +5,10 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { SetAuthNotFound } from "../../store/Slices/AuthSlice";
+import { useState } from "react";
 
 const style = {
   position: "absolute",
@@ -19,8 +23,10 @@ const style = {
   outline: "none",
 };
 
-export default function Logout({ Open, setOpen }) {
+export default function Logout({ Open, setOpen, setOpenLoggingOut }) {
   const handleClose = () => setOpen(false);
+  const navigate = useNavigate();
+  const [Loading, setLoading] = useState(false);
   return (
     <div>
       <Modal
@@ -46,9 +52,12 @@ export default function Logout({ Open, setOpen }) {
               <div className="flex flex-col w-full justify-center items-center my-10">
                 <button
                   className={`mt-[20px] w-[297px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] border-[2px] border-[#465462] hover:border-[#fff] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-                  onClick={() => {}}
+                  onClick={() => {
+                    setOpenLoggingOut(true);
+                    setOpen(false);
+                  }}
                 >
-                  Yes , Logout
+                  {Loading ? "Loading..." : "Yes , Logout"}
                 </button>
                 <button
                   className={`mt-[20px] w-[297px] h-fit py-2 bg-[#fff] rounded-[40px] text-black text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}

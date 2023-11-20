@@ -4,14 +4,28 @@ import { useNavigate } from "react-router-dom";
 import AuthInput from "../Input/AuthInput";
 import AuthInputPassword from "../Input/AuthInputPassword";
 import Checkbox from "@mui/material/Checkbox";
+import { UpdatePasswordApi } from "../../Https";
+import toast from "react-hot-toast";
 
 const label = { inputProps: { "aria-label": "Checkbox" } };
 
-const SetNewPasswordComp = () => {
+const SetNewPasswordComp = ({ userId, otpId }) => {
   const navigate = useNavigate();
   const [NewPassword, setNewPassword] = useState("");
   const [ConfirmPassword, setConfirmPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const bodyData = { otpId: otpId, userId: userId, newPassword: NewPassword };
+    try {
+      const response = await UpdatePasswordApi(bodyData);
+      toast.success(response.data.data.msg);
+      navigate("/auth");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -40,9 +54,7 @@ const SetNewPasswordComp = () => {
               required={false}
             />
           </div>
-          <div className="w-[320px] flex justify-start mt-[-15px] mb-[20px] pl-2">
-            
-          </div>
+          <div className="w-[320px] flex justify-start mt-[-15px] mb-[20px] pl-2"></div>
           <p className="mt-[35px]">
             Remember Password?{" "}
             <span
@@ -53,7 +65,7 @@ const SetNewPasswordComp = () => {
               Sign In
             </span>
           </p>
-          <AuthBtn title={"Continue"} navigateTo={"/auth"} />
+          <AuthBtn title={"Continue"} onSubmit={onSubmit} />
         </div>
       </div>
     </>

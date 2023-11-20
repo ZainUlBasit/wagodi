@@ -4,7 +4,9 @@ import AuthTextArea from "../Input/AuthTextArea";
 import AuthInputPassword from "../Input/AuthInputPassword";
 import { FaPlus } from "react-icons/fa";
 import AuthBtn from "../buttons/AuthBtn";
-import "../../assets/Style/style.css"
+import "../../assets/Style/style.css";
+import { SignUpApi } from "../../Https";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const [Email, setEmail] = useState("");
@@ -21,12 +23,33 @@ const Register = () => {
     const file = e.target.files[0];
     setSelectedFile(file);
   };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    let response;
+    const BodyData = {
+      name: CompanyName,
+      address: Address,
+      phone: PhoneNumber,
+      email: Email,
+      crn_number: Number(CommercialRegistration),
+      tax_number: TaxationNumber,
+      password: Password,
+      role: 0,
+    };
+    // console.log(BodyData);
+    try {
+      response = await SignUpApi(BodyData);
+      if (response.data.success) toast.success(response.data.data.msg);
+      else toast.error(response.data.error.msg);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
       <div className="w-fit font-[Quicksand] flex flex-col justify-center items-center shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] px-5 py-8 rounded-md sm:h-fit fade-in sm:w-[90%] max767:mb-4">
-        <h1 className="w-full text-[26px] font-[700] text-center">
-          REGISTER
-        </h1>
+        <h1 className="w-full text-[26px] font-[700] text-center">REGISTER</h1>
         <p className="mb-[20px] font-[300]">
           Just Some Information and you are in
         </p>
@@ -118,7 +141,7 @@ const Register = () => {
             </div>
           </div>
         </div>
-        <AuthBtn title={"Sign Up"} navigateTo={"/"} />
+        <AuthBtn title={"Sign Up"} onSubmit={onSubmit} />
       </div>
     </>
   );

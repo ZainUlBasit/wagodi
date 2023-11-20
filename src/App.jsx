@@ -23,12 +23,30 @@ import OrderInfo from "./components/Cards/OrderInfo";
 import ChangePassword from "./components/Setting/ChangePassword";
 import CompanyDetails from "./components/Setting/CompanyDetails";
 import MobNavbar from "./components/Navbar/MobNavbar";
+import Subscription from "./components/Setting/Subscription";
+import { useDispatch } from "react-redux";
+import { SetAuth, SetAuthNotFound } from "./store/Slices/AuthSlice";
+import LoginProtectedRoute from "./components/ProtectedRoutes/LoginProtectedRoute";
+import ProtectedRoute from "./components/ProtectedRoutes/ProtectedRoute";
+import { Toaster } from "react-hot-toast";
+import LogoutComp from "./components/Logout/LogoutComp";
 
 const App = () => {
   const [Loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const pathname = location.pathname;
+  const dispatch = useDispatch();
+  const CheckLocalStorage = () => {
+    const isLoggedIn = localStorage.getItem("logged-in");
+    if (isLoggedIn) {
+      const user_data = localStorage.getItem("user-data");
+      dispatch(SetAuth(JSON.parse(user_data)));
+    } else {
+      dispatch(SetAuthNotFound([]));
+    }
+  };
   useEffect(() => {
+    CheckLocalStorage();
     setInterval(() => {
       setLoading(false);
     }, 3000);
@@ -44,38 +62,186 @@ const App = () => {
         pathname !== "/auth" &&
         pathname !== "/forgot-password" &&
         pathname !== "/otp-verification" &&
+        pathname !== "/logout" &&
         pathname !== "/set-new-password" && <Navbar />}
       {pathname !== "/" &&
         pathname !== "/onboarding" &&
         pathname !== "/auth" &&
         pathname !== "/forgot-password" &&
+        pathname !== "/logout" &&
         pathname !== "/otp-verification" &&
         pathname !== "/set-new-password" && <MobNavbar />}
       <Routes>
-        <Route path="/" element={<Splash />} />
-        <Route path="/onboarding" element={<Onbaording />} />
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/otp-verification" element={<OTP />} />
-        <Route path="/set-new-password" element={<SetNewPassword />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/ongoing-orders" element={<OngoingOrder />} />
-        <Route path="/orders-report" element={<OrderReports />} />
+        <Route
+          path="/"
+          element={
+            <LoginProtectedRoute>
+              <Splash />
+            </LoginProtectedRoute>
+          }
+        />
+        <Route
+          path="/onboarding"
+          element={
+            <LoginProtectedRoute>
+              <Onbaording />
+            </LoginProtectedRoute>
+          }
+        />
+        <Route
+          path="/auth"
+          element={
+            <LoginProtectedRoute>
+              <Auth />
+            </LoginProtectedRoute>
+          }
+        />
+        <Route
+          path="/forgot-password"
+          element={
+            <LoginProtectedRoute>
+              <ForgotPassword />
+            </LoginProtectedRoute>
+          }
+        />
+        <Route
+          path="/otp-verification"
+          element={
+            <LoginProtectedRoute>
+              <OTP />
+            </LoginProtectedRoute>
+          }
+        />
+        <Route
+          path="/set-new-password"
+          element={
+            <LoginProtectedRoute>
+              <SetNewPassword />
+            </LoginProtectedRoute>
+          }
+        />
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/ongoing-orders"
+          element={
+            <ProtectedRoute>
+              <OngoingOrder />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/orders-report"
+          element={
+            <ProtectedRoute>
+              <OrderReports />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/order-manager-orders-report"
-          element={<OrderManagerOrderReports />}
+          element={
+            <ProtectedRoute>
+              <OrderManagerOrderReports />
+            </ProtectedRoute>
+          }
         />
-        <Route path="/orders-report-info" element={<OrderInfo />} />
-        <Route path="/notification" element={<Notification />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/stations" element={<Stations />} />
-        <Route path="/vendor" element={<Vendor />} />
-        <Route path="/statistics" element={<Statistics />} />
-        <Route path="/setting" element={<Setting />} />
-        <Route path="/add-reservation" element={<AddReservation />} />
-        <Route path="/change-password" element={<ChangePassword />} />
-        <Route path="/company-details" element={<CompanyDetails />} />
+        <Route
+          path="/orders-report-info"
+          element={
+            <ProtectedRoute>
+              <OrderInfo />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/notification"
+          element={
+            <ProtectedRoute>
+              <Notification />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users"
+          element={
+            <ProtectedRoute>
+              <Users />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/stations"
+          element={
+            <ProtectedRoute>
+              <Stations />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/vendor"
+          element={
+            <ProtectedRoute>
+              <Vendor />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/statistics"
+          element={
+            <ProtectedRoute>
+              <Statistics />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/setting"
+          element={
+            <ProtectedRoute>
+              <Setting />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/add-reservation"
+          element={
+            <ProtectedRoute>
+              <AddReservation />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/change-password"
+          element={
+            <ProtectedRoute>
+              <ChangePassword />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/company-details"
+          element={
+            <ProtectedRoute>
+              <CompanyDetails />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/subscription"
+          element={
+            <ProtectedRoute>
+              <Subscription />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
+      <Toaster position="top-right" reverseOrder={false} />
     </>
   );
 };

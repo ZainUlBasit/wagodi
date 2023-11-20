@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Data } from "./DemoData/Orders";
 import { AiFillEye } from "react-icons/ai";
+import { OngoingOrdersColumns } from "../../assets/Columns/OngoingOrdersColumns";
 
 export default function OngoingOrdersTable({
   Filter,
@@ -20,104 +21,21 @@ export default function OngoingOrdersTable({
       <Table aria-label="simple table">
         <TableHead style={{ borderBottomWidth: 2, borderColor: "#465462" }}>
           <TableRow>
-            <TableCell
-              sx={{
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "12px",
-                paddingBottom: "12px",
-              }}
-            >
-              Order Number
-            </TableCell>
-            <TableCell
-              sx={{
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "12px",
-                paddingBottom: "12px",
-              }}
-              align="center"
-            >
-              Reservation Date
-            </TableCell>
-            <TableCell
-              sx={{
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "12px",
-                paddingBottom: "12px",
-              }}
-              align="center"
-            >
-              Receipt number
-            </TableCell>
-            <TableCell
-              sx={{
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "12px",
-                paddingBottom: "12px",
-              }}
-              align="center"
-            >
-              Station Name
-            </TableCell>
-            <TableCell
-              sx={{
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "12px",
-                paddingBottom: "12px",
-              }}
-              align="center"
-            >
-              Paid Amount
-            </TableCell>
-            <TableCell
-              sx={{
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "12px",
-                paddingBottom: "12px",
-              }}
-              align="center"
-            >
-              Driver Name
-            </TableCell>
-            <TableCell
-              sx={{
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "12px",
-                paddingBottom: "12px",
-              }}
-              align="center"
-            >
-              Delivery Date And Time
-            </TableCell>
-            <TableCell
-              sx={{
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "12px",
-                paddingBottom: "12px",
-              }}
-              align="center"
-            >
-              Status
-            </TableCell>
-            <TableCell
-              sx={{
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "12px",
-                paddingBottom: "12px",
-              }}
-              align="center"
-            >
-              View
-            </TableCell>
+            {OngoingOrdersColumns.map((column) => {
+              return (
+                <TableCell
+                  sx={{
+                    fontWeight: "bold",
+                    fontFamily: "Quicksand",
+                    paddingTop: "12px",
+                    paddingBottom: "12px",
+                    textAlign: "center",
+                  }}
+                >
+                  {column.title}
+                </TableCell>
+              );
+            })}
           </TableRow>
         </TableHead>
         <TableBody>

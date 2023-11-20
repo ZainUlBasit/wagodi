@@ -1,7 +1,7 @@
 import React from "react";
 import "./PageLoader.css";
 
-const PageLoader = () => {
+const LogOutLoader = () => {
   return (
     <div id="wifi-loader">
       <svg class="circle-outer" viewBox="0 0 86 86">
@@ -22,4 +22,4 @@ const PageLoader = () => {
   );
 };
 
-export default PageLoader;
+export default LogOutLoader;

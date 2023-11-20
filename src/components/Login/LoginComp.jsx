@@ -4,12 +4,89 @@ import AuthInputPassword from "../Input/AuthInputPassword";
 import AuthBtn from "../buttons/AuthBtn";
 import { Link, useNavigate } from "react-router-dom";
 import "../../assets/Style/style.css";
+import { SignInApi } from "../../Https";
+import AddingLoader from "../Loaders/AddingLoader";
+import { useDispatch } from "react-redux";
+import { SetAuth } from "../../store/Slices/AuthSlice";
+import toast, { Toaster } from "react-hot-toast";
+
+const SuccessToast = (msg) => {
+  return toast.success(msg, {
+    duration: 4000,
+    position: "top-right",
+    style: {
+      border: "1px solid green",
+      padding: "16px",
+      color: "green",
+      backgroundColor: "white",
+      fontFamily: "Quicksand",
+    },
+    iconTheme: {
+      primary: "green",
+      secondary: "white",
+    },
+  });
+};
+const ErrorToast = (msg) => {
+  return toast.error(msg, {
+    duration: 4000,
+    position: "top-right",
+    style: {
+      border: "1px solid red",
+      padding: "16px",
+      color: "red",
+      backgroundColor: "white",
+      fontFamily: "Quicksand",
+    },
+    iconTheme: {
+      primary: "red",
+      secondary: "white",
+    },
+  });
+};
 
 const LoginComp = () => {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
+  const [Loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    let response;
+    let response_type;
+    try {
+      response = await SignInApi({ email: Email, password: Password });
+      console.log(response);
+      response_type = response.data.success;
+      // console.log(response.data.success);
+      if (response.data.success) SuccessToast(response.data?.data?.msg);
+    } catch (err) {
+      response = err;
+      response_type = response.response?.data?.success || false;
+    }
+    console.log(response_type);
+    if (response_type) {
+      localStorage.setItem("logged-in", response_type);
+      localStorage.setItem(
+        "user-data",
+        JSON.stringify(response.data.data.data)
+      );
+      dispatch(SetAuth(response.data.data.data));
+      // navigate("/home");
+    } else {
+      const current_status = response.response?.status || response.status;
+      if (current_status === 200) {
+        ErrorToast(response.data.error.msg);
+      } else if (current_status === 401) {
+        ErrorToast(response.response.data.error.msg);
+      }
+    }
+    setLoading(false);
+  };
   return (
     <>
       <div className="w-[383px] max767:w-[95%] max767:mb-4 h-[496px] shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] flex items-center flex-col rounded-md pt-[40px] font-[Quicksand] fade-in">
@@ -47,9 +124,15 @@ const LoginComp = () => {
               Remember Me
             </label>
           </div>
-          <Link to={"/forgot-password"} className="underline">Forget Password?</Link>
+          <Link to={"/forgot-password"} className="underline">
+            Forget Password?
+          </Link>
         </div>
-        <AuthBtn title={"Sign In"} navigateTo={"/home"} />
+        {Loading ? (
+          <AddingLoader />
+        ) : (
+          <AuthBtn title={"Sign In"} onSubmit={onSubmit} />
+        )}
       </div>
     </>
   );

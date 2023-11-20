@@ -8,11 +8,14 @@ import AuthInputPassword from "../Input/AuthInputPassword";
 import { FaPlus } from "react-icons/fa";
 import AddGasInputs from "../AddGas/AddGasInputs";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useSelector } from "react-redux";
+import { CreateStationApi } from "../../Https";
 
 const AddStation = ({ Open, setOpen }) => {
   const [StationNumber, setStationNumber] = useState("");
   const [StationName, setStationName] = useState("");
   const [Address, setAddress] = useState("");
+  const Auth = useSelector((state) => state.auth);
 
   const [AllGases, setAllGases] = useState([]);
   const [ShowAddGassInputs, setShowAddGassInputs] = useState(false);
@@ -21,6 +24,34 @@ const AddStation = ({ Open, setOpen }) => {
     const updatedGases = [...AllGases];
     updatedGases.splice(index, 1);
     setAllGases(updatedGases);
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const BodyData = {
+      companyId: Auth.data.companyId,
+      fuels: AllGases.map((ag) => {
+        return {
+          type:
+            ag.type === "91" ? 0 : ag.type === "95" ? 1 : ag.type === "D" && 2,
+          price_litre: Number(ag.price),
+          value: Number(ag.volume),
+          max_value: Number(ag.volume),
+        };
+      }),
+      name: StationName,
+      address: Address,
+      phone: StationNumber,
+    };
+
+    // console.log(BodyData);
+
+    try {
+      const response = await CreateStationApi(BodyData);
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -73,7 +104,9 @@ const AddStation = ({ Open, setOpen }) => {
                   <div className="w-[100px] max767:w-[60px] border-r-[1px] border-r-[#606060] text-center">
                     {ag.volume}
                   </div>
-                  <div className="w-[100px] max767:w-[60px] text-right">{ag.price}</div>
+                  <div className="w-[100px] max767:w-[60px] text-right">
+                    {ag.price}
+                  </div>
                   <RiDeleteBin6Line
                     onClick={() => deleteGas(index)}
                     className="ml-4 text-[1.3rem] cursor-pointer hover:text-[red] transition-all duration-500"
@@ -106,7 +139,7 @@ const AddStation = ({ Open, setOpen }) => {
           <div className="w-full flex justify-center items-center gap-x-5 mb-5 font-[Quicksand]">
             <button
               className={`mt-[5px] mb-[30px] w-[197px] max767:w-[100px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-              onClick={() => {}}
+              onClick={onSubmit}
             >
               Add
             </button>

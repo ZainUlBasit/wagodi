@@ -25,7 +25,17 @@ const Stations = () => {
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex justify-end mt-6 mb-10">
           {/* Right */}
-          <div className="flex items-center gap-x-4">
+          <div className="flex items-center gap-x-4 max767:flex-col max767:gap-y-1">
+            <button
+              className={`border-2 border-[#465462] px-4 py-[5px] rounded-3xl font-[Quicksand] font-[700] bg-[#FFB764] text-[#465462] transition-all duration-500 ease-in-out flex gap-x-6 items-center`}
+            >
+              <span className="px-3">{`Inactive Stations: ${14}`}</span>
+            </button>
+            <button
+              className={`border-2 border-[#465462] px-4 py-[5px] rounded-3xl font-[Quicksand] font-[700] bg-[#00EDED] text-[#465462] transition-all duration-500 ease-in-out flex gap-x-6 items-center`}
+            >
+              <span className="px-3">{`Active Stations: ${14}`}</span>
+            </button>
             <button
               className={`border-2 border-[#465462] px-4 py-[5px] rounded-3xl font-[Quicksand] font-[700] bg-[#fff] text-[#465462] transition-all duration-500 ease-in-out flex gap-x-6 items-center hover:text-white hover:bg-[#465462]`}
               onClick={() => setOpenAddModal(!OpenAddModal)}

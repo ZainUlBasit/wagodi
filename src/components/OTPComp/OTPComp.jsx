@@ -1,13 +1,30 @@
 import React, { useRef, useState, useEffect } from "react";
 import AuthBtn from "../buttons/AuthBtn";
 import { useNavigate } from "react-router-dom";
+import { VerifyOtpApi } from "../../Https";
 
-const OTPComp = () => {
+const OTPComp = ({ userId }) => {
   const [otp, setOTP] = useState(["", "", "", ""]); // Initialize with empty strings
   const inputRefs = [useRef(), useRef(), useRef(), useRef()]; // Refs for each input field
   const [countdown, setCountdown] = useState(30); // Countdown timer
   const [timerRunning, setTimerRunning] = useState(true);
   const navigate = useNavigate();
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const enteredOtp = otp[0] + otp[1] + otp[2] + otp[3];
+    let response;
+    try {
+      response = await VerifyOtpApi({ userId, otp: enteredOtp });
+      console.log(response);
+      navigate("/set-new-password", {
+        state: { userId: userId, otpId: response.data.data.otpId },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    console.log("yes", response);
+  };
 
   useEffect(() => {
     let timer;
@@ -33,7 +50,7 @@ const OTPComp = () => {
     const value = e.target.value;
 
     // Ensure the input is a single digit
-    if (/^[0-9]$/.test(value) || value === "") {
+    if (/^[0-9a-zA-Z]$/.test(value) || value === "") {
       const newOTP = [...otp];
       newOTP[index] = value;
       setOTP(newOTP);
@@ -101,7 +118,7 @@ const OTPComp = () => {
               Sign In
             </span>
           </p>
-          <AuthBtn title={"Recover"} navigateTo={"/set-new-password"} />
+          <AuthBtn title={"Recover"} onSubmit={onSubmit} />
         </div>
       </div>
     </>

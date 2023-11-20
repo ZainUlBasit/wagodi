@@ -13,6 +13,7 @@ export default {
       max550: {'max': '550px'},
       max1200: {'max': '1200px'},
       max767: {'max': '767px'},
+      max1056: {'max': '1056px'},
       // min951: {'min': '952px'},
       md: "768px",
       // => @media (min-width: 768px) { ... }

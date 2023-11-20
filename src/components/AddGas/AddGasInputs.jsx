@@ -10,6 +10,7 @@ const AddGasInputs = ({ AllGases, setAllGases, setShowAddGassInputs }) => {
     <>
       <div className="flex items-center gap-x-4 ml-10 mt-8 max767:flex-wrap">
         <GasInput
+          type={"text"}
           label={"Fuel Type"}
           placeholder={"91"}
           required={false}
@@ -17,6 +18,7 @@ const AddGasInputs = ({ AllGases, setAllGases, setShowAddGassInputs }) => {
           setValue={setFuelType}
         />
         <GasInput
+          type={"number"}
           label={"Volume"}
           placeholder={"5"}
           required={false}
@@ -24,6 +26,7 @@ const AddGasInputs = ({ AllGases, setAllGases, setShowAddGassInputs }) => {
           setValue={setFuelVolume}
         />
         <GasInput
+          type={"number"}
           label={"Selling price/Liter"}
           placeholder={"10,000"}
           required={false}

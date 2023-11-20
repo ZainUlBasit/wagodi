@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import { BiDetail } from "react-icons/bi";
 import { RiLockPasswordFill } from "react-icons/ri";
+import { LuShoppingBag } from "react-icons/lu";
 import { TbLogout } from "react-icons/tb";
 import ChangePassword from "../../components/Setting/ChangePassword";
 import CompanyDetails from "../../components/Setting/CompanyDetails";
 import Logout from "../../components/Modals/Logout";
 import Navbar from "../../components/Navbar/Navbar";
+import Subscription from "../../components/Setting/Subscription";
+import LoggingOut from "../../components/Modals/LoggingOut";
 
 const Setting = () => {
   const [ActiveButton, setActiveButton] = useState("CompanyDetails");
   const [OpenModal, setOpenModal] = useState(false);
+  const [OpenLoggingOut, setOpenLoggingOut] = useState(false);
   return (
     <>
       {/* Main wrapper */}
@@ -43,6 +47,19 @@ const Setting = () => {
                 Change password
               </span>
             </div>
+            <div
+              className={`flex transition-all duration-700 ease-in-out gap-x-4 items-center px-5 py-3 cursor-pointer rounded-full  text-[1.3rem] font-[700] font-[Quicksand] ${
+                ActiveButton === "Subscription"
+                  ? "bg-[#56636F] text-white "
+                  : " text-[#56636F] bg-white"
+              }`}
+              onClick={() => setActiveButton("Subscription")}
+            >
+              <LuShoppingBag className="text-[1.5rem] font-[700] font-[Quicksand]" />
+              <span className="text-[1.3rem] font-[700] font-[Quicksand]">
+                Subscription
+              </span>
+            </div>
           </div>
           <div>
             <div
@@ -61,10 +78,20 @@ const Setting = () => {
         {/* Right Side */}
         <div>{ActiveButton === "ChangePassword" && <ChangePassword />}</div>
         <div>{ActiveButton === "CompanyDetails" && <CompanyDetails />}</div>
+        <div>{ActiveButton === "Subscription" && <Subscription />}</div>
       </div>
       {OpenModal && (
         <div className="rounded-[20px] overflow-hidden">
-          <Logout Open={OpenModal} setOpen={setOpenModal} />
+          <Logout
+            Open={OpenModal}
+            setOpen={setOpenModal}
+            setOpenLoggingOut={setOpenLoggingOut}
+          />
+        </div>
+      )}
+      {OpenLoggingOut && (
+        <div className="rounded-[20px] overflow-hidden">
+          <LoggingOut Open={OpenLoggingOut} setOpen={setOpenLoggingOut} />
         </div>
       )}
     </>
