@@ -9,6 +9,7 @@ import ReservationDetails from "../../components/Modals/ReservationDetails";
 import DateInput from "../../components/Input/DateInput";
 import "../../assets/Style/style.css";
 import MobNavbar from "../../components/Navbar/MobNavbar";
+import CustomPoperOverWithShow from "../../components/Popover/CustomPoperOverWithShow";
 
 const OngoingOrder = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -62,102 +63,23 @@ const OngoingOrder = () => {
               variant="contained"
               onClick={handleClick}
             />
-            <Popover
-              id={id}
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              PaperProps={{
-                sx: {
-                  borderRadius: "25px", // Add rounded corners
-                  backgroundColor: "white", // Set background color to white
-                  width: "400px", // Set the width as needed
-                  overflow: "hidden", // Hide overflowing content
-                  marginTop: "6px",
-                },
-              }}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-            >
-              <Typography
-                sx={{
-                  p: 5,
-                  borderColor: "#465462",
-                  backgroundColor: "#465462",
-                  width: "400px",
-                  overflow: "hidden",
-                  borderRadius: "25px",
-                }}
-              >
-                <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
-                  <div className="font-[Quicksand] font-[700] text-[1.5rem] mb-3">
-                    Choose Your Filter
-                  </div>
-                  <p className="h-[2px] w-full bg-[#FFFFFF5C] mb-3 rounded-full"></p>
-                  <div className="w-full flex flex-col justify-between gap-y-3 items-start">
-                    <div
-                      className="flex gap-x-3 items-center cursor-pointer"
-                      onClick={() => setFilter("")}
-                    >
-                      <input
-                        type="checkbox"
-                        className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                        checked={Filter === ""}
-                      />
-                      <span>No Filter</span>
-                    </div>
-                    <div
-                      className="flex gap-x-3 items-center cursor-pointer"
-                      onClick={() => setFilter("Ordered")}
-                    >
-                      <input
-                        type="checkbox"
-                        className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                        checked={Filter === "Ordered"}
-                      />
-                      <span>Ordered</span>
-                    </div>
-                    <div
-                      className="flex gap-x-3 items-center cursor-pointer"
-                      onClick={() => setFilter("En Route")}
-                    >
-                      <input
-                        type="checkbox"
-                        className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                        checked={Filter === "En Route"}
-                      />
-                      <span>En Route</span>
-                    </div>
-                    <div
-                      className="flex gap-x-3 items-center cursor-pointer"
-                      onClick={() => setFilter("Delivered")}
-                    >
-                      <input
-                        type="checkbox"
-                        className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                        checked={Filter === "Delivered"}
-                      />
-                      <span>Delivered</span>
-                    </div>
-                  </div>
-                  <button
-                    className={`mt-[20px] w-[197px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-                    onClick={() => {
-                      handleClose();
-                      setApplyFilter(Filter);
-                    }}
-                  >
-                    Show
-                  </button>
-                </div>
-              </Typography>
-            </Popover>
+            <CustomPoperOverWithShow
+              Title={"Choose Your Filter"}
+              Content={[
+                { Text: "No Filter", FilterText: "" },
+                { Text: "Ordered", FilterText: "Ordered" },
+                { Text: "En Route", FilterText: "En Route" },
+                { Text: "Delivered", FilterText: "Delivered" },
+              ]}
+              Filter={Filter}
+              setFilter={setFilter}
+              ApplyFilter={ApplyFilter}
+              setApplyFilter={setApplyFilter}
+              popover_open={open}
+              popover_id={id}
+              handleClose={handleClose}
+              popover_anchorEl={anchorEl}
+            />
           </div>
         </div>
         <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px]">

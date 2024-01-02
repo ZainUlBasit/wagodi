@@ -17,7 +17,8 @@ const style = {
   border: "0px solid #fff !important",
   borderRadius: 4,
   outline: "none",
-  overflow:"hidden"
+  overflow: "hidden",
+  height:"auto"
 };
 
 export default function CustomModal({ open, setOpen, children }) {

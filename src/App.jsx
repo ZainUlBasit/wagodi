@@ -24,18 +24,21 @@ import ChangePassword from "./components/Setting/ChangePassword";
 import CompanyDetails from "./components/Setting/CompanyDetails";
 import MobNavbar from "./components/Navbar/MobNavbar";
 import Subscription from "./components/Setting/Subscription";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SetAuth, SetAuthNotFound } from "./store/Slices/AuthSlice";
 import LoginProtectedRoute from "./components/ProtectedRoutes/LoginProtectedRoute";
 import ProtectedRoute from "./components/ProtectedRoutes/ProtectedRoute";
 import { Toaster } from "react-hot-toast";
 import LogoutComp from "./components/Logout/LogoutComp";
+import OrderManagerNavbar from "./components/Navbar/OrderManagerNavbar";
 
 const App = () => {
   const [Loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const pathname = location.pathname;
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+
   const CheckLocalStorage = () => {
     const isLoggedIn = localStorage.getItem("logged-in");
     if (isLoggedIn) {
@@ -63,14 +66,25 @@ const App = () => {
         pathname !== "/forgot-password" &&
         pathname !== "/otp-verification" &&
         pathname !== "/logout" &&
-        pathname !== "/set-new-password" && <Navbar />}
+        pathname !== "/set-new-password" &&
+        auth.data.role === 1 && <Navbar />}
       {pathname !== "/" &&
         pathname !== "/onboarding" &&
         pathname !== "/auth" &&
         pathname !== "/forgot-password" &&
         pathname !== "/logout" &&
         pathname !== "/otp-verification" &&
-        pathname !== "/set-new-password" && <MobNavbar />}
+        pathname !== "/set-new-password" &&
+        auth.data.role === 1 && <MobNavbar />}
+      {pathname !== "/" &&
+        pathname !== "/onboarding" &&
+        pathname !== "/auth" &&
+        pathname !== "/forgot-password" &&
+        pathname !== "/otp-verification" &&
+        pathname !== "/logout" &&
+        pathname !== "/set-new-password" &&
+        auth.data.role === 2 && <OrderManagerNavbar />}
+
       <Routes>
         <Route
           path="/"

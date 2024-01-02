@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CustomModal from "./CustomModal";
 import AuthInput from "../Input/AuthInput";
 import AuthInputPopOver from "../Input/AuthInputPopOver";
-import { Popover, Typography } from "@mui/material";
+import { Popover, Switch, Typography } from "@mui/material";
 import AuthTextArea from "../Input/AuthTextArea";
 import AuthInputPassword from "../Input/AuthInputPassword";
 import { FaPlus } from "react-icons/fa";
@@ -10,21 +10,70 @@ import AddGasInputs from "../AddGas/AddGasInputs";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi";
 import AddGasInputsPrefilled from "../AddGas/AddGasInputsPrefilled";
+import { UpdateStationApi } from "../../Https";
+import { data } from "autoprefixer";
+import toast from "react-hot-toast";
+import SuccessToast from "../Toast/SuccessToast";
 
 const EditStation = ({ Open, setOpen, CurrentStation }) => {
   const [StationNumber, setStationNumber] = useState("");
   const [StationName, setStationName] = useState("");
   const [Address, setAddress] = useState("");
   const [EditIndex, setEditIndex] = useState("");
+  const [Status, setStatus] = useState(false);
 
   useEffect(() => {
-    // console.log(CurrentStation[0].Gasses);
-    setStationName(CurrentStation[0].StationName);
-    setStationNumber(CurrentStation[0].StationNumber);
-    setAddress(CurrentStation[0].Address);
-    setAllGases(CurrentStation[0].Gasses);
-    // console.log(CurrentStation[0].Gasses);
+    setStationName(CurrentStation.name);
+    setStationNumber(CurrentStation.phone);
+    setAddress(CurrentStation.address);
+    setAllGases(CurrentStation.fuels);
+    setStatus(CurrentStation.active);
+    // console.log(CurrentStation.Gasses);
   }, []);
+
+  const onSubmitMethod = async (e) => {
+    e.preventDefault();
+    const UpdateGases = AllGases.map((data) => {
+      if (data.type === 0 || data.type === "91") {
+        return {
+          ...data,
+          type: 0,
+        };
+      } else if (data.type === 1 || data.type === "95") {
+        return {
+          ...data,
+          type: 1,
+        };
+      } else if (data.type === 2 || data.type === "D") {
+        return {
+          ...data,
+          type: 2,
+        };
+      }
+    });
+    const BodyData = {
+      stationId: CurrentStation._id,
+      updateData: {
+        name: StationName,
+        address: Address,
+        phone: StationNumber,
+        fuels: UpdateGases,
+        active:Status
+      },
+    };
+    try {
+      let response = await UpdateStationApi(BodyData);
+      console.log(response);
+      if (response.data.success) {
+        SuccessToast("Station Successfully Updated...");
+      } else if (!response.data.success) {
+        toast.error(response.data?.error?.msg);
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.error?.msg);
+      console.log(err);
+    }
+  };
 
   const [AllGases, setAllGases] = useState([]);
   const [ShowAddGassInputs, setShowAddGassInputs] = useState(false);
@@ -36,6 +85,10 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
     updatedGases.splice(index, 1);
     setAllGases(updatedGases);
   };
+
+  useEffect(() => {
+    console.log(AllGases);
+  }, [AllGases]);
 
   return (
     <CustomModal open={Open} setOpen={setOpen}>
@@ -73,6 +126,15 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
                 Value={Address}
                 setValue={setAddress}
               />
+              <div>
+              <Switch
+                defaultChecked
+                checked={Status}
+                size="large"
+                onClick={() => setStatus(!Status)}
+              />
+              {Status ? "Active" : "Inactive"}
+              </div>
             </div>
           </div>
           {/* Show data of array of Gasses */}
@@ -90,19 +152,28 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
               );
             }
             return (
-              <div className="ml-10 flex gap-x-2 my-3 font-[Quicksand] text-[13.9px]">
-                <span className="font-[700]">Gas Type:</span>
+              <div className="ml-10 max767:ml-0 flex max767:justify-center max767:items-center gap-x-2 my-3 font-[Quicksand] text-[13.9px]">
+                <span className="font-[700] mr-1">Gas Type:</span>
                 <div className="flex font-[Quicksand] font-[300] items-center">
-                  <div className="w-[60px] border-r-[1px] border-r-[#606060]">
-                    {ag.type}
+                  <div className="w-[80px] max767:w-[35px] border-r-[1px] border-r-[#606060]">
+                    {ag.type === 0 || Number(ag.type) === 91
+                      ? "91"
+                      : ag.type === 1 || Number(ag.type) === 95
+                      ? "95"
+                      : "D"}
                   </div>
-                  <div className="w-[60px] border-r-[1px] border-r-[#606060] text-center">
-                    {ag.volume}
+                  <div className="w-[80px] max767:w-[80px] border-r-[1px] border-r-[#606060] text-center">
+                    {ag.max_value}
                   </div>
-                  <div className="w-[60px] text-right">{ag.price}</div>
+                  <div className="w-[80px] max767:w-[70px] border-r-[1px] border-r-[#606060] text-center">
+                    {ag.value}
+                  </div>
+                  <div className="w-[80px] max767:w-[45px] text-right">
+                    {ag.price_litre}
+                  </div>
                   <RiDeleteBin6Line
                     onClick={() => deleteGas(index)}
-                    className="ml-4 text-[1.2rem] cursor-pointer hover:text-[red] transition-all duration-500"
+                    className="ml-4 text-[1.3rem] cursor-pointer hover:text-[red] transition-all duration-500"
                   />
                   <BiEdit
                     onClick={() => {
@@ -139,7 +210,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
           <div className="w-full flex justify-center items-center gap-x-5 mb-5">
             <button
               className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-              onClick={() => {}}
+              onClick={onSubmitMethod}
             >
               Edit
             </button>

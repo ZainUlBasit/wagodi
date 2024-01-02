@@ -29,6 +29,36 @@ export const UpdatePasswordApi = (data) =>
 // Station Request
 // *********************************************
 export const CreateStationApi = (data) => api.post("/station", data);
+export const GetStationApi = (data) => api.post("/station/all", data);
+export const UpdateStationApi = (data) => api.patch("/station/update", data);
+// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+// Station Request
+// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+// *********************************************
+// Vendor Request
+// *********************************************
+export const CreateVendorApi = (data) => api.post("/vendor/create", data);
+export const GetVendorApi = (data) => api.post("/vendor/company", data);
+export const UpdateVendorApi = (data) => api.patch("/vendor/update", data);
+export const GetAllVendorApi = (data) => api.post("/vendor/all", data);
+// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+// Vendor Request
+// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+// *********************************************
+// Station Manager Request
+// *********************************************
+export const CreateStationManagerApi = (data) =>
+  api.post("/auth/sign-up", data);
+// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+// Station Request
+// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+// *********************************************
+// Users Request
+// *********************************************
+export const GetUserApi = (data) =>
+  api.post("/auth/list/", data);
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 // Station Request
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

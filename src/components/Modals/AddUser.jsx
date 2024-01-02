@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomModal from "./CustomModal";
 import AuthInput from "../Input/AuthInput";
 import AuthInputPopOver from "../Input/AuthInputPopOver";
 import { Popover, Typography } from "@mui/material";
 import AuthTextArea from "../Input/AuthTextArea";
 import AuthInputPassword from "../Input/AuthInputPassword";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchStations } from "../../store/Slices/StationSlice";
+import { CreateStationManagerApi } from "../../Https";
+import toast from "react-hot-toast";
 
 const AddUser = ({ Open, setOpen }) => {
   const [Username, setUsername] = useState("");
@@ -14,6 +18,7 @@ const AddUser = ({ Open, setOpen }) => {
   const [PhoneNumber, setPhoneNumber] = useState("");
   const [Password, setPassword] = useState("");
   const [Role, setRole] = useState("");
+  const [StationNumber, setStationNumber] = useState("");
   const [StationName, setStationName] = useState("");
   const [Gender, setGender] = useState("");
 
@@ -42,15 +47,55 @@ const AddUser = ({ Open, setOpen }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(Username);
-    console.log(Email);
-    console.log(Authority);
-    console.log(Address);
-    console.log(PhoneNumber);
-    console.log(Password);
-    console.log(Role);
-    console.log(StationName);
-    console.log(Gender);
+    let req_data = {
+      name: Username,
+      email: Email,
+      companyId: Auth.data.companyId,
+      password: Password,
+      role:
+        Role === "Administrator"
+          ? 0
+          : Role === "Order Manager"
+          ? 2
+          : Role === "Station Manager"
+          ? 3
+          : 4,
+      // address: Address,
+      // PhoneNumber,
+      // Gender,
+    };
+    req_data =
+      Role === "Administrator" || Role === "Order Manager" || Role === "Driver"
+        ? {
+            ...req_data,
+          }
+        : {
+            ...req_data,
+            privilage: Authority === "Sales" ? 0 : 1,
+            stationId: StationNumber,
+          };
+    console.log(req_data);
+    try {
+      const response = await CreateStationManagerApi(req_data);
+      if (response.data?.success) {
+        ToastSuccess()
+        toast.success(
+          `${
+            Role === "Administrator"
+              ? "Administrator"
+              : Role === "Order Manager"
+              ? "Order Manager"
+              : Role === "Driver"
+              ? "Driver"
+              : Role === "Station Manager" && "Station Manager"
+          } successfully added..!`
+        );
+      } else if (!response.data?.success) {
+        toast.error(response.data?.error?.msg);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const open = Boolean(anchorEl);
@@ -59,6 +104,13 @@ const AddUser = ({ Open, setOpen }) => {
   const idRole = openRole ? "role-popover" : undefined;
   const openStationName = Boolean(anchorElStationName);
   const idStationName = openStationName ? "station-name-popover" : undefined;
+
+  const dispatch = useDispatch();
+  const Auth = useSelector((state) => state.auth);
+  const StationsData = useSelector((state) => state.StationReducer);
+  useEffect(() => {
+    dispatch(fetchStations(Auth.data.companyId));
+  }, []);
   return (
     <CustomModal open={Open} setOpen={setOpen}>
       <div>
@@ -222,14 +274,25 @@ const AddUser = ({ Open, setOpen }) => {
                 </Typography>
               </Popover>
               {Role === "Station Manager" && (
-                <AuthInputPopOver
-                  label={"Authority and Privileges"}
-                  placeholder={"Lorem ipsum"}
-                  required={false}
-                  Value={Authority}
-                  onClick={handleClick}
-                />
+                <>
+                  <AuthInputPopOver
+                    label={"Authority and Privileges"}
+                    placeholder={"Lorem ipsum"}
+                    required={false}
+                    Value={Authority}
+                    onClick={handleClick}
+                  />
+                  {/* Station Name */}
+                  <AuthInputPopOver
+                    label={"Station Name"}
+                    placeholder={"Station Name"}
+                    required={false}
+                    Value={StationName}
+                    onClick={handleClickStationName}
+                  />
+                </>
               )}
+
               {/* Authority Popover */}
               <Popover
                 id={id}
@@ -294,19 +357,10 @@ const AddUser = ({ Open, setOpen }) => {
                         />
                         <span>Orders</span>
                       </div>
-                      
                     </div>
                   </div>
                 </Typography>
               </Popover>
-              {/* Station Name */}
-              <AuthInputPopOver
-                label={"Station Name"}
-                placeholder={"Station Name"}
-                required={false}
-                Value={StationName}
-                onClick={handleClickStationName}
-              />
               {/* Station Name Popover */}
               <Popover
                 id={idStationName}
@@ -343,62 +397,26 @@ const AddUser = ({ Open, setOpen }) => {
                 >
                   <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
                     <div className="w-full flex flex-col justify-between gap-y-3 items-start">
-                      <div
-                        className="flex gap-x-3 items-center cursor-pointer"
-                        onClick={() => {
-                          handleCloseStationName();
-                          setStationName("MCJD-1016");
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "MCJD-1016"}
-                        />
-                        <span>MCJD-1016</span>
-                      </div>
-                      <div
-                        className="flex gap-x-3 items-center cursor-pointer"
-                        onClick={() => {
-                          handleCloseStationName();
-                          setStationName("MCJD-1016");
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "MCJD-1016"}
-                        />
-                        <span>MCJD-1016</span>
-                      </div>
-                      <div
-                        className="flex gap-x-3 items-center cursor-pointer"
-                        onClick={() => {
-                          handleCloseStationName();
-                          setStationName("MCJD-1015");
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "MCJD-1015"}
-                        />
-                        <span>MCJD-1015</span>
-                      </div>
-                      <div
-                        className="flex gap-x-3 items-center cursor-pointer"
-                        onClick={() => {
-                          handleCloseStationName();
-                          setStationName("MCJD-1016");
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "MCJD-1016"}
-                        />
-                        <span>MCJD-1016</span>
-                      </div>
+                      {StationsData.data.map((sd) => {
+                        console.log(sd);
+                        return (
+                          <div
+                            className="flex gap-x-3 items-center cursor-pointer"
+                            onClick={() => {
+                              handleCloseStationName();
+                              setStationNumber(sd._id);
+                              setStationName(sd.name);
+                            }}
+                          >
+                            <input
+                              type="checkbox"
+                              className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                              checked={StationNumber === sd._id}
+                            />
+                            <span>{sd.name}</span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 </Typography>

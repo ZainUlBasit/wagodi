@@ -2,18 +2,49 @@ import React, { useEffect, useState } from "react";
 import CustomModal from "./CustomModal";
 import AuthInput from "../Input/AuthInput";
 import AuthTextArea from "../Input/AuthTextArea";
+import { UpdateVendorApi } from "../../Https";
 
 const EditVendor = ({ Open, setOpen, Data }) => {
-  const [VendorName, setVendorName] = useState(Data.VendorName);
-  const [Location, setLocation] = useState(Data.Location);
-  const [_95, set_95] = useState(Data.FuelType[0]);
-  const [_91, set_91] = useState(Data.FuelType[1]);
-  const [_D, set_D] = useState(Data.FuelType[2]);
+  const [VendorName, setVendorName] = useState(Data.name);
+  const [Location, setLocation] = useState(Data.address);
+  const [_95, set_95] = useState(Data.fuels[0].price_litre);
+  const [_91, set_91] = useState(Data.fuels[1].price_litre);
+  const [_D, set_D] = useState(Data.fuels[2].price_litre);
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(VendorName);
-    console.log(Location);
+    const Fuel_Array = [
+      {
+        _id: Data.fuels[0]._id,
+        type: 0,
+        price_litre: Number(_91),
+      },
+      {
+        _id: Data.fuels[1]._id,
+        type: 1,
+        price_litre: Number(_95),
+      },
+      {
+        _id: Data.fuels[2]._id,
+        type: 2,
+        price_litre: Number(_D),
+      },
+    ];
+    const BodyData = {
+      id: Data._id,
+      name: VendorName,
+      address: Location,
+      fuels: Fuel_Array,
+    };
+
+    console.log(BodyData);
+    try {
+      const response = await UpdateVendorApi(BodyData);
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
   };
+
   return (
     <CustomModal open={Open} setOpen={setOpen}>
       <div>

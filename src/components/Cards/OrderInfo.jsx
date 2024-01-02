@@ -17,7 +17,7 @@ const OrderInfo = () => {
 
   return (
     <>
-      <OrderManagerNavbar />
+      {/* <OrderManagerNavbar /> */}
       <div className="w-full flex flex-col items-center justify-center fade-in">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex flex-col justify-between mt-6">

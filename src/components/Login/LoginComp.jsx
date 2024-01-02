@@ -9,6 +9,7 @@ import AddingLoader from "../Loaders/AddingLoader";
 import { useDispatch } from "react-redux";
 import { SetAuth } from "../../store/Slices/AuthSlice";
 import toast, { Toaster } from "react-hot-toast";
+import { MdWarning } from "react-icons/md";
 
 const SuccessToast = (msg) => {
   return toast.success(msg, {
@@ -44,6 +45,30 @@ const ErrorToast = (msg) => {
     },
   });
 };
+const WarningToast = (msg) => {
+  return toast(msg, {
+    duration: 4000,
+    position: "top-right",
+    style: {
+      border: "1px solid #ff9800",
+      padding: "16px",
+      color: "#ff9800",
+      backgroundColor: "white",
+      fontFamily: "Quicksand",
+    },
+    // Custom Icon
+    icon: <MdWarning size={24} color="#ff9800" />,
+    // Change colors of success/error/loading icon
+    iconTheme: {
+      primary: "#000",
+      secondary: "#fff",
+    },
+    // iconTheme: {
+    // primary: "red",
+    // secondary: "white",
+    // },
+  });
+};
 
 const LoginComp = () => {
   const [Email, setEmail] = useState("");
@@ -60,7 +85,7 @@ const LoginComp = () => {
     let response_type;
     try {
       response = await SignInApi({ email: Email, password: Password });
-      console.log(response);
+      console.log(response.data.success);
       response_type = response.data.success;
       // console.log(response.data.success);
       if (response.data.success) SuccessToast(response.data?.data?.msg);
@@ -68,7 +93,7 @@ const LoginComp = () => {
       response = err;
       response_type = response.response?.data?.success || false;
     }
-    console.log(response_type);
+    // console.log(response_type);
     if (response_type) {
       localStorage.setItem("logged-in", response_type);
       localStorage.setItem(
@@ -76,13 +101,13 @@ const LoginComp = () => {
         JSON.stringify(response.data.data.data)
       );
       dispatch(SetAuth(response.data.data.data));
-      // navigate("/home");
-    } else {
+      navigate("/home");
+    }  else {
       const current_status = response.response?.status || response.status;
       if (current_status === 200) {
         ErrorToast(response.data.error.msg);
       } else if (current_status === 401) {
-        ErrorToast(response.response.data.error.msg);
+        ErrorToast(response.response?.data?.error?.msg);
       }
     }
     setLoading(false);

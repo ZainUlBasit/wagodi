@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import { FaChevronDown } from "react-icons/fa";
 import { Popover, Typography } from "@mui/material";
@@ -9,8 +9,12 @@ import StationTable from "../../components/Tables/StationTable";
 import AddStation from "../../components/Modals/AddStation";
 import "../../assets/Style/style.css";
 import EditStation from "../../components/Modals/EditStation";
-import { StationData } from "../../components/Tables/DemoData/StationData";
+// import { StationData } from "../../components/Tables/DemoData/StationData";
 import MobNavbar from "../../components/Navbar/MobNavbar";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchStations } from "../../store/Slices/StationSlice";
+import PageLoader from "../../components/Loaders/PageLoader";
+import FilterButton from "../../components/buttons/FilterButton/FilterButton";
 
 const Stations = () => {
   const [Filter, setFilter] = useState("");
@@ -18,6 +22,18 @@ const Stations = () => {
   const [OpenAddModal, setOpenAddModal] = useState(false);
   const [OpenEditModal, setOpenEditModal] = useState(false);
   const [SearchText, setSearchText] = useState("");
+  const [StationFilter, setStationFilter] = useState("all");
+  const [ActiveStationSelection, setActiveStationSelection] = useState([]);
+  const [ActiveCount, setActiveCount] = useState(0);
+  const [InactiveCount, setInactiveCount] = useState(0);
+  // react-redux methods
+  const dispatch = useDispatch();
+  const StationsData = useSelector((state) => state.StationReducer);
+  const Auth = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(fetchStations(Auth.data.companyId));
+  }, []);
 
   return (
     <>
@@ -26,16 +42,31 @@ const Stations = () => {
         <div className="w-[90%] max-w-[1200px] flex justify-end mt-6 mb-10">
           {/* Right */}
           <div className="flex items-center gap-x-4 max767:flex-col max767:gap-y-1">
-            <button
-              className={`border-2 border-[#465462] px-4 py-[5px] rounded-3xl font-[Quicksand] font-[700] bg-[#FFB764] text-[#465462] transition-all duration-500 ease-in-out flex gap-x-6 items-center`}
-            >
-              <span className="px-3">{`Inactive Stations: ${14}`}</span>
-            </button>
-            <button
-              className={`border-2 border-[#465462] px-4 py-[5px] rounded-3xl font-[Quicksand] font-[700] bg-[#00EDED] text-[#465462] transition-all duration-500 ease-in-out flex gap-x-6 items-center`}
-            >
-              <span className="px-3">{`Active Stations: ${14}`}</span>
-            </button>
+            <FilterButton
+              Title={"All Stations"}
+              Length={StationsData.data?.length}
+              Value={"all"}
+              setStationFilter={setStationFilter}
+              Color={"bg-[#FFB764]"}
+            />
+            <FilterButton
+              Title={"Inactive Stations"}
+              Length={
+                StationsData.data?.filter((sd) => sd.active === false).length
+              }
+              Value={"inactive"}
+              setStationFilter={setStationFilter}
+              Color={"bg-[#FFB764]"}
+            />
+            <FilterButton
+              Title={"Active Stations"}
+              Length={
+                StationsData.data?.filter((sd) => sd.active === true).length
+              }
+              Value={"active"}
+              setStationFilter={setStationFilter}
+              Color={"bg-[#00EDED]"}
+            />
             <button
               className={`border-2 border-[#465462] px-4 py-[5px] rounded-3xl font-[Quicksand] font-[700] bg-[#fff] text-[#465462] transition-all duration-500 ease-in-out flex gap-x-6 items-center hover:text-white hover:bg-[#465462]`}
               onClick={() => setOpenAddModal(!OpenAddModal)}
@@ -45,24 +76,39 @@ const Stations = () => {
             </button>
           </div>
         </div>
-        <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] mb-10 relative mt-6">
-          <div className="flex justify-between items-center px-5 text-white font-[Quicksand] absolute -top-9 left-[-1px] w-[calc(100%+2px)] bg-[#465462] rounded-[15px]">
-            <div className="flex border-[1px] w-[300px] border-white items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden my-[10px]">
-              <BsSearch className="text-[1.2rem]" />
-              <input
-                className="outline-none bg-inherit text-white w-full"
-                placeholder="Search Station name"
-                value={SearchText}
-                onChange={(e) => setSearchText(e.target.value)}
-              />
+        {StationsData.loading ? (
+          <PageLoader />
+        ) : (
+          <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] mb-10 relative mt-6 fade-in">
+            <div className="flex justify-between items-center px-5 text-white font-[Quicksand] absolute -top-9 left-[-1px] w-[calc(100%+2px)] bg-[#465462] rounded-[15px]">
+              <div className="flex border-[1px] w-[300px] border-white items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden my-[10px]">
+                <BsSearch className="text-[1.2rem]" />
+                <input
+                  className="outline-none bg-inherit text-white w-full"
+                  placeholder="Search Station name"
+                  value={SearchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                />
+              </div>
             </div>
+            <StationTable
+              setStationID={setStationID}
+              setOpen={setOpenEditModal}
+              Search={SearchText}
+              ActiveStationSelection={ActiveStationSelection}
+              setActiveStationSelection={setActiveStationSelection}
+              StationsData={StationsData?.data.filter((sdd) => {
+                if (StationFilter === "all") {
+                  return sdd;
+                } else if (sdd.active && StationFilter === "active") {
+                  return sdd;
+                } else if (!sdd.active && StationFilter === "inactive") {
+                  return sdd;
+                }
+              })}
+            />
           </div>
-          <StationTable
-            setStationID={setStationID}
-            setOpen={setOpenEditModal}
-            Search={SearchText}
-          />
-        </div>
+        )}
       </div>
       {/* Create Modal and Implement */}
       {OpenAddModal && (
@@ -73,17 +119,9 @@ const Stations = () => {
         <EditStation
           Open={OpenEditModal}
           setOpen={setOpenEditModal}
-          CurrentStation={[
-            {
-              StationNumber: "50",
-              StationName: "MCJD-1016",
-              Address: "Lorem ipsum dolor sit amet",
-              Gasses: [
-                { type: "95", volume: "50", price: "10000" },
-                { type: "91", volume: "40", price: "9000" },
-              ],
-            },
-          ]}
+          CurrentStation={
+            StationsData.data.filter((sd) => sd._id === StationID)[0]
+          }
         />
       )}
     </>

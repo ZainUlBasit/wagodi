@@ -10,7 +10,6 @@ const AddReservation = () => {
   const [CurrentTabNumber, setCurrentTabNumber] = useState(0);
   return (
     <>
-      <OrderManagerNavbar />
       <Tabs
         className="flex justify-center flex-col items-center"
         //   onSelect={handleTabChange} // Call handleTabChange when a tab is selected

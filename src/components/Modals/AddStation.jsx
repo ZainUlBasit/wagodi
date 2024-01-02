@@ -8,14 +8,17 @@ import AuthInputPassword from "../Input/AuthInputPassword";
 import { FaPlus } from "react-icons/fa";
 import AddGasInputs from "../AddGas/AddGasInputs";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CreateStationApi } from "../../Https";
+import toast from "react-hot-toast";
+import { fetchStations } from "../../store/Slices/StationSlice";
 
 const AddStation = ({ Open, setOpen }) => {
   const [StationNumber, setStationNumber] = useState("");
   const [StationName, setStationName] = useState("");
   const [Address, setAddress] = useState("");
   const Auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const [AllGases, setAllGases] = useState([]);
   const [ShowAddGassInputs, setShowAddGassInputs] = useState(false);
@@ -36,7 +39,7 @@ const AddStation = ({ Open, setOpen }) => {
             ag.type === "91" ? 0 : ag.type === "95" ? 1 : ag.type === "D" && 2,
           price_litre: Number(ag.price),
           value: Number(ag.volume),
-          max_value: Number(ag.volume),
+          max_value: Number(ag.capacity),
         };
       }),
       name: StationName,
@@ -44,11 +47,18 @@ const AddStation = ({ Open, setOpen }) => {
       phone: StationNumber,
     };
 
-    // console.log(BodyData);
+    console.log(BodyData);
 
     try {
       const response = await CreateStationApi(BodyData);
       console.log(response);
+      if (response.data.success) {
+        setOpen(false);
+        toast.success(response.data.data?.msg);
+        dispatch(fetchStations(Auth.data.companyId));
+      }else{
+        toast.success(response.data.error?.msg);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -95,16 +105,19 @@ const AddStation = ({ Open, setOpen }) => {
           {/* Show data of array of Gasses */}
           {AllGases.map((ag, index) => {
             return (
-              <div className="ml-10 flex gap-x-2 my-3 font-[Quicksand] text-[13.9px]">
-                <span className="font-[700]">Gas Type:</span>
+              <div className="ml-10 max767:ml-0 flex max767:justify-center max767:items-center gap-x-2 my-3 font-[Quicksand] text-[13.9px]">
+                <span className="font-[700] mr-1">Gas Type:</span>
                 <div className="flex font-[Quicksand] font-[300] items-center">
-                  <div className="w-[100px] max767:w-[60px] border-r-[1px] border-r-[#606060]">
+                  <div className="w-[80px] max767:w-[35px] border-r-[1px] border-r-[#606060]">
                     {ag.type}
                   </div>
-                  <div className="w-[100px] max767:w-[60px] border-r-[1px] border-r-[#606060] text-center">
+                  <div className="w-[80px] max767:w-[80px] border-r-[1px] border-r-[#606060] text-center">
+                    {ag.capacity}
+                  </div>
+                  <div className="w-[80px] max767:w-[70px] border-r-[1px] border-r-[#606060] text-center">
                     {ag.volume}
                   </div>
-                  <div className="w-[100px] max767:w-[60px] text-right">
+                  <div className="w-[80px] max767:w-[45px] text-right">
                     {ag.price}
                   </div>
                   <RiDeleteBin6Line

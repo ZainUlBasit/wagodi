@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import CustomModal from "./CustomModal";
 import AuthInput from "../Input/AuthInput";
 import AuthTextArea from "../Input/AuthTextArea";
+import { CreateVendorApi } from "../../Https";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchVendors } from "../../store/Slices/VendorSlice";
+import toast from "react-hot-toast";
 
 const AddVendor = ({ Open, setOpen }) => {
   const [VendorName, setVendorName] = useState("");
@@ -9,10 +13,50 @@ const AddVendor = ({ Open, setOpen }) => {
   const [_95, set_95] = useState("");
   const [_91, set_91] = useState("");
   const [_D, set_D] = useState("");
+
+  const Auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(VendorName);
-    console.log(Location);
+
+    const Fuel_Array = [
+      {
+        type: 0,
+        price_litre: Number(_91),
+      },
+      {
+        type: 1,
+        price_litre: Number(_95),
+      },
+      {
+        type: 2,
+        price_litre: Number(_D),
+      },
+    ];
+    console.log(
+      typeof Auth.data.companyId,
+      typeof VendorName,
+      typeof Location,
+      typeof Fuel_Array
+    );
+    console.log(Auth.data.companyId, VendorName, Location, Fuel_Array);
+    try {
+      const response = await CreateVendorApi({
+        companyId: Auth.data.companyId,
+        name: VendorName,
+        address: Location,
+        fuels: Fuel_Array,
+      });
+      console.log(response);
+      if (response.data?.success) {
+        toast.success(response.data.data?.msg);
+        dispatch(fetchVendors(Auth.data.companyId));
+        setOpen(false);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <CustomModal open={Open} setOpen={setOpen}>

@@ -14,7 +14,7 @@ import { StationData } from "./DemoData/StationData";
 import "./DriverDetailTable.css";
 export default function StationDetailTable({ StationData }) {
   return (
-    <TableContainer component={Paper} className="custom-table-container">
+    <TableContainer component={Paper} className="custom-table-container !max-h-[470px]">
       <Table aria-label="simple table">
         <TableHead
           style={{

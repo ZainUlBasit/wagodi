@@ -2,9 +2,9 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import { v4 } from "uuid";
 
-const GasInput = ({ label, type, placeholder, required, Value, setValue }) => {
+const GasInput = ({ label, type, placeholder, required, Value, setValue, last }) => {
   return (
-    <div className="relative mb-[15px] w-[155px] font-[Quicksand]">
+    <div className={`relative mb-[15px] ${ last ? "w-[150px]" : "w-[120px]"} font-[Quicksand]`}>
       <p className="absolute top-[-11px] left-4 w-fit bg-white font-[Quicksand] text-[15px]">
         {label}
       </p>

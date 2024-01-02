@@ -8,6 +8,11 @@ import { data } from "./DemoData";
 import StationReport from "../../components/Modals/StationReport";
 import "../../assets/Style/style.css";
 import MobNavbar from "../../components/Navbar/MobNavbar";
+import { useDispatch, useSelector } from "react-redux";
+import { StationData } from "../../components/Tables/DemoData/StationData";
+import { fetchStations } from "../../store/Slices/StationSlice";
+import PageLoader from "../../components/Loaders/PageLoader";
+import CustomPoperOverHome from "../../components/Popover/CustomPoperOverHome";
 
 const Home = () => {
   const [Favourites, setFavourites] = useState(false);
@@ -26,6 +31,15 @@ const Home = () => {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+
+  const dispatch = useDispatch();
+  const StationsData = useSelector((state) => state.StationReducer);
+  const Auth = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(fetchStations(Auth.data.companyId));
+    console.log(StationsData.data);
+  }, []);
 
   return (
     <>
@@ -55,7 +69,14 @@ const Home = () => {
               variant="contained"
               onClick={handleClick}
             />
-            <Popover
+            <CustomPoperOverHome
+              popover_open={open}
+              handleClose={handleClose}
+              setContent={setFilter}
+              popover_id={id}
+              popover_anchorEl={anchorEl}
+            />
+            {/* <Popover
               id={id}
               open={open}
               anchorEl={anchorEl}
@@ -105,8 +126,12 @@ const Home = () => {
                       >
                         Healthy
                       </div>
-                      <div className="h-full border-2 border-[#2EB100] px-5 py-2 text-[20px] font-[600] rounded-[10px]">
-                        3
+                      <div className="h-full border-2 border-[#2EB100] px-1 py-2 text-[20px] font-[600] rounded-[10px] w-[60px] flex justify-center items-center">
+                        {
+                          StationsData.data.filter(
+                            (sd) => sd.current_status === "Healthy"
+                          ).length
+                        }
                       </div>
                     </div>
                     <div className="flex my-2 justify-between">
@@ -119,8 +144,12 @@ const Home = () => {
                       >
                         Be Ready
                       </div>
-                      <div className="h-full border-2 border-[#6877DC] px-5 py-2 text-[20px] font-[600] rounded-[10px]">
-                        7
+                      <div className="h-full border-2 border-[#6877DC] px-1 py-2 text-[20px] font-[600] rounded-[10px] w-[60px] flex justify-center items-center">
+                        {
+                          StationsData.data.filter(
+                            (sd) => sd.current_status === "BeReady"
+                          ).length
+                        }
                       </div>
                     </div>
                     <div className="flex my-2 justify-between">
@@ -133,62 +162,63 @@ const Home = () => {
                       >
                         Make an Order
                       </div>
-                      <div className="h-full border-2 border-[#C93D33] px-4 py-2 text-[20px] font-[600] rounded-[10px]">
-                        10
+                      <div className="h-full border-2 border-[#C93D33] px-1 py-2 text-[20px] font-[600] rounded-[10px]  w-[60px] flex justify-center items-center">
+                        {
+                          StationsData.data.filter(
+                            (sd) => sd.current_status === "MakeOrder"
+                          ).length
+                        }
                       </div>
                     </div>
                   </div>
                   <div
                     className="mt-2 border-b-[#465462] border-b-[1px] hover:border-b-[#fff] transition-all duration-500 ease-in-out cursor-pointer"
-                    onClick={() => setFilter("")}
+                    onClick={() => {
+                      setFilter("");
+                      handleClose();
+                    }}
                   >
                     Clear Filter
                   </div>
                 </div>
               </Typography>
-            </Popover>
+            </Popover> */}
           </div>
         </div>
         {/* Body */}
         {/* <div className="grid grid-cols-3 gap-x-5 gap-y-3 w-[90%] max-w-[1200px] my-4"> */}
-        <div className="w-[90%] max-w-[1200px] flex flex-wrap xl:justify-start justify-center items-center my-4">
-          {data
-            .filter((dt) => {
-              if (Favourites) {
-                console.log("Fav");
-                if (Filter !== "" && Favourites === dt.favourites) {
-                  if (Filter === dt.status) {
+        {StationsData.loading ? (
+          <PageLoader />
+        ) : (
+          <div className="w-[90%] max-w-[1200px] flex flex-wrap xl:justify-start justify-center items-center my-4">
+            {StationsData?.data
+              .filter((dt) => {
+                if (Favourites) {
+                  if (Filter !== "" && Favourites === dt.favorite) {
+                    if (Filter === dt.current_status) {
+                      return dt;
+                    }
+                  } else if (dt.favorite) {
                     return dt;
                   }
-                } else if (dt.favourites) {
-                  return dt;
-                }
-              } else if (Filter !== "") {
-                if (Filter === dt.status) {
-                  return dt;
-                }
-              } else return dt;
-            })
-            .map((dt) => {
-              return (
-                <StationDetail
-                  favourites={dt.favourites}
-                  StationName={dt.StationName}
-                  LastOrder={dt.LastOrder}
-                  HiOctane={dt?.HiOctane || false}
-                  HiOctaneCapacity={dt?.HiOctaneCapacity || 0}
-                  Octane={dt?.Octane || false}
-                  OctaneCapacity={dt?.OctaneCapacity || 0}
-                  Diesel={dt?.Diesel || false}
-                  DieselCapacity={dt?.DieselCapacity || 0}
-                  status={dt.status}
-                  setOpen={setOpen}
-                  Open={Open}
-                  setCurrentStationName={setCurrentStationName}
-                />
-              );
-            })}
-        </div>
+                } else if (Filter !== "") {
+                  if (Filter === dt.current_status) {
+                    return dt;
+                  }
+                } else return dt;
+              })
+              .map((dt) => {
+                return (
+                  <StationDetail
+                    StationDetailData={dt}
+                    setOpen={setOpen}
+                    Open={Open}
+                    setCurrentStationName={setCurrentStationName}
+                  />
+                );
+              })}
+          </div>
+        )}
       </div>
       {Open && (
         <StationReport

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import { FaChevronDown } from "react-icons/fa";
 import { Popover, Typography } from "@mui/material";
@@ -9,6 +9,8 @@ import "../../assets/Style/style.css";
 import EditUser from "../../components/Modals/EditUser";
 import { UserData } from "../../components/Tables/DemoData/UserData";
 import MobNavbar from "../../components/Navbar/MobNavbar";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUsers } from "../../store/Slices/UserSlice";
 
 const Users = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -18,6 +20,19 @@ const Users = () => {
   const [OpenAddModal, setOpenAddModal] = useState(false);
   const [OpenEditModal, setOpenEditModal] = useState(false);
   const [SearchText, setSearchText] = useState("");
+
+  const dispatch = useDispatch();
+  const Current_User = useSelector((state) => state.auth);
+  useEffect(() => {
+    dispatch(
+      fetchUsers({
+        companyId: Current_User.data.companyId,
+        query: {
+          companyId: Current_User.data.companyId,
+        },
+      })
+    );
+  }, []);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

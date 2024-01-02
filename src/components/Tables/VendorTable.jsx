@@ -12,7 +12,12 @@ import { UserData } from "./DemoData/UserData";
 import { BiEdit } from "react-icons/bi";
 import { VendorData } from "./DemoData/VendorData";
 
-export default function VendorTable({ setVendorID, setOpen, Search }) {
+export default function VendorTable({
+  setVendorID,
+  setOpen,
+  Search,
+  VendorsData,
+}) {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -72,14 +77,12 @@ export default function VendorTable({ setVendorID, setOpen, Search }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {VendorData.filter((data) => {
+          {VendorsData?.filter((data) => {
             if (Search === "") return data;
-            else if (
-              data.VendorName.toLowerCase().startsWith(Search.toLowerCase())
-            ) {
+            else if (data.name.toLowerCase().startsWith(Search.toLowerCase())) {
               return data;
             }
-          }).map((Data, i) => {
+          }).map((data, i) => {
             return (
               <TableRow
                 key={i}
@@ -99,7 +102,7 @@ export default function VendorTable({ setVendorID, setOpen, Search }) {
                     <BiEdit
                       className="text-[1.2rem] cursor-pointer "
                       onClick={() => {
-                        setVendorID(i);
+                        setVendorID(data._id);
                         setOpen(true);
                       }}
                     />
@@ -113,7 +116,7 @@ export default function VendorTable({ setVendorID, setOpen, Search }) {
                   }}
                   align="center"
                 >
-                  {Data.VendorName}
+                  {data.name}
                 </TableCell>
                 <TableCell
                   sx={{
@@ -124,9 +127,9 @@ export default function VendorTable({ setVendorID, setOpen, Search }) {
                   align="center"
                 >
                   <div className="flex gap-x-5 justify-center">
-                    <div>{Data.FuelType[0]}</div>
-                    <div>{Data.FuelType[1]}</div>
-                    <div>{Data.FuelType[2]}</div>
+                    <div>{data.fuels[0].price_litre}</div>
+                    <div>{data.fuels[1].price_litre}</div>
+                    <div>{data.fuels[2].price_litre}</div>
                   </div>
                 </TableCell>
                 <TableCell
@@ -137,7 +140,7 @@ export default function VendorTable({ setVendorID, setOpen, Search }) {
                   }}
                   align="center"
                 >
-                  {Data.Location}
+                  {data.address}
                 </TableCell>
               </TableRow>
             );
