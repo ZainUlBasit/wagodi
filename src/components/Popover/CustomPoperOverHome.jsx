@@ -89,7 +89,7 @@ const CustomPoperOverHome = ({
                     className={`h-full border-2 ${content_data.BorderColor} px-1 py-2 text-[20px] font-[600] rounded-[10px] w-[60px] flex justify-center items-center`}
                   >
                     {
-                      StationsData.data.filter(
+                      StationsData?.data?.filter(
                         (sd) => sd.current_status === content_data.FilterText
                       ).length
                     }

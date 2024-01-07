@@ -19,7 +19,7 @@ const StationDetail = ({
   const dispatch = useDispatch();
   const Current_User = useSelector((state) => state.auth);
   const setFuelsData = () => {
-    StationDetailData.fuels.map((f_data) => {
+    StationDetailData?.populatedFuels.map((f_data) => {
       if (f_data.type === 0) {
         set_91(f_data);
       }

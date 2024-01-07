@@ -32,6 +32,88 @@ import { Toaster } from "react-hot-toast";
 import LogoutComp from "./components/Logout/LogoutComp";
 import OrderManagerNavbar from "./components/Navbar/OrderManagerNavbar";
 
+
+// paypal front end component START ...
+// import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+//     const CLIENT_ID = "AT_A12njaX8zunxdhVUtQyeikVjIYeoF1HrU27quJDkgMsyHXiUMkoDDvOeB8596_ahSHeoGt1X8csS6"
+// const PaypalButton = () => {
+//   const paypalOptions = {
+//     "client-id": "AT_A12njaX8zunxdhVUtQyeikVjIYeoF1HrU27quJDkgMsyHXiUMkoDDvOeB8596_ahSHeoGt1X8csS6",
+//   };
+
+//   const handlePaymentSuccess = (details, data) => {
+//     console.log("Payment was successful");
+//     console.log("Payment details:", details);
+//     console.log("Payment data:", data);
+//     // Extract the payment method ID from the details or data object.
+//     const paymentMethodID = details.purchase_units[0].payments.captures[0].id;
+//     console.log("Payment Method ID:", paymentMethodID);
+//   };
+
+//   return (
+//     <PayPalScriptProvider options={paypalOptions}>
+//       <PayPalButtons
+//         style={{ layout: "horizontal" }}
+//         createOrder={(data, actions) => {
+//           return actions.order.create({
+//             purchase_units: [
+//               {
+//                 amount: {
+//                   value: "10.00",
+//                 },
+//               },
+//             ],
+//           });
+//         }}
+//         onApprove={(data, actions) => {
+//           return actions.order.capture().then((details) => {
+//             handlePaymentSuccess(details, data);
+//           });
+//         }}
+//       />
+//     </PayPalScriptProvider>
+//   );
+// };
+
+// const SubscriptionPaypal = () => {
+//   const paypalOptions = {
+//     "client-id": CLIENT_ID,
+//   };
+
+//   const planId = "YOUR_PLAN_ID";
+
+//   const handleSubscription = (data, actions) => {
+//     return actions.subscription.create({
+//       plan_id: planId,
+//     });
+//   };
+
+//   const handleApprove = (data, actions) => {
+//     // Handle a successful subscription here
+//     console.log("Subscription was successful", data);
+//   };
+
+//   return (
+//     <PayPalScriptProvider options={paypalOptions}>
+//       <PayPalButtons
+//         style={{ layout: "horizontal" }}
+//         createSubscription={handleSubscription}
+//         onApprove={handleApprove}
+//       />
+//     </PayPalScriptProvider>
+//   );
+// };
+
+// export default function App() {
+//     return (
+//       <div className="App">
+//         <h1>PayPal Payment Method ID Example</h1>
+//         <SubscriptionPaypal />
+//       </div>
+//     );
+// }
+// paypal component ends
+
 const App = () => {
   const [Loading, setLoading] = useState(true);
   const navigate = useNavigate();

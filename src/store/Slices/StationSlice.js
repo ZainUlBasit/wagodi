@@ -10,8 +10,8 @@ export const fetchStations = createAsyncThunk(
     
     console.log(response.data.data);
     console.log(response.data.data.payload);
-    console.log(response.data.data.payload[0].stations);
-    return response.data.data.payload[0].stations;
+    // console.log(response.data.data.payload[0].stations);
+    return response.data.data.payload;
   }
 );
 

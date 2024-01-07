@@ -5,9 +5,10 @@ export const api = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
   headers: {
-    "Access-Control-Allow-Origin": "http://localhost:5173",
+    // "Access-Control-Allow-Origin": "http://localhost:5173",
     "Content-type": "application/json",
     Accept: "application/json",
+    "app_secret": "10ef42363582fd212242bf8da6598e6d15111a9a509c36242411d444e8c03728"
   },
 });
 
