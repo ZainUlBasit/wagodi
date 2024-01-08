@@ -7,7 +7,7 @@ export const fetchUsers = createAsyncThunk(
     try {
       console.log(companyId);
       let response = await GetUserApi({ companyId: companyId._id });
-      console.log(response);
+      console.log(response.data.data);
       return response.data;
     } catch (err) {
       console.log(err);

@@ -10,7 +10,7 @@ const MobLogoDesign = () => {
       <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
         <img
           src={LogoWhite}
-          className="w-[300px] max467:w-[250px] max400:w-[200px]"
+          className="w-[200px] max467:w-[150px]"
         />
       </div>
     </div>

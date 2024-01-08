@@ -219,7 +219,7 @@ const Home = () => {
           </div>
         )}
       </div>
-      {Open && (
+      {Open && (Auth.data.role === 1 || Auth.data.role === 0) && (
         <StationReport
           StationName={CurrentStationName}
           Open={Open}

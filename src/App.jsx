@@ -32,7 +32,9 @@ import ProtectedRoute from "./components/ProtectedRoutes/ProtectedRoute";
 import { Toaster } from "react-hot-toast";
 import LogoutComp from "./components/Logout/LogoutComp";
 import OrderManagerNavbar from "./components/Navbar/OrderManagerNavbar";
-
+import LoginRoutes from "./components/RoleRouting/LoginRoutes";
+import RoleRouting from "./components/RoleRouting/RoleRouting";
+import NavSelection from "./components/NavSelection/NavSelection";
 
 // paypal front end component START ...
 // import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
@@ -121,6 +123,7 @@ const App = () => {
   const pathname = location.pathname;
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
+  const [AuthFound, setAuthFound] = useState(false);
 
   const CheckLocalStorage = () => {
     const isLoggedIn = localStorage.getItem("logged-in");
@@ -135,6 +138,7 @@ const App = () => {
     CheckLocalStorage();
     setInterval(() => {
       setLoading(false);
+      console.log(auth.data.length);
     }, 3000);
   }, []);
   return Loading ? (
@@ -143,210 +147,12 @@ const App = () => {
     </div>
   ) : (
     <>
-      {pathname !== "/" &&
-        pathname !== "/onboarding" &&
-        pathname !== "/auth" &&
-        pathname !== "/forgot-password" &&
-        pathname !== "/otp-verification" &&
-        pathname !== "/logout" &&
-        pathname !== "/set-new-password" &&
-        auth.data.role === 1 && <Navbar />}
-      {pathname !== "/" &&
-        pathname !== "/onboarding" &&
-        pathname !== "/auth" &&
-        pathname !== "/forgot-password" &&
-        pathname !== "/logout" &&
-        pathname !== "/otp-verification" &&
-        pathname !== "/set-new-password" &&
-        auth.data.role === 1 && <MobNavbar />}
-      {pathname !== "/" &&
-        pathname !== "/onboarding" &&
-        pathname !== "/auth" &&
-        pathname !== "/forgot-password" &&
-        pathname !== "/otp-verification" &&
-        pathname !== "/logout" &&
-        pathname !== "/set-new-password" &&
-        auth.data.role === 2 && <OrderManagerNavbar />}
-
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <LoginProtectedRoute>
-              <Splash />
-            </LoginProtectedRoute>
-          }
-        />
-        <Route
-          path="/onboarding"
-          element={
-            <LoginProtectedRoute>
-              <Onbaording />
-            </LoginProtectedRoute>
-          }
-        />
-        <Route
-          path="/auth"
-          element={
-            <LoginProtectedRoute>
-              <Auth />
-            </LoginProtectedRoute>
-          }
-        />
-        <Route
-          path="/forgot-password"
-          element={
-            <LoginProtectedRoute>
-              <ForgotPassword />
-            </LoginProtectedRoute>
-          }
-        />
-        <Route
-          path="/otp-verification"
-          element={
-            <LoginProtectedRoute>
-              <OTP />
-            </LoginProtectedRoute>
-          }
-        />
-        <Route
-          path="/set-new-password"
-          element={
-            <LoginProtectedRoute>
-              <SetNewPassword />
-            </LoginProtectedRoute>
-          }
-        />
-        <Route
-          path="/home"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/ongoing-orders"
-          element={
-            <ProtectedRoute>
-              <OngoingOrder />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/orders-report"
-          element={
-            <ProtectedRoute>
-              <OrderReports />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/order-manager-orders-report"
-          element={
-            <ProtectedRoute>
-              <OrderManagerOrderReports />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/orders-report-info"
-          element={
-            <ProtectedRoute>
-              <OrderInfo />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/notification"
-          element={
-            <ProtectedRoute>
-              <Notification />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/users"
-          element={
-            <ProtectedRoute>
-              <Users />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/stations"
-          element={
-            <ProtectedRoute>
-              <Stations />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/vendor"
-          element={
-            <ProtectedRoute>
-              <Vendor />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/statistics"
-          element={
-            <ProtectedRoute>
-              <Statistics />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/setting"
-          element={
-            <ProtectedRoute>
-              <Setting />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/add-reservation"
-          element={
-            <ProtectedRoute>
-              <AddReservation />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/change-password"
-          element={
-            <ProtectedRoute>
-              <ChangePassword />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/company-details"
-          element={
-            <ProtectedRoute>
-              <CompanyDetails />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/subscription"
-          element={
-            <ProtectedRoute>
-              <Subscription />
-            </ProtectedRoute>
-          }
-        />
-        
-        <Route
-          path="/company-sub"
-          element={
-            <ProtectedRoute>
-              <CompanySubscription />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
+      <NavSelection />
+      {auth.data.length === 0 ? (
+        <LoginRoutes />
+      ) : (
+        <RoleRouting role={auth.data.role} />
+      )}
       <Toaster position="top-right" reverseOrder={false} />
     </>
   );

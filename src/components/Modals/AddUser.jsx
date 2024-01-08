@@ -60,9 +60,8 @@ const AddUser = ({ Open, setOpen }) => {
           : Role === "Station Manager"
           ? 3
           : 4,
-      // address: Address,
-      // PhoneNumber,
-      // Gender,
+      phone_number: PhoneNumber,
+      address: Address,
     };
     req_data =
       Role === "Administrator" || Role === "Order Manager" || Role === "Driver"
@@ -78,7 +77,7 @@ const AddUser = ({ Open, setOpen }) => {
     try {
       const response = await CreateStationManagerApi(req_data);
       if (response.data?.success) {
-        ToastSuccess()
+        ToastSuccess();
         toast.success(
           `${
             Role === "Administrator"
@@ -162,14 +161,6 @@ const AddUser = ({ Open, setOpen }) => {
                 Value={PhoneNumber}
                 setValue={setPhoneNumber}
               />
-              <AuthInput
-                label="Gender"
-                placeholder="Male"
-                required={false}
-                Value={Gender}
-                setValue={setGender}
-              />
-
               <AuthInputPopOver
                 label={"Role"}
                 placeholder={"Station Manager"}

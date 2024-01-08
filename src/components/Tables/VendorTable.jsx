@@ -11,6 +11,7 @@ import { AiFillEye } from "react-icons/ai";
 import { UserData } from "./DemoData/UserData";
 import { BiEdit } from "react-icons/bi";
 import { VendorData } from "./DemoData/VendorData";
+import { RiDeleteBin5Line } from "react-icons/ri";
 
 export default function VendorTable({
   setVendorID,
@@ -98,12 +99,19 @@ export default function VendorTable({
                   scope="row"
                   align="center"
                 >
-                  <div className="flex justify-center items-center">
+                  <div className="flex justify-center items-center gap-x-2">
                     <BiEdit
-                      className="text-[1.2rem] cursor-pointer "
+                      className="text-[1.2rem] cursor-pointer hover:text-[green] transition-all duration-500"
                       onClick={() => {
                         setVendorID(data._id);
                         setOpen(true);
+                      }}
+                    />
+                    <RiDeleteBin5Line
+                      className="text-[1.2rem] cursor-pointer hover:text-[red] transition-all duration-500"
+                      onClick={() => {
+                        setVendorID(data._id);
+                        setDeleteOpen(true);
                       }}
                     />
                   </div>

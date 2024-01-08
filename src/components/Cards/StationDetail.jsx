@@ -6,6 +6,7 @@ import { UpdateStationApi } from "../../Https";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchStations } from "../../store/Slices/StationSlice";
 import SuccessToast from "../Toast/SuccessToast";
+import { useNavigate } from "react-router-dom";
 
 const StationDetail = ({
   StationDetailData,
@@ -35,6 +36,22 @@ const StationDetail = ({
     setFuelsData();
     console.log(StationDetailData);
   }, []);
+
+  const navigate = useNavigate();
+  const navigateToAddReservation = (type) => {
+    navigate("/add-reservation", {
+      state: {
+        type,
+        max_value:
+          type === 0
+            ? _91.max_value
+            : type === 1
+            ? _95.max_value
+            : _D.max_value,
+        value: type === 0 ? _91.value : type === 1 ? _95.value : _D.value,
+      },
+    });
+  };
 
   return (
     <div className="relative mx-5 my-3 w-[350px] rounded-[16px] h-[165px] overflow-hidden">
@@ -77,7 +94,15 @@ const StationDetail = ({
                 95
               </div>
               <div className="font-[500] font-[Quicksand] text-[1rem] w-[95%]">
-                {_95.max_value}/ <span>{_95.value}</span>
+                {_95.max_value}/ <span>{_95.value}</span>{" "}
+                {Current_User.data.role === 2 && (
+                  <span
+                    className="clicking-button"
+                    onClick={() => navigateToAddReservation(1)}
+                  >
+                    +
+                  </span>
+                )}
               </div>
             </div>
           )}
@@ -87,7 +112,15 @@ const StationDetail = ({
                 91
               </div>
               <div className="font-[500] font-[Quicksand] text-[1rem] w-[95%]">
-                {_91.max_value}/<span>{_91.value}</span>
+                {_91.max_value}/<span>{_91.value}</span>{" "}
+                {Current_User.data.role === 2 && (
+                  <span
+                    className="clicking-button"
+                    onClick={() => navigateToAddReservation(0)}
+                  >
+                    +
+                  </span>
+                )}
               </div>
             </div>
           )}
@@ -97,7 +130,15 @@ const StationDetail = ({
                 D
               </div>
               <div className="font-[500] font-[Quicksand] text-[1rem] w-[90%]">
-                {_D.max_value}/<span>{_D.value}</span>
+                {_D.max_value}/<span>{_D.value}</span>{" "}
+                {Current_User.data.role === 2 && (
+                  <span
+                    className="clicking-button"
+                    onClick={() => navigateToAddReservation(2)}
+                  >
+                    +
+                  </span>
+                )}
               </div>
             </div>
           )}
@@ -133,7 +174,7 @@ const StationDetail = ({
                   primary: "red",
                   secondary: "white",
                 },
-              })
+              });
               dispatch(fetchStations(Current_User.data.companyId));
             }
           } catch (err) {

@@ -5,9 +5,13 @@ import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
 import OrderManagerNavbar from "../../components/Navbar/OrderManagerNavbar";
+import { useLocation } from "react-router-dom";
 // import "react-tabs/style/react-tabs.css";
 const AddReservation = () => {
   const [CurrentTabNumber, setCurrentTabNumber] = useState(0);
+  const location = useLocation();
+  const { type, max_value, value } = location.state;
+  console.log(type, max_value, value);
   return (
     <>
       <Tabs
@@ -55,6 +59,7 @@ const AddReservation = () => {
           <Step2
             CurrentTabNumber={CurrentTabNumber}
             setCurrentTabNumber={setCurrentTabNumber}
+            state={location.state}
           />
         </TabPanel>
         <TabPanel>

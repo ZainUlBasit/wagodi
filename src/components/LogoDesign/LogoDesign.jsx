@@ -8,7 +8,7 @@ const LogoDesign = () => {
       <img src={AuthBG} className="w-fit h-screen" />
       <img
         src={LogoWhite}
-        className="w-[400px] absolute bottom-7 right-10"
+        className="w-[250px] absolute bottom-7 right-[25%]"
       />
     </div>
   );

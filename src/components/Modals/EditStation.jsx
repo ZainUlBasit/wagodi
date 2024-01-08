@@ -23,10 +23,11 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
   const [Status, setStatus] = useState(false);
 
   useEffect(() => {
+    // console.log(CurrentStation);
     setStationName(CurrentStation.name);
     setStationNumber(CurrentStation.phone);
     setAddress(CurrentStation.address);
-    setAllGases(CurrentStation.fuels);
+    setAllGases(CurrentStation.populatedFuels);
     setStatus(CurrentStation.active);
     // console.log(CurrentStation.Gasses);
   }, []);
@@ -87,6 +88,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
   };
 
   useEffect(() => {
+
     console.log(AllGases);
   }, [AllGases]);
 

@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AuthInput from "../../components/Input/AuthInput";
 import { useNavigate } from "react-router-dom";
 
-const Step2 = ({ CurrentTabNumber, setCurrentTabNumber }) => {
+const Step2 = ({ CurrentTabNumber, setCurrentTabNumber, state }) => {
   const [GasType, setGasType] = useState("");
   const [UOM, setUOM] = useState("");
   const [BalanceVolume, setBalanceVolume] = useState("");
   const [RequireVolume, setRequireVolume] = useState("");
   const navigate = useNavigate();
+  useEffect(() => {
+    setGasType(state.type === 0 ? "91" : state.type === 1 ? "95" : "D");
+    setBalanceVolume(state.value)
+  }, []);
   return (
     <div className="w-[718px] flex flex-col gap-x-10 pt-[45px] mt-10 shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] justify-between h-[446px] rounded-[15px] fade-in">
       <div className="w-[718px] flex gap-x-10 justify-center rounded-[15px]">

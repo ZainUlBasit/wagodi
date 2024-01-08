@@ -5,12 +5,14 @@ import { RiNotification3Fill, RiSettings2Fill } from "react-icons/ri"; // Import
 import "./Navbar.css";
 import { TbLogout } from "react-icons/tb";
 import Logout from "../Modals/Logout";
+import LoggingOut from "../Modals/LoggingOut";
 
 const OrderManagerNavbar = () => {
   const [activeNavItem, setActiveNavItem] = useState(""); // State to track the active navigation item
   const location = useLocation(); // Get the current location from react-router-dom
   const [showNotificationDot, setShowNotificationDot] = useState(true);
   const [OpenModal, setOpenModal] = useState(false);
+  const [OpenLoggingOut, setOpenLoggingOut] = useState(false);
   const navigate = useNavigate();
 
   // Function to handle click on navigation items and set the active item
@@ -113,7 +115,18 @@ const OrderManagerNavbar = () => {
           </div>
         </div>
       </div>
-      {OpenModal && <Logout Open={OpenModal} setOpen={setOpenModal} />}
+      {OpenModal && (
+        <Logout
+          Open={OpenModal}
+          setOpen={setOpenModal}
+          setOpenLoggingOut={setOpenLoggingOut}
+        />
+      )}
+      {OpenLoggingOut && (
+        <div className="rounded-[20px] overflow-hidden">
+          <LoggingOut Open={OpenLoggingOut} setOpen={setOpenLoggingOut} />
+        </div>
+      )}
     </>
   );
 };
