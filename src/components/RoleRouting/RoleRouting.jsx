@@ -12,6 +12,7 @@ import Statistics from "../../pages/Statistics/Statistics";
 import Setting from "../../pages/Setting/Setting";
 import ChangePassword from "../Setting/ChangePassword";
 import CompanyDetails from "../Setting/CompanyDetails";
+import CompanyConfirmSubscription from "../Setting/CompanyConfirmSubscription";
 import Subscription from "../Setting/Subscription";
 import CompanySubscription from "../Setting/CompanySubscription";
 import AddReservation from "../../pages/AddReservation/AddReservation";
@@ -124,6 +125,15 @@ const RoleRouting = ({ role }) => {
         element={
           <ProtectedRoute>
             <CompanySubscription />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/company-confirm"
+        element={
+          <ProtectedRoute>
+            <CompanyConfirmSubscription />
           </ProtectedRoute>
         }
       />
