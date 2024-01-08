@@ -125,21 +125,21 @@ const AddUser = ({ Open, setOpen }) => {
                 placeholder="123"
                 required={false}
                 Value={Username}
-                setValue={setUsername}
+                setValue={(data)  =>setUsername(data)}
               />
               <AuthInput
                 label="Email"
                 placeholder="123@Gmail.com"
                 required={false}
                 Value={Email}
-                setValue={setEmail}
+                setValue={(data)  =>setEmail(data)}
               />
               <AuthInputPassword
                 label={"Password"}
                 placeholder={"***************"}
                 required={false}
                 Value={Password}
-                setValue={setPassword}
+                setValue={(data)  => setPassword(data)}
               />
 
               <AuthTextArea
@@ -149,7 +149,7 @@ const AddUser = ({ Open, setOpen }) => {
                 }
                 required={false}
                 Value={Address}
-                setValue={setAddress}
+                setValue={ (data)  => setAddress(data) }
               />
             </div>
             {/* right */}
@@ -159,14 +159,14 @@ const AddUser = ({ Open, setOpen }) => {
                 placeholder="1234567890"
                 required={false}
                 Value={PhoneNumber}
-                setValue={setPhoneNumber}
+                setValue={(data)  => setPhoneNumber(data)}
               />
               <AuthInputPopOver
                 label={"Role"}
                 placeholder={"Station Manager"}
                 required={false}
                 Value={Role}
-                onClick={handleClickRole}
+                onClick={(data)  =>handleClickRole(data)}
               />
               {/* Role Popover */}
               <Popover
