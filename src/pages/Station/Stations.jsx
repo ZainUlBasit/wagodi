@@ -30,9 +30,9 @@ const Stations = () => {
   const dispatch = useDispatch();
   const StationsData = useSelector((state) => state.StationReducer);
   const Auth = useSelector((state) => state.auth);
-
   useEffect(() => {
     dispatch(fetchStations(Auth.data.companyId));
+    console.log("stations data : ",StationsData)
   }, []);
 
   return (
@@ -97,15 +97,17 @@ const Stations = () => {
               Search={SearchText}
               ActiveStationSelection={ActiveStationSelection}
               setActiveStationSelection={setActiveStationSelection}
-              StationsData={StationsData?.data.filter((sdd) => {
-                if (StationFilter === "all") {
-                  return sdd;
-                } else if (sdd.active && StationFilter === "active") {
-                  return sdd;
-                } else if (!sdd.active && StationFilter === "inactive") {
-                  return sdd;
-                }
-              })}
+              StationsData={StationsData
+              // ?.data.filter((sdd) => {
+              //   if (StationFilter === "all") {
+              //     return sdd;
+              //   } else if (sdd.active && StationFilter === "active") {
+              //     return sdd;
+              //   } else if (!sdd.active && StationFilter === "inactive") {
+              //     return sdd;
+              //   }
+              // })
+              }
             />
           </div>
         )}

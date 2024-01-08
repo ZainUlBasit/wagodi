@@ -24,6 +24,7 @@ import ChangePassword from "./components/Setting/ChangePassword";
 import CompanyDetails from "./components/Setting/CompanyDetails";
 import MobNavbar from "./components/Navbar/MobNavbar";
 import Subscription from "./components/Setting/Subscription";
+import CompanySubscription from "./components/Setting/CompanySubscription";
 import { useDispatch, useSelector } from "react-redux";
 import { SetAuth, SetAuthNotFound } from "./store/Slices/AuthSlice";
 import LoginProtectedRoute from "./components/ProtectedRoutes/LoginProtectedRoute";
@@ -333,6 +334,15 @@ const App = () => {
           element={
             <ProtectedRoute>
               <Subscription />
+            </ProtectedRoute>
+          }
+        />
+        
+        <Route
+          path="/company-sub"
+          element={
+            <ProtectedRoute>
+              <CompanySubscription />
             </ProtectedRoute>
           }
         />

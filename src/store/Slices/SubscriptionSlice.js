@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { GetStationApi } from "../../Https";
+import { GetCompanySubscription } from "../../Https";
 
-export const fetchStations = createAsyncThunk(
-  "fetchStations",
+export const fetchSubscription = createAsyncThunk(
+  "fetchSubscription",
   async (companyId, query = {}) => {
-    let response = await GetStationApi({
+    let response = await GetCompanySubscription({
       companyId: companyId._id,
     });
     
@@ -14,8 +14,8 @@ export const fetchStations = createAsyncThunk(
   }
 );
 
-const stationSlice = createSlice({
-  name: "stations",
+const subscriptionSlice = createSlice({
+  name: "subscription",
   initialState: {
     loading: true,
     data: [],
@@ -23,16 +23,16 @@ const stationSlice = createSlice({
   },
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchStations.pending, (state, action) => {
+    builder.addCase(fetchSubscription.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(fetchStations.fulfilled, (state, action) => {
+    builder.addCase(fetchSubscription.fulfilled, (state, action) => {
       state.loading = false;
       console.log(action)
       state.data = action.payload;
       state.isError = false;
     });
-    builder.addCase(fetchStations.rejected, (state, action) => {
+    builder.addCase(fetchSubscription.rejected, (state, action) => {
       console.log("Error", action);
       // console.log("Error", action.payload);
       state.loading = false;
@@ -41,4 +41,4 @@ const stationSlice = createSlice({
   },
 });
 
-export default stationSlice.reducer;
+export default subscriptionSlice.reducer;
