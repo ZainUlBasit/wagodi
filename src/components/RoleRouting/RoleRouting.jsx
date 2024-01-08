@@ -172,6 +172,14 @@ const RoleRouting = ({ role }) => {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/notification"
+        element={
+          <ProtectedRoute>
+            <Notification />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   ) : (
     ""
