@@ -33,6 +33,7 @@ const StationDetail = ({
   };
   useEffect(() => {
     setFuelsData();
+    console.log(StationDetailData);
   }, []);
 
   return (
@@ -45,7 +46,7 @@ const StationDetail = ({
             ? "bg-[#6877DC]"
             : StationDetailData.current_status === "MakeOrder"
             ? "bg-[#C93D33]"
-            : ""
+            : "bg-black"
         } text-white cursor-pointer h-full`}
         onClick={() => {
           setOpen(!Open);

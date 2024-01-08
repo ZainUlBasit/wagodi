@@ -7,10 +7,29 @@ export const fetchStations = createAsyncThunk(
     let response = await GetStationApi({
       companyId: companyId._id,
     });
-    
-    console.log(response.data.data.payload);
-    // console.log(response.data.data.payload[0].stations);
-    return response.data.data.payload;
+
+    const UpdatedReponse = response.data.data.payload.map((data) => {
+      let minAge = 100;
+      data.populatedFuels.map(({ value, max_value }) => {
+        const currentAge = (value / max_value) * 100;
+        if (currentAge < minAge) {
+          minAge = currentAge;
+        }
+      });
+      const current_status =
+        minAge > 30 && minAge < 50
+          ? "MakeOrder"
+          : minAge > 50 && minAge < 80
+          ? "BeReady"
+          : "Healthy";
+      return {
+        ...data,
+        current_status,
+      };
+    });
+
+    console.log(UpdatedReponse);
+    return UpdatedReponse;
   }
 );
 
@@ -28,7 +47,6 @@ const stationSlice = createSlice({
     });
     builder.addCase(fetchStations.fulfilled, (state, action) => {
       state.loading = false;
-      console.log(action)
       state.data = action.payload;
       state.isError = false;
     });

@@ -38,7 +38,6 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(fetchStations(Auth.data.companyId));
-    console.log(StationsData.data);
   }, []);
 
   return (
@@ -191,7 +190,8 @@ const Home = () => {
           <PageLoader />
         ) : (
           <div className="w-[90%] max-w-[1200px] flex flex-wrap xl:justify-start justify-center items-center my-4">
-            {StationsData?.data.filter((dt) => {
+            {StationsData.data
+              .filter((dt) => {
                 if (Favourites) {
                   if (Filter !== "" && Favourites === dt.favorite) {
                     if (Filter === dt.current_status) {

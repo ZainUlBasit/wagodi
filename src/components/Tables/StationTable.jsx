@@ -22,6 +22,8 @@ export default function StationTable({
   ActiveStationSelection,
   setActiveStationSelection,
 }) {
+
+  // console.log(StationsData.data);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5); // You can adjust the number of rows per page as needed
 
