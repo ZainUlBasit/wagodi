@@ -5,10 +5,14 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { SetAuthNotFound } from "../../store/Slices/AuthSlice";
 import { useState } from "react";
+import { DeleteStationApi } from "../../Https";
+import SuccessToast from "../Toast/SuccessToast";
+import ErrorToast from "../Toast/ErrorToast";
+import { fetchStations } from "../../store/Slices/StationSlice";
 
 const style = {
   position: "absolute",
@@ -27,13 +31,29 @@ export default function DeleteModal({ Open, setOpen, State }) {
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
   const [Loading, setLoading] = useState(false);
+  const Current_User = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const Deleting = async () => {
     setLoading(true);
-    setInterval(() => {
-      setLoading(false);
-    }, 3000);
+    try {
+      const BodyData = {
+        stationId: State._id,
+        companyId: Current_User.data.companyId._id,
+      };
+      console.log("hjgsadjhfashgdf", BodyData);
+      if (State.type === "station") {
+        let response = await DeleteStationApi(BodyData);
+        SuccessToast(response.data.data.msg);
+        setOpen(false);
+        dispatch(fetchStations(Current_User.data.companyId));
+      }
+    } catch (err) {
+      ErrorToast(err.response.data.error.msg);
+    }
+    setLoading(false);
   };
   console.log(State);
+  console.log(Current_User.data.companyId._id);
   return (
     <div>
       <Modal

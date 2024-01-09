@@ -14,23 +14,18 @@ import { UpdateStationApi } from "../../Https";
 import { data } from "autoprefixer";
 import toast from "react-hot-toast";
 import SuccessToast from "../Toast/SuccessToast";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUsers } from "../../store/Slices/UserSlice";
+import { fetchStations } from "../../store/Slices/StationSlice";
 
 const EditStation = ({ Open, setOpen, CurrentStation }) => {
-  const [StationNumber, setStationNumber] = useState("");
-  const [StationName, setStationName] = useState("");
-  const [Address, setAddress] = useState("");
+  const [StationNumber, setStationNumber] = useState(CurrentStation.phone);
+  const [StationName, setStationName] = useState(CurrentStation.name);
+  const [Address, setAddress] = useState(CurrentStation.address);
   const [EditIndex, setEditIndex] = useState("");
-  const [Status, setStatus] = useState(false);
-
-  useEffect(() => {
-    // console.log(CurrentStation);
-    setStationName(CurrentStation.name);
-    setStationNumber(CurrentStation.phone);
-    setAddress(CurrentStation.address);
-    setAllGases(CurrentStation.populatedFuels);
-    setStatus(CurrentStation.active);
-    // console.log(CurrentStation.Gasses);
-  }, []);
+  const [Status, setStatus] = useState(CurrentStation.active);
+  const dispatch = useDispatch();
+  const Current_User = useSelector((state) => state.auth);
 
   const onSubmitMethod = async (e) => {
     e.preventDefault();
@@ -52,6 +47,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
         };
       }
     });
+    // previous state =false && current state = true then allowed station is equal to activeStation
     const BodyData = {
       stationId: CurrentStation._id,
       updateData: {
@@ -59,7 +55,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
         address: Address,
         phone: StationNumber,
         fuels: UpdateGases,
-        active:Status
+        active: Status,
       },
     };
     try {
@@ -67,6 +63,8 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
       console.log(response);
       if (response.data.success) {
         SuccessToast("Station Successfully Updated...");
+        dispatch(fetchStations(Current_User.data.companyId));
+        setOpen(false);
       } else if (!response.data.success) {
         toast.error(response.data?.error?.msg);
       }
@@ -76,7 +74,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
     }
   };
 
-  const [AllGases, setAllGases] = useState([]);
+  const [AllGases, setAllGases] = useState(CurrentStation.populatedFuels);
   const [ShowAddGassInputs, setShowAddGassInputs] = useState(false);
   const [ShowAddGassInputsPrefilled, setShowAddGassInputsPrefilled] =
     useState(false);
@@ -88,7 +86,6 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
   };
 
   useEffect(() => {
-
     console.log(AllGases);
   }, [AllGases]);
 
@@ -129,13 +126,13 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
                 setValue={setAddress}
               />
               <div>
-              <Switch
-                defaultChecked
-                checked={Status}
-                size="large"
-                onClick={() => setStatus(!Status)}
-              />
-              {Status ? "Active" : "Inactive"}
+                <Switch
+                  defaultChecked
+                  checked={Status}
+                  size="large"
+                  onClick={() => setStatus(!Status)}
+                />
+                {Status ? "Active" : "Inactive"}
               </div>
             </div>
           </div>

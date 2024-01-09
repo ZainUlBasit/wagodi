@@ -5,7 +5,6 @@ export const fetchUsers = createAsyncThunk(
   "fetchUsers",
   async ({ companyId, query = {} }) => {
     try {
-      console.log(companyId);
       let response = await GetUserApi({ companyId: companyId._id });
       console.log(response.data.data);      
       return response.data.data;

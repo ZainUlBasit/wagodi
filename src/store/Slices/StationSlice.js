@@ -4,32 +4,34 @@ import { GetStationApi } from "../../Https";
 export const fetchStations = createAsyncThunk(
   "fetchStations",
   async (companyId, query = {}) => {
-    let response = await GetStationApi({
-      companyId: companyId._id,
-    });
-
-    const UpdatedReponse = response.data.data.payload.map((data) => {
-      let minAge = 100;
-      data.populatedFuels.map(({ value, max_value }) => {
-        const currentAge = (value / max_value) * 100;
-        if (currentAge < minAge) {
-          minAge = currentAge;
-        }
+    try {
+      console.log(companyId);
+      let response = await GetStationApi({
+        companyId: companyId._id,
       });
-      const current_status =
-        minAge > 30 && minAge < 50
-          ? "MakeOrder"
-          : minAge > 50 && minAge < 80
-          ? "BeReady"
-          : "Healthy";
-      return {
-        ...data,
-        current_status,
-      };
-    });
-
-    console.log(UpdatedReponse);
-    return UpdatedReponse;
+      const UpdatedReponse = response.data.data.payload.map((data) => {
+        let minAge = 100;
+        data.populatedFuels.map(({ value, max_value }) => {
+          const currentAge = (value / max_value) * 100;
+          if (currentAge < minAge) {
+            minAge = currentAge;
+          }
+        });
+        const current_status =
+          minAge > 30 && minAge < 50
+            ? "MakeOrder"
+            : minAge > 50 && minAge < 80
+            ? "BeReady"
+            : "Healthy";
+        return {
+          ...data,
+          current_status,
+        };
+      });
+      return UpdatedReponse === undefined ? [] : UpdatedReponse;
+    } catch (error) {
+      console.log(error);
+    }
   }
 );
 

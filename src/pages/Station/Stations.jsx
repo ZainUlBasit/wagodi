@@ -34,7 +34,7 @@ const Stations = () => {
   const Auth = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(fetchStations(Auth.data.companyId));
-    console.log("stations data : ", StationsData);
+    console.log("stations data : ", StationsData.data);
   }, []);
 
   return (
@@ -80,6 +80,8 @@ const Stations = () => {
         </div>
         {StationsData.loading ? (
           <PageLoader />
+        ) : StationsData.data === 0 ? (
+          <div>Empty</div>
         ) : (
           <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] mb-10 relative mt-6 fade-in">
             <div className="flex justify-between items-center px-5 text-white font-[Quicksand] absolute -top-9 left-[-1px] w-[calc(100%+2px)] bg-[#465462] rounded-[15px]">
@@ -131,7 +133,13 @@ const Stations = () => {
         <DeleteModal
           Open={OpenDeleteModal}
           setOpen={setOpenDeleteModal}
-          State={StationsData.data.filter((sd) => sd._id === StationID)[0]}
+          State={
+            StationsData.data
+              .filter((sd) => sd._id === StationID)
+              .map((data) => {
+                return { ...data, type: "station" };
+              })[0]
+          }
         />
       )}
     </>

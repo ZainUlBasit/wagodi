@@ -7,7 +7,8 @@ export const api = axios.create({
   headers: {
     "Content-type": "application/json",
     Accept: "application/json",
-    "app_secret": "10ef42363582fd212242bf8da6598e6d15111a9a509c36242411d444e8c03728"
+    app_secret:
+      "10ef42363582fd212242bf8da6598e6d15111a9a509c36242411d444e8c03728",
   },
 });
 
@@ -30,8 +31,11 @@ export const UpdatePasswordApi = (data) =>
 // *********************************************
 export const CreateStationApi = (data) => api.post("/station", data);
 export const GetStationApi = (data) => api.post("/station/all", data);
-export const GetCompanySubscription = (data) => api.post("/subscription/company", data);
+export const GetCompanySubscription = (data) =>
+  api.post("/subscription/company", data);
 export const UpdateStationApi = (data) => api.patch("/station/update", data);
+export const DeleteStationApi = (data) =>
+  api.delete(`/station/?stationId=${data.stationId}&companyId=${data.companyId}`);
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 // Station Request
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -58,8 +62,7 @@ export const CreateStationManagerApi = (data) =>
 // *********************************************
 // Users Request
 // *********************************************
-export const GetUserApi = (data) =>
-  api.post("/auth/list/", data);
+export const GetUserApi = (data) => api.post("/auth/list/", data);
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 // Station Request
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
