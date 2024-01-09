@@ -16,6 +16,7 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 export default function VendorTable({
   setVendorID,
   setOpen,
+  setOpenDelete,
   Search,
   VendorsData,
 }) {
@@ -111,7 +112,7 @@ export default function VendorTable({
                       className="text-[1.2rem] cursor-pointer hover:text-[red] transition-all duration-500"
                       onClick={() => {
                         setVendorID(data._id);
-                        setDeleteOpen(true);
+                        setOpenDelete(true);
                       }}
                     />
                   </div>

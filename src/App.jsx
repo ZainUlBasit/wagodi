@@ -139,7 +139,6 @@ const App = () => {
     CheckLocalStorage();
     setInterval(() => {
       setLoading(false);
-      console.log(auth.data.length);
     }, 3000);
   }, []);
   return Loading ? (

@@ -15,12 +15,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchStations } from "../../store/Slices/StationSlice";
 import PageLoader from "../../components/Loaders/PageLoader";
 import FilterButton from "../../components/buttons/FilterButton/FilterButton";
+import DeleteModal from "../../components/Modals/DeleteModal";
 
 const Stations = () => {
   const [Filter, setFilter] = useState("");
   const [StationID, setStationID] = useState("");
   const [OpenAddModal, setOpenAddModal] = useState(false);
   const [OpenEditModal, setOpenEditModal] = useState(false);
+  const [OpenDeleteModal, setOpenDeleteModal] = useState(false);
   const [SearchText, setSearchText] = useState("");
   const [StationFilter, setStationFilter] = useState("all");
   const [ActiveStationSelection, setActiveStationSelection] = useState([]);
@@ -94,6 +96,7 @@ const Stations = () => {
             <StationTable
               setStationID={setStationID}
               setOpen={setOpenEditModal}
+              setOpenDeleteModal={setOpenDeleteModal}
               Search={SearchText}
               ActiveStationSelection={ActiveStationSelection}
               setActiveStationSelection={setActiveStationSelection}
@@ -122,6 +125,13 @@ const Stations = () => {
           CurrentStation={
             StationsData.data.filter((sd) => sd._id === StationID)[0]
           }
+        />
+      )}
+      {OpenDeleteModal && (
+        <DeleteModal
+          Open={OpenDeleteModal}
+          setOpen={setOpenDeleteModal}
+          State={StationsData.data.filter((sd) => sd._id === StationID)[0]}
         />
       )}
     </>

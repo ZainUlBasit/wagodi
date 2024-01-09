@@ -11,10 +11,12 @@ import { fetchVendors } from "../../store/Slices/VendorSlice";
 import PageLoader from "../../components/Loaders/PageLoader";
 import NoDataFound from "../../components/Loaders/Lottie/NoDataFound";
 import toast from "react-hot-toast";
+import DeleteModal from "../../components/Modals/DeleteModal";
 
 const Vendor = () => {
   const [VendorID, setVendorID] = useState("");
   const [OpenEdit, setOpenEdit] = useState(false);
+  const [OpenDelete, setOpenDelete] = useState(false);
   const [OpenAdd, setOpenAdd] = useState(false);
   const [SearchText, setSearchText] = useState("");
   // react-redux methods
@@ -64,6 +66,7 @@ const Vendor = () => {
             <VendorTable
               setVendorID={setVendorID}
               setOpen={setOpenEdit}
+              setOpenDelete={setOpenDelete}
               Search={SearchText}
               VendorsData={VendorsData.data}
             />
@@ -76,6 +79,13 @@ const Vendor = () => {
           Open={OpenEdit}
           setOpen={setOpenEdit}
           Data={VendorsData.data.filter(dt=>dt._id === VendorID)[0]}
+        />
+      )}
+      {OpenDelete && (
+        <DeleteModal
+          Open={OpenDelete}
+          setOpen={setOpenDelete}
+          State={VendorsData.data.filter(dt=>dt._id === VendorID)[0]}
         />
       )}
     </>

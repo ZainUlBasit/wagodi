@@ -77,7 +77,7 @@ const AddUser = ({ Open, setOpen }) => {
     try {
       const response = await CreateStationManagerApi(req_data);
       if (response.data?.success) {
-        ToastSuccess();
+        // ToastSuccess();
         toast.success(
           `${
             Role === "Administrator"
@@ -89,6 +89,7 @@ const AddUser = ({ Open, setOpen }) => {
               : Role === "Station Manager" && "Station Manager"
           } successfully added..!`
         );
+        
       } else if (!response.data?.success) {
         toast.error(response.data?.error?.msg);
       }

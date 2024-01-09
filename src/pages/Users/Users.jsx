@@ -11,6 +11,7 @@ import { UserData } from "../../components/Tables/DemoData/UserData";
 import MobNavbar from "../../components/Navbar/MobNavbar";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "../../store/Slices/UserSlice";
+import PageLoader from "../../components/Loaders/PageLoader";
 
 const Users = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -23,6 +24,7 @@ const Users = () => {
 
   const dispatch = useDispatch();
   const Current_User = useSelector((state) => state.auth);
+  const Users = useSelector((state) => state.Users);
   useEffect(() => {
     dispatch(
       fetchUsers({
@@ -32,6 +34,7 @@ const Users = () => {
         },
       })
     );
+    console.log(Users.data);
   }, []);
 
   const handleClick = (event) => {
@@ -185,25 +188,30 @@ const Users = () => {
             </button>
           </div>
         </div>
-        <div className="w-[90%] max767:w-[95%] max-w-[1200px] border-[1px] border-[#465462] shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] mb-10 relative mt-6">
-          <div className="flex justify-between items-center px-5 text-white font-[Quicksand] absolute -top-9 left-[-1px] w-[calc(100%+2px)] bg-[#465462] rounded-[15px]">
-            <div className="flex border-[1px] w-[300px] border-white items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden my-[10px]">
-              <BsSearch className="text-[1.2rem]" />
-              <input
-                className="outline-none bg-inherit text-white w-full"
-                placeholder="Search Role"
-                value={SearchText}
-                onChange={(e) => setSearchText(e.target.value)}
-              />
+        {Users.loading ? (
+          <PageLoader />
+        ) : (
+          <div className="w-[90%] max767:w-[95%] max-w-[1200px] border-[1px] border-[#465462] shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] mb-10 relative mt-6">
+            <div className="flex justify-between items-center px-5 text-white font-[Quicksand] absolute -top-9 left-[-1px] w-[calc(100%+2px)] bg-[#465462] rounded-[15px]">
+              <div className="flex border-[1px] w-[300px] border-white items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden my-[10px]">
+                <BsSearch className="text-[1.2rem]" />
+                <input
+                  className="outline-none bg-inherit text-white w-full"
+                  placeholder="Search Role"
+                  value={SearchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                />
+              </div>
             </div>
+            <UserTable
+              setUserID={setUserID}
+              setOpen={setOpenEditModal}
+              Filter={ApplyFilter}
+              Search={SearchText}
+              UserData={Users}
+            />
           </div>
-          <UserTable
-            setUserID={setUserID}
-            setOpen={setOpenEditModal}
-            Filter={ApplyFilter}
-            Search={SearchText}
-          />
-        </div>
+        )}
       </div>
       {/* Create Modal and Implement */}
       {OpenAddModal && (
