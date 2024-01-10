@@ -6,7 +6,7 @@ import ErrorToast from "../Toast/ErrorToast";
 import SuccessToast from "../Toast/SuccessToast";
 
 export default function CompanySubscription() {
-  const userData = useSelector((state) => state.auth);
+  const userData = useSelector((state) => state.auth.data);
   const location = useLocation();
   const navigate = useNavigate() 
   const queryParams = new URLSearchParams(location.search);
@@ -24,7 +24,7 @@ export default function CompanySubscription() {
       const error = data?.data?.data?.payload?.error;
       if (success) {
         SuccessToast("Successfully Subscribed!");
-        navigate("/")
+        navigate("/home")
       } else {
         ErrorToast(error || "could not generate a subscription right now!");
         navigate("/company-sub")
