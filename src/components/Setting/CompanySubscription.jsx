@@ -15,7 +15,9 @@ export default function CompanySubscription() {
   
   const subscriptionHandler = async () => {
     try {
-    const data = await api.post("/subscription/paypal-dummy", {return_url}) // this api is dummy, its to test the flow. later has to be changed!
+    const data = await api.post("/subscription/create", {
+      productId : "658c094f87489f4a11ba5f0b",
+    }) // this api is dummy, its to test the flow. later has to be changed!
     console.log(data.data)
     const success = data?.data?.success
     const error = data?.data?.data?.payload?.error
