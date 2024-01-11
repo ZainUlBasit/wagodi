@@ -13,6 +13,19 @@ import { BiEdit } from "react-icons/bi";
 import { VendorData } from "./DemoData/VendorData";
 import { RiDeleteBin5Line } from "react-icons/ri";
 
+const vendorFuelType = (type) => {
+  switch(type){
+    case 0: 
+    return "91"
+    case 1:
+      return "95"
+      case 2: 
+      return "D"
+      default:
+        return ''
+  }
+}
+
 export default function VendorTable({
   setVendorID,
   setOpen,
@@ -136,9 +149,9 @@ export default function VendorTable({
                   align="center"
                 >
                   <div className="flex gap-x-5 justify-center">
-                    <div>{data.fuels[0].price_litre}</div>
-                    <div>{data.fuels[1].price_litre}</div>
-                    <div>{data.fuels[2].price_litre}</div>
+                    {data?.fuels?.map(fuel => 
+                    <div key={fuel._id}>{vendorFuelType(fuel?.type)}</div>
+                    )}
                   </div>
                 </TableCell>
                 <TableCell

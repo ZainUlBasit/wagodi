@@ -26,6 +26,7 @@ const Vendor = () => {
 
   useEffect(() => {
     dispatch(fetchVendors(Auth.data.companyId));
+    console.log(VendorsData)
   }, []);
 
   return (

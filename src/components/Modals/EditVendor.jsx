@@ -5,11 +5,12 @@ import AuthTextArea from "../Input/AuthTextArea";
 import { UpdateVendorApi } from "../../Https";
 
 const EditVendor = ({ Open, setOpen, Data }) => {
+  console.log("vendor edit data: ", Data)
   const [VendorName, setVendorName] = useState(Data.name);
   const [Location, setLocation] = useState(Data.address);
-  const [_95, set_95] = useState(Data.fuels[0].price_litre);
-  const [_91, set_91] = useState(Data.fuels[1].price_litre);
-  const [_D, set_D] = useState(Data.fuels[2].price_litre);
+  const [_95, set_95] = useState(Data.fuels[0]?.price_litre);
+  const [_91, set_91] = useState(Data.fuels[1]?.price_litre);
+  const [_D, set_D] = useState(Data.fuels[2]?.price_litre);
   const onSubmit = async (e) => {
     e.preventDefault();
     const Fuel_Array = [
@@ -24,11 +25,11 @@ const EditVendor = ({ Open, setOpen, Data }) => {
         price_litre: Number(_95),
       },
       {
-        _id: Data.fuels[2]._id,
+        _id: Data.fuels[2]?._id,
         type: 2,
         price_litre: Number(_D),
       },
-    ];
+    ].filter( ({_id}) => _id);
     const BodyData = {
       id: Data._id,
       name: VendorName,
@@ -89,6 +90,7 @@ const EditVendor = ({ Open, setOpen, Data }) => {
                     onChange={(e) => set_95(e.target.value)}
                   />
                 </div>
+                
                 <div className="relative mb-[15px] w-[110px] max767:w-[90px]">
                   <p className="absolute top-[-11px] left-4 w-fit bg-white font-[Quicksand] text-[15px] font-[600]">
                     91

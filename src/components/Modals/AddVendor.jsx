@@ -25,7 +25,7 @@ const AddVendor = ({ Open, setOpen }) => {
         type: 0,
         price_litre: Number(_91),
       },
-      {
+    {
         type: 1,
         price_litre: Number(_95),
       },
@@ -43,7 +43,7 @@ const AddVendor = ({ Open, setOpen }) => {
     console.log(Auth.data.companyId, VendorName, Location, Fuel_Array);
     try {
       const response = await CreateVendorApi({
-        companyId: Auth.data.companyId,
+        companyId: Auth.data.companyId._id,
         name: VendorName,
         address: Location,
         fuels: Fuel_Array,
