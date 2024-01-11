@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { api } from "../../Https";
@@ -8,7 +8,7 @@ import SuccessToast from "../Toast/SuccessToast";
 export default function CompanySubscription() {
   const userData = useSelector((state) => state.auth.data);
   const location = useLocation();
-  const navigate = useNavigate() 
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const ba_token = queryParams.get("token");
   console.log("token : ", ba_token);
@@ -17,17 +17,17 @@ export default function CompanySubscription() {
     try {
       const data = await api.post("/subscription/success", {
         ba_token,
-        companyId: userData.companyId._id,
+        company: userData.companyId,
       });
       console.log(data?.data);
       const success = data?.data?.success;
       const error = data?.data?.data?.payload?.error;
       if (success) {
         SuccessToast("Successfully Subscribed!");
-        navigate("/home")
+        navigate("/home");
       } else {
         ErrorToast(error || "could not generate a subscription right now!");
-        navigate("/company-sub")
+        navigate("/company-sub");
       }
     } catch (error) {
       ErrorToast("subscription confirmation error!");
@@ -36,12 +36,31 @@ export default function CompanySubscription() {
   };
   return (
     <div className="w-[100%] flex justify-center items-center">
-      <div className="flex max-w-[520px] max767:w-[90%] max767:items-center max767:justify-center flex-wrap gap-x-5 gap-y-5 fade-in">
-        {/* {subscriptionData || "No Subscription Made!"} */}
-        <Button onClick={confirmSubscriptionHandler}>
-          Confirm Subscription
+      {/* {subscriptionData || "No Subscription Made!"} */}
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="100vh"
+      >
+        <Button
+          variant="contained"
+          size="large"
+          sx={{
+            borderRadius: "20px",
+            padding: "10px 30px",
+            fontSize: "1rem",
+            fontWeight: "bold",
+            textTransform: "none",
+            backgroundColor: "#FFD244",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.25)",
+          }}
+          onClick={() => confirmSubscriptionHandler()}
+        >
+          Confirm Payment
         </Button>
-      </div>
+      </Box>
+      {" "}
     </div>
   );
 }
