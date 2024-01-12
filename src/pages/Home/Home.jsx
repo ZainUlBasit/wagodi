@@ -15,6 +15,7 @@ import PageLoader from "../../components/Loaders/PageLoader";
 import CustomPoperOverHome from "../../components/Popover/CustomPoperOverHome";
 
 const Home = () => {
+  console.log("home")
   const [Favourites, setFavourites] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [Filter, setFilter] = useState("");

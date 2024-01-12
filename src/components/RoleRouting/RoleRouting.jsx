@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoutes/ProtectedRoute";
 import Home from "../../pages/Home/Home";
 import OngoingOrder from "../../pages/OngoingOrder/OngoingOrder";
@@ -20,9 +20,15 @@ import OrderManagerOrderReports from "../../pages/OrderReports/OrderManagerOrder
 import OrderInfo from "../Cards/OrderInfo";
 
 const RoleRouting = ({ role }) => {
+  console.log("role")
   return role === 1 ? (
     <Routes>
       <Route
+        path="/"
+        element={<Navigate to="/home" />}
+      />
+      <Route
+        index
         path="/home"
         element={
           <ProtectedRoute>

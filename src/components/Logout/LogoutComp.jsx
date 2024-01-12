@@ -20,7 +20,7 @@ const LogoutComp = () => {
         LogginOut();
       }, 3000);
     } else {
-      navigate("/");
+      navigate("/home");
     }
   }, []);
   return (

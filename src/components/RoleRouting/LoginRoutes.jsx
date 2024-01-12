@@ -12,6 +12,7 @@ const LoginRoutes = () => {
   return (
     <Routes>
       <Route
+        index
         path="/"
         element={
           <LoginProtectedRoute>

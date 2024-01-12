@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import OngoingOrdersTable from "../../components/Tables/OngoingOrdersTable";
 import { LuFilter } from "react-icons/lu";
@@ -10,6 +10,8 @@ import DateInput from "../../components/Input/DateInput";
 import "../../assets/Style/style.css";
 import MobNavbar from "../../components/Navbar/MobNavbar";
 import CustomPoperOverWithShow from "../../components/Popover/CustomPoperOverWithShow";
+import { api } from "../../Https";
+import { useSelector } from "react-redux";
 
 const OngoingOrder = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -17,6 +19,7 @@ const OngoingOrder = () => {
   const [OpenReservationDetailsModal, setOpenReservationDetailsModal] =
     useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const userData = useSelector(state => state.auth.data)
   const [SearchText, setSearchText] = useState("");
   const [Filter, setFilter] = useState("");
   const [ApplyFilter, setApplyFilter] = useState("");
@@ -28,6 +31,10 @@ const OngoingOrder = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect( async () => {
+    const data = api.post("/order/company", {companyId: userData.companyId._id})
+  })
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;

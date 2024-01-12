@@ -7,6 +7,7 @@ import MobOnboarding from "./MobOnboarding";
 import LogoDesign from "../LogoDesign/LogoDesign";
 
 const Onbaording = () => {
+
   return (
     <>
       <div className="flex w-full h-screen  justify-between pr-[100px] fade-in max767:hidden">

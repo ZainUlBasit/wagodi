@@ -6,6 +6,7 @@ function LoginProtectedRoute({ children }) {
   // if (auth) {
     // return <Navigate to="/home" replace />;
   // }
+
   return children;
 }
 export default LoginProtectedRoute;

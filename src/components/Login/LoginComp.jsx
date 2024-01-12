@@ -91,11 +91,13 @@ const LoginComp = () => {
       if (response.data.success) SuccessToast(response.data?.data?.msg);
     } catch (err) {
       response = err;
-      response_type = response.response?.data?.success || false;
+      response_type = response.data?.success || false;
     }
     // console.log(response_type);
     if (response_type) {
       localStorage.setItem("logged-in", response_type);
+      console.log(response)
+      localStorage.setItem("userToken", response?.data?.token);
       localStorage.setItem(
         "user-data",
         JSON.stringify(response.data.data.data)

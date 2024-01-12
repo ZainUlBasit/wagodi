@@ -31,7 +31,8 @@ export default function LoggingOut({ Open, setOpen }) {
   const LogginOut = () => {
     localStorage.removeItem("user-data");
     localStorage.removeItem("logged-in");
-    navigate("/");
+    localStorage.removeItem("userToken");
+    navigate("/auth");
     window.location.reload();
   };
   React.useEffect(() => {

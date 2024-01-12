@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from "../assets/config";
 
+const userToken = localStorage.getItem("userToken");
 export const api = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
@@ -9,6 +10,7 @@ export const api = axios.create({
     Accept: "application/json",
     app_secret:
       "10ef42363582fd212242bf8da6598e6d15111a9a509c36242411d444e8c03728",
+      userToken
   },
 });
 
