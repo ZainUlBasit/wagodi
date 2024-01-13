@@ -95,6 +95,7 @@ const LoginComp = () => {
     }
     // console.log(response_type);
     if (response_type) {
+      localStorage.setItem("token", response.data.token);
       localStorage.setItem("logged-in", response_type);
       console.log(response)
       localStorage.setItem("userToken", response?.data?.token);
@@ -104,7 +105,7 @@ const LoginComp = () => {
       );
       dispatch(SetAuth(response.data.data.data));
       navigate("/home");
-    }  else {
+    } else {
       const current_status = response.response?.status || response.status;
       if (current_status === 200) {
         ErrorToast(response.data.error.msg);

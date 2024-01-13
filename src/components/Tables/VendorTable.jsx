@@ -149,9 +149,15 @@ export default function VendorTable({
                   align="center"
                 >
                   <div className="flex gap-x-5 justify-center">
+<<<<<<< Updated upstream
                     {data?.fuels?.map(fuel => 
                     <div key={fuel._id}>{vendorFuelType(fuel?.type)}</div>
                     )}
+=======
+                    <div>{data.fuels[0]?.price_litre}</div>
+                    <div>{data.fuels[1]?.price_litre}</div>
+                    <div>{data.fuels[2]?.price_litre}</div>
+>>>>>>> Stashed changes
                   </div>
                 </TableCell>
                 <TableCell

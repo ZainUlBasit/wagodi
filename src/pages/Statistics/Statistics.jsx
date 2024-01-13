@@ -23,6 +23,7 @@ import ApexChart from "./CustomChart";
 import LineColumnChart from "./LineColumnChart";
 import StationStatisticTopTable from "../../components/Tables/StationStatisticTopTable";
 import SendReport from "../../components/Modals/SendReport";
+import { Link } from "react-router-dom";
 
 const Statistics = () => {
   const [selectedMonth, setSelectedMonth] = useState(new Date());
@@ -125,6 +126,12 @@ const Statistics = () => {
           </div>
           {/* Right */}
           <div className="flex items-center gap-x-4">
+            <Link
+              to={"/employee-data"}
+              className="outline-none text-white font-[700] text-[1.1rem] text-center bg-[#465462] px-4 py-[6px] rounded-full cursor-pointer"
+            >
+              Employee Data
+            </Link>
             <div className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white">
               <div className="flex items-center">
                 <input
@@ -456,7 +463,7 @@ const Statistics = () => {
           </Popover>
         </div>
 
-        <div className="gap-x-5 flex-wrap w-[90%] flex justify-between max767:items-center max767:justify-center max1056:items-center max1056:justify-center">
+        <div className="gap-x-5 flex-wrap w-[90%] flex justify-between max767:items-center max767:justify-center max1056:items-center max1056:justify-center mt-2">
           <div className="h-[360px] w-[500px] max767:w-auto overflow-scroll border-[1px] border-[#576370]">
             <StationStatisticTopTable />
           </div>

@@ -37,7 +37,9 @@ export const GetCompanySubscription = (data) =>
   api.post("/subscription/company", data);
 export const UpdateStationApi = (data) => api.patch("/station/update", data);
 export const DeleteStationApi = (data) =>
-  api.delete(`/station/?stationId=${data.stationId}&companyId=${data.companyId}`);
+  api.delete(
+    `/station/?stationId=${data.stationId}&companyId=${data.companyId}`
+  );
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 // Station Request
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -67,4 +69,19 @@ export const CreateStationManagerApi = (data) =>
 export const GetUserApi = (data) => api.post("/auth/list/", data);
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 // Station Request
+// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+// *********************************************
+// Order Request
+// *********************************************
+export const GetAllOrderApi = (data) => api.post("/order/company", data);
+// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+// Order Request
+// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+// *********************************************
+// Notification Request
+// *********************************************
+export const GetCompanyNotificationApi = (data) => api.post("/notification/company", data);
+// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+// Notification Request
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

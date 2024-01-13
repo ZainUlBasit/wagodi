@@ -9,8 +9,23 @@ import Paper from "@mui/material/Paper";
 import { Data } from "./DemoData/Orders";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { NotificationData } from "./DemoData/NotificationData";
+import { useState } from "react";
+import { useEffect } from "react";
+import moment from "moment/moment";
 
-export default function NotificationTable() {
+export default function NotificationTable({ Data }) {
+  const [CurrentNotification, setCurrentNotification] = useState([]);
+  useEffect(() => {
+    setCurrentNotification(
+      Data?.notification.map((df) => {
+        return {
+          ...df,
+          createdAt: new Date(df.createdAt * 1000),
+        };
+      })
+    );
+  }, []);
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -55,11 +70,12 @@ export default function NotificationTable() {
               {""}
             </TableCell>
           </TableRow>
-          {NotificationData.map((row, i) => (
+          {CurrentNotification?.map((row, i) => (
             <TableRow
               key={row.name}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
+              {console.log(row)}
               <TableCell
                 sx={{
                   fontWeight: 400,
@@ -74,10 +90,10 @@ export default function NotificationTable() {
               >
                 <div className="flex flex-col max767:pl-2">
                   <span className="font-[700] text-[26px] max767:text-[1.3rem]">
-                    {row.date.split(" ")[0]}
+                    {moment(row.createdAt).format('DD')}
                   </span>
                   <span className="font-[600] text-[.8rem]">
-                    {row.date.split(" ")[1]}
+                    {moment(row.createdAt).format('MMM')}
                   </span>
                 </div>
               </TableCell>
@@ -103,7 +119,7 @@ export default function NotificationTable() {
                 <div className="flex justify-center items-center gap-x-1 text-[#A5A5A5]">
                   <AiOutlineClockCircle className="text-[1.2rem]" />
                   <span className="font-[700] max767:text-[.8rem]">
-                    {row.time}
+                  {moment(row.createdAt).format('hh:mm A')}
                   </span>
                 </div>
               </TableCell>

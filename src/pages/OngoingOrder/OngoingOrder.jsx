@@ -10,8 +10,13 @@ import DateInput from "../../components/Input/DateInput";
 import "../../assets/Style/style.css";
 import MobNavbar from "../../components/Navbar/MobNavbar";
 import CustomPoperOverWithShow from "../../components/Popover/CustomPoperOverWithShow";
+<<<<<<< Updated upstream
 import { api } from "../../Https";
 import { useSelector } from "react-redux";
+=======
+import { useDispatch } from "react-redux";
+import { fetchOrders } from "../../store/Slices/OrderSlice";
+>>>>>>> Stashed changes
 
 const OngoingOrder = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -23,6 +28,11 @@ const OngoingOrder = () => {
   const [SearchText, setSearchText] = useState("");
   const [Filter, setFilter] = useState("");
   const [ApplyFilter, setApplyFilter] = useState("");
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchOrders());
+  }, []);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

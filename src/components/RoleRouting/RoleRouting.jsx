@@ -18,6 +18,7 @@ import CompanySubscription from "../Setting/CompanySubscription";
 import AddReservation from "../../pages/AddReservation/AddReservation";
 import OrderManagerOrderReports from "../../pages/OrderReports/OrderManagerOrderReports";
 import OrderInfo from "../Cards/OrderInfo";
+import EmployeeData from "../../pages/Statistics/EmployeeData";
 
 const RoleRouting = ({ role }) => {
   console.log("role")
@@ -143,7 +144,19 @@ const RoleRouting = ({ role }) => {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/employee-data"
+        element={
+          <ProtectedRoute>
+            <EmployeeData />
+          </ProtectedRoute>
+        }
+      />
+      
     </Routes>
+    // **************************************
+    // routing for order manager
+    // **************************************
   ) : role === 2 ? (
     <Routes>
       <Route

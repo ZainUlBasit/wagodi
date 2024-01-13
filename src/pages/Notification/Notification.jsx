@@ -4,13 +4,19 @@ import NotificationTable from "../../components/Tables/NotificationTable";
 import { BiSolidChevronRight } from "react-icons/bi";
 import "../../assets/Style/style.css";
 import MobNavbar from "../../components/Navbar/MobNavbar";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchNotification } from "../../store/Slices/NotificationSlice";
 
 const Notification = () => {
   const [FromDate, setFromDate] = useState("2023-12-11");
   const [ToDate, setToDate] = useState("2023-12-18");
+  const dispatch = useDispatch();
+  const Current_User = useSelector((state) => state.auth);
+  const Current_Notification = useSelector((state) => state.Notifications);
   useEffect(() => {
     console.log(FromDate);
     console.log(ToDate);
+    dispatch(fetchNotification(Current_User.data.companyId));
   }, [FromDate, ToDate]);
   return (
     <>
@@ -55,7 +61,7 @@ const Notification = () => {
           </div>
         </div>
         <div className="w-[90%] max-w-[1200px] flex flex-start overflow-hidden ">
-          <NotificationTable />
+          <NotificationTable Data={Current_Notification.data.payload} />
         </div>
       </div>
     </>

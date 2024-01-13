@@ -26,7 +26,7 @@ const ApexChart = () => {
       height: 350,
       stacked: true,
       toolbar: {
-        show: false, // Hide the toolbar, including the hamburger menu button
+        show: true, // Hide the toolbar, including the hamburger menu button
       },
     },
     stroke: {

@@ -48,6 +48,7 @@ const App = () => {
   const CheckLocalStorage = () => {
     const isLoggedIn = localStorage.getItem("logged-in");
     if (isLoggedIn) {
+<<<<<<< Updated upstream
       const user_data = JSON.parse(localStorage.getItem("user-data"));
       const userToken = localStorage.getItem("userToken");
       if(userToken != 'undefined' || !userToken) {
@@ -57,6 +58,13 @@ const App = () => {
         dispatch(SetAuthNotFound([]))
         navigate("/auth")
       }
+=======
+      const user_data = localStorage.getItem("user-data");
+      // socket connection 
+      // return socket disconncet
+      dispatch(SetAuth(JSON.parse(user_data)));
+
+>>>>>>> Stashed changes
     } else {
       dispatch(SetAuthNotFound([]));
       navigate("/auth")
