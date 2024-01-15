@@ -3,19 +3,33 @@ import CustomModal from "./CustomModal";
 import AuthInput from "../Input/AuthInput";
 import { ImCross } from "react-icons/im";
 
-const ReservationDetails = ({ Open, setOpen, SelectedID }) => {
-  const [OrderNumber, setOrderNumber] = useState("");
-  const [StationName, setStationName] = useState("");
-  const [ReservationDetails, setReservationDetails] = useState("");
-  const [ReceiptNumber, setReceiptNumber] = useState("");
-  const [PaidAmount, setPaidAmount] = useState("");
-  const [ArrivalDate, setArrivalDate] = useState("");
-  const [StartPoints, setStartPoints] = useState("");
-  const [AddTip, setAddTip] = useState("");
-  const [GasType, setGasType] = useState("");
-  const [UOM, setUOM] = useState("");
-  const [BalanceVolume, setBalanceVolume] = useState("");
-  const [RequireVolume, setRequireVolume] = useState("");
+const fuelTypeFunc = (type) => {
+  switch (type) {
+    case 0:
+      return "91";
+    case 1:
+      return "95";
+    case 2:
+      return "D";
+    default:
+      return "unknown";
+  }
+};
+
+const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
+  const orderData = data[SelectedID];
+  // const [OrderNumber, setOrderNumber] = useState();
+  // const [StationName, setStationName] = useState("");
+  // const [ReservationDetails, setReservationDetails] = useState("");
+  // const [ReceiptNumber, setReceiptNumber] = useState("");
+  // const [PaidAmount, setPaidAmount] = useState("");
+  // const [ArrivalDate, setArrivalDate] = useState("");
+  // const [StartPoints, setStartPoints] = useState("");
+  // const [AddTip, setAddTip] = useState("");
+  // const [GasType, setGasType] = useState("");
+  // const [UOM, setUOM] = useState("");
+  // const [BalanceVolume, setBalanceVolume] = useState("");
+  // const [RequireVolume, setRequireVolume] = useState("");
   const [CursorOnCross, setCursorOnCross] = useState(false);
   return (
     <CustomModal open={Open} setOpen={setOpen}>
@@ -45,57 +59,76 @@ const ReservationDetails = ({ Open, setOpen, SelectedID }) => {
               label="Order Number"
               placeholder="50"
               required={false}
-              Value={OrderNumber}
-              setValue={setOrderNumber}
+              Value={orderData._id}
+              // setValue={setOrderNumber}
+              readonly={true}
             />
             <AuthInput
               label="Station Name"
               placeholder="Station Name"
               required={false}
-              Value={StationName}
-              setValue={setStationName}
+              Value={orderData.station?.id?.name}
+              // setValue={setStationName}
+              readonly={true}
             />
             <AuthInput
               label="Reservation Date"
               placeholder="Reservation Date"
               required={false}
-              Value={ReservationDetails}
-              setValue={setReservationDetails}
+              Value={new Date(orderData.createdAt * 1000)}
+              // setValue={setReservationDetails}
+              readonly={true}
             />
             <AuthInput
               label="Receipt Number"
-              placeholder="Receipt Number..."
+              placeholder="not specified"
               required={false}
-              Value={ReceiptNumber}
-              setValue={setReceiptNumber}
+              Value={orderData.reciept_number}
+              // setValue={setReceiptNumber}
+              readonly={true}
             />
             <AuthInput
               label="Paid Amount"
               placeholder="Add Amount..."
               required={false}
-              Value={PaidAmount}
-              setValue={setPaidAmount}
+              Value={orderData.fuel_price}
+              // setValue={setPaidAmount}
+              readonly={true}
             />
             <AuthInput
               label="Arrival Date"
               placeholder="Add Expected Date..."
               required={false}
-              Value={ArrivalDate}
-              setValue={setArrivalDate}
+              Value={
+                orderData?.station?.deliveryTime
+                  ? new Date(orderData?.station?.deliveryTime * 1000)
+                  : // .toDateString()
+                  orderData.arrival_data
+                  ? new Date(orderData.arrival_data * 1000)
+                  : // .toDateString()
+                  orderData.expected_arrival
+                  ? new Date(orderData.expected_arrival * 1000)
+                  : // .toDateString()
+                    "Not specified"
+              }
+              // setValue={setArrivalDate}
+              readonly={true}
             />
             <AuthInput
               label="Start Points"
               placeholder="Select Start Point..."
               required={false}
-              Value={StartPoints}
-              setValue={setStartPoints}
+              Value={orderData.from.address}
+              // setValue={setStartPoints}
+              readonly={true}
             />
             <AuthInput
               label="Add Tip"
-              placeholder="Add Amount..."
+              placeholder="None"
               required={false}
-              Value={AddTip}
-              setValue={setAddTip}
+              Value={orderData.driverTip}
+              // setValue={setAddTip}
+              readonly={true}
             />
           </div>
           {/* Right Side */}
@@ -104,29 +137,33 @@ const ReservationDetails = ({ Open, setOpen, SelectedID }) => {
               label="Gas Type"
               placeholder="95"
               required={false}
-              Value={GasType}
-              setValue={setGasType}
+              Value={fuelTypeFunc(orderData.fuel_type)}
+              // setValue={setGasType}
+              readonly={true}
             />
             <AuthInput
               label="UOM"
               placeholder="Liters"
               required={false}
-              Value={UOM}
-              setValue={setUOM}
+              Value={"Liters"}
+              // setValue={setUOM}
+              readonly={true}
             />
             <AuthInput
               label="Balance Volume"
-              placeholder="20,000"
+              placeholder="not specified"
               required={false}
-              Value={BalanceVolume}
-              setValue={setBalanceVolume}
+              Value={orderData.fuel_recieved}
+              // setValue={setBalanceVolume}
+              readonly={true}
             />
             <AuthInput
               label="Require Volume"
-              placeholder="36,000"
+              placeholder="not specified"
               required={false}
-              Value={RequireVolume}
-              setValue={setRequireVolume}
+              Value={orderData.station.fuel_value}
+              // setValue={setRequireVolume}
+              readonly={true}
             />
           </div>
         </div>

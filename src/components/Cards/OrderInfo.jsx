@@ -2,18 +2,19 @@ import React, { useState } from "react";
 import OrderManagerNavbar from "../Navbar/OrderManagerNavbar";
 import AuthInput from "../Input/AuthInput";
 import { BiDownload } from "react-icons/bi";
+import { useSelector } from "react-redux";
+import { convertFuel } from "../../utility/utilityFunctions";
 
 const OrderInfo = () => {
-  const [ReqDateTime, setReqDateTime] = useState("21-Sep-23    11:30PM");
-  const [GasType, setGasType] = useState("95");
-  const [UOM, setUOM] = useState("Liters");
-  const [BalanceVolume, setBalanceVolume] = useState("20,000");
-  const [RequiredVolume, setRequiredVolume] = useState("36,000");
-  const [IssuedVolume, setIssuedVolume] = useState("10,000");
-  const [RecievedVolume, setRecievedVolume] = useState("10,000");
-  const [DeliveredDateTime, setDeliveredDateTime] = useState(
-    "19-Sep-23    11:30PM"
-  );
+  const order = useSelector((state) => state.selectedOrder?.data);
+  const ReqDateTime = order.expected_arrival ? new Date(order.expected_arrival).toLocaleDateString() : "not specified";
+  const GasType = convertFuel(order.fuel_type);
+  const UOM = "Liters";
+  const BalanceVolume = order.fuel_receieved || "not specified"
+  const RequiredVolume = order.fuel_value || "not specified"
+  const IssuedVolume = order.station.fuel_value || "not specified"
+  const RecievedVolume = order.station.fuel_recieved || "not specified"
+  const DeliveredDateTime = order.station.deliveryTime ? new Date(order.station.deliveryTime).toLocaleDateString() : "not specified";
 
   return (
     <>
@@ -35,28 +36,28 @@ const OrderInfo = () => {
                 placeholder="21-Sep-23    11:30PM"
                 required={false}
                 Value={ReqDateTime}
-                setValue={setReqDateTime}
+                readonly={true}
               />
               <AuthInput
                 label="Gas Type"
                 placeholder="95"
                 required={false}
                 Value={GasType}
-                setValue={setGasType}
+                readonly={true}
               />
               <AuthInput
                 label="UOM"
                 placeholder="Liters"
                 required={false}
                 Value={UOM}
-                setValue={setUOM}
+                readonly={true}
               />
               <AuthInput
                 label="Balance Volume"
                 placeholder="20,000"
                 required={false}
                 Value={BalanceVolume}
-                setValue={setBalanceVolume}
+                readonly={true}
               />
             </div>
             {/* right side */}
@@ -66,34 +67,37 @@ const OrderInfo = () => {
                 placeholder="36,000"
                 required={false}
                 Value={RequiredVolume}
-                setValue={setRequiredVolume}
+                readonly={true}
               />
               <AuthInput
                 label="Issued Volume"
                 placeholder="36,000"
                 required={false}
                 Value={IssuedVolume}
-                setValue={setIssuedVolume}
+                readonly={true}
               />
               <AuthInput
                 label="Recieved Volume"
                 placeholder="36,000"
                 required={false}
+                readonly={true}
                 Value={RecievedVolume}
-                setValue={setRecievedVolume}
               />
               <AuthInput
                 label="Delivered Date and Time"
                 placeholder="19-Sep-2023      10:43 PM"
                 required={false}
+                readonly={true}
                 Value={DeliveredDateTime}
-                setValue={setDeliveredDateTime}
               />
             </div>
             <div className="w-full flex justify-center items-center mt-5">
+              {order?.attachments.map( attachment => 
               <button className="text flex items-center w-fit gap-x-2 border-[2px] border-[#96ADC5] hover:bg-[#96ADC5] hover:text-white px-2 py-2 text-[#465462] font-bold rounded-[10px] transition-all duration-500 ease-in-out">
-                <BiDownload className="text-[1.5rem]" /> Download Station Receipt
+                <BiDownload className="text-[1.5rem]" /> {attachment.name}
               </button>
+              )}
+
             </div>
           </div>
         </div>

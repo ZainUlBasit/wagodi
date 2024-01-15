@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { BiChevronRight } from "react-icons/bi";
 import StationReport from "../Modals/StationReport";
 import { useNavigate } from "react-router-dom";
+import { SetSelectedOrder } from "../../store/Slices/SelectedOrder";
+import { useDispatch } from "react-redux";
 
 const OrderDetail = ({ Order }) => {
-  useEffect(() => {}, []);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   return (
@@ -15,7 +17,7 @@ const OrderDetail = ({ Order }) => {
           <div className="font-[Quicksand] font-[700] text-[1rem]">
             Driver Name:{" "}
             <span className="font-[Quicksand] font-[400]">
-              {Order.DriverName}
+              {Order.driverId?.name || "not assigned"}
             </span>
           </div>
         </div>
@@ -23,7 +25,7 @@ const OrderDetail = ({ Order }) => {
           <div className="font-[Quicksand] font-[700] text-[1rem]">
             Station Name:{" "}
             <span className="font-[Quicksand] font-[400]">
-              {Order.StationName}
+              {Order.station.id.name || "not specified"}
             </span>
           </div>
         </div>
@@ -31,7 +33,7 @@ const OrderDetail = ({ Order }) => {
         <div className="flex font-[Quicksand] font-[700] text-[1rem] gap-x-1 px-4 pb-[2px]">
           Paid Amount:{" "}
           <span className="font-[Quicksand] font-[400]">
-            {Order.PaidAmount}
+            {Order.fuel_price}
           </span>
         </div>
         {/* line */}
@@ -42,13 +44,14 @@ const OrderDetail = ({ Order }) => {
         <div className="flex flex-col justify-center items-center py-5 pt-[6px] w-[100%] pb-1">
           <div className="font-[Quicksand] font-[700] text-[1rem]">
             Receipt number:{" "}
-            <span className="font-[300]">{Order.RecieptNumber}</span>
+            <span className="font-[300]">{Order.reciept_number}</span>
           </div>
         </div>
       </div>
       <div
         className="absolute top-4 right-3 cursor-pointer text-[#465462] text-[1.8rem]"
         onClick={() => {
+          dispatch(SetSelectedOrder(Order))
           navigate("/orders-report-info");
         }}
       >

@@ -95,6 +95,10 @@ const LoginComp = () => {
     }
     // console.log(response_type);
     if (response_type) {
+      if(response.data.data.data.role > 2){
+        ErrorToast("Only Admin, Company and Order Manager can access Web App!")
+        return
+      }
       localStorage.setItem("logged-in", response_type);
       // console.log(response)
       localStorage.setItem("userToken", response?.data?.token);

@@ -11,8 +11,13 @@ import "../../assets/Style/style.css";
 import MobNavbar from "../../components/Navbar/MobNavbar";
 import CustomPoperOverWithShow from "../../components/Popover/CustomPoperOverWithShow";
 import { api } from "../../Https";
+<<<<<<< HEAD
 import { useSelector, useDispatch } from "react-redux";
 import { fetchOrders } from "../../store/Slices/OrderSlice";
+=======
+import { useSelector } from "react-redux";
+import ErrorToast from "../../components/Toast/ErrorToast";
+>>>>>>> e1770ec (hobab revamping order pages role routing login system)
 
 const OngoingOrder = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -20,10 +25,16 @@ const OngoingOrder = () => {
   const [OpenReservationDetailsModal, setOpenReservationDetailsModal] =
     useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+<<<<<<< HEAD
   const userData = useSelector((state) => state.auth.data);
+=======
+  const userData = useSelector(state => state.auth.data)
+  const [ordersData, setOrdersData] =useState([])
+>>>>>>> e1770ec (hobab revamping order pages role routing login system)
   const [SearchText, setSearchText] = useState("");
   const [Filter, setFilter] = useState("");
-  const [ApplyFilter, setApplyFilter] = useState("");
+  const [ApplyFilter, setApplyFilter] = useState("All");
+  let firstTime = 0;
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -38,12 +49,30 @@ const OngoingOrder = () => {
     setAnchorEl(null);
   };
 
+<<<<<<< HEAD
   // useEffect(async () => {
   //   const data = api.post("/order/company", {
   //     companyId: userData.companyId._id,
   //   });
   //   data();
   // });
+=======
+  useEffect( () => {
+    firstTime == 0 ?
+    (async () => {
+      const data = await api.post("/order/company", {companyId: userData.companyId._id})
+      const apiSuccess = data?.data?.success
+      firstTime++;
+      if(!apiSuccess){
+        ErrorToast("Failed fetching data for on-going orders!")
+        return
+      }
+      setOrdersData(data.data.data)
+    })(): "";
+  })
+>>>>>>> e1770ec (hobab revamping order pages role routing login system)
+
+  console.log("APPLY FILTER : ", ApplyFilter)
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -54,7 +83,7 @@ const OngoingOrder = () => {
         <div className="w-[90%] max-w-[1200px] flex justify-between mt-6 mb-5">
           {/* Left */}
           <div className="font-[Quicksand] font-[700] text-[2rem] max767:text-[1.5rem]">
-            Ordered Orders
+            {ApplyFilter} Orders
           </div>
           {/* Right */}
           <div className="flex items-center gap-x-4">
@@ -82,10 +111,13 @@ const OngoingOrder = () => {
             <CustomPoperOverWithShow
               Title={"Choose Your Filter"}
               Content={[
-                { Text: "No Filter", FilterText: "" },
-                { Text: "Ordered", FilterText: "Ordered" },
-                { Text: "En Route", FilterText: "En Route" },
-                { Text: "Delivered", FilterText: "Delivered" },
+                // 0 : on-going, 1 : assigned, 2: recieved, 3: delivered, 4 : complete, 5: canceled
+                { Text: "All", FilterText: "All" },
+                { Text: "on-going", FilterText: "on-going"},
+                { Text: "assigned", FilterText: "assigned" },
+                { Text: "recieved", FilterText: "recieved" },
+                { Text: "delivered", FilterText: "delivered" },
+                { Text: "canceled", FilterText: "canceled" },
               ]}
               Filter={Filter}
               setFilter={setFilter}
@@ -104,6 +136,7 @@ const OngoingOrder = () => {
             Search={SearchText}
             setCurrentID={setCurrentID}
             setOpen={setOpenReservationDetailsModal}
+            data = {ordersData}
           />
         </div>
       </div>
@@ -115,6 +148,7 @@ const OngoingOrder = () => {
           Open={OpenReservationDetailsModal}
           setOpen={setOpenReservationDetailsModal}
           SelectedID={CurrentID}
+          data = {ordersData}
         />
       )}
     </>

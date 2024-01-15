@@ -111,8 +111,7 @@ export default function UserTable({
             </TableRow>
           </TableHead>
           <TableBody>
-            {UserData.data
-              .filter((data) => {
+            {UserData?.data?.filter((data) => {
                 const CurrentRole =
                   Filter === "Administrator"
                     ? 0

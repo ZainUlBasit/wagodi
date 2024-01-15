@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import { BsSearch } from "react-icons/bs";
 import SendReport from "../../components/Modals/SendReport";
@@ -12,14 +12,20 @@ import "../../assets/Style/style.css";
 import MobNavbar from "../../components/Navbar/MobNavbar";
 import SendReportDate from "../../components/Modals/SendReportDate";
 import ApprovedOrderTableTop from "../../components/Tables/ApprovedOrderTableTop";
+import { api } from "../../Https";
+import { useSelector } from "react-redux";
+import ErrorToast from "../../components/Toast/ErrorToast";
 
 const OrderReports = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
   const [SearchText, setSearchText] = useState("");
   const [CurDate, setCurDate] = useState("");
-
+  const userData = useSelector(state => state.auth.data)
   const [anchorEl, setAnchorEl] = useState(null);
   const [SendType, setSendType] = useState("");
+  let firstTime = 0
+  const [orders, setOrders] = useState([]) 
+  const previousDate = useRef()
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -29,7 +35,34 @@ const OrderReports = () => {
   };
 
   const open = Boolean(anchorEl);
+  const requestBody = { companyId: userData.companyId._id};
   const id = open ? "simple-popover" : undefined;
+  const currentDate = CurDate ? Math.floor(new Date(CurDate).getTime() / 1000) : Math.floor(new Date().getTime() / 1000);
+
+  useEffect( () => {
+    if (CurDate) {
+      requestBody.end_date = currentDate;
+      const currentMonth = new Date(CurDate).getMonth();
+      const start_date = new Date(currentDate * 1000)
+      start_date.setMonth(currentMonth - 1)
+      requestBody.start_date = Math.floor(start_date.getTime() / 1000);
+      // requestBody.end_date = date - ;
+    }
+    console.log(firstTime == 0)
+    console.log(CurDate != previousDate)
+    firstTime == 0 || CurDate != previousDate ? (async() => {
+      const data = await api.post("/order/company",  requestBody)
+      const apiSuccess = data?.data?.success
+      firstTime++;
+      if(!apiSuccess){
+        ErrorToast("Failed fetching data for orders!")
+        return
+      }
+      previousDate.current = CurDate
+      setOrders(data.data.data)
+    })() : "";
+  }, [CurDate])
+
   return (
     <>
       <div className="flex flex-col justify-center items-center w-full fade-in">
@@ -64,19 +97,19 @@ const OrderReports = () => {
             </div>
           </div>
         </div>
-        {ApprovedOrder.filter((ao) => {
-          if (SearchText === "") return ao;
+        {orders?.filter((order) => {
+          if (SearchText === "") return order;
           else {
-            if (ao.StationName.toLowerCase().includes(SearchText)) return ao;
+            if (order.station.name.toLowerCase().includes(SearchText)) return order;
           }
-        }).map((AO) => {
+        }).map((orderData) => {
           return (
             <>
               <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] mb-10 relative">
                 <div className="flex justify-between items-center text-white font-[Quicksand] absolute -top-5 left-[-1px] w-[calc(100%+2px)] h-[44px] rounded-[15px] bg-[#465462] overflow-hidden">
-                  <ApprovedOrderTableTop Data={AO} />
+                  <ApprovedOrderTableTop Data={orderData} />
                 </div>
-                <ApprovedOrderTable Data={AO} />
+                <ApprovedOrderTable Data={orderData} />
               </div>
             </>
           );

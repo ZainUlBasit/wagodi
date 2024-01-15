@@ -11,10 +11,13 @@ import { AiFillEye } from "react-icons/ai";
 import { FiDownload } from "react-icons/fi";
 import { Popover, Typography } from "@mui/material";
 import "./styles/AOTop.css";
+import { convertStatus } from "../../utility/utilityFunctions";
 
 export default function ApprovedOrderTableTop({ Data }) {
+  console.log(Data);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [SendType, setSendType] = React.useState("");
+  const [fileUrl, setFileUrl] = React.useState();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -25,6 +28,7 @@ export default function ApprovedOrderTableTop({ Data }) {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -49,7 +53,9 @@ export default function ApprovedOrderTableTop({ Data }) {
             >
               <div className="font-[700] text-[13.9px] text-white bg-[#465462]">
                 RecieptNumber:
-                <span className="font-[400] ml-1">{Data.RecieptNumber}</span>
+                <span className="font-[400] ml-1">
+                  {Data?.reciept_number || "not specified"}
+                </span>
               </div>
             </TableCell>
 
@@ -63,7 +69,9 @@ export default function ApprovedOrderTableTop({ Data }) {
             >
               <div className="font-[700] text-[13.9px] text-white bg-[#465462]">
                 StationName:
-                <span className="font-[400] ml-1">{Data.StationName}</span>
+                <span className="font-[400] ml-1">
+                  {Data?.station?.id.name || "not specified"}
+                </span>
               </div>
             </TableCell>
 
@@ -77,7 +85,9 @@ export default function ApprovedOrderTableTop({ Data }) {
             >
               <div className="font-[700] text-[13.9px] text-white bg-[#465462]">
                 PaidAmount:
-                <span className="font-[400] ml-1">{Data.PaidAmount}</span>
+                <span className="font-[400] ml-1">
+                  {Data?.fuel_price || "not specified"}
+                </span>
               </div>
             </TableCell>
 
@@ -91,7 +101,9 @@ export default function ApprovedOrderTableTop({ Data }) {
             >
               <div className="font-[700] text-[13.9px] text-white bg-[#465462]">
                 DriverName:
-                <span className="font-[400] ml-1">{Data.DriverName}</span>
+                <span className="font-[400] ml-1">
+                  {Data?.driverId?.name || "not specified"}
+                </span>
               </div>
             </TableCell>
 
@@ -105,7 +117,9 @@ export default function ApprovedOrderTableTop({ Data }) {
             >
               <div className="font-[700] text-[13.9px] text-white bg-[#465462]">
                 PhoneNo:
-                <span className="font-[400] ml-1">{Data.PhoneNo}</span>
+                <span className="font-[400] ml-1">
+                  {Data?.driverId?.phone_number || "not specified"}
+                </span>
               </div>
             </TableCell>
 
@@ -120,7 +134,9 @@ export default function ApprovedOrderTableTop({ Data }) {
               <div className="font-[700] text-[13.9px] text-white bg-[#465462]">
                 Status:
                 <span className="font-[400] ml-1 bg-[#2EB100] px-3 py-[5px] rounded-full">
-                  {Data.Status}
+                  {Data?.station?.status != undefined
+                    ? convertStatus(Data?.station?.status)
+                    : "not specified"}
                 </span>
               </div>
             </TableCell>
@@ -183,18 +199,34 @@ export default function ApprovedOrderTableTop({ Data }) {
                       </div>
                       <p className="h-[2px] w-full bg-[#FFFFFF5C] mb-3 rounded-full"></p>
                       <div className="w-full flex flex-col justify-between gap-y-3 items-start">
-                        <div
-                          className="flex gap-x-3 items-center cursor-pointer"
-                          onClick={() => setSendType("Buying Receipt")}
-                        >
-                          <input
-                            type="checkbox"
-                            className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                            checked={SendType === "Buying Receipt"}
-                          />
-                          <span>Buying Receipt</span>
-                        </div>
-                        <div
+                        {Data.attachments?.map(
+                          (attachment) =>
+                            (!attachment.stationId ||
+                              attachment.stationId ==
+                                Data?.station?.id?._id) && (
+                              <div
+                                className="flex gap-x-3 items-center cursor-pointer"
+                                onClick={() => {
+                                  setSendType(
+                                    attachment.name || "not specified"
+                                  );
+                                  setFileUrl(attachment.url);
+                                }}
+                              >
+                                <input
+                                  type="checkbox"
+                                  className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                                  checked={
+                                    SendType === attachment.name ||
+                                    false
+                                  }
+                                />
+                                <span>{`${attachment?.name}`}</span>
+                              </div>
+                            )
+                        )}
+
+                        {/* <div
                           className="flex gap-x-3 items-center cursor-pointer"
                           onClick={() =>
                             setSendType("Receiving Receipt (Driver)")
@@ -221,14 +253,18 @@ export default function ApprovedOrderTableTop({ Data }) {
                             }
                           />
                           <span>Receiving Receipt (Station Manager)</span>
-                        </div>
+                        </div> */}
                         <div className="flex justify-center items-center w-full my-4">
-                          <button
+                          {fileUrl && <button
                             className={`mt-[20px] w-[197px] h-fit py-2 bg-[#90898E] hover:text-[#465462] hover:bg-white rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-                            onClick={() => {}}
+                            onClick={() => {
+                              window.location.href = fileUrl;
+                              setFileUrl("")
+                            }}
                           >
                             Download
                           </button>
+                          }
                         </div>
                       </div>
                     </div>

@@ -18,6 +18,7 @@ import CompanySubscription from "../Setting/CompanySubscription";
 import AddReservation from "../../pages/AddReservation/AddReservation";
 import OrderManagerOrderReports from "../../pages/OrderReports/OrderManagerOrderReports";
 import OrderInfo from "../Cards/OrderInfo";
+<<<<<<< HEAD
 import EmployeeData from "../../pages/Statistics/EmployeeData";
 import CompanyInfo from "../../pages/SuperAdmin/CompanyInfo";
 import SubscriptionRequests from "../../pages/SuperAdmin/SubscriptionRequests";
@@ -25,6 +26,12 @@ import ControlSubscribers from "../../pages/SuperAdmin/ControlSubscribers";
 
 const RoleRouting = ({ role }) => {
   console.log("role");
+=======
+import Auth from "../../pages/Auth/Auth";
+
+const RoleRouting = ({ role }) => {
+  console.log("role ", role)
+>>>>>>> e1770ec (hobab revamping order pages role routing login system)
   return role === 1 ? (
     <Routes>
       <Route path="/" element={<Navigate to="/home" />} />
@@ -235,7 +242,7 @@ const RoleRouting = ({ role }) => {
       />
     </Routes>
   ) : (
-    ""
+    <Auth />
   );
 };
 

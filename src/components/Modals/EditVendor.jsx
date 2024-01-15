@@ -3,14 +3,18 @@ import CustomModal from "./CustomModal";
 import AuthInput from "../Input/AuthInput";
 import AuthTextArea from "../Input/AuthTextArea";
 import { UpdateVendorApi } from "../../Https";
+import SuccessToast from "../Toast/SuccessToast";
+import { fetchVendors } from "../../store/Slices/VendorSlice";
+import { useDispatch } from "react-redux";
+import ErrorToast from "../Toast/ErrorToast";
 
-const EditVendor = ({ Open, setOpen, Data }) => {
-  console.log("vendor edit data: ", Data)
+const EditVendor = ({ Open, setOpen, Data, companyId }) => {
   const [VendorName, setVendorName] = useState(Data.name);
   const [Location, setLocation] = useState(Data.address);
   const [_95, set_95] = useState(Data.fuels[0]?.price_litre);
   const [_91, set_91] = useState(Data.fuels[1]?.price_litre);
   const [_D, set_D] = useState(Data.fuels[2]?.price_litre);
+  const dispatch = useDispatch()
   const onSubmit = async (e) => {
     e.preventDefault();
     const Fuel_Array = [
@@ -36,11 +40,18 @@ const EditVendor = ({ Open, setOpen, Data }) => {
       address: Location,
       fuels: Fuel_Array,
     };
-
+    console.log("Request Body Data : ", BodyData)
+    
     console.log(BodyData);
     try {
       const response = await UpdateVendorApi(BodyData);
       console.log(response);
+      if(response.data?.success) {
+        SuccessToast("Successfully updated!")
+        dispatch(fetchVendors(companyId));
+        return
+      } 
+      ErrorToast("Error updating!")
     } catch (err) {
       console.log(err);
     }

@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import AuthInput from "../../components/Input/AuthInput";
 import { FaPlus } from "react-icons/fa";
 
-const Step1 = ({setCurrentTabNumber,CurrentTabNumber}) => {
-  const [OrderNumber, setOrderNumber] = useState("");
+const Step1 = ({setCurrentTabNumber,CurrentTabNumber, formData}) => {
   const [StationName, setStationName] = useState("");
   const [ReservationDate, setReservationDate] = useState("");
   const [ReceiptNumber, setReceiptNumber] = useState("");
@@ -23,13 +22,6 @@ const Step1 = ({setCurrentTabNumber,CurrentTabNumber}) => {
       <div className="w-[718px] flex gap-x-10 justify-center rounded-[15px]">
         {/* left side */}
         <div>
-          <AuthInput
-            label={"Order Number"}
-            placeholder={"50"}
-            required={false}
-            Value={OrderNumber}
-            setValue={setOrderNumber}
-          />
           <AuthInput
             label={"Station Name"}
             placeholder={"Select Station Name..."}

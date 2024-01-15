@@ -44,6 +44,7 @@ const AddVendor = ({ Open, setOpen }) => {
       typeof Location,
       typeof Fuel_Array
     );
+<<<<<<< HEAD
     // console.log(Auth.data.companyId, VendorName, Location, Fuel_Array);
     if (VendorName === "") {
       ErrorToast("Invalid vendor name...");
@@ -67,6 +68,21 @@ const AddVendor = ({ Open, setOpen }) => {
         }
       } catch (err) {
         console.log(err);
+=======
+    console.log(Auth.data.companyId, VendorName, Location, Fuel_Array);
+    try {
+      const response = await CreateVendorApi({
+        companyId: Auth.data.companyId._id,
+        name: VendorName,
+        address: Location,
+        fuels: Fuel_Array,
+      });
+      console.log("", response);
+      if (response.data?.success) {
+        toast.success(response.data.data?.msg);
+        dispatch(fetchVendors(Auth.data.companyId));
+        setOpen(false);
+>>>>>>> e1770ec (hobab revamping order pages role routing login system)
       }
     }
     setLoading(false);

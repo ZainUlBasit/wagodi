@@ -6,18 +6,21 @@ import { Popover, Typography } from "@mui/material";
 import { SiMicrosoftexcel } from "react-icons/si";
 import { GrDocumentPdf } from "react-icons/gr";
 import AuthBtn from "../buttons/AuthBtn";
+import ErrorToast from "../Toast/ErrorToast";
 
 const SendReport = ({ Open, setOpen }) => {
   const [Email, setEmail] = useState("");
   const [ReportType, setReportType] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
-  const [SendType, setSendType] = useState("");
+  const [IsPdf, setIsPdf] = useState(null);
 
   const onSubmit = (e) => {
     e.preventDefault();
+    if(IsPdf == null) return ErrorToast("Please select either PDF or Excel!")
+    if(!Email) return ErrorToast("Please enter email!")
     console.log("Email", Email);
     console.log("ReportType", ReportType);
-    console.log("SendType", SendType);
+    console.log("IsPdf", IsPdf);
     setOpen(false);
   };
 
@@ -138,13 +141,13 @@ const SendReport = ({ Open, setOpen }) => {
           <div
             className="flex gap-x-3 items-center cursor-pointer"
             onClick={() => {
-              setSendType("PDF");
+              setIsPdf(true);
             }}
           >
             <input
               type="checkbox"
               className="mr-1 appearance-none h-3 w-3 border border-gray-300 checked:bg-[#465462] rounded-full"
-              checked={SendType === "PDF"}
+              checked={IsPdf === true}
             />
             <span className="flex items-center gap-x-1 font-[Quicksand] font-[700]">
               PDF <GrDocumentPdf />
@@ -153,13 +156,13 @@ const SendReport = ({ Open, setOpen }) => {
           <div
             className="flex gap-x-3 items-center cursor-pointer"
             onClick={() => {
-              setSendType("Excel");
+              setIsPdf(false);
             }}
           >
             <input
               type="checkbox"
               className="mr-1 appearance-none h-3 w-3 border border-gray-300 checked:bg-[#465462] rounded-full"
-              checked={SendType === "Excel"}
+              checked={IsPdf === false}
             />
             <span className="flex items-center gap-x-1 font-[Quicksand] font-[700]">
               Excel <SiMicrosoftexcel />

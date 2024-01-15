@@ -11,6 +11,7 @@ const AddReservation = () => {
   const [CurrentTabNumber, setCurrentTabNumber] = useState(0);
   const location = useLocation();
   const { type, max_value, value } = location.state;
+  const formData = new FormData()
   console.log(type, max_value, value);
   return (
     <>
@@ -53,6 +54,7 @@ const AddReservation = () => {
           <Step1
             CurrentTabNumber={CurrentTabNumber}
             setCurrentTabNumber={setCurrentTabNumber}
+  formData
           />
         </TabPanel>
         <TabPanel>
@@ -60,10 +62,13 @@ const AddReservation = () => {
             CurrentTabNumber={CurrentTabNumber}
             setCurrentTabNumber={setCurrentTabNumber}
             state={location.state}
+  formData
           />
         </TabPanel>
         <TabPanel>
-          <Step3 />
+          <Step3 
+              formData
+          />
         </TabPanel>
       </Tabs>
     </>

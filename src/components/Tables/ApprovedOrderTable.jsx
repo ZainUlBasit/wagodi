@@ -8,8 +8,10 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 // import { Data } from "./DemoData/Orders";
 import { AiFillEye } from "react-icons/ai";
+import { convertFuel } from "../../utility/utilityFunctions";
 
 export default function ApprovedOrderTable({ Data }) {
+  console.log(Data)
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -21,7 +23,7 @@ export default function ApprovedOrderTable({ Data }) {
                 fontFamily: "Quicksand",
                 paddingTop: "30px",
                 paddingBottom: "5px",
-                fontSize:"13px"
+                fontSize: "13px",
               }}
             >
               Required Date and Time
@@ -33,7 +35,7 @@ export default function ApprovedOrderTable({ Data }) {
                 fontFamily: "Quicksand",
                 paddingTop: "30px",
                 paddingBottom: "5px",
-                fontSize:"13px"
+                fontSize: "13px",
               }}
             >
               Gas Type
@@ -45,7 +47,7 @@ export default function ApprovedOrderTable({ Data }) {
                 fontFamily: "Quicksand",
                 paddingTop: "30px",
                 paddingBottom: "5px",
-                fontSize:"13px"
+                fontSize: "13px",
               }}
             >
               UOM
@@ -57,7 +59,7 @@ export default function ApprovedOrderTable({ Data }) {
                 fontFamily: "Quicksand",
                 paddingTop: "30px",
                 paddingBottom: "5px",
-                fontSize:"13px"
+                fontSize: "13px",
               }}
             >
               Balance Volume
@@ -69,7 +71,7 @@ export default function ApprovedOrderTable({ Data }) {
                 fontFamily: "Quicksand",
                 paddingTop: "30px",
                 paddingBottom: "5px",
-                fontSize:"13px"
+                fontSize: "13px",
               }}
             >
               Require Volume
@@ -81,7 +83,7 @@ export default function ApprovedOrderTable({ Data }) {
                 fontFamily: "Quicksand",
                 paddingTop: "30px",
                 paddingBottom: "5px",
-                fontSize:"13px"
+                fontSize: "13px",
               }}
             >
               Issued Volume
@@ -93,7 +95,7 @@ export default function ApprovedOrderTable({ Data }) {
                 fontFamily: "Quicksand",
                 paddingTop: "30px",
                 paddingBottom: "5px",
-                fontSize:"13px"
+                fontSize: "13px",
               }}
             >
               Received Volume
@@ -105,7 +107,7 @@ export default function ApprovedOrderTable({ Data }) {
                 fontFamily: "Quicksand",
                 paddingTop: "30px",
                 paddingBottom: "5px",
-                fontSize:"13px"
+                fontSize: "13px",
               }}
             >
               Delivered Date and Time
@@ -117,7 +119,7 @@ export default function ApprovedOrderTable({ Data }) {
                 fontFamily: "Quicksand",
                 paddingTop: "30px",
                 paddingBottom: "5px",
-                fontSize:"13px"
+                fontSize: "13px",
               }}
             >
               Deliver Time
@@ -135,11 +137,11 @@ export default function ApprovedOrderTable({ Data }) {
                 fontFamily: "Quicksand",
                 borderBlockWidth: 0,
               }}
-            //   component="th"
+              //   component="th"
               scope="row"
               align="center"
             >
-              {Data.RequiredDateAndTime}
+              {Data?.createdAt ? new Date(Data.createdAt * 1000).toLocaleString() : "not specified"}
             </TableCell>
             <TableCell
               sx={{
@@ -149,7 +151,7 @@ export default function ApprovedOrderTable({ Data }) {
               }}
               align="center"
             >
-              {Data.GasType}
+              {convertFuel(Data?.fuel_type)}
             </TableCell>
             <TableCell
               sx={{
@@ -159,7 +161,7 @@ export default function ApprovedOrderTable({ Data }) {
               }}
               align="center"
             >
-              {Data.UOM}
+              {Data.UOM || "Liters"}
             </TableCell>
             <TableCell
               sx={{
@@ -169,7 +171,7 @@ export default function ApprovedOrderTable({ Data }) {
               }}
               align="center"
             >
-              {Data.BalanceVolume}
+              {Data?.station?.fuel_recieved || "not specified"}
             </TableCell>
             <TableCell
               sx={{
@@ -179,7 +181,7 @@ export default function ApprovedOrderTable({ Data }) {
               }}
               align="center"
             >
-              {Data.RequireVolume}
+              {Data?.station?.fuel_value || "not specified"}
             </TableCell>
             <TableCell
               sx={{
@@ -189,7 +191,7 @@ export default function ApprovedOrderTable({ Data }) {
               }}
               align="center"
             >
-              {Data.IssuedVolume}
+              {Data.fuel_value || "not specified"}
             </TableCell>
             <TableCell
               sx={{
@@ -199,7 +201,7 @@ export default function ApprovedOrderTable({ Data }) {
               }}
               align="center"
             >
-              {Data.ReceivedVolume}
+              {Data.fuel_recieved || "not specified"}
             </TableCell>
             <TableCell
               sx={{
@@ -209,7 +211,7 @@ export default function ApprovedOrderTable({ Data }) {
               }}
               align="center"
             >
-              {Data.DeliveredDatendTime}
+              {Data?.station?.deliveryTime ? new Date(Data.station?.deliveryTime * 1000).toLocaleString() : "not specified" }
             </TableCell>
             <TableCell
               sx={{
@@ -219,7 +221,7 @@ export default function ApprovedOrderTable({ Data }) {
               }}
               align="center"
             >
-              {Data.DeliverTime}
+              {Data?.station?.deliveryTime ? `${((Data.station?.deliveryTime - Data.createdAt ) / 3600).toPrecision(2)} hr` : "not specified" }
             </TableCell>
           </TableRow>
         </TableBody>

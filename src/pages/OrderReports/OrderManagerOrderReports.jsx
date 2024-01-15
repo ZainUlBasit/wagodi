@@ -11,14 +11,19 @@ import "../../assets/Style/style.css";
 import OrderManagerNavbar from "../../components/Navbar/OrderManagerNavbar";
 import { LuFilter } from "react-icons/lu";
 import OrderDetail from "../../components/Cards/OrderDetail";
+import ErrorToast from "../../components/Toast/ErrorToast";
+import { useSelector } from "react-redux";
+import { api } from "../../Https";
 
 const OrderManagerOrderReports = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
+  const [ordersData, setOrdersData] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorElF, setAnchorElF] = useState(null);
   const [SendType, setSendType] = useState("");
   const [SearchText, setSearchText] = useState("");
   const [CurDate, setCurDate] = useState("");
+  const userData = useSelector(state => state.auth.data)
 
   const [Filter, setFilter] = useState("");
   const [ApplyFilter, setApplyFilter] = useState("");
@@ -42,6 +47,18 @@ const OrderManagerOrderReports = () => {
     setAnchorEl(null);
   };
 
+  useEffect(() => {
+    ordersData == null && (async () => {
+    const data = await api.post("/order/company",  {companyId: userData.companyId._id})
+      const apiSuccess = data?.data?.success
+      if(!apiSuccess){
+        ErrorToast("Failed fetching data for orders!")
+        return
+      }
+      setOrdersData(data.data.data)
+    })()
+  }, [])
+
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   return (
@@ -56,13 +73,13 @@ const OrderManagerOrderReports = () => {
         </div>
         <div className="w-[90%] max-w-[1200px] flex flex-wrap xl:justify-start justify-center items-center my-4">
           {/* <div className="grid grid-cols-3 gap-x-10 gap-y-5 w-[90%] max-w-[1200px] mb-4"> */}
-          {ApprovedOrder.map((AO) => {
-            return <OrderDetail Order={AO} />;
+          {ordersData && ordersData.map((order) => {
+            return <OrderDetail key={`${order._id}-${order.station.id._id}`} Order={order} />;
           })}
         </div>
       </div>
       {OpenSendReport && (
-        <SendReport Open={OpenSendReport} setOpen={setOpenSendReport} />
+        <SendReport Open={OpenSendReport} setOpen={setOpenSendReport} Data = {ordersData} />
       )}
     </>
   );
