@@ -79,7 +79,7 @@ const MobNavbar = () => {
       className="bg-[#465462]"
     >
       <div className="w-full flex justify-center pt-5 m-0">
-        <img src={Logo} alt="Images" className="w-[150px]" />
+        <img src={Logo} alt="Images" className="w-[150px] max400:w-[100px]" />
       </div>
       <List
         sx={{

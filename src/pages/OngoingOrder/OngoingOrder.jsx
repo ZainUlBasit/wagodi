@@ -10,13 +10,9 @@ import DateInput from "../../components/Input/DateInput";
 import "../../assets/Style/style.css";
 import MobNavbar from "../../components/Navbar/MobNavbar";
 import CustomPoperOverWithShow from "../../components/Popover/CustomPoperOverWithShow";
-<<<<<<< Updated upstream
 import { api } from "../../Https";
-import { useSelector } from "react-redux";
-=======
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { fetchOrders } from "../../store/Slices/OrderSlice";
->>>>>>> Stashed changes
 
 const OngoingOrder = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -24,7 +20,7 @@ const OngoingOrder = () => {
   const [OpenReservationDetailsModal, setOpenReservationDetailsModal] =
     useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const userData = useSelector(state => state.auth.data)
+  const userData = useSelector((state) => state.auth.data);
   const [SearchText, setSearchText] = useState("");
   const [Filter, setFilter] = useState("");
   const [ApplyFilter, setApplyFilter] = useState("");
@@ -42,9 +38,12 @@ const OngoingOrder = () => {
     setAnchorEl(null);
   };
 
-  useEffect( async () => {
-    const data = api.post("/order/company", {companyId: userData.companyId._id})
-  })
+  // useEffect(async () => {
+  //   const data = api.post("/order/company", {
+  //     companyId: userData.companyId._id,
+  //   });
+  //   data();
+  // });
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;

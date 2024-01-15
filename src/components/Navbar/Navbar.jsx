@@ -31,12 +31,12 @@ const Navbar = () => {
     else if ("/stations" === pathname) handleNavItemClick("STATION");
     else if ("/statistics" === pathname) handleNavItemClick("STATISTICS");
     else if ("/vendor" === pathname) handleNavItemClick("VENDOR");
-  }, []);
+  }, [pathname]);
 
   return (
     <>
       <div className="w-full flex justify-center items-center max767:hidden">
-        <div className="w-[90%] max-w-[1300px] flex justify-between items-center">
+        <div className="w-[90%] max-w-[2880px] flex justify-between items-center">
           {/* Left side Logo */}
           <Link to={"/home"} onClick={() => handleNavItemClick("HOME")}>
             <img src={NavbarLogo} className="h-[76px] w-fit mt-3" />

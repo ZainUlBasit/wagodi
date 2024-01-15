@@ -73,6 +73,7 @@ const Home = () => {
               popover_open={open}
               handleClose={handleClose}
               setContent={setFilter}
+              CurrentStatus={Filter}
               popover_id={id}
               popover_anchorEl={anchorEl}
             />

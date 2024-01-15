@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import Navbar from "../Navbar/Navbar";
 import MobNavbar from "../Navbar/MobNavbar";
 import OrderManagerNavbar from "../Navbar/OrderManagerNavbar";
+import SuperAdminNavbar from "../Navbar/SuperAdminNavbar";
 
 const NavSelection = () => {
   const auth = useSelector((state) => state.auth);
@@ -19,11 +20,11 @@ const NavSelection = () => {
     setWindowWidth(window.innerWidth);
 
     // Event listener for window resize
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     // Cleanup the event listener on component unmount
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []); // Empty dependency array ensures this effect runs only once after initial render
 
@@ -34,8 +35,19 @@ const NavSelection = () => {
     pathname !== "/otp-verification" &&
     pathname !== "/logout" &&
     pathname !== "/set-new-password" &&
-    auth.data.role === 1 && windowWidth > 767 ? (
+    auth.data.role === 1 &&
+    windowWidth > 767 ? (
     <Navbar />
+  ) : pathname !== "/" &&
+    pathname !== "/onboarding" &&
+    pathname !== "/auth" &&
+    pathname !== "/forgot-password" &&
+    pathname !== "/otp-verification" &&
+    pathname !== "/logout" &&
+    pathname !== "/set-new-password" &&
+    auth.data.role === 0 &&
+    windowWidth > 767 ? (
+    <SuperAdminNavbar />
   ) : pathname !== "/" &&
     pathname !== "/onboarding" &&
     pathname !== "/auth" &&

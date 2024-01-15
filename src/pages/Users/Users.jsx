@@ -12,6 +12,7 @@ import MobNavbar from "../../components/Navbar/MobNavbar";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "../../store/Slices/UserSlice";
 import PageLoader from "../../components/Loaders/PageLoader";
+import DeleteModal from "../../components/Modals/DeleteModal";
 
 const Users = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -20,6 +21,7 @@ const Users = () => {
   const [UserID, setUserID] = useState("");
   const [OpenAddModal, setOpenAddModal] = useState(false);
   const [OpenEditModal, setOpenEditModal] = useState(false);
+  const [OpenDeleteModal, setOpenDeleteModal] = useState(false)
   const [SearchText, setSearchText] = useState("");
 
   const dispatch = useDispatch();
@@ -205,6 +207,7 @@ const Users = () => {
             </div>
             <UserTable
               setUserID={setUserID}
+              setOpenDeleteModal={setOpenDeleteModal}
               setOpen={setOpenEditModal}
               Filter={ApplyFilter}
               Search={SearchText}
@@ -221,7 +224,20 @@ const Users = () => {
         <EditUser
           Open={OpenEditModal}
           setOpen={setOpenEditModal}
-          CurrentUser={UserData[UserID]}
+          CurrentUser={Users.data.filter((dt) => dt._id === UserID)[0]}
+        />
+      )}
+      {OpenDeleteModal && (
+        <DeleteModal
+          Open={OpenDeleteModal}
+          setOpen={setOpenDeleteModal}
+          State={
+            Users.data
+              .filter((sd) => sd._id === UserID)
+              .map((data) => {
+                return { ...data, type: "user" };
+              })[0]
+          }
         />
       )}
     </>

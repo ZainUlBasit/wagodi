@@ -9,7 +9,6 @@ export const fetchOrders = createAsyncThunk(
         companyId: "6524f10fa6019b64a812b09c",
         query: { status: 0 },
       });
-      console.log(response);
       console.log(response.data.data);
       return response.data.data;
     } catch (error) {

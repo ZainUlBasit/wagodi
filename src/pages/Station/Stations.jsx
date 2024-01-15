@@ -49,6 +49,7 @@ const Stations = () => {
               Length={StationsData.data?.length}
               Value={"all"}
               setStationFilter={setStationFilter}
+              StationFilter={StationFilter}
               Color={"bg-[#FFB764]"}
             />
             <FilterButton
@@ -59,6 +60,7 @@ const Stations = () => {
               Value={"inactive"}
               setStationFilter={setStationFilter}
               Color={"bg-[#FFB764]"}
+              StationFilter={StationFilter}
             />
             <FilterButton
               Title={"Active Stations"}
@@ -68,6 +70,7 @@ const Stations = () => {
               Value={"active"}
               setStationFilter={setStationFilter}
               Color={"bg-[#00EDED]"}
+              StationFilter={StationFilter}
             />
             <button
               className={`border-2 border-[#465462] px-4 py-[5px] rounded-3xl font-[Quicksand] font-[700] bg-[#fff] text-[#465462] transition-all duration-500 ease-in-out flex gap-x-6 items-center hover:text-white hover:bg-[#465462]`}

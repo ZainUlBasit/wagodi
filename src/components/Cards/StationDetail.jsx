@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchStations } from "../../store/Slices/StationSlice";
 import SuccessToast from "../Toast/SuccessToast";
 import { useNavigate } from "react-router-dom";
+import { FavouriteStation } from "../../store/Slices/UserSlice";
 
 const StationDetail = ({
   StationDetailData,
@@ -17,6 +18,7 @@ const StationDetail = ({
   const [_91, set_91] = useState([]);
   const [_95, set_95] = useState([]);
   const [_D, set_D] = useState([]);
+  const [Status, setStatus] = useState(StationDetailData.favorite);
   const dispatch = useDispatch();
   const Current_User = useSelector((state) => state.auth);
   const setFuelsData = () => {
@@ -149,16 +151,16 @@ const StationDetail = ({
         onClick={async (e) => {
           e.preventDefault();
           try {
+            setStatus(!Status)
             let response = await UpdateStationApi({
               stationId: StationDetailData._id,
               updateData: {
                 favorite: !StationDetailData.favorite,
               },
             });
-            console.log(response);
             if (response.data.success) {
-              SuccessToast("Station Successfully Updated...");
-              dispatch(fetchStations(Current_User.data.companyId));
+              SuccessToast("Station favourite Successfully...");
+              // dispatch(FavouriteStation(StationDetailData._id));
             } else if (!response.data.success) {
               toast.error(response.data?.error?.msg, {
                 duration: 4000,
@@ -175,7 +177,6 @@ const StationDetail = ({
                   secondary: "white",
                 },
               });
-              dispatch(fetchStations(Current_User.data.companyId));
             }
           } catch (err) {
             toast.error(err.response?.data?.error?.msg || err.response?.data, {
@@ -197,7 +198,7 @@ const StationDetail = ({
           }
         }}
       >
-        {StationDetailData.favorite ? <AiFillStar /> : <AiOutlineStar />}
+        {Status ? <AiFillStar /> : <AiOutlineStar />}
       </div>
     </div>
   );

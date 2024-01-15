@@ -8,9 +8,11 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TablePagination from "@mui/material/TablePagination";
 import { BiEdit } from "react-icons/bi";
+import { RiDeleteBin5Line } from "react-icons/ri";
 
 export default function UserTable({
   setUserID,
+  setOpenDeleteModal,
   setOpen,
   Filter,
   Search,
@@ -121,10 +123,25 @@ export default function UserTable({
                     : Filter === "Driver"
                     ? 4
                     : 1;
+                const lowercasedSearch = Search.toLowerCase();
+                const lowercasedName = data.name.toLowerCase();
                 if (Filter !== "All") {
-                  return CurrentRole === data.role;
+                  if (Search === "") {
+                    return CurrentRole === data.role;
+                  } else {
+                    // Convert both Search and data.name to lowercase for case-insensitive comparison
+
+                    return (
+                      CurrentRole === data.role &&
+                      lowercasedName.startsWith(lowercasedSearch)
+                    );
+                  }
                 } else {
-                  return data;
+                  if (Search === "") {
+                    return data;
+                  } else {
+                    return lowercasedName.startsWith(lowercasedSearch);
+                  }
                 }
               })
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -146,12 +163,19 @@ export default function UserTable({
                       scope="row"
                       align="center"
                     >
-                      <div className="flex justify-center items-center">
+                      <div className="flex justify-center items-center gap-x-2">
                         <BiEdit
-                          className="text-[1.2rem] cursor-pointer "
+                          className="text-[1.2rem] cursor-pointer hover:text-[green] transition-all duration-500"
                           onClick={() => {
-                            setUserID(i + page * rowsPerPage);
+                            setUserID(Data._id);
                             setOpen(true);
+                          }}
+                        />
+                        <RiDeleteBin5Line
+                          className="text-[1.2rem] cursor-pointer hover:text-[red] transition-all duration-500"
+                          onClick={() => {
+                            setUserID(Data._id);
+                            setOpenDeleteModal(true);
                           }}
                         />
                       </div>
@@ -186,7 +210,7 @@ export default function UserTable({
                     >
                       {Data.privilage === 1
                         ? "Order Manager"
-                        : Data.privilage ===0
+                        : Data.privilage === 0
                         ? "Sales Manager"
                         : ""}
                     </TableCell>
@@ -227,7 +251,40 @@ export default function UserTable({
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={UserData.data.length}
+        count={
+          UserData.data.filter((data) => {
+            const CurrentRole =
+              Filter === "Administrator"
+                ? 0
+                : Filter === "Order Manager"
+                ? 2
+                : Filter === "Station Manager"
+                ? 3
+                : Filter === "Driver"
+                ? 4
+                : 1;
+            const lowercasedSearch = Search.toLowerCase();
+            const lowercasedName = data.name.toLowerCase();
+            if (Filter !== "All") {
+              if (Search === "") {
+                return CurrentRole === data.role;
+              } else {
+                // Convert both Search and data.name to lowercase for case-insensitive comparison
+
+                return (
+                  CurrentRole === data.role &&
+                  lowercasedName.startsWith(lowercasedSearch)
+                );
+              }
+            } else {
+              if (Search === "") {
+                return data;
+              } else {
+                return lowercasedName.startsWith(lowercasedSearch);
+              }
+            }
+          }).length
+        }
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

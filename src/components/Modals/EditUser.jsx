@@ -5,6 +5,8 @@ import AuthInputPopOver from "../Input/AuthInputPopOver";
 import { Popover, Typography } from "@mui/material";
 import AuthTextArea from "../Input/AuthTextArea";
 import AuthInputPassword from "../Input/AuthInputPassword";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchStations } from "../../store/Slices/StationSlice";
 
 const EditUser = ({ Open, setOpen, CurrentUser }) => {
   const [Username, setUsername] = useState("");
@@ -15,14 +17,34 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
   const [Password, setPassword] = useState("");
   const [Role, setRole] = useState("");
   const [StationName, setStationName] = useState("");
+  const [StationNumber, setStationNumber] = useState("");
+
   const [Gender, setGender] = useState("");
 
+  const dispatch = useDispatch();
+  const Auth = useSelector((state) => state.auth);
+  const StationsData = useSelector((state) => state.StationReducer);
+
   useEffect(() => {
-    setUsername(CurrentUser.Username);
-    setEmail(CurrentUser.Email);
-    setAuthority(CurrentUser.AuthorityandPrivlages);
-    setPhoneNumber(CurrentUser.PhoneNumber);
-    setRole(CurrentUser.Role);
+    setUsername(CurrentUser.name);
+    setEmail(CurrentUser.email);
+    setAddress(CurrentUser?.address || "");
+    setGender(CurrentUser?.gender || "");
+    // setPassword(Current)
+    setRole(
+      CurrentUser.role === 0
+        ? "Administrator"
+        : CurrentUser.role === 2
+        ? "Order Manager"
+        : CurrentUser.role === 3
+        ? "Station Manager"
+        : "Driver"
+    );
+    dispatch(fetchStations(Auth.data.companyId));
+    if (CurrentUser.role === 3) {
+      setAuthority(CurrentUser.privilage === 0 ? "Sales" : "Order");
+      setPhoneNumber(CurrentUser.PhoneNumber);
+    }
   }, []);
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -91,12 +113,12 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
                 Value={Email}
                 setValue={setEmail}
               />
-              <AuthInputPopOver
-                label={"Authority and Privlages"}
-                placeholder={"Lorem ipsum"}
+              <AuthInput
+                label="Phone Number"
+                placeholder="1234567890"
                 required={false}
-                Value={Authority}
-                onClick={handleClick}
+                Value={PhoneNumber}
+                setValue={setPhoneNumber}
               />
               {/* Authority Popover */}
               <Popover
@@ -138,57 +160,29 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
                         className="flex gap-x-3 items-center cursor-pointer"
                         onClick={() => {
                           handleClose();
-                          setAuthority("Lorem 1");
+                          setAuthority("Sales");
                         }}
                       >
                         <input
                           type="checkbox"
                           className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "Lorem 1"}
+                          checked={Authority === "Sales"}
                         />
-                        <span>Lorem 1</span>
+                        <span>Sales</span>
                       </div>
                       <div
                         className="flex gap-x-3 items-center cursor-pointer"
                         onClick={() => {
                           handleClose();
-                          setAuthority("Lorem 2");
+                          setAuthority("Order");
                         }}
                       >
                         <input
                           type="checkbox"
                           className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "Lorem 2"}
+                          checked={Authority === "Order"}
                         />
-                        <span>Lorem 2</span>
-                      </div>
-                      <div
-                        className="flex gap-x-3 items-center cursor-pointer"
-                        onClick={() => {
-                          handleClose();
-                          setAuthority("Lorem 3");
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "Lorem 3"}
-                        />
-                        <span>Lorem 3</span>
-                      </div>
-                      <div
-                        className="flex gap-x-3 items-center cursor-pointer"
-                        onClick={() => {
-                          handleClose();
-                          setAuthority("Lorem 4");
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "Lorem 4"}
-                        />
-                        <span>Lorem 4</span>
+                        <span>Order</span>
                       </div>
                     </div>
                   </div>
@@ -207,13 +201,6 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
             {/* right */}
             <div>
               <AuthInput
-                label="Phone Number"
-                placeholder="1234567890"
-                required={false}
-                Value={PhoneNumber}
-                setValue={setPhoneNumber}
-              />
-              <AuthInput
                 label="Gender"
                 placeholder="Male"
                 required={false}
@@ -227,13 +214,33 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
                 Value={Password}
                 setValue={setPassword}
               />
+
               <AuthInputPopOver
                 label={"Role"}
-                placeholder={"Station Manager"}
+                placeholder={"Select role..."}
                 required={false}
                 Value={Role}
                 onClick={handleClickRole}
               />
+              {Role === "Station Manager" && (
+                <>
+                  <AuthInputPopOver
+                    label={"Authority and Privlages"}
+                    placeholder={"Select authority..."}
+                    required={false}
+                    Value={Authority}
+                    onClick={handleClick}
+                  />
+                  {/* Station Name */}
+                  <AuthInputPopOver
+                    label={"Station Name"}
+                    placeholder={"Select station..."}
+                    required={false}
+                    Value={StationName}
+                    onClick={handleClickStationName}
+                  />
+                </>
+              )}
               {/* Role Popover */}
               <Popover
                 id={idRole}
@@ -280,7 +287,7 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
                         <input
                           type="checkbox"
                           className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "Administrator"}
+                          checked={Role === "Administrator"}
                         />
                         <span>Administrator</span>
                       </div>
@@ -294,7 +301,7 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
                         <input
                           type="checkbox"
                           className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "Order Manager"}
+                          checked={Role === "Order Manager"}
                         />
                         <span>Order Manager</span>
                       </div>
@@ -308,7 +315,7 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
                         <input
                           type="checkbox"
                           className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "Driver"}
+                          checked={Role === "Driver"}
                         />
                         <span>Driver</span>
                       </div>
@@ -322,7 +329,7 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
                         <input
                           type="checkbox"
                           className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "Station Manager"}
+                          checked={Role === "Station Manager"}
                         />
                         <span>Station Manager</span>
                       </div>
@@ -330,14 +337,7 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
                   </div>
                 </Typography>
               </Popover>
-              {/* Station Name */}
-              <AuthInputPopOver
-                label={"Station Name"}
-                placeholder={"Station Name"}
-                required={false}
-                Value={StationName}
-                onClick={handleClickStationName}
-              />
+
               {/* Station Name Popover */}
               <Popover
                 id={idStationName}
@@ -374,62 +374,26 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
                 >
                   <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
                     <div className="w-full flex flex-col justify-between gap-y-3 items-start">
-                      <div
-                        className="flex gap-x-3 items-center cursor-pointer"
-                        onClick={() => {
-                          handleCloseStationName();
-                          setStationName("MCJD-1016");
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "MCJD-1016"}
-                        />
-                        <span>MCJD-1016</span>
-                      </div>
-                      <div
-                        className="flex gap-x-3 items-center cursor-pointer"
-                        onClick={() => {
-                          handleCloseStationName();
-                          setStationName("MCJD-1016");
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "MCJD-1016"}
-                        />
-                        <span>MCJD-1016</span>
-                      </div>
-                      <div
-                        className="flex gap-x-3 items-center cursor-pointer"
-                        onClick={() => {
-                          handleCloseStationName();
-                          setStationName("MCJD-1015");
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "MCJD-1015"}
-                        />
-                        <span>MCJD-1015</span>
-                      </div>
-                      <div
-                        className="flex gap-x-3 items-center cursor-pointer"
-                        onClick={() => {
-                          handleCloseStationName();
-                          setStationName("MCJD-1016");
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "MCJD-1016"}
-                        />
-                        <span>MCJD-1016</span>
-                      </div>
+                      {StationsData.data.map((sd) => {
+                        console.log(sd);
+                        return (
+                          <div
+                            className="flex gap-x-3 items-center cursor-pointer"
+                            onClick={() => {
+                              handleCloseStationName();
+                              setStationNumber(sd._id);
+                              setStationName(sd.name);
+                            }}
+                          >
+                            <input
+                              type="checkbox"
+                              className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                              checked={StationNumber === sd._id}
+                            />
+                            <span>{sd.name}</span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 </Typography>

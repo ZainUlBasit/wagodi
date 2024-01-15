@@ -9,7 +9,7 @@ export const fetchStations = createAsyncThunk(
       let response = await GetStationApi({
         companyId: companyId._id,
       });
-      const UpdatedReponse = response.data.data.payload.map((data) => {
+      let UpdatedReponse = response.data.data.payload.map((data) => {
         let minAge = 100;
         data.populatedFuels.map(({ value, max_value }) => {
           const currentAge = (value / max_value) * 100;
@@ -27,6 +27,13 @@ export const fetchStations = createAsyncThunk(
           ...data,
           current_status,
         };
+      });
+      UpdatedReponse = UpdatedReponse.sort((a, b) => {
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
+      
+        // Compare timestamps for ascending order
+        return dateA - dateB;
       });
       return UpdatedReponse === undefined ? [] : UpdatedReponse;
     } catch (error) {

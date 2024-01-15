@@ -95,9 +95,8 @@ const LoginComp = () => {
     }
     // console.log(response_type);
     if (response_type) {
-      localStorage.setItem("token", response.data.token);
       localStorage.setItem("logged-in", response_type);
-      console.log(response)
+      // console.log(response)
       localStorage.setItem("userToken", response?.data?.token);
       localStorage.setItem(
         "user-data",
@@ -140,8 +139,8 @@ const LoginComp = () => {
           required={false}
         />
         <div className="mb-1"></div>
-        <div className="w-[297px] flex justify-between mt-[-10px] mb-[60px]">
-          <div>
+        <div className="w-[297px] flex justify-end mt-[-10px] mb-[60px]">
+          {/* <div>
             <label>
               <input
                 type="checkbox"
@@ -151,7 +150,7 @@ const LoginComp = () => {
               />
               Remember Me
             </label>
-          </div>
+          </div> */}
           <Link to={"/forgot-password"} className="underline">
             Forget Password?
           </Link>

@@ -26,18 +26,11 @@ const SuperAdminNavbar = () => {
 
   const pathname = location.pathname;
   useEffect(() => {
-    if ("/order-manager-home" === pathname) handleNavItemClick("HOME");
-    else if ("/ongoing-orders" === pathname)
-      handleNavItemClick("ONGOING ORDERS");
-    else if ("/add-reservation" === pathname) handleNavItemClick("HOME");
-    else if ("/orders-report-info" === pathname)
-      handleNavItemClick("ORDER REPORTS");
-    else if ("/order-manager-orders-report" === pathname)
-      handleNavItemClick("ORDER REPORTS");
-    else if ("/users" === pathname) handleNavItemClick("USERS");
-    else if ("/notification" === pathname) handleNavItemClick("Notification");
-    else if ("/setting" === pathname) handleNavItemClick("Setting");
-    else if ("/stations" === pathname) handleNavItemClick("STATION");
+    if ("/home" === pathname) handleNavItemClick("HOME");
+    else if ("/subscription-requests" === pathname)
+      handleNavItemClick("Subscription Requests");
+    else if ("/control-subscribers" === pathname)
+      handleNavItemClick("Control Subscribers");
   }, []);
 
   return (
@@ -45,23 +38,20 @@ const SuperAdminNavbar = () => {
       <div className="w-full flex justify-center items-center">
         <div className="w-[90%] max-w-[1300px] flex justify-between items-center">
           {/* Left side Logo */}
-          <Link
-            to={"/companies-info"}
-            onClick={() => handleNavItemClick("HOME")}
-          >
+          <Link to={"/home"} onClick={() => handleNavItemClick("HOME")}>
             <img src={NavbarLogo} className="h-[76px] w-fit mt-3" />
           </Link>
           {/* Middle Nav Items */}
           <nav className="flex items-center justify-between font-[Quicksand] gap-x-8">
             <div className="relative overflow-hidden">
               <Link
-                to={"/companies-info"}
+                to={"/home"}
                 className={`text-[18px] font-[700]`}
-                onClick={() => handleNavItemClick("Companies Information")}
+                onClick={() => handleNavItemClick("HOME")}
               >
                 Companies Information
               </Link>
-              {activeNavItem === "Companies Information" && (
+              {activeNavItem === "HOME" && (
                 <div className="box-below-link active"></div>
               )}
             </div>

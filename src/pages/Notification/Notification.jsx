@@ -16,7 +16,7 @@ const Notification = () => {
   useEffect(() => {
     console.log(FromDate);
     console.log(ToDate);
-    dispatch(fetchNotification(Current_User.data.companyId));
+    dispatch(fetchNotification(Current_User.data));
   }, [FromDate, ToDate]);
   return (
     <>
@@ -61,7 +61,7 @@ const Notification = () => {
           </div>
         </div>
         <div className="w-[90%] max-w-[1200px] flex flex-start overflow-hidden ">
-          <NotificationTable Data={Current_Notification.data.payload} />
+          <NotificationTable Data={Current_Notification.data?.payload} />
         </div>
       </div>
     </>

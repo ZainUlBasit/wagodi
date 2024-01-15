@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import InputPassword from "../Input/InputPassword";
 import MobNavbar from "../Navbar/MobNavbar";
+import AuthInputPassword from "../Input/AuthInputPassword";
 
 const ChangePassword = () => {
   const [Password, setPassword] = useState("");
@@ -10,14 +11,14 @@ const ChangePassword = () => {
       <div className="pl-5 max767:pl-0 max767:justify-center max767:items-center max767:flex max767:flex-col fade-in max767:mt-4">
         <div className="flex w-[90%] font-[600] text-[1.9rem] mb-8">Edit Password</div>
         <div className="w-[100%] flex flex-col justify-center items-center">
-          <InputPassword
+          <AuthInputPassword
             label={"Password"}
             placeholder={"*****************"}
             required={false}
             Value={Password}
             setValue={setPassword}
           />
-          <InputPassword
+          <AuthInputPassword
             label={"Confirm Password"}
             placeholder={"*****************"}
             required={false}

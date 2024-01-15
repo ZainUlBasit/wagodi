@@ -19,15 +19,15 @@ import AddReservation from "../../pages/AddReservation/AddReservation";
 import OrderManagerOrderReports from "../../pages/OrderReports/OrderManagerOrderReports";
 import OrderInfo from "../Cards/OrderInfo";
 import EmployeeData from "../../pages/Statistics/EmployeeData";
+import CompanyInfo from "../../pages/SuperAdmin/CompanyInfo";
+import SubscriptionRequests from "../../pages/SuperAdmin/SubscriptionRequests";
+import ControlSubscribers from "../../pages/SuperAdmin/ControlSubscribers";
 
 const RoleRouting = ({ role }) => {
-  console.log("role")
+  console.log("role");
   return role === 1 ? (
     <Routes>
-      <Route
-        path="/"
-        element={<Navigate to="/home" />}
-      />
+      <Route path="/" element={<Navigate to="/home" />} />
       <Route
         index
         path="/home"
@@ -152,12 +152,11 @@ const RoleRouting = ({ role }) => {
           </ProtectedRoute>
         }
       />
-      
     </Routes>
-    // **************************************
-    // routing for order manager
-    // **************************************
-  ) : role === 2 ? (
+  ) : // **************************************
+  // routing for order manager
+  // **************************************
+  role === 2 ? (
     <Routes>
       <Route
         path="/home"
@@ -188,6 +187,41 @@ const RoleRouting = ({ role }) => {
         element={
           <ProtectedRoute>
             <OrderInfo />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/notification"
+        element={
+          <ProtectedRoute>
+            <Notification />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+  ) : role === 0 ? (
+    <Routes>
+      <Route
+        path="/home"
+        element={
+          <ProtectedRoute>
+            <CompanyInfo />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/subscription-requests"
+        element={
+          <ProtectedRoute>
+            <SubscriptionRequests />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/control-subscribers"
+        element={
+          <ProtectedRoute>
+            <ControlSubscribers />
           </ProtectedRoute>
         }
       />

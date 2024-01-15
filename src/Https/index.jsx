@@ -56,12 +56,12 @@ export const GetAllVendorApi = (data) => api.post("/vendor/all", data);
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 // *********************************************
-// Station Manager Request
+// Create User Request
 // *********************************************
 export const CreateStationManagerApi = (data) =>
   api.post("/auth/sign-up", data);
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-// Station Request
+// Create User Request
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 // *********************************************
 // Users Request

@@ -26,7 +26,7 @@ const Vendor = () => {
 
   useEffect(() => {
     dispatch(fetchVendors(Auth.data.companyId));
-    console.log(VendorsData)
+    console.log(VendorsData);
   }, []);
 
   return (
@@ -79,14 +79,20 @@ const Vendor = () => {
         <EditVendor
           Open={OpenEdit}
           setOpen={setOpenEdit}
-          Data={VendorsData.data.filter(dt=>dt._id === VendorID)[0]}
+          Data={VendorsData.data.filter((dt) => dt._id === VendorID)[0]}
         />
       )}
       {OpenDelete && (
         <DeleteModal
           Open={OpenDelete}
           setOpen={setOpenDelete}
-          State={VendorsData.data.filter(dt=>dt._id === VendorID)[0]}
+          State={
+            VendorsData.data
+              .filter((dt) => dt._id === VendorID)
+              .map((data) => {
+                return { ...data, type: "vendor" };
+              })[0]
+          }
         />
       )}
     </>

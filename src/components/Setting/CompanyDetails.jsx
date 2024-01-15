@@ -4,15 +4,18 @@ import { FaRegEdit } from "react-icons/fa";
 import AuthTextArea from "../Input/AuthTextArea";
 import { FaPlus } from "react-icons/fa";
 import MobNavbar from "../Navbar/MobNavbar";
+import { useSelector } from "react-redux";
 
 const CompanyDetails = () => {
-  const [CompanyName, setCompanyName] = useState("");
-  const [Email, setEmail] = useState("");
-  const [PhoneNumber, setPhoneNumber] = useState("");
+  const Auth = useSelector((state) => state.auth);
+
+  const [CompanyName, setCompanyName] = useState(Auth.data.name);
+  const [Email, setEmail] = useState(Auth.data.email);
+  const [PhoneNumber, setPhoneNumber] = useState(Auth.data.companyId.phone);
   const [CommercialRegistrationNumber, setCommercialRegistrationNumber] =
-    useState("");
-  const [TaxationNumber, setTaxationNumber] = useState("");
-  const [Address, setAddress] = useState("");
+    useState(Auth.data.companyId.crn_number);
+  const [TaxationNumber, setTaxationNumber] = useState(Auth.data.companyId.tax_number);
+  const [Address, setAddress] = useState(Auth.data.companyId.address);
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (e) => {

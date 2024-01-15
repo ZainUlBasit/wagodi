@@ -12,16 +12,9 @@ const AuthInputPopOver = ({ label, placeholder, required, Value, onClick }) => {
       <p className="absolute top-[-11px] left-3 w-fit bg-white font-[Quicksand] text-[15px] font-bold">
         {label}
       </p>
-      <input
-        type="text"
-        required={required}
-        disabled
-        id={v4()}
-        placeholder={placeholder}
-        className="px-3 py-2 pr-10 border border-gray-300 rounded-[7.94px] w-full outline-none"
-        value={Value}
-        // onChange={(e) => setValue(e.target.value)}
-      />
+      <div className="px-3 py-2 pr-10 border border-gray-300 rounded-[7.94px] w-full outline-none cursor-pointer">
+        {Value === "" ? placeholder : Value}
+      </div>
       <BsChevronDown className="flex absolute right-3 top-[.85rem]" />
     </div>
   );

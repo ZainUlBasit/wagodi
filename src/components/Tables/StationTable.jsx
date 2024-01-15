@@ -17,12 +17,12 @@ import { Switch } from "@mui/material";
 export default function StationTable({
   setStationID,
   setOpen,
+  setOpenDeleteModal,
   Search,
   StationsData,
   ActiveStationSelection,
   setActiveStationSelection,
 }) {
-
   // console.log(StationsData.data);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5); // You can adjust the number of rows per page as needed
@@ -155,7 +155,6 @@ export default function StationTable({
             })
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((Data) => {
-                
                 return (
                   <TableRow
                     key={Data._id}
@@ -183,7 +182,7 @@ export default function StationTable({
                           className="text-[1.2rem] cursor-pointer hover:text-[red] transition-all duration-500"
                           onClick={() => {
                             setStationID(Data._id);
-                            setDeleteOpen(true);
+                            setOpenDeleteModal(true);
                           }}
                         />
                       </div>
@@ -223,6 +222,7 @@ export default function StationTable({
                         fontWeight: 400,
                         fontFamily: "Quicksand",
                         borderBottomWidth: 0,
+                        width: "250px",
                       }}
                       align="center"
                     >
@@ -254,7 +254,14 @@ export default function StationTable({
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]} // You can adjust the available rows per page options
         component="div"
-        count={StationsData.length}
+        count={
+          StationsData.filter((data) => {
+            if (Search === "") return data;
+            else if (data.name.toLowerCase().startsWith(Search.toLowerCase())) {
+              return data;
+            }
+          }).length
+        }
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

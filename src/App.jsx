@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import { io } from "socket.io-client";
 import Splash from "./pages/Splash/splash";
 import Onbaording from "./components/Onboading/Onbaording";
 import Auth from "./pages/Auth/Auth";
@@ -40,42 +41,43 @@ import NavSelection from "./components/NavSelection/NavSelection";
 const App = () => {
   const [Loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const pathname = location.pathname;
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
-  const [AuthFound, setAuthFound] = useState(false);
 
   const CheckLocalStorage = () => {
     const isLoggedIn = localStorage.getItem("logged-in");
+
     if (isLoggedIn) {
-<<<<<<< Updated upstream
       const user_data = JSON.parse(localStorage.getItem("user-data"));
       const userToken = localStorage.getItem("userToken");
-      if(userToken != 'undefined' || !userToken) {
-        const userObj = {...user_data, userToken};
+
+      if (userToken && userToken !== "undefined") {
+        const userObj = { ...user_data, userToken };
         dispatch(SetAuth(userObj));
       } else {
-        dispatch(SetAuthNotFound([]))
-        navigate("/auth")
+        dispatch(SetAuthNotFound([]));
+        navigate("/auth");
       }
-=======
-      const user_data = localStorage.getItem("user-data");
-      // socket connection 
-      // return socket disconncet
-      dispatch(SetAuth(JSON.parse(user_data)));
-
->>>>>>> Stashed changes
     } else {
       dispatch(SetAuthNotFound([]));
-      navigate("/auth")
+      navigate("/auth");
     }
   };
+
   useEffect(() => {
-    CheckLocalStorage();
-    setInterval(() => {
+    const intervalId = setInterval(() => {
       setLoading(false);
     }, 3000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
   }, []);
+
+  useEffect(() => {
+    CheckLocalStorage();
+  }, []);
+
   return Loading ? (
     <div className="flex h-screen w-full items-center justify-center">
       <PageLoader />

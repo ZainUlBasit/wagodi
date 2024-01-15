@@ -8,6 +8,7 @@ const CustomPoperOverHome = ({
   handleClose,
   popover_anchorEl,
   setContent,
+  CurrentStatus,
 }) => {
   const StationsData = useSelector((state) => state.StationReducer);
 
@@ -86,7 +87,9 @@ const CustomPoperOverHome = ({
                     {content_data.Text}
                   </div>
                   <div
-                    className={`h-full border-2 ${content_data.BorderColor} px-1 py-2 text-[20px] font-[600] rounded-[10px] w-[60px] flex justify-center items-center`}
+                    className={`h-full border-2 ${content_data.FilterText === CurrentStatus ? "border-white":content_data.BorderColor} ${
+                      content_data.FilterText === CurrentStatus ? content_data.Color : ""
+                    } px-1 py-2 text-[20px] font-[600] rounded-[10px] w-[60px] flex justify-center items-center`}
                   >
                     {
                       StationsData?.data?.filter(
