@@ -6,8 +6,6 @@ import { CreateVendorApi } from "../../Https";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchVendors } from "../../store/Slices/VendorSlice";
 import toast from "react-hot-toast";
-import ErrorToast from "../Toast/ErrorToast";
-import AddingLightLoader from "../Loaders/AddingLightLoader";
 
 const AddVendor = ({ Open, setOpen }) => {
   const [VendorName, setVendorName] = useState("");
@@ -15,13 +13,11 @@ const AddVendor = ({ Open, setOpen }) => {
   const [_95, set_95] = useState("");
   const [_91, set_91] = useState("");
   const [_D, set_D] = useState("");
-  const [Loading, setLoading] = useState(false);
 
   const Auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const onSubmit = async (e) => {
-    setLoading(true);
     e.preventDefault();
 
     const Fuel_Array = [
@@ -29,7 +25,7 @@ const AddVendor = ({ Open, setOpen }) => {
         type: 0,
         price_litre: Number(_91),
       },
-      {
+    {
         type: 1,
         price_litre: Number(_95),
       },
@@ -44,31 +40,6 @@ const AddVendor = ({ Open, setOpen }) => {
       typeof Location,
       typeof Fuel_Array
     );
-<<<<<<< HEAD
-    // console.log(Auth.data.companyId, VendorName, Location, Fuel_Array);
-    if (VendorName === "") {
-      ErrorToast("Invalid vendor name...");
-    } else if (Location === "") {
-      ErrorToast("Invalid vendor address...");
-    } else if (_91 === "" && _95 === "" && _D === "") {
-      ErrorToast("Please provide price per litre...");
-    } else {
-      try {
-        const response = await CreateVendorApi({
-          companyId: Auth.data.companyId._id,
-          name: VendorName,
-          address: Location,
-          fuels: Fuel_Array,
-        });
-        console.log(response);
-        if (response.data?.success) {
-          toast.success(response.data.data?.msg);
-          dispatch(fetchVendors(Auth.data.companyId));
-          setOpen(false);
-        }
-      } catch (err) {
-        console.log(err);
-=======
     console.log(Auth.data.companyId, VendorName, Location, Fuel_Array);
     try {
       const response = await CreateVendorApi({
@@ -82,10 +53,10 @@ const AddVendor = ({ Open, setOpen }) => {
         toast.success(response.data.data?.msg);
         dispatch(fetchVendors(Auth.data.companyId));
         setOpen(false);
->>>>>>> e1770ec (hobab revamping order pages role routing login system)
       }
+    } catch (err) {
+      console.log(err);
     }
-    setLoading(false);
   };
   return (
     <CustomModal open={Open} setOpen={setOpen}>
@@ -160,26 +131,20 @@ const AddVendor = ({ Open, setOpen }) => {
               </div>
             </div>
           </div>
-          {Loading ? (
-            <div className="w-full flex justify-center items-center my-[18px]">
-              <AddingLightLoader />
-            </div>
-          ) : (
-            <div className="w-full flex justify-center items-center gap-x-5 mt-5 mb-3 font-[Quicksand]">
-              <button
-                className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-                onClick={onSubmit}
-              >
-                Add
-              </button>
-              <button
-                className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-                onClick={() => setOpen(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          )}
+          <div className="w-full flex justify-center items-center gap-x-5 mt-5 mb-3 font-[Quicksand]">
+            <button
+              className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+              onClick={onSubmit}
+            >
+              Add
+            </button>
+            <button
+              className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+              onClick={() => setOpen(false)}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     </CustomModal>

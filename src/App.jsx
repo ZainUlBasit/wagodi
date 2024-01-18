@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
 import Splash from "./pages/Splash/splash";
 import Onbaording from "./components/Onboading/Onbaording";
 import Auth from "./pages/Auth/Auth";

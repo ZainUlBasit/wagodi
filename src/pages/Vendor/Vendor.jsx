@@ -79,12 +79,9 @@ const Vendor = () => {
         <EditVendor
           Open={OpenEdit}
           setOpen={setOpenEdit}
-<<<<<<< HEAD
-          Data={VendorsData.data.filter((dt) => dt._id === VendorID)[0]}
-=======
+
           Data={VendorsData.data.filter(dt=>dt._id === VendorID)[0]}
           companyId={Auth.data.companyId}
->>>>>>> e1770ec (hobab revamping order pages role routing login system)
         />
       )}
       {OpenDelete && (

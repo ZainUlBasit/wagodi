@@ -11,7 +11,7 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 import { NotificationData } from "./DemoData/NotificationData";
 import { useState } from "react";
 import { useEffect } from "react";
-import moment from "moment/moment";
+import moment from "moment";
 
 export default function NotificationTable({ Data }) {
   const [CurrentNotification, setCurrentNotification] = useState([]);

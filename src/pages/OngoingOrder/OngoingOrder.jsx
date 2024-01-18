@@ -11,13 +11,8 @@ import "../../assets/Style/style.css";
 import MobNavbar from "../../components/Navbar/MobNavbar";
 import CustomPoperOverWithShow from "../../components/Popover/CustomPoperOverWithShow";
 import { api } from "../../Https";
-<<<<<<< HEAD
-import { useSelector, useDispatch } from "react-redux";
-import { fetchOrders } from "../../store/Slices/OrderSlice";
-=======
 import { useSelector } from "react-redux";
 import ErrorToast from "../../components/Toast/ErrorToast";
->>>>>>> e1770ec (hobab revamping order pages role routing login system)
 
 const OngoingOrder = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -25,21 +20,12 @@ const OngoingOrder = () => {
   const [OpenReservationDetailsModal, setOpenReservationDetailsModal] =
     useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-<<<<<<< HEAD
-  const userData = useSelector((state) => state.auth.data);
-=======
   const userData = useSelector(state => state.auth.data)
   const [ordersData, setOrdersData] =useState([])
->>>>>>> e1770ec (hobab revamping order pages role routing login system)
   const [SearchText, setSearchText] = useState("");
   const [Filter, setFilter] = useState("");
   const [ApplyFilter, setApplyFilter] = useState("All");
   let firstTime = 0;
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchOrders());
-  }, []);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -49,14 +35,6 @@ const OngoingOrder = () => {
     setAnchorEl(null);
   };
 
-<<<<<<< HEAD
-  // useEffect(async () => {
-  //   const data = api.post("/order/company", {
-  //     companyId: userData.companyId._id,
-  //   });
-  //   data();
-  // });
-=======
   useEffect( () => {
     firstTime == 0 ?
     (async () => {
@@ -70,7 +48,6 @@ const OngoingOrder = () => {
       setOrdersData(data.data.data)
     })(): "";
   })
->>>>>>> e1770ec (hobab revamping order pages role routing login system)
 
   console.log("APPLY FILTER : ", ApplyFilter)
 
