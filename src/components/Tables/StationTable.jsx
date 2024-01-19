@@ -13,6 +13,8 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import SwitchButton from "../buttons/SwitchButton";
 import { Switch } from "@mui/material";
+import { StationsColumns } from "../../assets/Columns/StationsColumns";
+import CustomPagination from "../TablePagination/TablePagination";
 
 export default function StationTable({
   setStationID,
@@ -27,12 +29,12 @@ export default function StationTable({
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5); // You can adjust the number of rows per page as needed
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (newPage) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+  const handleChangeRowsPerPage = (val) => {
+    setRowsPerPage(parseInt(val, 10));
     setPage(0);
   };
 
@@ -65,83 +67,23 @@ export default function StationTable({
         <Table aria-label="simple table">
           <TableHead style={{ borderBottomWidth: 2, borderColor: "#465462" }}>
             <TableRow>
-              <TableCell
-                sx={{
-                  fontWeight: "bold",
-                  fontFamily: "Quicksand",
-                  paddingTop: "30px",
-                  paddingBottom: "5px",
-                  fontSize: "14px",
-                }}
-                align="center"
-              >
-                Action
-              </TableCell>
-
-              <TableCell
-                sx={{
-                  fontWeight: "bold",
-                  fontFamily: "Quicksand",
-                  paddingTop: "30px",
-                  paddingBottom: "5px",
-                  fontSize: "14px",
-                }}
-                align="center"
-              >
-                Station Number
-              </TableCell>
-
-              <TableCell
-                sx={{
-                  fontWeight: "bold",
-                  fontFamily: "Quicksand",
-                  paddingTop: "30px",
-                  paddingBottom: "5px",
-                  fontSize: "14px",
-                }}
-                align="center"
-              >
-                Company Name
-              </TableCell>
-
-              <TableCell
-                sx={{
-                  fontWeight: "bold",
-                  fontFamily: "Quicksand",
-                  paddingTop: "30px",
-                  paddingBottom: "5px",
-                  fontSize: "14px",
-                }}
-                align="center"
-              >
-                Station Name
-              </TableCell>
-
-              <TableCell
-                sx={{
-                  fontWeight: "bold",
-                  fontFamily: "Quicksand",
-                  paddingTop: "30px",
-                  paddingBottom: "5px",
-                  fontSize: "14px",
-                }}
-                align="center"
-              >
-                Address
-              </TableCell>
-
-              {/* <TableCell
-                sx={{
-                  fontWeight: "bold",
-                  fontFamily: "Quicksand",
-                  paddingTop: "30px",
-                  paddingBottom: "5px",
-                  fontSize: "14px",
-                }}
-                align="center"
-              >
-                Status
-              </TableCell> */}
+              {StationsColumns.map((dt) => {
+                return (
+                  <TableCell
+                    sx={{
+                      fontWeight: "bold",
+                      fontFamily: "Quicksand",
+                      // paddingTop: "30px",
+                      // paddingBottom: "5px",
+                    }}
+                    align="center"
+                  >
+                    <div className="text-[14px] pt-[30px] pb-[5px] maxWeb1:pt-[45px] maxWeb1:pb-[6px] maxWeb2:pt-[70px] maxWeb2:pb-[8px] maxWeb3:pt-[90px] maxWeb3:pb-[10px] maxWeb4:pt-[100px] maxWeb4:pb-[10px] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
+                      {dt.title}
+                    </div>
+                  </TableCell>
+                );
+              })}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -172,14 +114,14 @@ export default function StationTable({
                     >
                       <div className="flex justify-center items-center gap-x-2">
                         <BiEdit
-                          className="text-[1.2rem] cursor-pointer hover:text-[green] transition-all duration-500"
+                          className="text-[1.2rem] maxWeb1:text-[2rem] maxWeb2:text-[2.5rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem] cursor-pointer hover:text-[green] transition-all duration-500"
                           onClick={() => {
                             setStationID(Data._id);
                             setOpen(true);
                           }}
                         />
                         <RiDeleteBin5Line
-                          className="text-[1.2rem] cursor-pointer hover:text-[red] transition-all duration-500"
+                          className="text-[1.2rem] maxWeb1:text-[2rem] maxWeb2:text-[2.5rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem] cursor-pointer hover:text-[red] transition-all duration-500"
                           onClick={() => {
                             setStationID(Data._id);
                             setOpenDeleteModal(true);
@@ -195,7 +137,9 @@ export default function StationTable({
                       }}
                       align="center"
                     >
-                      {Data.phone}
+                      <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                        {Data.phone}
+                      </div>
                     </TableCell>
                     <TableCell
                       sx={{
@@ -205,7 +149,9 @@ export default function StationTable({
                       }}
                       align="center"
                     >
-                      {Auth.data.name}
+                      <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                        {Auth.data.name}
+                      </div>
                     </TableCell>
                     <TableCell
                       sx={{
@@ -215,7 +161,9 @@ export default function StationTable({
                       }}
                       align="center"
                     >
-                      {Data.name}
+                      <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                        {Data.name}
+                      </div>
                     </TableCell>
                     <TableCell
                       sx={{
@@ -226,7 +174,9 @@ export default function StationTable({
                       }}
                       align="center"
                     >
-                      {Data.address}
+                      <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                        {Data.address}
+                      </div>
                     </TableCell>
                     {/* <TableCell
                       sx={{
@@ -251,9 +201,7 @@ export default function StationTable({
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]} // You can adjust the available rows per page options
-        component="div"
+      <CustomPagination
         count={
           StationsData.filter((data) => {
             if (Search === "") return data;
@@ -265,6 +213,7 @@ export default function StationTable({
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
+        RowsPerPage={rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </div>

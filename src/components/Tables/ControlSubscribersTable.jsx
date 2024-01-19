@@ -13,18 +13,19 @@ import {
   ControlSubscribersColumns,
   SubscriptionRequestsColumns,
 } from "../../assets/Columns/SubscriptionRequestsColumns";
+import CustomPagination from "../TablePagination/TablePagination";
 
 export default function ControlSubscribersTable({ Data, Search }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (newPage) => {
+    console.log(newPage);
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+  const handleChangeRowsPerPage = (val) => {
+    setRowsPerPage(parseInt(val, 10));
   };
 
   return (
@@ -44,7 +45,9 @@ export default function ControlSubscribersTable({ Data, Search }) {
                       textAlign: "center",
                     }}
                   >
-                    {ci.title}
+                    <div className="text-[14px] pt-[8px] pb-[5px]  maxWeb1:pb-[6px] maxWeb1:pt-[20px] maxWeb1:text-[23px] maxWeb2:text-[28px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pb-[12px] maxWeb3:pb-[18px] maxWeb4:pb-[25px]">
+                      {ci.title}
+                    </div>
                   </TableCell>
                 );
               })}
@@ -80,7 +83,9 @@ export default function ControlSubscribersTable({ Data, Search }) {
                     scope="row"
                     align="center"
                   >
-                    {row.name}
+                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                      {row.name}
+                    </div>
                   </TableCell>
 
                   <TableCell
@@ -91,7 +96,13 @@ export default function ControlSubscribersTable({ Data, Search }) {
                     }}
                     align="center"
                   >
+<<<<<<< Updated upstream
                     {row.allowedStations}
+=======
+                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                      {row.no_of_stations}
+                    </div>
+>>>>>>> Stashed changes
                   </TableCell>
                   <TableCell
                     sx={{
@@ -101,7 +112,13 @@ export default function ControlSubscribersTable({ Data, Search }) {
                     }}
                     align="center"
                   >
+<<<<<<< Updated upstream
                     {row.subscriptionId?.subscriptionType == 1 ? "Enterprise": row.subscriptionId?.subscriptionType == 0? "Basic": "unknown" }
+=======
+                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                      {row.sub_type}
+                    </div>
+>>>>>>> Stashed changes
                   </TableCell>
                   <TableCell
                     sx={{
@@ -111,20 +128,25 @@ export default function ControlSubscribersTable({ Data, Search }) {
                     }}
                     align="center"
                   >
+<<<<<<< Updated upstream
                     {row.subscriptionId?.valid_until ? new Date(Math.floor(row.subscriptionId?.valid_until * 1000)) : "not specified" }
+=======
+                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                      {row.duration}
+                    </div>
+>>>>>>> Stashed changes
                   </TableCell>
                 </TableRow>
               ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
+      <CustomPagination
         count={Data.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
+        RowsPerPage={rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </>

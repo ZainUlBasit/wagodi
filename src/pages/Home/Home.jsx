@@ -13,14 +13,15 @@ import { StationData } from "../../components/Tables/DemoData/StationData";
 import { fetchStations } from "../../store/Slices/StationSlice";
 import PageLoader from "../../components/Loaders/PageLoader";
 import CustomPoperOverHome from "../../components/Popover/CustomPoperOverHome";
+import HeaderWrapper from "../../components/Header/HeaderWrapper";
 
 const Home = () => {
-  console.log("home")
+  console.log("home");
   const [Favourites, setFavourites] = useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
   const [Filter, setFilter] = useState("");
   const [Open, setOpen] = useState(false);
   const [CurrentStationName, setCurrentStationName] = useState("");
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -46,7 +47,8 @@ const Home = () => {
       {/* Main wrapper */}
       <div className="w-full flex flex-col items-center justify-center fade-in">
         {/* Header */}
-        <div className="w-[90%] max-w-[1200px] flex justify-between mt-6">
+
+        <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 mb-6">
           {/* Left */}
           <div className="font-[Quicksand] font-[700] text-[2rem]">
             Stations
@@ -191,8 +193,9 @@ const Home = () => {
         {StationsData.loading ? (
           <PageLoader />
         ) : (
-          <div className="w-[90%] max-w-[1200px] flex flex-wrap xl:justify-start justify-center items-center my-4">
-            {StationsData?.data?.filter((dt) => {
+          <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] maxWeb1:items-center maxWeb2:items-center maxWeb3:items-center maxWeb4:items-center flex flex-wrap xl:justify-center justify-center items-center my-4">
+            {StationsData.data
+              .filter((dt) => {
                 if (Favourites) {
                   if (Filter !== "" && Favourites === dt.favorite) {
                     if (Filter === dt.current_status) {

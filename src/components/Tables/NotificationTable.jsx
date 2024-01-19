@@ -27,6 +27,8 @@ export default function NotificationTable({ Data }) {
     );
   }, []);
 
+  console.log(Data);
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -89,12 +91,12 @@ export default function NotificationTable({ Data }) {
                 scope="row"
                 align="left"
               >
-                <div className="flex flex-col max767:pl-2">
+                <div className="flex flex-col justify-center items-center max767:pl-2">
                   <span className="font-[700] text-[26px] max767:text-[1.3rem]">
-                    {moment(row.createdAt).format('DD')}
+                    {moment(row.createdAt).format("DD")}
                   </span>
                   <span className="font-[600] text-[.8rem]">
-                    {moment(row.createdAt).format('MMM')}
+                    {moment(row.createdAt).format("MMM")}
                   </span>
                 </div>
               </TableCell>
@@ -107,7 +109,9 @@ export default function NotificationTable({ Data }) {
                 }}
                 align="left"
               >
-                <span className="max767:text-[1.2rem]">{row.description}</span>
+                <span className="max767:text-[1.2rem] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                  {row.description}
+                </span>
               </TableCell>
               <TableCell
                 sx={{
@@ -120,7 +124,7 @@ export default function NotificationTable({ Data }) {
                 <div className="flex justify-center items-center gap-x-1 text-[#A5A5A5]">
                   <AiOutlineClockCircle className="text-[1.2rem]" />
                   <span className="font-[700] max767:text-[.8rem]">
-                  {moment(row.createdAt).format('hh:mm A')}
+                    {moment(row.createdAt).format("hh:mm A")}
                   </span>
                 </div>
               </TableCell>

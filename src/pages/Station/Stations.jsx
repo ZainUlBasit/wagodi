@@ -16,6 +16,9 @@ import { fetchStations } from "../../store/Slices/StationSlice";
 import PageLoader from "../../components/Loaders/PageLoader";
 import FilterButton from "../../components/buttons/FilterButton/FilterButton";
 import DeleteModal from "../../components/Modals/DeleteModal";
+import TableWrapper from "../../components/Tables/TableWrapper";
+import Search from "../../components/Search/Search";
+import HeaderWrapper from "../../components/Header/HeaderWrapper";
 
 const Stations = () => {
   const [Filter, setFilter] = useState("");
@@ -41,7 +44,7 @@ const Stations = () => {
     <>
       <div className="flex flex-col justify-center items-center w-full font-[Quicksand] fade-in">
         {/* Header */}
-        <div className="w-[90%] max-w-[1200px] flex justify-end mt-6 mb-10">
+        <HeaderWrapper>
           {/* Right */}
           <div className="flex items-center gap-x-4 max767:flex-col max767:gap-y-1">
             <FilterButton
@@ -73,31 +76,25 @@ const Stations = () => {
               StationFilter={StationFilter}
             />
             <button
-              className={`border-2 border-[#465462] px-4 py-[5px] rounded-3xl font-[Quicksand] font-[700] bg-[#fff] text-[#465462] transition-all duration-500 ease-in-out flex gap-x-6 items-center hover:text-white hover:bg-[#465462]`}
+              className={`border-2 border-[#465462] px-4 py-[5px] rounded-full font-[Quicksand] font-[700] bg-[#fff] text-[#465462] transition-all duration-500 ease-in-out flex gap-x-6 items-center hover:text-white hover:bg-[#465462] text-[1rem] maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem]  maxWeb4:text-[3rem] `}
               onClick={() => setOpenAddModal(!OpenAddModal)}
             >
               <span className="px-3">Add Station</span>
               <BsPlusCircle />
             </button>
           </div>
-        </div>
+        </HeaderWrapper>
         {StationsData.loading ? (
           <PageLoader />
         ) : StationsData.data === 0 ? (
           <div>Empty</div>
         ) : (
-          <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] mb-10 relative mt-6 fade-in">
-            <div className="flex justify-between items-center px-5 text-white font-[Quicksand] absolute -top-9 left-[-1px] w-[calc(100%+2px)] bg-[#465462] rounded-[15px]">
-              <div className="flex border-[1px] w-[300px] border-white items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden my-[10px]">
-                <BsSearch className="text-[1.2rem]" />
-                <input
-                  className="outline-none bg-inherit text-white w-full"
-                  placeholder="Search Station name"
-                  value={SearchText}
-                  onChange={(e) => setSearchText(e.target.value)}
-                />
-              </div>
-            </div>
+          <TableWrapper>
+            <Search
+              Placeholder="Search Station name"
+              Value={SearchText}
+              setValue={setSearchText}
+            />
             <StationTable
               setStationID={setStationID}
               setOpen={setOpenEditModal}
@@ -115,7 +112,7 @@ const Stations = () => {
                 }
               })}
             />
-          </div>
+          </TableWrapper>
         )}
       </div>
       {/* Create Modal and Implement */}

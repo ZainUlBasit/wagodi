@@ -16,7 +16,11 @@ const Notification = () => {
   useEffect(() => {
     console.log(FromDate);
     console.log(ToDate);
+<<<<<<< Updated upstream
     dispatch(fetchNotification(Current_User.data.companyId, null, Current_User.data.role));
+=======
+    dispatch(fetchNotification(Current_User.data.companyId));
+>>>>>>> Stashed changes
   }, [FromDate, ToDate]);
   return (
     <>
@@ -60,8 +64,8 @@ const Notification = () => {
             </div>
           </div>
         </div>
-        <div className="w-[90%] max-w-[1200px] flex flex-start overflow-hidden ">
-          <NotificationTable Data={Current_Notification.data?.payload} />
+        <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] mb-10 relative mt-6 fade-in">
+          <NotificationTable Data={Current_Notification?.data?.payload} />
         </div>
       </div>
     </>

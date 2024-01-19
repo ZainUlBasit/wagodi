@@ -18,9 +18,10 @@ const StationDetail = ({
   const [_91, set_91] = useState([]);
   const [_95, set_95] = useState([]);
   const [_D, set_D] = useState([]);
-  const [Status, setStatus] = useState(StationDetailData.favorite);
+  const [Status, setStatus] = useState("");
   const dispatch = useDispatch();
   const Current_User = useSelector((state) => state.auth);
+  console.log(StationDetailData);
   const setFuelsData = () => {
     StationDetailData?.populatedFuels.map((f_data) => {
       if (f_data.type === 0) {
@@ -56,7 +57,7 @@ const StationDetail = ({
   };
 
   return (
-    <div className="relative mx-5 my-3 w-[350px] rounded-[16px] h-[165px] overflow-hidden">
+    <div className="relative mx-5 my-3 w-[350px] maxWeb1:w-[400px] maxWeb2:w-[450px] maxWeb3:w-[500px] maxWeb4:w-[500px] rounded-[16px] h-[165px] maxWeb1:h-[200px] maxWeb2:h-[250px] maxWeb3:h-[300px] maxWeb4:h-[300px] overflow-hidden">
       <div
         className={`${
           StationDetailData.current_status === "Healthy"
@@ -74,7 +75,7 @@ const StationDetail = ({
       >
         {/* Header (Station Name*/}
         <div className="flex justify-between items-center w-full px-4 pr-5 pt-4">
-          <div className="font-[Quicksand] font-[700] text-[1rem]">
+          <div className="font-[Quicksand] font-[700] text-[1rem] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
             Station Name:{" "}
             <span className="font-[Quicksand] font-[400]">
               {StationDetailData.name}
@@ -82,7 +83,7 @@ const StationDetail = ({
           </div>
         </div>
         {/* Middle (Last Order Detail) */}
-        <div className="flex font-[Quicksand] font-[700] text-[1rem] gap-x-1 px-4 pt-1">
+        <div className="flex font-[Quicksand] font-[700] text-[1rem] gap-x-1 px-4 pt-1maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
           Last Ordered:
           <span className="font-[Quicksand] font-[400]">
             {StationDetailData.active}
@@ -92,10 +93,10 @@ const StationDetail = ({
         <div className="flex flex-col justify-center items-center py-5 pt-2 w-[100%]">
           {_95.length !== 0 && (
             <div className="flex pl-4 items-center w-[100%] gap-x-4">
-              <div className="font-[700] font-[Quicksand] text-[1rem] w-[5%]">
+              <div className="font-[700] font-[Quicksand] text-[1rem] w-[5%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
                 95
               </div>
-              <div className="font-[500] font-[Quicksand] text-[1rem] w-[95%]">
+              <div className="font-[500] font-[Quicksand] text-[1rem] w-[95%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
                 {_95.max_value}/ <span>{_95.value}</span>{" "}
                 {Current_User.data.role === 2 && (
                   <span
@@ -110,10 +111,10 @@ const StationDetail = ({
           )}
           {_91.length !== 0 && (
             <div className="flex pl-4 items-center w-[100%] gap-x-4">
-              <div className="font-[700] font-[Quicksand] text-[1rem] w-[5%]">
+              <div className="font-[700] font-[Quicksand] text-[1rem] w-[5%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
                 91
               </div>
-              <div className="font-[500] font-[Quicksand] text-[1rem] w-[95%]">
+              <div className="font-[500] font-[Quicksand] text-[1rem] w-[95%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
                 {_91.max_value}/<span>{_91.value}</span>{" "}
                 {Current_User.data.role === 2 && (
                   <span
@@ -151,7 +152,7 @@ const StationDetail = ({
         onClick={async (e) => {
           e.preventDefault();
           try {
-            setStatus(!Status)
+            setStatus(Status === "" ? !StationDetailData.favorite : !Status);
             let response = await UpdateStationApi({
               stationId: StationDetailData._id,
               updateData: {
@@ -198,7 +199,11 @@ const StationDetail = ({
           }
         }}
       >
-        {Status ? <AiFillStar /> : <AiOutlineStar />}
+        {(Status === "" ? StationDetailData.favorite : Status) ? (
+          <AiFillStar />
+        ) : (
+          <AiOutlineStar />
+        )}
       </div>
     </div>
   );

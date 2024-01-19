@@ -6,8 +6,12 @@ import { fetchStations } from "../../store/Slices/StationSlice";
 import { BsChevronDown, BsSearch } from "react-icons/bs";
 import { Popover, Typography } from "@mui/material";
 import CompaniesInfoTable from "../../components/Tables/CompaniesInfoTable";
+<<<<<<< Updated upstream
 import { api } from "../../Https";
 import ErrorToast from "../../components/Toast/ErrorToast";
+=======
+import TableWrapper from "../../components/Tables/TableWrapper";
+>>>>>>> Stashed changes
 
 const CompanyInfo = () => {
   const currentDate = new Date();
@@ -102,9 +106,9 @@ const CompanyInfo = () => {
     <>
       <div className="w-full flex flex-col items-center justify-center fade-in">
         {/* Header */}
-        <div className="w-[90%] max-w-[1200px] flex justify-between items-center mt-6">
+        <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6">
           {/* Left */}
-          <div className="font-[Quicksand] font-[700] text-[2rem]">
+          <div className="text-[30px] font-[600] maxWeb1:text-[3rem] maxWeb2:text-[3rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem]">
             Companies Information
           </div>
           {/* Right */}
@@ -121,7 +125,7 @@ const CompanyInfo = () => {
               </div>
               <BsChevronDown className="flex absolute right-3 top-[.85rem]" />
             </div>
-            <div className="flex border-[1px] w-[300px] border-black items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden max767:hidden">
+            <div className="flex border-[1px] w-[300px] maxWeb1:w-[400px] maxWeb2:w-[450px] maxWeb3:w-[500px] maxWeb4:w-[550px] border-black items-center gap-x-2 px-3 py-[6px] maxWeb1:px-4 maxWeb1:py-[8px] maxWeb2:px-5 maxWeb2:py-[10px] rounded-full overflow-hidden my-[10px] maxWeb1:my-[15px] maxWeb2:my-[20px]">
               <BsSearch />
               <input
                 className="outline-none w-full"
@@ -283,7 +287,7 @@ const CompanyInfo = () => {
           </div>
         </div>
         {/* Table */}
-        <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] my-5">
+        <TableWrapper>
           <CompaniesInfoTable
             Data={
             //   {
@@ -363,7 +367,7 @@ const CompanyInfo = () => {
             data
             }
           />
-        </div>
+        </TableWrapper>
       </div>
       {/* <AuthInputPopOver
                     label={"Station Name"}

@@ -36,17 +36,20 @@ const SuperAdminNavbar = () => {
   return (
     <>
       <div className="w-full flex justify-center items-center">
-        <div className="w-[90%] max-w-[1300px] flex justify-between items-center">
+        <div className="w-[90%] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between items-center">
           {/* Left side Logo */}
           <Link to={"/home"} onClick={() => handleNavItemClick("HOME")}>
-            <img src={NavbarLogo} className="h-[76px] w-fit mt-3" />
+            <img
+              src={NavbarLogo}
+              className="h-[76px] maxWeb1:h-[120px]  maxWeb2:h-[200px] maxWeb3:h-[250px] maxWeb4:h-[220px] w-fit mt-3"
+            />
           </Link>
           {/* Middle Nav Items */}
           <nav className="flex items-center justify-between font-[Quicksand] gap-x-8">
             <div className="relative overflow-hidden">
               <Link
                 to={"/home"}
-                className={`text-[18px] font-[700]`}
+                className={`text-[18px] font-[700] maxWeb1:text-[25px] maxWeb2:text-[30px] maxWeb3:text-[35px] maxWeb4:text-[40px]`}
                 onClick={() => handleNavItemClick("HOME")}
               >
                 Companies Information
@@ -59,7 +62,7 @@ const SuperAdminNavbar = () => {
             <div className="relative overflow-hidden">
               <Link
                 to={"/subscription-requests"}
-                className={`text-[18px] font-[700]`}
+                className={`text-[18px] font-[700] maxWeb1:text-[25px] maxWeb2:text-[30px] maxWeb3:text-[35px] maxWeb4:text-[40px]`}
                 onClick={() => handleNavItemClick("Subscription Requests")}
               >
                 Subscription Requests
@@ -71,7 +74,7 @@ const SuperAdminNavbar = () => {
             <div className="relative overflow-hidden">
               <Link
                 to={"/control-subscribers"}
-                className={`text-[18px] font-[700]`}
+                className={`text-[18px] font-[700] maxWeb1:text-[25px] maxWeb2:text-[30px] maxWeb3:text-[35px] maxWeb4:text-[40px]`}
                 onClick={() => handleNavItemClick("Control Subscribers")}
               >
                 Control Subscribers
@@ -84,7 +87,7 @@ const SuperAdminNavbar = () => {
           {/* Right Side Icons */}
           <div className="flex items-center gap-x-3 relative h-fit">
             {showNotificationDot && (
-              <div className="h-[9px] w-[9px] bg-[#FF4423] rounded-full absolute top-[2px] left-[24px]"></div>
+              <div className="h-[9px] w-[9px] maxWeb1:w-[15px] maxWeb1:h-[15px] bg-[#FF4423] rounded-full absolute top-[2px] maxWeb1:top-0 left-[24px] maxWeb1:left-[35px]"></div>
             )}
             <div
               className={`cursor-pointer py-[6px] px-[6px] border-2 rounded-full ${
@@ -98,7 +101,7 @@ const SuperAdminNavbar = () => {
                 navigate("/notification");
               }}
             >
-              <RiNotification3Fill className="text-[1.2rem]" />
+              <RiNotification3Fill className="cursor-pointer maxWeb1:text-[2rem] maxWeb2:text-[2.3rem] maxWeb3:text-[2.9rem] maxWeb4:text-[2.6rem]" />
             </div>
             <div
               className={`cursor-pointer py-[6px] px-[6px] border-2 rounded-full ${
@@ -112,7 +115,7 @@ const SuperAdminNavbar = () => {
                 setOpenModal(true);
               }}
             >
-              <TbLogout className="cursor-pointer text-[1.2rem]" />
+              <TbLogout className="cursor-pointer maxWeb1:text-[2rem] maxWeb2:text-[2.3rem] maxWeb3:text-[2.9rem] maxWeb4:text-[2.6rem]" />
             </div>
           </div>
         </div>

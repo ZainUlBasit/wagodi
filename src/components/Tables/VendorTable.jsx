@@ -13,6 +13,7 @@ import { BiEdit } from "react-icons/bi";
 import { VendorData } from "./DemoData/VendorData";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import TablePagination from "@mui/material/TablePagination";
+import { VendorsColumns } from "../../assets/Columns/VendorsColumns";
 const vendorFuelType = (type) => {
   switch (type) {
     case 0:
@@ -50,65 +51,30 @@ export default function VendorTable({
         <Table aria-label="simple table">
           <TableHead style={{ borderBottomWidth: 2, borderColor: "#465462" }}>
             <TableRow>
-              <TableCell
-                sx={{
-                  fontWeight: "bold",
-                  fontFamily: "Quicksand",
-                  paddingTop: "30px",
-                  paddingBottom: "5px",
-                  fontSize: "14px",
-                }}
-                align="center"
-              >
-                Edit
-              </TableCell>
-
-              <TableCell
-                sx={{
-                  fontWeight: "bold",
-                  fontFamily: "Quicksand",
-                  paddingTop: "30px",
-                  paddingBottom: "5px",
-                  fontSize: "14px",
-                }}
-                align="center"
-              >
-                Vendor Name
-              </TableCell>
-
-              <TableCell
-                sx={{
-                  fontWeight: "bold",
-                  fontFamily: "Quicksand",
-                  paddingTop: "30px",
-                  paddingBottom: "5px",
-                  fontSize: "14px",
-                }}
-                align="center"
-              >
-                Fuel Type
-              </TableCell>
-
-              <TableCell
-                sx={{
-                  fontWeight: "bold",
-                  fontFamily: "Quicksand",
-                  paddingTop: "30px",
-                  paddingBottom: "5px",
-                  fontSize: "14px",
-                }}
-                align="center"
-              >
-                Location
-              </TableCell>
+              {VendorsColumns.map((vc) => {
+                return (
+                  <TableCell
+                    sx={{
+                      fontWeight: "bold",
+                      fontFamily: "Quicksand",
+                      paddingTop: "30px",
+                      paddingBottom: "5px",
+                      fontSize: "14px",
+                    }}
+                    align="center"
+                  >
+                    <div className="text-[14px] pt-[30px] pb-[5px] maxWeb1:pt-[45px] maxWeb1:pb-[6px] maxWeb1:text-[23px] maxWeb2:text-[28px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pt-[60px] maxWeb3:pt-[55px] maxWeb4:pt-[80px] maxWeb2:pb-[12px] maxWeb3:pb-[18px] maxWeb4:pb-[25px]">
+                      {vc.title}
+                    </div>
+                  </TableCell>
+                );
+              })}
             </TableRow>
           </TableHead>
           <TableBody>
             {VendorsData?.filter((data) => {
               if (Search === "") return data;
-              else if (
-                data.name.toLowerCase().includes(Search.toLowerCase())
-              ) {
+              else if (data.name.toLowerCase().includes(Search.toLowerCase())) {
                 return data;
               }
             })
@@ -131,14 +97,14 @@ export default function VendorTable({
                     >
                       <div className="flex justify-center items-center gap-x-2">
                         <BiEdit
-                          className="text-[1.2rem] cursor-pointer hover:text-[green] transition-all duration-500"
+                          className="text-[1.2rem] maxWeb1:text-[2rem] maxWeb2:text-[2.5rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem] cursor-pointer hover:text-[green] transition-all duration-500"
                           onClick={() => {
                             setVendorID(data._id);
                             setOpen(true);
                           }}
                         />
                         <RiDeleteBin5Line
-                          className="text-[1.2rem] cursor-pointer hover:text-[red] transition-all duration-500"
+                          className="text-[1.2rem] maxWeb1:text-[2rem] maxWeb2:text-[2.5rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem] cursor-pointer hover:text-[red] transition-all duration-500"
                           onClick={() => {
                             setVendorID(data._id);
                             setOpenDelete(true);
@@ -154,7 +120,9 @@ export default function VendorTable({
                       }}
                       align="center"
                     >
-                      {data.name}
+                      <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                        {data.name}
+                      </div>
                     </TableCell>
                     <TableCell
                       sx={{
@@ -164,7 +132,7 @@ export default function VendorTable({
                       }}
                       align="center"
                     >
-                      <div className="flex gap-x-5 justify-center">
+                      <div className="flex gap-x-5 justify-center maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem]">
                         {data?.fuels?.map((fuel) => (
                           <div key={fuel._id}>{vendorFuelType(fuel?.type)}</div>
                         ))}
@@ -178,7 +146,9 @@ export default function VendorTable({
                       }}
                       align="center"
                     >
-                      {data.address}
+                      <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                        {data.address}
+                      </div>
                     </TableCell>
                   </TableRow>
                 );

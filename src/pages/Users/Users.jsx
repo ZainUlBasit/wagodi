@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "../../store/Slices/UserSlice";
 import PageLoader from "../../components/Loaders/PageLoader";
 import DeleteModal from "../../components/Modals/DeleteModal";
+import TableWrapper from "../../components/Tables/TableWrapper";
+import Search from "../../components/Search/Search";
 
 const Users = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -21,7 +23,7 @@ const Users = () => {
   const [UserID, setUserID] = useState("");
   const [OpenAddModal, setOpenAddModal] = useState(false);
   const [OpenEditModal, setOpenEditModal] = useState(false);
-  const [OpenDeleteModal, setOpenDeleteModal] = useState(false)
+  const [OpenDeleteModal, setOpenDeleteModal] = useState(false);
   const [SearchText, setSearchText] = useState("");
 
   const dispatch = useDispatch();
@@ -53,15 +55,19 @@ const Users = () => {
     <>
       <div className="flex flex-col justify-center items-center w-full font-[Quicksand] fade-in">
         {/* Header */}
-        <div className="w-[90%] max-w-[1200px] flex justify-between mt-6 mb-10 max767:mb-7 max767:flex-col">
+        <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 mb-10">
           {/* Left */}
           <div className="font-[Quicksand] font-[700] text-[1.3rem] gap-x-3 flex items-center justify-start max767:w-[100%]">
-            <div className="text-[30px] font-[600]">Role</div>
+            <div className="text-[30px] font-[600] maxWeb1:text-[3rem] maxWeb2:text-[4rem] maxWeb3:text-[5rem] maxWeb4:text-[5rem]">
+              Role
+            </div>
             <div
-              className="flex items-center gap-x-[20px] bg-[#465462] rounded-full px-3 py-1 h-fit text-white font-[Quicksand] cursor-pointer"
+              className="flex items-center gap-x-[20px] bg-[#465462] rounded-full px-3 py-1 maxWeb1:px-5 maxWeb2:px-5 maxWeb3:px-5 maxWeb4:px-5 maxWeb1:py-2 maxWeb2:py-2 maxWeb3:py-2 maxWeb4:py-2 h-fit text-white font-[Quicksand] cursor-pointer"
               onClick={handleClick}
             >
-              <span className="max767:text-[1rem]">{ApplyFilter}</span>
+              <span className="max767:text-[1rem] maxWeb1:text-[2rem] maxWeb2:text-[3rem] maxWeb3:text-[4rem] maxWeb4:text-[4rem]">
+                {ApplyFilter}
+              </span>
               <FaChevronDown aria-describedby={id} variant="contained" />
             </div>
 
@@ -182,7 +188,7 @@ const Users = () => {
           {/* Right */}
           <div className="flex items-center gap-x-4 max767:justify-end max767:mt-2">
             <button
-              className={`border-2 border-[#465462] px-4 py-[5px] rounded-3xl font-[Quicksand] font-[700] bg-[#fff] text-[#465462] transition-all duration-500 ease-in-out flex gap-x-6 items-center hover:text-white hover:bg-[#465462]`}
+              className={`border-2 border-[#465462] px-4 py-[5px] rounded-full font-[Quicksand] font-[700] bg-[#fff] text-[#465462] transition-all duration-500 ease-in-out flex gap-x-6 items-center hover:text-white hover:bg-[#465462] text-[1rem] maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem]  maxWeb4:text-[3rem] `}
               onClick={() => setOpenAddModal(!OpenAddModal)}
             >
               <span className="px-3">Create</span>
@@ -193,18 +199,12 @@ const Users = () => {
         {Users.loading ? (
           <PageLoader />
         ) : (
-          <div className="w-[90%] max767:w-[95%] max-w-[1200px] border-[1px] border-[#465462] shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] mb-10 relative mt-6">
-            <div className="flex justify-between items-center px-5 text-white font-[Quicksand] absolute -top-9 left-[-1px] w-[calc(100%+2px)] bg-[#465462] rounded-[15px]">
-              <div className="flex border-[1px] w-[300px] border-white items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden my-[10px]">
-                <BsSearch className="text-[1.2rem]" />
-                <input
-                  className="outline-none bg-inherit text-white w-full"
-                  placeholder="Search Role"
-                  value={SearchText}
-                  onChange={(e) => setSearchText(e.target.value)}
-                />
-              </div>
-            </div>
+          <TableWrapper>
+            <Search
+              Placeholder="Search Role"
+              Value={SearchText}
+              setValue={setSearchText}
+            />
             <UserTable
               setUserID={setUserID}
               setOpenDeleteModal={setOpenDeleteModal}
@@ -213,7 +213,7 @@ const Users = () => {
               Search={SearchText}
               UserData={Users}
             />
-          </div>
+          </TableWrapper>
         )}
       </div>
       {/* Create Modal and Implement */}
