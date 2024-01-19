@@ -96,7 +96,7 @@ export default function EmployeeTable({ Data, Search }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            {Data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .filter((dt) => {
                 const searchLowerCase = Search.toLowerCase();
                 if (Search === "") return dt;

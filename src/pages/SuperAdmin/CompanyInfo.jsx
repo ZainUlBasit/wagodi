@@ -6,8 +6,11 @@ import { fetchStations } from "../../store/Slices/StationSlice";
 import { BsChevronDown, BsSearch } from "react-icons/bs";
 import { Popover, Typography } from "@mui/material";
 import CompaniesInfoTable from "../../components/Tables/CompaniesInfoTable";
+import { api } from "../../Https";
+import ErrorToast from "../../components/Toast/ErrorToast";
 
 const CompanyInfo = () => {
+  const currentDate = new Date();
   const [Favourites, setFavourites] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [Filter, setFilter] = useState("");
@@ -16,7 +19,8 @@ const CompanyInfo = () => {
   const [SearchText, setSearchText] = useState("");
   const [CurrentStationName, setCurrentStationName] = useState("");
   const [anchorElMonth, setAnchorElMonth] = useState(null);
-  const [CurrentMonth, setCurrentMonth] = useState("");
+  const [CurrentMonth, setCurrentMonth] = useState(null);
+  const [data, setData] = useState([]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -41,7 +45,6 @@ const CompanyInfo = () => {
   const idMonth = openMonth ? "simple-popover-month" : undefined;
 
   const dispatch = useDispatch();
-  const StationsData = useSelector((state) => state.StationReducer);
   const Auth = useSelector((state) => state.auth);
 
   const months = [
@@ -60,8 +63,41 @@ const CompanyInfo = () => {
   ];
 
   useEffect(() => {
-    dispatch(fetchStations(Auth.data.companyId));
-  }, []);
+    const fetchCompaniesData = async () => {
+      let month;
+      let day;
+      const requestBody = {};
+      if (CurrentMonth) {
+        month = months.findIndex(CurrentMonth);
+        day = 1;
+        const start_date = Math.floor(
+          new Date(
+            currentDate.getFullYear(),
+            month || currentDate.getMonth(),
+            day || currentDate.getDay()
+          ).getTime() / 1000
+        );
+        const end_date = Math.floor(
+          new Date(
+            currentDate.getFullYear(),
+            month + 1 || currentDate.getMonth() + 1,
+            0
+          ).getTime() / 1000
+        );
+        requestBody.start_date = start_date;
+        requestBody.end_date = end_date;
+      }
+      try {
+        const responseData = await api.post("/company/info-all", requestBody);
+        console.log(responseData)
+        if (responseData.data?.data?.success) setData(responseData?.data?.data?.payload);
+      } catch (error) {
+        console.log(error);
+        ErrorToast("Error fetching companies info!");
+      }
+    };
+    fetchCompaniesData();
+  }, [CurrentMonth]);
   return (
     <>
       <div className="w-full flex flex-col items-center justify-center fade-in">
@@ -249,80 +285,83 @@ const CompanyInfo = () => {
         {/* Table */}
         <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] my-5">
           <CompaniesInfoTable
-            Data={[
-              {
-                name: "testing",
-                no_of_stations: "123",
-                completed_orders: "20",
-                earnings: "2233",
-                top_selling: "2313",
-                status: true,
-              },
-              {
-                name: "testing",
-                no_of_stations: "123",
-                completed_orders: "20",
-                earnings: "2233",
-                top_selling: "2313",
-                status: false,
-              },
-              {
-                name: "testing",
-                no_of_stations: "123",
-                completed_orders: "20",
-                earnings: "2233",
-                top_selling: "2313",
-                status: true,
-              },
-              {
-                name: "testing",
-                no_of_stations: "123",
-                completed_orders: "20",
-                earnings: "2233",
-                top_selling: "2313",
-                status: true,
-              },
-              {
-                name: "testing",
-                no_of_stations: "123",
-                completed_orders: "20",
-                earnings: "2233",
-                top_selling: "2313",
-                status: true,
-              },
-              {
-                name: "testing",
-                no_of_stations: "123",
-                completed_orders: "20",
-                earnings: "2233",
-                top_selling: "2313",
-                status: true,
-              },
-              {
-                name: "testing",
-                no_of_stations: "123",
-                completed_orders: "20",
-                earnings: "2233",
-                top_selling: "2313",
-                status: true,
-              },
-              {
-                name: "testing",
-                no_of_stations: "123",
-                completed_orders: "20",
-                earnings: "2233",
-                top_selling: "2313",
-                status: true,
-              },
-              {
-                name: "testing",
-                no_of_stations: "123",
-                completed_orders: "20",
-                earnings: "2233",
-                top_selling: "2313",
-                status: true,
-              },
-            ]}
+            Data={
+            //   {
+             // [
+            //     name: "testing",
+            //     no_of_stations: "123",
+            //     completed_orders: "20",
+            //     earnings: "2233",
+            //     top_selling: "2313",
+            //     status: true,
+            //   },
+            //   {
+            //     name: "testing",
+            //     no_of_stations: "123",
+            //     completed_orders: "20",
+            //     earnings: "2233",
+            //     top_selling: "2313",
+            //     status: false,
+            //   },
+            //   {
+            //     name: "testing",
+            //     no_of_stations: "123",
+            //     completed_orders: "20",
+            //     earnings: "2233",
+            //     top_selling: "2313",
+            //     status: true,
+            //   },
+            //   {
+            //     name: "testing",
+            //     no_of_stations: "123",
+            //     completed_orders: "20",
+            //     earnings: "2233",
+            //     top_selling: "2313",
+            //     status: true,
+            //   },
+            //   {
+            //     name: "testing",
+            //     no_of_stations: "123",
+            //     completed_orders: "20",
+            //     earnings: "2233",
+            //     top_selling: "2313",
+            //     status: true,
+            //   },
+            //   {
+            //     name: "testing",
+            //     no_of_stations: "123",
+            //     completed_orders: "20",
+            //     earnings: "2233",
+            //     top_selling: "2313",
+            //     status: true,
+            //   },
+            //   {
+            //     name: "testing",
+            //     no_of_stations: "123",
+            //     completed_orders: "20",
+            //     earnings: "2233",
+            //     top_selling: "2313",
+            //     status: true,
+            //   },
+            //   {
+            //     name: "testing",
+            //     no_of_stations: "123",
+            //     completed_orders: "20",
+            //     earnings: "2233",
+            //     top_selling: "2313",
+            //     status: true,
+            //   },
+            //   {
+            //     name: "testing",
+            //     no_of_stations: "123",
+            //     completed_orders: "20",
+            //     earnings: "2233",
+            //     top_selling: "2313",
+            //     status: true,
+            //   },
+            // ]
+            data
+            }
           />
         </div>
       </div>

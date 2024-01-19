@@ -1,12 +1,79 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiSolidChevronRight } from "react-icons/bi";
 import { BsSearch } from "react-icons/bs";
 import ControlSubscribersTable from "../../components/Tables/ControlSubscribersTable";
+import { api } from "../../Https";
+import ErrorToast from "../../components/Toast/ErrorToast";
 
+const old_data = [
+  {
+    name: "Company  ABC",
+    no_of_stations: "800",
+    sub_type: "Diamond",
+    duration: "31 Days",
+  },
+  {
+    name: "Company  ABC",
+    no_of_stations: "800",
+    sub_type: "Diamond",
+    duration: "31 Days",
+  },
+  {
+    name: "Company  ABC",
+    no_of_stations: "800",
+    sub_type: "Diamond",
+    duration: "31 Days",
+  },
+  {
+    name: "Company  ABC",
+    no_of_stations: "800",
+    sub_type: "Diamond",
+    duration: "31 Days",
+  },
+  {
+    name: "Company  ABC",
+    no_of_stations: "800",
+    sub_type: "Diamond",
+    duration: "31 Days",
+  },
+  {
+    name: "Company  ABC",
+    no_of_stations: "800",
+    sub_type: "Diamond",
+    duration: "31 Days",
+  },
+  {
+    name: "Company  ABC",
+    no_of_stations: "800",
+    sub_type: "Diamond",
+    duration: "31 Days",
+  },
+];
+
+ const to_default = "2023-12-11"
+ const from_default = "2023-12-11"
 const ControlSubscribers = () => {
   const [SearchText, setSearchText] = useState("");
-  const [ToDate, setToDate] = useState("2023-12-11");
-  const [FromDate, setFromDate] = useState("2023-12-11");
+  const [ToDate, setToDate] = useState(to_default);
+  const [FromDate, setFromDate] = useState(from_default);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const requestBody = {}
+    // const start_date = (new Date(ToDate).getTime() / 1000)
+    // const end_date = (new Date(FromDate).getTime() / 1000)
+    const fetchSubscriptionData = async () => {
+      try {
+        const responseData = await api.post("/company/all", requestBody)
+        console.log(responseData)
+        if(responseData.data.success) setData(responseData.data.data)
+      } catch (error) {
+        console.log(error)
+        ErrorToast("Error fetching Control Subscription Data!")
+      }
+    }
+    fetchSubscriptionData()
+  }, [])
   return (
     <>
       <div className="w-full flex flex-col items-center justify-center fade-in">
@@ -64,52 +131,7 @@ const ControlSubscribers = () => {
           className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px]
         my-5"
         >
-          <ControlSubscribersTable
-            Data={[
-              {
-                name: "Company  ABC",
-                no_of_stations: "800",
-                sub_type: "Diamond",
-                duration: "31 Days",
-              },
-              {
-                name: "Company  ABC",
-                no_of_stations: "800",
-                sub_type: "Diamond",
-                duration: "31 Days",
-              },
-              {
-                name: "Company  ABC",
-                no_of_stations: "800",
-                sub_type: "Diamond",
-                duration: "31 Days",
-              },
-              {
-                name: "Company  ABC",
-                no_of_stations: "800",
-                sub_type: "Diamond",
-                duration: "31 Days",
-              },
-              {
-                name: "Company  ABC",
-                no_of_stations: "800",
-                sub_type: "Diamond",
-                duration: "31 Days",
-              },
-              {
-                name: "Company  ABC",
-                no_of_stations: "800",
-                sub_type: "Diamond",
-                duration: "31 Days",
-              },
-              {
-                name: "Company  ABC",
-                no_of_stations: "800",
-                sub_type: "Diamond",
-                duration: "31 Days",
-              },
-            ]}
-          />
+          <ControlSubscribersTable Data={data} />
         </div>
       </div>
     </>

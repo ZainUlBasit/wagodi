@@ -16,7 +16,7 @@ const Notification = () => {
   useEffect(() => {
     console.log(FromDate);
     console.log(ToDate);
-    dispatch(fetchNotification(Current_User.data.companyId));
+    dispatch(fetchNotification(Current_User.data.companyId, null, Current_User.data.role));
   }, [FromDate, ToDate]);
   return (
     <>

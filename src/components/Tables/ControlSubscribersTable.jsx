@@ -51,7 +51,7 @@ export default function ControlSubscribersTable({ Data, Search }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            {Data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               // .filter((dt) => {
               //   const searchLowerCase = Search.toLowerCase();
               //   if (Search === "") return dt;
@@ -91,7 +91,7 @@ export default function ControlSubscribersTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.no_of_stations}
+                    {row.allowedStations}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -101,7 +101,7 @@ export default function ControlSubscribersTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.sub_type}
+                    {row.subscriptionId?.subscriptionType == 1 ? "Enterprise": row.subscriptionId?.subscriptionType == 0? "Basic": "unknown" }
                   </TableCell>
                   <TableCell
                     sx={{
@@ -111,7 +111,7 @@ export default function ControlSubscribersTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.duration}
+                    {row.subscriptionId?.valid_until ? new Date(Math.floor(row.subscriptionId?.valid_until * 1000)) : "not specified" }
                   </TableCell>
                 </TableRow>
               ))}

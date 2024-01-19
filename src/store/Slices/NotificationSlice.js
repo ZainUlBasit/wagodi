@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
+  GetAdminNotificationApi,
   GetAllOrderApi,
   GetAllVendorApi,
   GetCompanyNotificationApi,
@@ -7,15 +8,21 @@ import {
 
 export const fetchNotification = createAsyncThunk(
   "fetchNotification",
-  async (companyId, query = {}) => {
+  async (companyId, query = {}, role) => {
     console.log(companyId);
     try {
-      let response = await GetCompanyNotificationApi({
-        companyId: companyId._id,
-      });
+      let response;
+      if(role != 0){
+        response = await GetCompanyNotificationApi({
+          companyId: companyId._id,
+        });
+      } else {
+        response = await GetAdminNotificationApi({})
+      }
       console.log(response);
       console.log(response.data.data);
-      return response.data.data;
+      console.log(response.data.data.payload);
+      return response?.data?.data?.payload || response.data.data;
     } catch (error) {
       console.log(error);
     }

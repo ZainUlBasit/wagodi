@@ -47,7 +47,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            {Data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               // .filter((dt) => {
               //   const searchLowerCase = Search.toLowerCase();
               //   if (Search === "") return dt;
@@ -61,7 +61,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
               // })
               .map((row, i) => (
                 <TableRow
-                  key={row.name}
+                  key={row.company_name}
                   sx={{
                     "&:last-child td, &:last-child th": { border: 0 },
                   }}
@@ -76,7 +76,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
                     scope="row"
                     align="center"
                   >
-                    {row.name}
+                    {row.company_name}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -86,7 +86,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.no_of_stations}
+                    {row.stationCount}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -96,7 +96,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.completed_orders}
+                    {row.companyDelieveries}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -106,7 +106,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.earnings}
+                    {row.total_earning}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -116,7 +116,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.top_selling}
+                    {row.station_with_max_earning[0].name}
                   </TableCell>
                   <TableCell
                     sx={{

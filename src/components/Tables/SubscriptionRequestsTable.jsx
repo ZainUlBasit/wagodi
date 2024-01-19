@@ -48,7 +48,7 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            {Data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               // .filter((dt) => {
               //   const searchLowerCase = Search.toLowerCase();
               //   if (Search === "") return dt;
@@ -77,7 +77,7 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                     scope="row"
                     align="center"
                   >
-                    {row.name}
+                    {row.companyId?.name}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -87,7 +87,7 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.sub_type}
+                    {row.subscriptionType == 1 ? "Enterprise" : "Basic"}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -97,7 +97,7 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.no_of_stations}
+                    {row.companyId?.allowedStations}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -107,7 +107,7 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.requests_no}
+                    {row.requests || 1}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -117,7 +117,7 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.price}
+                    {row.productId?.amount}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -129,16 +129,16 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                   >
                     <div
                       className={`py-[6px] rounded-full text-white font-[Quicksand] ${
-                        row.status === "Accept"
+                        row.active == null
                           ? "bg-[#FAAF3A]"
-                          : row.status === "Accepted"
+                          : row.active
                           ? "bg-[#2EB100]"
-                          : row.status === "Rejected"
+                          : !row.active
                           ? "bg-[#C93D33]"
                           : ""
                       }`}
                     >
-                      {row.status}
+                      {row.active == null ? "Accept/Reject": row.active ? "Accepted": "Rejected"}
                     </div>
                   </TableCell>
                 </TableRow>
