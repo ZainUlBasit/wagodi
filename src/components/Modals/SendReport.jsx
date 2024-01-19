@@ -7,20 +7,56 @@ import { SiMicrosoftexcel } from "react-icons/si";
 import { GrDocumentPdf } from "react-icons/gr";
 import AuthBtn from "../buttons/AuthBtn";
 import ErrorToast from "../Toast/ErrorToast";
+import SuccessToast from "../Toast/SuccessToast";
+import {api} from "../../Https/index"
+import { captureComponent } from "../../utility/utilityFunctions";
+import { useSelector } from "react-redux";
 
 const SendReport = ({ Open, setOpen }) => {
   const [Email, setEmail] = useState("");
-  const [ReportType, setReportType] = useState("");
+  const UserData = useSelector(state => state.auth.data)
+  // const [ReportType, setReportType] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
-  const [IsPdf, setIsPdf] = useState(null);
+  // const [IsPdf, setIsPdf] = useState(null);
 
-  const onSubmit = (e) => {
+  // start
+
+// const captureComponent = () => {
+//   const componentElement = document.getElementById('componentToCapture');
+//   html2canvas(componentElement)
+//     .then( (canvas) => {
+//       // Convert the canvas to a Blob
+//       canvas.toBlob(async (blob) => {
+//         // Send the Blob to the server
+//         await sendImageToServer(blob);
+//       }, 'image/png');
+//     });
+// };
+
+// const sendImageToServer = async (imageBlob) => {
+//   const formData = new FormData();
+//   formData.append('file', imageBlob, 'report.png');
+//   formData.append('email', Email);
+
+//   try {
+//     await api.post("/company/send-report", formData)
+//     SuccessToast("Report send! Check your email inbox!")
+//   } catch (error) {
+//     console.error('Error:', error); 
+//     ErrorToast("Error caused while sending the report!")
+//   }
+// }
+
+  // end
+
+  const onSubmit = async (e) => {
     e.preventDefault();
-    if(IsPdf == null) return ErrorToast("Please select either PDF or Excel!")
+    // if(IsPdf == null) return ErrorToast("Please select either PDF or Excel!")
     if(!Email) return ErrorToast("Please enter email!")
-    console.log("Email", Email);
-    console.log("ReportType", ReportType);
-    console.log("IsPdf", IsPdf);
+    captureComponent("capture-component", Email, UserData.companyId._id)
+    // console.log("Email", Email);
+    // console.log("ReportType", ReportType);
+    // console.log("IsPdf", IsPdf);
     setOpen(false);
   };
 
@@ -49,7 +85,7 @@ const SendReport = ({ Open, setOpen }) => {
           Value={Email}
           setValue={setEmail}
         />
-        <AuthInputPopOver
+        {/* <AuthInputPopOver
           label={"Report Type"}
           placeholder={"Select Report Type"}
           required={false}
@@ -136,39 +172,7 @@ const SendReport = ({ Open, setOpen }) => {
               </div>
             </div>
           </Typography>
-        </Popover>
-        <div className="flex w-[297px] justify-between mt-7 mb-10">
-          <div
-            className="flex gap-x-3 items-center cursor-pointer"
-            onClick={() => {
-              setIsPdf(true);
-            }}
-          >
-            <input
-              type="checkbox"
-              className="mr-1 appearance-none h-3 w-3 border border-gray-300 checked:bg-[#465462] rounded-full"
-              checked={IsPdf === true}
-            />
-            <span className="flex items-center gap-x-1 font-[Quicksand] font-[700]">
-              PDF <GrDocumentPdf />
-            </span>
-          </div>
-          <div
-            className="flex gap-x-3 items-center cursor-pointer"
-            onClick={() => {
-              setIsPdf(false);
-            }}
-          >
-            <input
-              type="checkbox"
-              className="mr-1 appearance-none h-3 w-3 border border-gray-300 checked:bg-[#465462] rounded-full"
-              checked={IsPdf === false}
-            />
-            <span className="flex items-center gap-x-1 font-[Quicksand] font-[700]">
-              Excel <SiMicrosoftexcel />
-            </span>
-          </div>
-        </div>
+        </Popover> */}
         <button
           className={`mb-10 w-[197px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
           onClick={onSubmit}

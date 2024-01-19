@@ -5,22 +5,49 @@ import AuthTextArea from "../Input/AuthTextArea";
 import { FaPlus } from "react-icons/fa";
 import MobNavbar from "../Navbar/MobNavbar";
 import { useSelector } from "react-redux";
+import { api } from "../../Https";
+import ErrorToast from "../Toast/ErrorToast";
 
 const CompanyDetails = () => {
   const Auth = useSelector((state) => state.auth);
-
+  const companyId = Auth?.data?.companyId._id;
   const [CompanyName, setCompanyName] = useState(Auth.data.name);
   const [Email, setEmail] = useState(Auth.data.email);
   const [PhoneNumber, setPhoneNumber] = useState(Auth.data.companyId.phone);
   const [CommercialRegistrationNumber, setCommercialRegistrationNumber] =
     useState(Auth.data.companyId.crn_number);
-  const [TaxationNumber, setTaxationNumber] = useState(Auth.data.companyId.tax_number);
+  const [TaxationNumber, setTaxationNumber] = useState(
+    Auth.data.companyId.tax_number
+  );
   const [Address, setAddress] = useState(Auth.data.companyId.address);
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
+  };
+
+  const handleSave = async () => {
+    {
+      const formData = new FormData();
+      formData.append("companyId", companyId);
+      const payload = {
+        name: CompanyName,
+        email: Email,
+        crn_number: CommercialRegistrationNumber,
+        tax_number: TaxationNumber,
+        address: Address,
+        phone: PhoneNumber,
+      };
+      formData.append("payload", payload);
+      selectedFile ? formData.append("image", selectedFile) : "";
+      try {
+        await api.patch("/company/update", formData);
+      } catch (error) {
+        console.log(error);
+        ErrorToast("Error occured while updating!");
+      }
+    }
   };
   return (
     <>
@@ -108,7 +135,7 @@ const CompanyDetails = () => {
         <div className="max767:w-[90%] max767:flex  max767:justify-center ">
           <button
             className={`mt-[20px] w-[297px] h-fit py-2 ml-5 max767:ml-0 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-            onClick={() => {}}
+            onClick={async () => handleSave()}
           >
             Save
           </button>

@@ -25,7 +25,6 @@ const OngoingOrder = () => {
   const [SearchText, setSearchText] = useState("");
   const [Filter, setFilter] = useState("");
   const [ApplyFilter, setApplyFilter] = useState("All");
-  let firstTime = 0;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -36,18 +35,16 @@ const OngoingOrder = () => {
   };
 
   useEffect( () => {
-    firstTime == 0 ?
     (async () => {
       const data = await api.post("/order/company", {companyId: userData.companyId._id})
       const apiSuccess = data?.data?.success
-      firstTime++;
       if(!apiSuccess){
         ErrorToast("Failed fetching data for on-going orders!")
         return
       }
       setOrdersData(data.data.data)
-    })(): "";
-  })
+    })()
+  }, [])
 
   console.log("APPLY FILTER : ", ApplyFilter)
 
@@ -107,7 +104,7 @@ const OngoingOrder = () => {
             />
           </div>
         </div>
-        <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px]">
+        <div id="capture-component" className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px]">
           <OngoingOrdersTable
             Filter={ApplyFilter}
             Search={SearchText}

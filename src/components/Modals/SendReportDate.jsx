@@ -8,11 +8,10 @@ import { GrDocumentPdf } from "react-icons/gr";
 import AuthBtn from "../buttons/AuthBtn";
 import AuthInputDate from "../Input/AuthInputDate";
 
-const SendReportDate = ({ Open, setOpen }) => {
+const SendReportDate = ({ Open, setOpen}) => {
   const [Email, setEmail] = useState("");
   const [SelectedDate, setSelectedDate] = useState("");
   const [SendType, setSendType] = useState("");
-
   const onSubmit = (e) => {
     e.preventDefault();
     console.log("Email", Email);

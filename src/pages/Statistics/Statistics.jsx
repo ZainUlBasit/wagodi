@@ -501,7 +501,7 @@ const Statistics = () => {
             Drivers
           </div>
         </div>
-        <div className="w-[90%] max-w-[1200px] shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] mb-10 relative mt-6 rounded-[20px] overflow-hidden border-[1px] border-[#465462]">
+        <div  id="capture-component" className="w-[90%] max-w-[1200px] shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] mb-10 relative mt-6 rounded-[20px] overflow-hidden border-[1px] border-[#465462]">
           {CurrentTab === "stations" ? (
             <StatisticsStationTable
               setCurrentID={setCurrentID}

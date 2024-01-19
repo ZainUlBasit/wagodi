@@ -19,6 +19,7 @@
     "apexcharts": "^3.44.0",
     "axios": "^1.6.0",
     "formik": "^2.4.5",
+    "html2canvas": "^1.4.1",
     "lottie-react": "^2.4.0",
     "moment": "^2.30.1",
     "react": "^18.2.0",

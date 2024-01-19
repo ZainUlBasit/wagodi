@@ -15,6 +15,7 @@ import ApprovedOrderTableTop from "../../components/Tables/ApprovedOrderTableTop
 import { api } from "../../Https";
 import { useSelector } from "react-redux";
 import ErrorToast from "../../components/Toast/ErrorToast";
+import { captureComponent } from "../../utility/utilityFunctions";
 
 const OrderReports = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -65,7 +66,7 @@ const OrderReports = () => {
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center w-full fade-in">
+      <div id="capture-component" className="flex flex-col justify-center items-center w-full fade-in">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex max767:flex-col justify-between mt-6 mb-10">
           {/* Left */}
@@ -116,7 +117,7 @@ const OrderReports = () => {
         })}
       </div>
       {OpenSendReport && (
-        <SendReportDate Open={OpenSendReport} setOpen={setOpenSendReport} />
+        <SendReport Open={OpenSendReport} setOpen={setOpenSendReport} />
       )}
     </>
   );
