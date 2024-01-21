@@ -5,7 +5,7 @@ import { v4 } from "uuid";
 const GasInput = ({ label, type, placeholder, required, Value, setValue, last }) => {
   return (
     <div className={`relative mb-[15px] ${ last ? "w-[150px]" : "w-[120px]"} font-[Quicksand]`}>
-      <p className="absolute top-[-11px] left-4 w-fit bg-white font-[Quicksand] text-[15px]">
+      <p className="absolute top-[-11px] left-3 w-fit bg-white font-[Quicksand] text-[15px] font-bold">
         {label}
       </p>
       <input

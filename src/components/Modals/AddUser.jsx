@@ -81,14 +81,25 @@ const AddUser = ({ Open, setOpen }) => {
           };
     // console.log(req_data);
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (Role === "") {
+    const phoneRegex = /^\d{11}$/;
+    if (Username === "") {
+      WarningToast("Please Enter Username...");
+    } else if (!emailRegex.test(Email) || Email === "") {
+      ErrorToast(Email === "" ? "Please Enter Email..." : "Invalid Email...");
+    } else if (Password === "") {
+      WarningToast("Please enter password...");
+    } else if (!phoneRegex.test(PhoneNumber) || PhoneNumber === "") {
+      ErrorToast(
+        PhoneNumber === ""
+          ? "Please Enter valid phone number..."
+          : "Invalid Phone Number..."
+      );
+    } else if (Role === "") {
       WarningToast("Please select role...");
     } else if (Authority === "" && Role === "Station Manager") {
       WarningToast("Please Select Authority and Privileges...");
     } else if (StationNumber === "" && Role === "Station Manager") {
       WarningToast("Please Select Station...");
-    } else if (!emailRegex.test(Email)) {
-      ErrorToast("Invalid Email...");
     } else {
       try {
         // create user
@@ -185,6 +196,7 @@ const AddUser = ({ Open, setOpen }) => {
                 required={false}
                 Value={PhoneNumber}
                 setValue={(data) => setPhoneNumber(data)}
+                Type={"number"}
               />
               <AuthInputPopOver
                 label={"Role"}
@@ -238,7 +250,7 @@ const AddUser = ({ Open, setOpen }) => {
                         <input
                           type="checkbox"
                           className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "Administrator"}
+                          checked={Role === "Administrator"}
                         />
                         <span>Administrator</span>
                       </div>
@@ -252,7 +264,7 @@ const AddUser = ({ Open, setOpen }) => {
                         <input
                           type="checkbox"
                           className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "Order Manager"}
+                          checked={Role === "Order Manager"}
                         />
                         <span>Order Manager</span>
                       </div>
@@ -266,7 +278,7 @@ const AddUser = ({ Open, setOpen }) => {
                         <input
                           type="checkbox"
                           className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "Driver"}
+                          checked={Role === "Driver"}
                         />
                         <span>Driver</span>
                       </div>
@@ -280,7 +292,7 @@ const AddUser = ({ Open, setOpen }) => {
                         <input
                           type="checkbox"
                           className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                          checked={Authority === "Station Manager"}
+                          checked={Role === "Station Manager"}
                         />
                         <span>Station Manager</span>
                       </div>

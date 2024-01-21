@@ -14,6 +14,7 @@ import { VendorData } from "./DemoData/VendorData";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import TablePagination from "@mui/material/TablePagination";
 import { VendorsColumns } from "../../assets/Columns/VendorsColumns";
+import CustomPagination from "../TablePagination/TablePagination";
 const vendorFuelType = (type) => {
   switch (type) {
     case 0:
@@ -37,7 +38,7 @@ export default function VendorTable({
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5); // You can adjust the number of rows per page as needed
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (newPage) => {
     setPage(newPage);
   };
 
@@ -57,13 +58,13 @@ export default function VendorTable({
                     sx={{
                       fontWeight: "bold",
                       fontFamily: "Quicksand",
-                      paddingTop: "30px",
+                      // paddingTop: "10px",
                       paddingBottom: "5px",
                       fontSize: "14px",
                     }}
                     align="center"
                   >
-                    <div className="text-[14px] pt-[30px] pb-[5px] maxWeb1:pt-[45px] maxWeb1:pb-[6px] maxWeb1:text-[23px] maxWeb2:text-[28px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pt-[60px] maxWeb3:pt-[55px] maxWeb4:pt-[80px] maxWeb2:pb-[12px] maxWeb3:pb-[18px] maxWeb4:pb-[25px]">
+                    <div className="text-[14px] pt-[20px] pb-[5px] maxWeb1:pt-[45px] maxWeb1:pb-[6px] maxWeb1:text-[23px] maxWeb2:text-[28px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pt-[70px] maxWeb3:pt-[90px] maxWeb4:pt-[90px] maxWeb2:pb-[12px] maxWeb3:pb-[18px] maxWeb4:pb-[25px]">
                       {vc.title}
                     </div>
                   </TableCell>
@@ -156,9 +157,7 @@ export default function VendorTable({
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]} // You can adjust the available rows per page options
-        component="div"
+      <CustomPagination
         count={
           VendorsData.filter((data) => {
             if (Search === "") return data;
@@ -170,6 +169,7 @@ export default function VendorTable({
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
+        RowsPerPage={rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </div>

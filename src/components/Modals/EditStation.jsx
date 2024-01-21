@@ -17,6 +17,7 @@ import SuccessToast from "../Toast/SuccessToast";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "../../store/Slices/UserSlice";
 import { fetchStations } from "../../store/Slices/StationSlice";
+import WarningToast from "../Toast/WarningToast";
 
 const EditStation = ({ Open, setOpen, CurrentStation }) => {
   const [StationNumber, setStationNumber] = useState(CurrentStation.phone);
@@ -26,7 +27,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
   const [Status, setStatus] = useState(CurrentStation.active);
   const dispatch = useDispatch();
   const Current_User = useSelector((state) => state.auth);
-
+  
   const onSubmitMethod = async (e) => {
     e.preventDefault();
     const UpdateGases = AllGases.map((data) => {
@@ -58,6 +59,18 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
         active: Status,
       },
     };
+    
+    // console.log(BodyData);
+    // return;
+    if (StationNumber === "") {
+      return WarningToast("Enter Valid Station Number");
+    } else if (StationName === "") {
+      return WarningToast("Enter Valid Name");
+    } else if (Address === "") {
+      return WarningToast("Enter Valid Address");
+    } else if (BodyData.updateData.fuels.length === 0) {
+      return WarningToast("Please Provide atleast one Gas");
+    }
     try {
       let response = await UpdateStationApi(BodyData);
       console.log(response);

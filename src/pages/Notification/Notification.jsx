@@ -16,11 +16,7 @@ const Notification = () => {
   useEffect(() => {
     console.log(FromDate);
     console.log(ToDate);
-<<<<<<< Updated upstream
     dispatch(fetchNotification(Current_User.data.companyId, null, Current_User.data.role));
-=======
-    dispatch(fetchNotification(Current_User.data.companyId));
->>>>>>> Stashed changes
   }, [FromDate, ToDate]);
   return (
     <>

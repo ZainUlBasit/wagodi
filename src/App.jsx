@@ -37,12 +37,19 @@ import OrderManagerNavbar from "./components/Navbar/OrderManagerNavbar";
 import LoginRoutes from "./components/RoleRouting/LoginRoutes";
 import RoleRouting from "./components/RoleRouting/RoleRouting";
 import NavSelection from "./components/NavSelection/NavSelection";
+import { io } from "socket.io-client";
+import ErrorToast from "./components/Toast/ErrorToast";
 
 const App = () => {
   const [Loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
+  const userToken = localStorage.getItem("userToken");
+  const socket = io("https://wagoodi-app.onrender.com", {
+    token: userToken,
+    secretkey: "wWXYF6QeeF",
+  }); // Replace with your server URL
 
   const CheckLocalStorage = () => {
     const isLoggedIn = localStorage.getItem("logged-in");
@@ -76,6 +83,25 @@ const App = () => {
 
   useEffect(() => {
     CheckLocalStorage();
+  }, []);
+
+  useEffect(() => {
+    if (!userToken) return;
+    // Listen for custom events
+    socket.on("connect", (data) => {
+      console.log("connected");
+    });
+    // socket.on("notification-message", (data) => {
+      // Handle the event data
+      // console.log("Received data from server:", data);
+    // });
+
+    // Clean up the socket connection on component unmount
+    return () => {
+      socket.off("disconnect", (data) => {
+        console.log("disconnected");
+      });
+    };
   }, []);
 
   return Loading ? (

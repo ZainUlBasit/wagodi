@@ -80,13 +80,7 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                     scope="row"
                     align="center"
                   >
-<<<<<<< Updated upstream
                     {row.companyId?.name}
-=======
-                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {row.name}
-                    </div>
->>>>>>> Stashed changes
                   </TableCell>
                   <TableCell
                     sx={{
@@ -96,13 +90,7 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-<<<<<<< Updated upstream
                     {row.subscriptionType == 1 ? "Enterprise" : "Basic"}
-=======
-                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {row.sub_type}
-                    </div>
->>>>>>> Stashed changes
                   </TableCell>
                   <TableCell
                     sx={{
@@ -112,13 +100,7 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-<<<<<<< Updated upstream
                     {row.companyId?.allowedStations}
-=======
-                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {row.no_of_stations}
-                    </div>
->>>>>>> Stashed changes
                   </TableCell>
                   <TableCell
                     sx={{
@@ -128,13 +110,7 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-<<<<<<< Updated upstream
                     {row.requests || 1}
-=======
-                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {row.requests_no}
-                    </div>
->>>>>>> Stashed changes
                   </TableCell>
                   <TableCell
                     sx={{
@@ -144,13 +120,7 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-<<<<<<< Updated upstream
                     {row.productId?.amount}
-=======
-                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {row.price}
-                    </div>
->>>>>>> Stashed changes
                   </TableCell>
                   <TableCell
                     sx={{
@@ -162,13 +132,8 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                     align="center"
                   >
                     <div
-<<<<<<< Updated upstream
                       className={`py-[6px] rounded-full text-white font-[Quicksand] ${
                         row.active == null
-=======
-                      className={`maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-center py-[6px] rounded-full text-white font-[Quicksand] ${
-                        row.status === "Accept"
->>>>>>> Stashed changes
                           ? "bg-[#FAAF3A]"
                           : row.active
                           ? "bg-[#2EB100]"
@@ -177,7 +142,11 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                           : ""
                       }`}
                     >
-                      {row.active == null ? "Accept/Reject": row.active ? "Accepted": "Rejected"}
+                      {row.active == null
+                        ? "Accept/Reject"
+                        : row.active
+                        ? "Accepted"
+                        : "Rejected"}
                     </div>
                   </TableCell>
                 </TableRow>

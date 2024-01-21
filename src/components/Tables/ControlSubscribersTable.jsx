@@ -96,13 +96,7 @@ export default function ControlSubscribersTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-<<<<<<< Updated upstream
                     {row.allowedStations}
-=======
-                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {row.no_of_stations}
-                    </div>
->>>>>>> Stashed changes
                   </TableCell>
                   <TableCell
                     sx={{
@@ -112,13 +106,11 @@ export default function ControlSubscribersTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-<<<<<<< Updated upstream
-                    {row.subscriptionId?.subscriptionType == 1 ? "Enterprise": row.subscriptionId?.subscriptionType == 0? "Basic": "unknown" }
-=======
-                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {row.sub_type}
-                    </div>
->>>>>>> Stashed changes
+                    {row.subscriptionId?.subscriptionType == 1
+                      ? "Enterprise"
+                      : row.subscriptionId?.subscriptionType == 0
+                      ? "Basic"
+                      : "unknown"}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -128,13 +120,11 @@ export default function ControlSubscribersTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-<<<<<<< Updated upstream
-                    {row.subscriptionId?.valid_until ? new Date(Math.floor(row.subscriptionId?.valid_until * 1000)) : "not specified" }
-=======
-                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {row.duration}
-                    </div>
->>>>>>> Stashed changes
+                    {row.subscriptionId?.valid_until
+                      ? new Date(
+                          Math.floor(row.subscriptionId?.valid_until * 1000)
+                        )
+                      : "not specified"}
                   </TableCell>
                 </TableRow>
               ))}

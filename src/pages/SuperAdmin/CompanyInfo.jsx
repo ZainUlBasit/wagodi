@@ -6,12 +6,9 @@ import { fetchStations } from "../../store/Slices/StationSlice";
 import { BsChevronDown, BsSearch } from "react-icons/bs";
 import { Popover, Typography } from "@mui/material";
 import CompaniesInfoTable from "../../components/Tables/CompaniesInfoTable";
-<<<<<<< Updated upstream
 import { api } from "../../Https";
 import ErrorToast from "../../components/Toast/ErrorToast";
-=======
 import TableWrapper from "../../components/Tables/TableWrapper";
->>>>>>> Stashed changes
 
 const CompanyInfo = () => {
   const currentDate = new Date();
@@ -93,8 +90,9 @@ const CompanyInfo = () => {
       }
       try {
         const responseData = await api.post("/company/info-all", requestBody);
-        console.log(responseData)
-        if (responseData.data?.data?.success) setData(responseData?.data?.data?.payload);
+        console.log(responseData);
+        if (responseData.data?.data?.success)
+          setData(responseData?.data?.data?.payload);
       } catch (error) {
         console.log(error);
         ErrorToast("Error fetching companies info!");
@@ -288,94 +286,9 @@ const CompanyInfo = () => {
         </div>
         {/* Table */}
         <TableWrapper>
-          <CompaniesInfoTable
-            Data={
-            //   {
-             // [
-            //     name: "testing",
-            //     no_of_stations: "123",
-            //     completed_orders: "20",
-            //     earnings: "2233",
-            //     top_selling: "2313",
-            //     status: true,
-            //   },
-            //   {
-            //     name: "testing",
-            //     no_of_stations: "123",
-            //     completed_orders: "20",
-            //     earnings: "2233",
-            //     top_selling: "2313",
-            //     status: false,
-            //   },
-            //   {
-            //     name: "testing",
-            //     no_of_stations: "123",
-            //     completed_orders: "20",
-            //     earnings: "2233",
-            //     top_selling: "2313",
-            //     status: true,
-            //   },
-            //   {
-            //     name: "testing",
-            //     no_of_stations: "123",
-            //     completed_orders: "20",
-            //     earnings: "2233",
-            //     top_selling: "2313",
-            //     status: true,
-            //   },
-            //   {
-            //     name: "testing",
-            //     no_of_stations: "123",
-            //     completed_orders: "20",
-            //     earnings: "2233",
-            //     top_selling: "2313",
-            //     status: true,
-            //   },
-            //   {
-            //     name: "testing",
-            //     no_of_stations: "123",
-            //     completed_orders: "20",
-            //     earnings: "2233",
-            //     top_selling: "2313",
-            //     status: true,
-            //   },
-            //   {
-            //     name: "testing",
-            //     no_of_stations: "123",
-            //     completed_orders: "20",
-            //     earnings: "2233",
-            //     top_selling: "2313",
-            //     status: true,
-            //   },
-            //   {
-            //     name: "testing",
-            //     no_of_stations: "123",
-            //     completed_orders: "20",
-            //     earnings: "2233",
-            //     top_selling: "2313",
-            //     status: true,
-            //   },
-            //   {
-            //     name: "testing",
-            //     no_of_stations: "123",
-            //     completed_orders: "20",
-            //     earnings: "2233",
-            //     top_selling: "2313",
-            //     status: true,
-            //   },
-            // ]
-            data
-            }
-          />
+          <CompaniesInfoTable Data={data} />
         </TableWrapper>
       </div>
-      {/* <AuthInputPopOver
-                    label={"Station Name"}
-                    placeholder={"Select station name"}
-                    required={false}
-                    Value={StationName}
-                    onClick={handleClickStationName}
-                  /> */}
     </>
   );
 };

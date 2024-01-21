@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import SubscriptionRequestsTable from "../../components/Tables/SubscriptionRequestsTable";
-<<<<<<< Updated upstream
 import { api } from "../../Https";
-=======
 import TableWrapper from "../../components/Tables/TableWrapper";
->>>>>>> Stashed changes
 
 const old_data = [
   {
@@ -106,82 +103,9 @@ const SubscriptionRequests = () => {
             </div>
           </div>
         </div>
-<<<<<<< Updated upstream
         <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] my-5">
           <SubscriptionRequestsTable Data={data} />
         </div>
-=======
-        <TableWrapper>
-          <SubscriptionRequestsTable
-            Data={[
-              {
-                name: "Company  ABC",
-                sub_type: "Gold",
-                no_of_stations: "800",
-                requests_no: "1",
-                price: "1000",
-                status: "Accept",
-              },
-              {
-                name: "Company  ABC",
-                sub_type: "Gold",
-                no_of_stations: "800",
-                requests_no: "4",
-                price: "1000",
-                status: "Accept",
-              },
-              {
-                name: "Company  ABC",
-                sub_type: "Gold",
-                no_of_stations: "800",
-                requests_no: "3",
-                price: "1000",
-                status: "Accepted",
-              },
-              {
-                name: "Company  ABC",
-                sub_type: "Gold",
-                no_of_stations: "800",
-                requests_no: "2",
-                price: "1000",
-                status: "Rejected",
-              },
-              {
-                name: "Company  ABC",
-                sub_type: "Gold",
-                no_of_stations: "800",
-                requests_no: "3",
-                price: "1000",
-                status: "Accepted",
-              },
-              {
-                name: "Company  ABC",
-                sub_type: "Gold",
-                no_of_stations: "800",
-                requests_no: "2",
-                price: "1000",
-                status: "Rejected",
-              },
-              {
-                name: "Company  ABC",
-                sub_type: "Gold",
-                no_of_stations: "800",
-                requests_no: "1",
-                price: "1000",
-                status: "Accept",
-              },
-              {
-                name: "Company  ABC",
-                sub_type: "Gold",
-                no_of_stations: "800",
-                requests_no: "4",
-                price: "1000",
-                status: "Accept",
-              },
-            ]}
-          />
-        </TableWrapper>
->>>>>>> Stashed changes
       </div>
     </>
   );

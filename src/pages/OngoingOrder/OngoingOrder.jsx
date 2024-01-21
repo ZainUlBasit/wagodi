@@ -13,6 +13,7 @@ import CustomPoperOverWithShow from "../../components/Popover/CustomPoperOverWit
 import { api } from "../../Https";
 import { useSelector } from "react-redux";
 import ErrorToast from "../../components/Toast/ErrorToast";
+import PageLoader from "../../components/Loaders/PageLoader";
 
 const OngoingOrder = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -20,11 +21,12 @@ const OngoingOrder = () => {
   const [OpenReservationDetailsModal, setOpenReservationDetailsModal] =
     useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const userData = useSelector(state => state.auth.data)
-  const [ordersData, setOrdersData] =useState([])
+  const userData = useSelector((state) => state.auth.data);
+  const [ordersData, setOrdersData] = useState([]);
   const [SearchText, setSearchText] = useState("");
   const [Filter, setFilter] = useState("");
   const [ApplyFilter, setApplyFilter] = useState("All");
+  const [Loading, setLoading] = useState(true);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -34,19 +36,22 @@ const OngoingOrder = () => {
     setAnchorEl(null);
   };
 
-  useEffect( () => {
+  useEffect(() => {
     (async () => {
-      const data = await api.post("/order/company", {companyId: userData.companyId._id})
-      const apiSuccess = data?.data?.success
-      if(!apiSuccess){
-        ErrorToast("Failed fetching data for on-going orders!")
-        return
+      const data = await api.post("/order/company", {
+        companyId: userData.companyId._id,
+      });
+      const apiSuccess = data?.data?.success;
+      if (!apiSuccess) {
+        ErrorToast("Failed fetching data for on-going orders!");
+        return;
       }
-      setOrdersData(data.data.data)
-    })()
-  }, [])
+      setOrdersData(data.data.data);
+      setLoading(false);
+    })();
+  }, []);
 
-  console.log("APPLY FILTER : ", ApplyFilter)
+  console.log("APPLY FILTER : ", ApplyFilter);
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -87,7 +92,7 @@ const OngoingOrder = () => {
               Content={[
                 // 0 : on-going, 1 : assigned, 2: recieved, 3: delivered, 4 : complete, 5: canceled
                 { Text: "All", FilterText: "All" },
-                { Text: "on-going", FilterText: "on-going"},
+                { Text: "on-going", FilterText: "on-going" },
                 { Text: "assigned", FilterText: "assigned" },
                 { Text: "recieved", FilterText: "recieved" },
                 { Text: "delivered", FilterText: "delivered" },
@@ -104,15 +109,23 @@ const OngoingOrder = () => {
             />
           </div>
         </div>
-        <div id="capture-component" className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px]">
-          <OngoingOrdersTable
-            Filter={ApplyFilter}
-            Search={SearchText}
-            setCurrentID={setCurrentID}
-            setOpen={setOpenReservationDetailsModal}
-            data = {ordersData}
-          />
-        </div>
+
+        {Loading ? (
+          <PageLoader />
+        ) : (
+          <div
+            id="capture-component"
+            className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px]"
+          >
+            <OngoingOrdersTable
+              Filter={ApplyFilter}
+              Search={SearchText}
+              setCurrentID={setCurrentID}
+              setOpen={setOpenReservationDetailsModal}
+              data={ordersData}
+            />
+          </div>
+        )}
       </div>
       {OpenSendReport && (
         <SendReport Open={OpenSendReport} setOpen={setOpenSendReport} />
@@ -122,7 +135,7 @@ const OngoingOrder = () => {
           Open={OpenReservationDetailsModal}
           setOpen={setOpenReservationDetailsModal}
           SelectedID={CurrentID}
-          data = {ordersData}
+          data={ordersData}
         />
       )}
     </>

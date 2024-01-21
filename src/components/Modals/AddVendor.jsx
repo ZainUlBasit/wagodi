@@ -6,6 +6,7 @@ import { CreateVendorApi } from "../../Https";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchVendors } from "../../store/Slices/VendorSlice";
 import toast from "react-hot-toast";
+import WarningToast from "../Toast/WarningToast";
 
 const AddVendor = ({ Open, setOpen }) => {
   const [VendorName, setVendorName] = useState("");
@@ -19,28 +20,24 @@ const AddVendor = ({ Open, setOpen }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
-    const Fuel_Array = [
-      {
+    let Fuel_Array = [
+      _91 && {
         type: 0,
         price_litre: Number(_91),
       },
-    {
+      _95 && {
         type: 1,
         price_litre: Number(_95),
       },
-      {
+      _D && {
         type: 2,
         price_litre: Number(_D),
       },
     ];
-    console.log(
-      typeof Auth.data.companyId,
-      typeof VendorName,
-      typeof Location,
-      typeof Fuel_Array
-    );
-    console.log(Auth.data.companyId, VendorName, Location, Fuel_Array);
+    Fuel_Array = Fuel_Array.filter((fu) => fu !== "");
+    if(Fuel_Array.length === 0){
+      return WarningToast("Please provide atleast one Price Per/L")
+    }
     try {
       const response = await CreateVendorApi({
         companyId: Auth.data.companyId._id,

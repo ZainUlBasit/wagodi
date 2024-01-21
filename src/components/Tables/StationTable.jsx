@@ -74,11 +74,11 @@ export default function StationTable({
                       fontWeight: "bold",
                       fontFamily: "Quicksand",
                       // paddingTop: "30px",
-                      // paddingBottom: "5px",
+                      paddingBottom: "5px",
                     }}
                     align="center"
                   >
-                    <div className="text-[14px] pt-[30px] pb-[5px] maxWeb1:pt-[45px] maxWeb1:pb-[6px] maxWeb2:pt-[70px] maxWeb2:pb-[8px] maxWeb3:pt-[90px] maxWeb3:pb-[10px] maxWeb4:pt-[100px] maxWeb4:pb-[10px] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
+                    <div className="text-[14px] pt-[20px] pb-[5px] maxWeb1:pt-[45px] maxWeb1:pb-[6px] maxWeb1:text-[23px] maxWeb2:text-[28px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pt-[70px] maxWeb3:pt-[90px] maxWeb4:pt-[90px] maxWeb2:pb-[12px] maxWeb3:pb-[18px] maxWeb4:pb-[25px]">
                       {dt.title}
                     </div>
                   </TableCell>

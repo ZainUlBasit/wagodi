@@ -50,12 +50,11 @@ export default function CompaniesInfoTable({ Data, Search }) {
             </TableRow>
           </TableHead>
           <TableBody>
-<<<<<<< Updated upstream
             {Data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               // .filter((dt) => {
               //   const searchLowerCase = Search.toLowerCase();
               //   if (Search === "") return dt;
-              //   else {
+              //   else {Wx
               //     if (
               //       dt.stationName.toLowerCase().startsWith(searchLowerCase)
               //     ) {
@@ -134,56 +133,6 @@ export default function CompaniesInfoTable({ Data, Search }) {
                   </TableCell>
                 </TableRow>
               ))}
-=======
-            {Data.slice(
-              page * rowsPerPage,
-              page * rowsPerPage + rowsPerPage
-            ).map((row, i) => (
-              <TableRow
-                key={row.name}
-                sx={{
-                  "&:last-child td, &:last-child th": { border: 0 },
-                }}
-              >
-                {CompaniesInfoColumns.map((column) => {
-                  const value = row[column.field_name];
-                  if (column.field_name === "status") {
-                    return (
-                      <TableCell
-                        sx={{
-                          fontWeight: 400,
-                          fontFamily: "Quicksand",
-                          borderBottomWidth: 0,
-                        }}
-                        align="center"
-                      >
-                        <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                          <GreenRedSwitch checked={value} />
-                        </div>
-                      </TableCell>
-                    );
-                  } else {
-                    return (
-                      <TableCell
-                        sx={{
-                          fontWeight: 400,
-                          fontFamily: "Quicksand",
-                          borderBlockWidth: 0,
-                        }}
-                        component="th"
-                        scope="row"
-                        align="center"
-                      >
-                        <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                          {value}
-                        </div>
-                      </TableCell>
-                    );
-                  }
-                })}
-              </TableRow>
-            ))}
->>>>>>> Stashed changes
           </TableBody>
         </Table>
       </TableContainer>

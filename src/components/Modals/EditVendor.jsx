@@ -7,51 +7,56 @@ import SuccessToast from "../Toast/SuccessToast";
 import { fetchVendors } from "../../store/Slices/VendorSlice";
 import { useDispatch } from "react-redux";
 import ErrorToast from "../Toast/ErrorToast";
+import WarningToast from "../Toast/WarningToast";
 
 const EditVendor = ({ Open, setOpen, Data, companyId }) => {
   const [VendorName, setVendorName] = useState(Data.name);
   const [Location, setLocation] = useState(Data.address);
-  const [_95, set_95] = useState(Data.fuels[0]?.price_litre);
-  const [_91, set_91] = useState(Data.fuels[1]?.price_litre);
-  const [_D, set_D] = useState(Data.fuels[2]?.price_litre);
-  const dispatch = useDispatch()
+  const [_95, set_95] = useState(Data.fuels[0]?.price_litre || "");
+  const [_91, set_91] = useState(Data.fuels[1]?.price_litre || "");
+  const [_D, set_D] = useState(Data.fuels[2]?.price_litre || "");
+  const dispatch = useDispatch();
   const onSubmit = async (e) => {
     e.preventDefault();
-    const Fuel_Array = [
-      {
-        _id: Data.fuels[0]._id,
-        type: 0,
-        price_litre: Number(_91),
-      },
-      {
-        _id: Data.fuels[1]._id,
-        type: 1,
-        price_litre: Number(_95),
-      },
-      {
-        _id: Data.fuels[2]?._id,
-        type: 2,
-        price_litre: Number(_D),
-      },
-    ].filter( ({_id}) => _id);
+    const Fuel_Array = Data.fuels.filter((fu, i) => {
+      if (_91 !== "" && i === 0) {
+        return {
+          _id: fu._id,
+          type: i,
+          price_litre: Number(_91),
+        };
+      } else if (_95 !== "" && i === 1) {
+        return {
+          _id: fu._id,
+          type: i,
+          price_litre: Number(_95),
+        };
+      } else if (_D !== "" && i === 2) {
+        return {
+          _id: fu._id,
+          type: i,
+          price_litre: Number(_D),
+        };
+      }
+    });
+    if (Fuel_Array.length === 0) {
+      return WarningToast("Please Enter Any One Price Per/L");
+    }
     const BodyData = {
       id: Data._id,
-      name: VendorName,
-      address: Location,
+      payload: { name: VendorName, address: Location },
       fuels: Fuel_Array,
     };
-    console.log("Request Body Data : ", BodyData)
-    
-    console.log(BodyData);
     try {
       const response = await UpdateVendorApi(BodyData);
       console.log(response);
-      if(response.data?.success) {
-        SuccessToast("Successfully updated!")
+      if (response.data?.success) {
+        SuccessToast("Successfully updated!");
         dispatch(fetchVendors(companyId));
-        return
-      } 
-      ErrorToast("Error updating!")
+        setOpen(false);
+        return;
+      }
+      ErrorToast("Error updating!");
     } catch (err) {
       console.log(err);
     }
@@ -101,7 +106,7 @@ const EditVendor = ({ Open, setOpen, Data, companyId }) => {
                     onChange={(e) => set_95(e.target.value)}
                   />
                 </div>
-                
+
                 <div className="relative mb-[15px] w-[110px] max767:w-[90px]">
                   <p className="absolute top-[-11px] left-4 w-fit bg-white font-[Quicksand] text-[15px] font-[600]">
                     91

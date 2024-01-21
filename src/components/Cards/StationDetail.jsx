@@ -57,7 +57,7 @@ const StationDetail = ({
   };
 
   return (
-    <div className="relative mx-5 my-3 w-[350px] maxWeb1:w-[400px] maxWeb2:w-[450px] maxWeb3:w-[500px] maxWeb4:w-[500px] rounded-[16px] h-[165px] maxWeb1:h-[200px] maxWeb2:h-[250px] maxWeb3:h-[300px] maxWeb4:h-[300px] overflow-hidden">
+    <div className="relative mx-5 my-3 w-[350px] maxWeb1:w-[440px] maxWeb2:w-[480px] maxWeb3:w-[530px] maxWeb4:w-[580px] rounded-[16px] h-[165px] maxWeb1:h-[200px] maxWeb2:h-[250px] maxWeb3:h-[300px] maxWeb4:h-[300px] overflow-hidden">
       <div
         className={`${
           StationDetailData.current_status === "Healthy"
@@ -74,7 +74,7 @@ const StationDetail = ({
         }}
       >
         {/* Header (Station Name*/}
-        <div className="flex justify-between items-center w-full px-4 pr-5 pt-4">
+        <div className="flex justify-between items-center w-full px-5 pl-[30px] pt-4">
           <div className="font-[Quicksand] font-[700] text-[1rem] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
             Station Name:{" "}
             <span className="font-[Quicksand] font-[400]">
@@ -83,20 +83,20 @@ const StationDetail = ({
           </div>
         </div>
         {/* Middle (Last Order Detail) */}
-        <div className="flex font-[Quicksand] font-[700] text-[1rem] gap-x-1 px-4 pt-1maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
+        <div className="flex font-[Quicksand] font-[700] text-[1rem] gap-x-1 pl-[30px] pt-1 maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
           Last Ordered:
           <span className="font-[Quicksand] font-[400]">
             {StationDetailData.active}
           </span>
         </div>
         {/* Footer (Detail) */}
-        <div className="flex flex-col justify-center items-center py-5 pt-2 w-[100%]">
+        <div className="flex flex-col justify-center items-center py-5 pt-2 pl-4 w-[100%]">
           {_95.length !== 0 && (
             <div className="flex pl-4 items-center w-[100%] gap-x-4">
-              <div className="font-[700] font-[Quicksand] text-[1rem] w-[5%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
+              <div className="font-[700] font-[Quicksand] text-[1rem] w-[5%] maxWeb1:w-[6%] maxWeb2:w-[7%] maxWeb3:w-[8%] maxWeb4:w-[8%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
                 95
               </div>
-              <div className="font-[500] font-[Quicksand] text-[1rem] w-[95%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
+              <div className="font-[500] font-[Quicksand] text-[1rem] w-[95%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]  maxWeb1:w-[94%] maxWeb2:w-[93%] maxWeb3:w-[92%] maxWeb4:w-[92%]">
                 {_95.max_value}/ <span>{_95.value}</span>{" "}
                 {Current_User.data.role === 2 && (
                   <span
@@ -111,10 +111,10 @@ const StationDetail = ({
           )}
           {_91.length !== 0 && (
             <div className="flex pl-4 items-center w-[100%] gap-x-4">
-              <div className="font-[700] font-[Quicksand] text-[1rem] w-[5%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
+              <div className="font-[700] font-[Quicksand] text-[1rem] w-[5%] maxWeb1:w-[6%] maxWeb2:w-[7%] maxWeb3:w-[8%] maxWeb4:w-[8%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
                 91
               </div>
-              <div className="font-[500] font-[Quicksand] text-[1rem] w-[95%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
+              <div className="font-[500] font-[Quicksand] text-[1rem] w-[95%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]  maxWeb1:w-[94%] maxWeb2:w-[93%] maxWeb3:w-[92%] maxWeb4:w-[92%]">
                 {_91.max_value}/<span>{_91.value}</span>{" "}
                 {Current_User.data.role === 2 && (
                   <span
@@ -129,10 +129,10 @@ const StationDetail = ({
           )}
           {_D.length !== 0 && (
             <div className="flex pl-4 items-center w-[100%] gap-x-4">
-              <div className="font-[700] font-[Quicksand] text-[1rem] w-[5%]">
+              <div className="font-[700] font-[Quicksand] text-[1rem] w-[5%] maxWeb1:w-[6%] maxWeb2:w-[7%] maxWeb3:w-[8%] maxWeb4:w-[8%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
                 D
               </div>
-              <div className="font-[500] font-[Quicksand] text-[1rem] w-[90%]">
+              <div className="font-[500] font-[Quicksand] text-[1rem] w-[95%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]  maxWeb1:w-[94%] maxWeb2:w-[93%] maxWeb3:w-[92%] maxWeb4:w-[92%]">
                 {_D.max_value}/<span>{_D.value}</span>{" "}
                 {Current_User.data.role === 2 && (
                   <span
@@ -200,9 +200,9 @@ const StationDetail = ({
         }}
       >
         {(Status === "" ? StationDetailData.favorite : Status) ? (
-          <AiFillStar />
+          <AiFillStar className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]" />
         ) : (
-          <AiOutlineStar />
+          <AiOutlineStar className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]" />
         )}
       </div>
     </div>

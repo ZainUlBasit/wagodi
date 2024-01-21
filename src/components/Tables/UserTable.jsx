@@ -23,7 +23,7 @@ export default function UserTable({
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (newPage) => {
     setPage(newPage);
   };
 
@@ -33,7 +33,7 @@ export default function UserTable({
   };
 
   return (
-    <Paper>
+    <>
       <TableContainer>
         <Table aria-label="simple table">
           <TableHead style={{ borderBottomWidth: 2, borderColor: "#465462" }}>
@@ -44,13 +44,12 @@ export default function UserTable({
                     sx={{
                       fontWeight: "bold",
                       fontFamily: "Quicksand",
-                      paddingTop: "30px",
                       paddingBottom: "5px",
                       fontSize: "14px",
                     }}
                     align="center"
                   >
-                    <div className="text-[14px] pt-[30px] pb-[5px] maxWeb1:pt-[45px] maxWeb1:pb-[6px] maxWeb1:text-[23px] maxWeb2:text-[28px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pt-[60px] maxWeb3:pt-[55px] maxWeb4:pt-[80px] maxWeb2:pb-[12px] maxWeb3:pb-[18px] maxWeb4:pb-[25px]">
+                    <div className="text-[14px] pt-[20px] pb-[5px] maxWeb1:pt-[45px] maxWeb1:pb-[6px] maxWeb1:text-[23px] maxWeb2:text-[28px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pt-[70px] maxWeb3:pt-[90px] maxWeb4:pt-[90px] maxWeb2:pb-[12px] maxWeb3:pb-[18px] maxWeb4:pb-[25px]">
                       {uc.title}
                     </div>
                   </TableCell>
@@ -59,7 +58,8 @@ export default function UserTable({
             </TableRow>
           </TableHead>
           <TableBody>
-            {UserData?.data?.filter((data) => {
+            {UserData?.data
+              ?.filter((data) => {
                 const CurrentRole =
                   Filter === "Administrator"
                     ? 0
@@ -246,6 +246,6 @@ export default function UserTable({
         RowsPerPage={rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </Paper>
+    </>
   );
 }

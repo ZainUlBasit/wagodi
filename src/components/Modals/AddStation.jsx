@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CreateStationApi } from "../../Https";
 import toast from "react-hot-toast";
 import { fetchStations } from "../../store/Slices/StationSlice";
+import WarningToast from "../Toast/WarningToast";
 
 const AddStation = ({ Open, setOpen }) => {
   const [StationNumber, setStationNumber] = useState("");
@@ -22,6 +23,10 @@ const AddStation = ({ Open, setOpen }) => {
 
   const [AllGases, setAllGases] = useState([]);
   const [ShowAddGassInputs, setShowAddGassInputs] = useState(false);
+
+  useEffect(()=>{
+    console.log(AllGases);
+  },[AllGases])
 
   const deleteGas = (index) => {
     const updatedGases = [...AllGases];
@@ -37,9 +42,9 @@ const AddStation = ({ Open, setOpen }) => {
         return {
           type:
             ag.type === "91" ? 0 : ag.type === "95" ? 1 : ag.type === "D" && 2,
-          price_litre: Number(ag.price),
-          value: Number(ag.volume),
-          max_value: Number(ag.capacity),
+          price_litre: Number(ag.price_litre),
+          value: Number(ag.value),
+          max_value: Number(ag.max_value),
         };
       }),
       name: StationName,
@@ -47,8 +52,15 @@ const AddStation = ({ Open, setOpen }) => {
       phone: StationNumber,
     };
 
-    console.log(BodyData);
-
+    if (StationNumber === "") {
+      return WarningToast("Enter Valid Station Number");
+    } else if (StationName === "") {
+      return WarningToast("Enter Valid Name");
+    } else if (Address === "") {
+      return WarningToast("Enter Valid Address");
+    } else if (BodyData.fuels.length === 0) {
+      return WarningToast("Please Provide atleast one Gas");
+    }
     try {
       const response = await CreateStationApi(BodyData);
       console.log(response);
@@ -56,7 +68,7 @@ const AddStation = ({ Open, setOpen }) => {
         setOpen(false);
         toast.success(response.data.data?.msg);
         dispatch(fetchStations(Auth.data.companyId));
-      }else{
+      } else {
         toast.success(response.data.error?.msg);
       }
     } catch (err) {
@@ -112,13 +124,13 @@ const AddStation = ({ Open, setOpen }) => {
                     {ag.type}
                   </div>
                   <div className="w-[80px] max767:w-[80px] border-r-[1px] border-r-[#606060] text-center">
-                    {ag.capacity}
+                    {ag.max_value}
                   </div>
                   <div className="w-[80px] max767:w-[70px] border-r-[1px] border-r-[#606060] text-center">
-                    {ag.volume}
+                    {ag.value}
                   </div>
                   <div className="w-[80px] max767:w-[45px] text-right">
-                    {ag.price}
+                    {ag.price_litre}
                   </div>
                   <RiDeleteBin6Line
                     onClick={() => deleteGas(index)}
