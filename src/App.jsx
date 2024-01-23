@@ -47,8 +47,10 @@ const App = () => {
   const auth = useSelector((state) => state.auth);
   const userToken = localStorage.getItem("userToken");
   const socket = io("https://wagoodi-app.onrender.com", {
-    token: userToken,
-    secretkey: "wWXYF6QeeF",
+    extraHeaders: {
+      token: userToken,
+      secretkey: "wWXYF6QeeF",
+    },
   }); // Replace with your server URL
 
   const CheckLocalStorage = () => {
@@ -92,8 +94,8 @@ const App = () => {
       console.log("connected");
     });
     // socket.on("notification-message", (data) => {
-      // Handle the event data
-      // console.log("Received data from server:", data);
+    // Handle the event data
+    // console.log("Received data from server:", data);
     // });
 
     // Clean up the socket connection on component unmount
