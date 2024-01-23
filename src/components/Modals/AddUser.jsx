@@ -51,6 +51,7 @@ const AddUser = ({ Open, setOpen }) => {
   };
 
   const onSubmit = async (e) => {
+    if(!Email.test(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) return ErrorToast("Invalid email entered!")
     setLoading(true);
     e.preventDefault();
     let req_data = {
