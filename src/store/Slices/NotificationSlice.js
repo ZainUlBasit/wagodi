@@ -5,20 +5,36 @@ import {
   GetAllVendorApi,
   GetCompanyNotificationApi,
 } from "../../Https";
+import ErrorToast from "../../components/Toast/ErrorToast";
 
 export const fetchNotification = createAsyncThunk(
   "fetchNotification",
-  async (companyId, query = {}, role) => {
-    console.log(companyId);
+  async (companyId, role, query = {}) => {
     try {
       let response;
-      if(role != 0){
-        response = await GetCompanyNotificationApi({
-          companyId: companyId._id,
-        });
-      } else {
-        response = await GetAdminNotificationApi({})
+      if (role == undefined) {
+        ErrorToast("role should be define!");
+        return [];
       }
+        response = await GetCompanyNotificationApi({
+          companyId: companyId?._id,
+        });
+      console.log(response);
+      console.log(response.data.data);
+      console.log(response.data.data.payload);
+      return response?.data?.data?.payload || response.data.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const fetchAdminNotification = createAsyncThunk(
+  "fetchAdminNotification",
+  async (query = {}) => {
+    let response;
+    try {
+      response = await GetAdminNotificationApi({});
       console.log(response);
       console.log(response.data.data);
       console.log(response.data.data.payload);
@@ -42,11 +58,27 @@ const notificationSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchNotification.fulfilled, (state, action) => {
+      console.log("notification fulfilled payload : ", action.payload);
       state.loading = false;
       state.data = action.payload;
       state.isError = false;
     });
     builder.addCase(fetchNotification.rejected, (state, action) => {
+      console.log("Error", action);
+      // console.log("Error", action.payload);
+      state.loading = false;
+      state.isError = true;
+    });
+    builder.addCase(fetchAdminNotification.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchAdminNotification.fulfilled, (state, action) => {
+      console.log("notification fulfilled payload : ", action.payload);
+      state.loading = false;
+      state.data = action.payload;
+      state.isError = false;
+    });
+    builder.addCase(fetchAdminNotification.rejected, (state, action) => {
       console.log("Error", action);
       // console.log("Error", action.payload);
       state.loading = false;

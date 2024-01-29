@@ -5,19 +5,27 @@ import { BiSolidChevronRight } from "react-icons/bi";
 import "../../assets/Style/style.css";
 import MobNavbar from "../../components/Navbar/MobNavbar";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchNotification } from "../../store/Slices/NotificationSlice";
+import { fetchAdminNotification, fetchNotification } from "../../store/Slices/NotificationSlice";
 
 const Notification = () => {
   const [FromDate, setFromDate] = useState("2023-12-11");
   const [ToDate, setToDate] = useState("2023-12-18");
   const dispatch = useDispatch();
-  const Current_User = useSelector((state) => state.auth);
+  const Current_User = useSelector((state) => state.auth.data);
   const Current_Notification = useSelector((state) => state.Notifications);
+  console.log("Notifications : ", Current_Notification)
+  console.log("user : ", Current_User)
   useEffect(() => {
     console.log(FromDate);
     console.log(ToDate);
-    dispatch(fetchNotification(Current_User.data.companyId, null, Current_User.data.role));
-  }, [FromDate, ToDate]);
+    console.log(Current_User.role);
+    console.log(Current_User.companyId);
+    if(Current_User.role != 0){
+      dispatch(fetchNotification(Current_User?.companyId || undefined, Current_User?.role , {}));
+    } else {
+      dispatch(fetchAdminNotification())
+    }
+  }, [FromDate, ToDate, Current_User]);
   return (
     <>
       <div className="flex flex-col justify-center items-center w-full fade-in">
@@ -61,7 +69,7 @@ const Notification = () => {
           </div>
         </div>
         <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] mb-10 relative mt-6 fade-in">
-          <NotificationTable Data={Current_Notification?.data?.payload} />
+          <NotificationTable Data={Current_Notification?.data} />
         </div>
       </div>
     </>
