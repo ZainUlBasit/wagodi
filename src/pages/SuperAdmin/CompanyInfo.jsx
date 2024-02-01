@@ -91,7 +91,7 @@ const CompanyInfo = () => {
       try {
         const responseData = await api.post("/company/info-all", requestBody);
         console.log(responseData);
-        if (responseData.data?.data?.success)
+        if (responseData.data?.success)
           setData(responseData?.data?.data?.payload);
       } catch (error) {
         console.log(error);

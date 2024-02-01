@@ -75,9 +75,10 @@ const SubscriptionRequests = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     const fetchSubscriptionRequests = async () => {
-      const response = api.post("/company/all", { enterprise: true });
-      console.log(response.data);
-      if (response.data.success) setData(response.data.data);
+      const response = await api.post("/company/all", { enterprise: true });
+      console.log(response);
+      console.log(response?.data);
+      if (response?.data?.success) setData(response?.data?.data);
     };
     fetchSubscriptionRequests();
   }, []);
@@ -88,7 +89,7 @@ const SubscriptionRequests = () => {
         <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6">
           {/* Left */}
           <div className="text-[30px] font-[600] maxWeb1:text-[3rem] maxWeb2:text-[3rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem]">
-            Companies Information
+            Subscription Requests
           </div>
           {/* Right */}
           <div className="flex items-center gap-x-4">

@@ -30,7 +30,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
         <Table aria-label="simple table">
           <TableHead style={{ borderBottomWidth: 2, borderColor: "#465462" }}>
             <TableRow>
-              {CompaniesInfoColumns.map((ci) => {
+              {CompaniesInfoColumns.map((ci, i) => {
                 return (
                   <TableCell
                     sx={{
@@ -40,6 +40,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
                       paddingBottom: "12px",
                       textAlign: "center",
                     }}
+                    key= {`${i}`}
                   >
                     <div className="text-[14px] pt-[8px] pb-[5px]  maxWeb1:pb-[6px] maxWeb1:pt-[20px] maxWeb1:text-[23px] maxWeb2:text-[28px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pb-[12px] maxWeb3:pb-[18px] maxWeb4:pb-[25px]">
                       {ci.title}
@@ -89,7 +90,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.stationCount}
+                    {row.numOfStations}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -99,7 +100,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.companyDelieveries}
+                    {row.completedOrders}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -109,7 +110,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.total_earning}
+                    {row.earnings}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -119,7 +120,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.station_with_max_earning[0].name}
+                    {row.station_with_max_earning?.station?.name}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -129,7 +130,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    <GreenRedSwitch checked={row.status} />
+                    <GreenRedSwitch checked={row.company_approved} />
                   </TableCell>
                 </TableRow>
               ))}

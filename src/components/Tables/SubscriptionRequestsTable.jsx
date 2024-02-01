@@ -64,8 +64,9 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
               //   }
               // })
               .map((row, i) => (
+                
                 <TableRow
-                  key={row.name}
+                  key={`${row.name}-${row._id}`}
                   sx={{
                     "&:last-child td, &:last-child th": { border: 0 },
                   }}
@@ -80,7 +81,7 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                     scope="row"
                     align="center"
                   >
-                    {row.companyId?.name}
+                    {row?.name}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -90,7 +91,7 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.subscriptionType == 1 ? "Enterprise" : "Basic"}
+                    {row?.subscriptionId?.subscriptionType == 1 ? "Enterprise" : "Basic"}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -100,7 +101,7 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.companyId?.allowedStations}
+                    {row?.allowedStations == undefined? "none": row?.allowedStations}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -120,7 +121,7 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.productId?.amount}
+                    {row?.subscriptionId?.productId?.amount || "not specified"}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -142,9 +143,9 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                           : ""
                       }`}
                     >
-                      {row.active == null
+                      {row?.subscriptionId?.active == null
                         ? "Accept/Reject"
-                        : row.active
+                        : row?.subscriptionId?.active
                         ? "Accepted"
                         : "Rejected"}
                     </div>
