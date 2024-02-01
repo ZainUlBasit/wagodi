@@ -96,7 +96,9 @@ export default function ControlSubscribersTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.allowedStations}
+                    {row?.allowedStations == undefined
+                      ? "none"
+                      : row?.allowedStations}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -110,7 +112,7 @@ export default function ControlSubscribersTable({ Data, Search }) {
                       ? "Enterprise"
                       : row.subscriptionId?.subscriptionType == 0
                       ? "Basic"
-                      : "unknown"}
+                      : "not subscribed"}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -124,6 +126,8 @@ export default function ControlSubscribersTable({ Data, Search }) {
                       ? new Date(
                           Math.floor(row.subscriptionId?.valid_until * 1000)
                         )
+                      : row.subscriptionId?.start_date
+                      ? row.subscriptionId?.start_date
                       : "not specified"}
                   </TableCell>
                 </TableRow>
