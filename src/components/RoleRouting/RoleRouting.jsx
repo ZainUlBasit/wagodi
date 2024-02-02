@@ -159,6 +159,7 @@ const RoleRouting = ( ({ role }) => {
   // **************************************
   role === 2 ? (
     <Routes>
+      <Route path="/" element={<Navigate to="/home" />} />
       <Route
         path="/home"
         element={
@@ -202,8 +203,10 @@ const RoleRouting = ( ({ role }) => {
     </Routes>
   ) : role === 0 ? (
     <Routes>
+      <Route path="/" element={<Navigate to="/home" />} />
       <Route
         path="/home"
+        index
         element={
           <ProtectedRoute>
             <CompanyInfo />

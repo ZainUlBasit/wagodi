@@ -96,9 +96,9 @@ export default function ControlSubscribersTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {row.allowedStations}
-                    </div>
+                    {row?.allowedStations == undefined
+                      ? "none"
+                      : row?.allowedStations}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -108,13 +108,11 @@ export default function ControlSubscribersTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {row.subscriptionId?.subscriptionType == 1
-                        ? "Enterprise"
-                        : row.subscriptionId?.subscriptionType == 0
-                        ? "Basic"
-                        : "unknown"}
-                    </div>
+                    {row.subscriptionId?.subscriptionType == 1
+                      ? "Enterprise"
+                      : row.subscriptionId?.subscriptionType == 0
+                      ? "Basic"
+                      : "not subscribed"}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -124,13 +122,13 @@ export default function ControlSubscribersTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {row.subscriptionId?.valid_until
-                        ? new Date(
-                            Math.floor(row.subscriptionId?.valid_until * 1000)
-                          )
-                        : "not specified"}
-                    </div>
+                    {row.subscriptionId?.valid_until
+                      ? new Date(
+                          Math.floor(row.subscriptionId?.valid_until * 1000)
+                        )
+                      : row.subscriptionId?.start_date
+                      ? row.subscriptionId?.start_date
+                      : "not specified"}
                   </TableCell>
                 </TableRow>
               ))}

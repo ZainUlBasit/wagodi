@@ -17,15 +17,16 @@ export default function NotificationTable({ Data }) {
   console.log(Data)
   const [CurrentNotification, setCurrentNotification] = useState([]);
   useEffect(() => {
+    const newData = Data?.notification || Data
     setCurrentNotification(
-      Data?.notification.map((df) => {
+      newData?.map((df) => {
         return {
           ...df,
           createdAt: new Date(df.createdAt * 1000),
         };
       })
     );
-  }, []);
+  }, [Data]);
 
   console.log(Data);
 

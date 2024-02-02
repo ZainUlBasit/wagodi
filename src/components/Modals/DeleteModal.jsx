@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { SetAuthNotFound } from "../../store/Slices/AuthSlice";
 import { useState } from "react";
-import { DeleteStationApi } from "../../Https";
+import { DeleteStationApi, api } from "../../Https";
 import SuccessToast from "../Toast/SuccessToast";
 import ErrorToast from "../Toast/ErrorToast";
 import { fetchStations } from "../../store/Slices/StationSlice";
@@ -17,7 +17,7 @@ import { fetchStations } from "../../store/Slices/StationSlice";
 const style = {
   position: "absolute",
   top: "50%",
-  left: "50%",
+left: "50%",
   transform: "translate(-50%, -50%)",
   // width: "auto",
   bgcolor: "#465462",
@@ -46,6 +46,17 @@ export default function DeleteModal({ Open, setOpen, State }) {
         SuccessToast(response.data.data.msg);
         setOpen(false);
         dispatch(fetchStations(Current_User.data.companyId));
+      }
+      if(State.type === "vendor") {
+        try {
+          let response = await api.delete(`vendor/${State._id}`)
+        SuccessToast(response.data.data.msg);
+        setOpen(false);
+        dispatch(fetchStations(Current_User.data.companyId));
+        } catch (error) {
+          console.log(error)
+          ErrorToast("Error deleting " + State.type + "!")
+        }
       }
     } catch (err) {
       ErrorToast(err.response.data.error.msg);

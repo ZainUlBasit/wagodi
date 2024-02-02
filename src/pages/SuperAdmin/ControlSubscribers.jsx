@@ -71,7 +71,7 @@ const ControlSubscribers = () => {
       try {
         const responseData = await api.post("/company/all", requestBody);
         console.log(responseData);
-        if (responseData.data.success) setData(responseData.data.data);
+        if (responseData?.data?.success) setData(responseData?.data?.data);
       } catch (error) {
         console.log(error);
         ErrorToast("Error fetching Control Subscription Data!");

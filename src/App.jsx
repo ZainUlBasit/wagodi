@@ -46,10 +46,13 @@ const App = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const userToken = localStorage.getItem("userToken");
-  // const socket = io("https://wagoodi-app.onrender.com", {
-  //   token: userToken,
-  //   secretkey: "wWXYF6QeeF",
-  // }); // Replace with your server URL
+
+  const socket = io("https://wagoodi-app.onrender.com", {
+    extraHeaders: {
+      token: userToken,
+      secretkey: "wWXYF6QeeF",
+    },
+  }); // Replace with your server URL
 
   const CheckLocalStorage = () => {
     const isLoggedIn = localStorage.getItem("logged-in");
@@ -84,26 +87,25 @@ const App = () => {
   useEffect(() => {
     CheckLocalStorage();
   }, []);
+  
+  useEffect(() => {
+    if (!userToken) return;
+    // Listen for custom events
+    socket.on("connect", (data) => {
+      console.log("connected");
+    });
+    // socket.on("notification-message", (data) => {
+    // Handle the event data
+    // console.log("Received data from server:", data);
+    // });
 
-  // useEffect(() => {
-  //   console.log(userToken);
-  //   if (!userToken) return;
-  //   // Listen for custom events
-  //   socket.on("connect", (data) => {
-  //     console.log("connected");
-  //   });
-  //   // socket.on("notification-message", (data) => {
-  //   // Handle the event data
-  //   // console.log("Received data from server:", data);
-  //   // });
-
-  //   // Clean up the socket connection on component unmount
-  //   return () => {
-  //     socket.off("disconnect", (data) => {
-  //       console.log("disconnected");
-  //     });
-  //   };
-  // }, [socket]);
+    // Clean up the socket connection on component unmount
+    return () => {
+      socket.off("disconnect", (data) => {
+        console.log("disconnected");
+      });
+    };
+  }, []);
 
   return Loading ? (
     <div className="flex h-screen w-full items-center justify-center">
