@@ -11,119 +11,37 @@ import { AiFillEye } from "react-icons/ai";
 import { convertFuel } from "../../utility/utilityFunctions";
 
 export default function ApprovedOrderTable({ Data }) {
-  console.log(Data)
+  console.log(Data);
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
         <TableHead style={{ borderBottomWidth: 2, borderColor: "#465462" }}>
           <TableRow>
-            <TableCell
-              sx={{
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "30px",
-                paddingBottom: "5px",
-                fontSize: "13px",
-              }}
-            >
-              Required Date and Time
-            </TableCell>
-
-            <TableCell
-              sx={{
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "30px",
-                paddingBottom: "5px",
-                fontSize: "13px",
-              }}
-            >
-              Gas Type
-            </TableCell>
-
-            <TableCell
-              sx={{
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "30px",
-                paddingBottom: "5px",
-                fontSize: "13px",
-              }}
-            >
-              UOM
-            </TableCell>
-
-            <TableCell
-              sx={{
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "30px",
-                paddingBottom: "5px",
-                fontSize: "13px",
-              }}
-            >
-              Balance Volume
-            </TableCell>
-
-            <TableCell
-              sx={{
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "30px",
-                paddingBottom: "5px",
-                fontSize: "13px",
-              }}
-            >
-              Require Volume
-            </TableCell>
-
-            <TableCell
-              sx={{
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "30px",
-                paddingBottom: "5px",
-                fontSize: "13px",
-              }}
-            >
-              Issued Volume
-            </TableCell>
-
-            <TableCell
-              sx={{
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "30px",
-                paddingBottom: "5px",
-                fontSize: "13px",
-              }}
-            >
-              Received Volume
-            </TableCell>
-
-            <TableCell
-              sx={{
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "30px",
-                paddingBottom: "5px",
-                fontSize: "13px",
-              }}
-            >
-              Delivered Date and Time
-            </TableCell>
-
-            <TableCell
-              sx={{
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "30px",
-                paddingBottom: "5px",
-                fontSize: "13px",
-              }}
-            >
-              Deliver Time
-            </TableCell>
+            {[
+              "Required Date and Time",
+              "Gas Type",
+              "UOM",
+              "Balance Volume",
+              "Require Volume",
+              "Issued Volume",
+              "Received Volume",
+              "Delivered Date and Time",
+              "Deliver Time",
+            ].map((dt) => {
+              return (
+                <TableCell
+                  sx={{
+                    fontWeight: "bold",
+                    fontFamily: "Quicksand",
+                    fontSize: "13px",
+                  }}
+                >
+                  <div className="text-[14px] pt-[15px] pb-[0px] maxWeb1:pt-[45px] maxWeb1:pb-[6px] maxWeb1:text-[23px] maxWeb2:text-[28px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pt-[70px] maxWeb3:pt-[90px] maxWeb4:pt-[90px] maxWeb2:pb-[12px] maxWeb3:pb-[18px] maxWeb4:pb-[25px]">
+                    {dt}
+                  </div>
+                </TableCell>
+              );
+            })}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -141,7 +59,11 @@ export default function ApprovedOrderTable({ Data }) {
               scope="row"
               align="center"
             >
-              {Data?.createdAt ? new Date(Data.createdAt * 1000).toLocaleString() : "not specified"}
+              <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                {Data?.createdAt
+                  ? new Date(Data.createdAt * 1000).toLocaleString()
+                  : "not specified"}
+              </div>
             </TableCell>
             <TableCell
               sx={{
@@ -151,7 +73,9 @@ export default function ApprovedOrderTable({ Data }) {
               }}
               align="center"
             >
-              {convertFuel(Data?.fuel_type)}
+              <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                {convertFuel(Data?.fuel_type)}
+              </div>
             </TableCell>
             <TableCell
               sx={{
@@ -161,7 +85,9 @@ export default function ApprovedOrderTable({ Data }) {
               }}
               align="center"
             >
-              {Data.UOM || "Liters"}
+              <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                {Data.UOM || "Liters"}
+              </div>
             </TableCell>
             <TableCell
               sx={{
@@ -171,7 +97,9 @@ export default function ApprovedOrderTable({ Data }) {
               }}
               align="center"
             >
-              {Data?.station?.fuel_recieved || "not specified"}
+              <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                {Data?.station?.fuel_recieved || "not specified"}
+              </div>
             </TableCell>
             <TableCell
               sx={{
@@ -181,7 +109,9 @@ export default function ApprovedOrderTable({ Data }) {
               }}
               align="center"
             >
-              {Data?.station?.fuel_value || "not specified"}
+              <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                {Data?.station?.fuel_value || "not specified"}
+              </div>
             </TableCell>
             <TableCell
               sx={{
@@ -191,7 +121,9 @@ export default function ApprovedOrderTable({ Data }) {
               }}
               align="center"
             >
-              {Data.fuel_value || "not specified"}
+              <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                {Data.fuel_value || "not specified"}
+              </div>
             </TableCell>
             <TableCell
               sx={{
@@ -201,7 +133,9 @@ export default function ApprovedOrderTable({ Data }) {
               }}
               align="center"
             >
-              {Data.fuel_recieved || "not specified"}
+              <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                {Data.fuel_recieved || "not specified"}
+              </div>
             </TableCell>
             <TableCell
               sx={{
@@ -211,7 +145,11 @@ export default function ApprovedOrderTable({ Data }) {
               }}
               align="center"
             >
-              {Data?.station?.deliveryTime ? new Date(Data.station?.deliveryTime * 1000).toLocaleString() : "not specified" }
+              <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                {Data?.station?.deliveryTime
+                  ? new Date(Data.station?.deliveryTime * 1000).toLocaleString()
+                  : "not specified"}
+              </div>
             </TableCell>
             <TableCell
               sx={{
@@ -221,7 +159,14 @@ export default function ApprovedOrderTable({ Data }) {
               }}
               align="center"
             >
-              {Data?.station?.deliveryTime ? `${((Data.station?.deliveryTime - Data.createdAt ) / 3600).toPrecision(2)} hr` : "not specified" }
+              <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                {Data?.station?.deliveryTime
+                  ? `${(
+                      (Data.station?.deliveryTime - Data.createdAt) /
+                      3600
+                    ).toPrecision(2)} hr`
+                  : "not specified"}
+              </div>
             </TableCell>
           </TableRow>
         </TableBody>

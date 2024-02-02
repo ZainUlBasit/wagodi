@@ -124,8 +124,8 @@ const OrderReports = () => {
             .map((orderData) => {
               return (
                 <>
-                  <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] mb-10 relative">
-                    <div className="flex justify-between items-center text-white font-[Quicksand] absolute -top-5 left-[-1px] w-[calc(100%+2px)] h-[44px] rounded-[15px] bg-[#465462] overflow-hidden">
+                  <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] border-[1px] border-[#465462] shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] mb-10 relative">
+                    <div className="flex justify-between items-center text-white font-[Quicksand] absolute -top-5 left-[-1px] w-[calc(100%+2px)] h-[44px] maxWeb1:h-[60px] maxWeb2:h-[70px] maxWeb3:h-[80px] maxWeb4:h-[80px] rounded-[15px] bg-[#465462] overflow-hidden">
                       <ApprovedOrderTableTop Data={orderData} />
                     </div>
                     <ApprovedOrderTable Data={orderData} />

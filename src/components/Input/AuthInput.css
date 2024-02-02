@@ -1,0 +1,60 @@
+@media (min-width: 1920px) and (max-width: 2560px) {
+  .maxInputWidth {
+    width: 370px !important;
+    margin-bottom: 25px !important;
+  }
+  .InputText {
+    padding: 12px 16px !important;
+    font-size: 1.3rem !important;
+  }
+  .InputLabel {
+    font-size: 20px !important;
+    top: -14px !important;
+  }
+}
+@media (min-width: 2560px) and (max-width: 3440px) {
+  .maxInputWidth {
+    width: 400px;
+    margin-bottom: 25px !important;
+}
+.InputText {
+      border-radius: 10.94px !important;
+    padding: 14px 18px !important;
+    font-size: 1.5rem !important;
+  }
+  .InputLabel {
+    font-size: 25px !important;
+    top: -19px !important;
+  }
+}
+@media (min-width: 3440px) and (max-width: 3840px) {
+  .maxInputWidth {
+    width: 450px !important;
+    margin-bottom: 25px !important;
+  }
+  .InputText {
+      border-radius: 10.94px !important;
+      padding: 12px 16px !important;
+    font-size: 1.8rem !important;
+  }
+  .InputLabel {
+    font-size: 28px !important;
+    top: -22px !important;
+  }
+}
+@media (min-width: 3840px) {
+  .maxInputWidth {
+    width: 550px !important;
+    margin-bottom: 35px !important;
+
+  }
+  .InputText {
+      border-radius: 10.94px !important;
+      padding: 12px 16px !important;
+    font-size: 2rem !important;
+  }
+  .InputLabel {
+    font-size: 29px !important;
+    top: -22px !important;
+  }
+}

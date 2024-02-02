@@ -16,9 +16,9 @@ export default {
       max400: { max: "400px" },
       max1056: { max: "1056px" },
       maxWeb1: { min: "1920px" },
-      maxWeb2: { min: "2560px" },
-      maxWeb3: { min: "3840px" },
-      maxWeb4: { min: "3440px" },
+      maxWeb2: "2560px",
+      maxWeb3: "3840px",
+      maxWeb4: "3440px",
       // min951: {'min': '952px'},
       md: "768px",
       // => @media (min-width: 768px) { ... }

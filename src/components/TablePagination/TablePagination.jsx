@@ -16,7 +16,6 @@ const CustomPagination = ({
   onRowsPerPageChange,
   RowsPerPage,
 }) => {
-  console.log(totalCount, pageSize, currentPage);
   const pageCount = Math.ceil(totalCount / pageSize);
   const pages = Array.from({ length: pageCount }, (_, index) => index + 1);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -41,16 +40,18 @@ const CustomPagination = ({
   };
 
   const handlePageSizeChange = (val) => {
-    console.log(val);
     const newSize = parseInt(val, 10);
     onRowsPerPageChange(newSize);
   };
 
-  // useEffect(() => {
-  //   console.log(currentPage, pageCount);
-  // }, [currentPage, pageCount]);
-
   const PerPage = [5, 10, 25];
+
+  // Number of page numbers to show on each side of the current page
+  const visiblePages = 1;
+
+  // Calculate the range of visible page numbers
+  const startPage = Math.max(1, currentPage - visiblePages);
+  const endPage = Math.min(pageCount, currentPage + visiblePages);
 
   return (
     <div className="flex flex-col items-center justify-end my-2 pr-3">
@@ -71,10 +72,10 @@ const CustomPagination = ({
         onClose={handleClose}
         PaperProps={{
           sx: {
-            borderRadius: "25px", // Add rounded corners
-            backgroundColor: "white", // Set background color to white
-            width: "110px", // Set the width as needed
-            overflow: "hidden", // Hide overflowing content
+            borderRadius: "25px",
+            backgroundColor: "white",
+            width: "110px",
+            overflow: "hidden",
             marginTop: "10px",
             boxShadow: "none",
           },
@@ -96,38 +97,33 @@ const CustomPagination = ({
             pb: 2,
             borderColor: "#465462",
             backgroundColor: "#465462",
-            // width: "400px",
             overflow: "hidden",
             borderRadius: "20px",
           }}
         >
           <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
             <div className="w-full flex flex-col justify-between gap-y-3 items-start">
-              {PerPage.map((page_, i) => {
-                return (
-                  <div
-                    className="flex gap-x-3 items-center cursor-pointer"
-                    onClick={() => {
-                      handlePageSizeChange(page_);
-                      handleClose();
-                    }}
-                  >
-                    <input
-                      type="checkbox"
-                      className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                      checked={page_ === RowsPerPage}
-                    />
-                    <span>{page_}</span>
-                  </div>
-                );
-              })}
+              {PerPage.map((page_, i) => (
+                <div
+                  key={i}
+                  className="flex gap-x-3 items-center cursor-pointer"
+                  onClick={() => {
+                    handlePageSizeChange(page_);
+                    handleClose();
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                    checked={page_ === RowsPerPage}
+                  />
+                  <span>{page_}</span>
+                </div>
+              ))}
             </div>
           </div>
         </Typography>
       </Popover>
-      {/* <span>
-        Page {currentPage + 1} of {pageCount}
-      </span> */}
       <div className="flex justify-center my-1">
         <button onClick={() => handlePageChange("-")}>
           <FaCaretSquareLeft
@@ -136,7 +132,7 @@ const CustomPagination = ({
             } text-[1.2rem] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2rem] mr-2`}
           />
         </button>
-        {pages.map((page) => (
+        {pages.slice(startPage - 1, endPage).map((page) => (
           <button
             key={page}
             onClick={() => handlePageChange(page)}

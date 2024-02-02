@@ -64,7 +64,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
               // })
               .map((row, i) => (
                 <TableRow
-                  key={row.company_name}
+                  key={row._id}
                   sx={{
                     "&:last-child td, &:last-child th": { border: 0 },
                   }}
@@ -79,7 +79,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
                     scope="row"
                     align="center"
                   >
-                    {row.company_name}
+                    {row.company_name||"-"}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -89,7 +89,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.stationCount}
+                    {row.stationCount || "-"}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -99,7 +99,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.companyDelieveries}
+                    {row.companyDeliveries}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -119,7 +119,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.station_with_max_earning[0].name}
+                    {row.station_with_max_earning.totalDeliveries}
                   </TableCell>
                   <TableCell
                     sx={{

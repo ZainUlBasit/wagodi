@@ -9,6 +9,7 @@ import Logout from "../../components/Modals/Logout";
 import Navbar from "../../components/Navbar/Navbar";
 import Subscription from "../../components/Setting/Subscription";
 import LoggingOut from "../../components/Modals/LoggingOut";
+import SideBtn from "../../components/buttons/setting/SideBtn";
 
 const Setting = () => {
   const [ActiveButton, setActiveButton] = useState("CompanyDetails");
@@ -21,48 +22,41 @@ const Setting = () => {
         {/* Left Side */}
         <div className="flex flex-col justify-between h-full border-r-2 border-r-[#46546266] py-10 px-10 transition-all duration-500 ease-in-out">
           <div className="flex flex-col gap-y-3">
-            <div
-              className={`flex transition-all duration-500 ease-in-out gap-x-4 items-center px-5 py-3 cursor-pointer rounded-full  ${
-                ActiveButton === "CompanyDetails"
-                  ? "bg-[#56636F] text-white "
-                  : " text-[#56636F] bg-white"
-              }`}
-              onClick={() => setActiveButton("CompanyDetails")}
-            >
-              <BiDetail className="text-[1.5rem] font-[700] font-[Quicksand]" />
-              <span className="text-[1.3rem] font-[700] font-[Quicksand]">
-                Company Details
-              </span>
-            </div>
-            <div
-              className={`flex transition-all duration-700 ease-in-out gap-x-4 items-center px-5 py-3 cursor-pointer rounded-full  text-[1.3rem] font-[700] font-[Quicksand] ${
-                ActiveButton === "ChangePassword"
-                  ? "bg-[#56636F] text-white "
-                  : " text-[#56636F] bg-white"
-              }`}
-              onClick={() => setActiveButton("ChangePassword")}
-            >
-              <RiLockPasswordFill className="text-[1.5rem] font-[700] font-[Quicksand]" />
-              <span className="text-[1.3rem] font-[700] font-[Quicksand]">
-                Change password
-              </span>
-            </div>
-            <div
-              className={`flex transition-all duration-700 ease-in-out gap-x-4 items-center px-5 py-3 cursor-pointer rounded-full  text-[1.3rem] font-[700] font-[Quicksand] ${
-                ActiveButton === "Subscription"
-                  ? "bg-[#56636F] text-white "
-                  : " text-[#56636F] bg-white"
-              }`}
-              onClick={() => setActiveButton("Subscription")}
-            >
-              <LuShoppingBag className="text-[1.5rem] font-[700] font-[Quicksand]" />
-              <span className="text-[1.3rem] font-[700] font-[Quicksand]">
-                Subscription
-              </span>
-            </div>
+            <SideBtn
+              ActiveButton={ActiveButton}
+              setActiveButton={setActiveButton}
+              FilterText={"CompanyDetails"}
+              title={"Company Details"}
+              Icon={BiDetail}
+            />
+            <SideBtn
+              ActiveButton={ActiveButton}
+              setActiveButton={setActiveButton}
+              FilterText={"ChangePassword"}
+              title={"Change password"}
+              Icon={RiLockPasswordFill}
+            />
+            <SideBtn
+              ActiveButton={ActiveButton}
+              setActiveButton={setActiveButton}
+              FilterText={"Subscription"}
+              title={"Subscription"}
+              Icon={LuShoppingBag}
+            />
           </div>
           <div>
-            <div
+            <SideBtn
+              ActiveButton={ActiveButton}
+              setActiveButton={setActiveButton}
+              FilterText={"Logout"}
+              title={"Logout"}
+              Icon={LuShoppingBag}
+              onClick={() => {
+                setOpenModal(true);
+                setActiveButton("Logout");
+              }}
+            />
+            {/* <div
               className={`flex transition-all duration-700 ease-in-out gap-x-4 items-center px-5 py-3 cursor-pointer rounded-full text-[#56636F] bg-white`}
               onClick={() => {
                 setOpenModal(true);
@@ -72,7 +66,7 @@ const Setting = () => {
               <span className="text-[1.3rem] font-[700] font-[Quicksand]">
                 Logout
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
         {/* Right Side */}

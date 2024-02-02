@@ -91,7 +91,7 @@ const CompanyInfo = () => {
       try {
         const responseData = await api.post("/company/info-all", requestBody);
         console.log(responseData);
-        if (responseData.data?.data?.success)
+        if (responseData.data?.success)
           setData(responseData?.data?.data?.payload);
       } catch (error) {
         console.log(error);
@@ -119,7 +119,7 @@ const CompanyInfo = () => {
                 Month
               </p>
               <div className="px-3 py-2 pr-10 border border-gray-300 rounded-[7.94px] w-full outline-none cursor-pointer">
-                {CurrentMonth === "" ? "Select Month" : CurrentMonth}
+                {CurrentMonth === null ? "Select Month" : CurrentMonth}
               </div>
               <BsChevronDown className="flex absolute right-3 top-[.85rem]" />
             </div>
@@ -285,7 +285,7 @@ const CompanyInfo = () => {
           </div>
         </div>
         {/* Table */}
-        <TableWrapper>
+        <TableWrapper className="rounded-[30px] overflow-hidden">
           <CompaniesInfoTable Data={data} />
         </TableWrapper>
       </div>

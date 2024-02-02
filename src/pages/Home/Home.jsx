@@ -14,6 +14,7 @@ import { fetchStations } from "../../store/Slices/StationSlice";
 import PageLoader from "../../components/Loaders/PageLoader";
 import CustomPoperOverHome from "../../components/Popover/CustomPoperOverHome";
 import HeaderWrapper from "../../components/Header/HeaderWrapper";
+import LocationSearchInput from "../../utility/LocationSearchInput";
 
 const Home = () => {
   console.log("home");
@@ -46,8 +47,8 @@ const Home = () => {
     <>
       {/* Main wrapper */}
       <div className="w-full flex flex-col items-center justify-center fade-in">
+        <LocationSearchInput />
         {/* Header */}
-
         <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 mb-6">
           {/* Left */}
           <div className="font-[Quicksand] font-[700] text-[2rem]">

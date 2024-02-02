@@ -16,11 +16,12 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (newPage) => {
     setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (val) => {
+    console.log(val);
     setRowsPerPage(parseInt(val, 10));
     setPage(0);
   };
@@ -51,7 +52,7 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            {Data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               // .filter((dt) => {
               //   const searchLowerCase = Search.toLowerCase();
               //   if (Search === "") return dt;
@@ -65,7 +66,7 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
               // })
               .map((row, i) => (
                 <TableRow
-                  key={row.name}
+                  // key={row.name}
                   sx={{
                     "&:last-child td, &:last-child th": { border: 0 },
                   }}
@@ -80,7 +81,7 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                     scope="row"
                     align="center"
                   >
-                    {row.companyId?.name}
+                    {row.name}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -100,7 +101,7 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.companyId?.allowedStations}
+                    {row.companyId?.allowedStations || "?"}
                   </TableCell>
                   <TableCell
                     sx={{

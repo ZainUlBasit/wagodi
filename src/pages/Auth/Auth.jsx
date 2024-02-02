@@ -32,23 +32,24 @@ const Auth = () => {
       <div className="flex w-[100vw] h-screen justify-between items-center pr-[100px] max950:flex-col max950:pr-0 max767:items-center">
         {windowWidth > 767 ? <LogoDesign /> : <MobLogoDesign />}
         <div className="flex justify-center flex-col items-center w-[55%] fade-in max550:w-full">
+          {/* button / login and register page */}
           <div className="bg-[#EFE7EC] text-[#586571] overflow-hidden rounded-[100px] font-[Quicksand] font-[700] w-fit mb-5">
             <button
-              className={
+              className={`${
                 !IsLogin
-                  ? " h-full py-3 max767:py-2 px-5 text-[30px]"
+                  ? "h-full py-3 max767:py-2 px-5 text-[30px]"
                   : "bg-[#465462E5] text-[#EFE7EC] h-full py-3 max767:py-2 px-5 rounded-[100px] text-[30px]"
-              }
+              } maxWeb1:text-[2.5rem] maxWeb2:text-[3rem] maxWeb3:text-[3.5rem] maxWeb4:text-[4rem]`}
               onClick={() => setIsLogin(true)}
             >
               Sign In
             </button>
             <button
-              className={
+              className={`${
                 IsLogin
                   ? " h-full py-3 max767:py-2 px-5 text-[30px]"
                   : "bg-[#465462E5] text-[#EFE7EC] h-full py-3 max767:py-2 px-5 rounded-[100px] text-[30px]"
-              }
+              } maxWeb1:text-[2.5rem] maxWeb2:text-[3rem] maxWeb3:text-[3.5rem] maxWeb4:text-[4rem]`}
               onClick={() => setIsLogin(false)}
             >
               Register

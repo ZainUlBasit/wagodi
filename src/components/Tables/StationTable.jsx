@@ -73,8 +73,6 @@ export default function StationTable({
                     sx={{
                       fontWeight: "bold",
                       fontFamily: "Quicksand",
-                      // paddingTop: "30px",
-                      paddingBottom: "5px",
                     }}
                     align="center"
                   >

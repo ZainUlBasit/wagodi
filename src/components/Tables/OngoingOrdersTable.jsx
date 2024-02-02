@@ -43,12 +43,14 @@ export default function OngoingOrdersTable({
                     sx={{
                       fontWeight: "bold",
                       fontFamily: "Quicksand",
-                      paddingTop: "12px",
-                      paddingBottom: "12px",
+                      // paddingTop: "12px",
+                      // paddingBottom: "12px",
                       textAlign: "center",
                     }}
                   >
-                    {column.title}
+                    <div className="text-[13px] pt-[6px] pb-[6px] maxWeb1:pt-[15px] maxWeb1:pb-[15px] maxWeb1:text-[23px] maxWeb2:text-[28px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pt-[20px] maxWeb3:pt-[25px] maxWeb4:pt-[30px] maxWeb2:pb-[20px] maxWeb3:pb-[25px] maxWeb4:pb-[30px]">
+                      {column.title}
+                    </div>
                   </TableCell>
                 );
               })}
@@ -98,7 +100,9 @@ export default function OngoingOrdersTable({
                     scope="row"
                     align="center"
                   >
-                    {row._id ? row._id : "none"}
+                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                      {row._id ? row._id : "none"}
+                    </div>
                   </TableCell>
                   <TableCell
                     sx={{
@@ -108,7 +112,9 @@ export default function OngoingOrdersTable({
                     }}
                     align="center"
                   >
-                    {new Date(row.createdAt * 1000).toDateString()}
+                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                      {new Date(row.createdAt * 1000).toDateString()}
+                    </div>
                   </TableCell>
                   <TableCell
                     sx={{
@@ -118,7 +124,9 @@ export default function OngoingOrdersTable({
                     }}
                     align="center"
                   >
-                    {row.reciept_number ? row.reciept_number : "none"}
+                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                      {row.reciept_number ? row.reciept_number : "none"}
+                    </div>
                   </TableCell>
                   <TableCell
                     sx={{
@@ -128,7 +136,9 @@ export default function OngoingOrdersTable({
                     }}
                     align="center"
                   >
-                    {row?.station?.id?.name}
+                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                      {row?.station?.id?.name}
+                    </div>
                   </TableCell>
                   <TableCell
                     sx={{
@@ -138,7 +148,9 @@ export default function OngoingOrdersTable({
                     }}
                     align="center"
                   >
-                    {row?.fuel_price}
+                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                      {row?.fuel_price}
+                    </div>
                   </TableCell>
                   <TableCell
                     sx={{
@@ -148,7 +160,9 @@ export default function OngoingOrdersTable({
                     }}
                     align="center"
                   >
-                    {row.driverId?.name}
+                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                      {row.driverId?.name}
+                    </div>
                   </TableCell>
                   <TableCell
                     sx={{
@@ -158,15 +172,17 @@ export default function OngoingOrdersTable({
                     }}
                     align="center"
                   >
-                    {row?.station?.deliveryTime
-                      ? new Date(
-                          row?.station?.deliveryTime * 1000
-                        ).toDateString()
-                      : row.arrival_date
-                      ? new Date(row.arrival_date * 1000).toDateString()
-                      : row.expected_arrival
-                      ? new Date(row.expected_arrival * 1000).toDateString()
-                      : "Not specified"}
+                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                      {row?.station?.deliveryTime
+                        ? new Date(
+                            row?.station?.deliveryTime * 1000
+                          ).toDateString()
+                        : row.arrival_date
+                        ? new Date(row.arrival_date * 1000).toDateString()
+                        : row.expected_arrival
+                        ? new Date(row.expected_arrival * 1000).toDateString()
+                        : "Not specified"}
+                    </div>
                   </TableCell>
                   <TableCell
                     sx={{
@@ -176,16 +192,18 @@ export default function OngoingOrdersTable({
                     }}
                     align="center"
                   >
-                    <div
-                      className={`${
-                        row.station.status == 0
-                          ? "bg-[#5CD2E6]"
-                          : row.station.status == 1
-                          ? "bg-[#F4E869]"
-                          : "bg-[#2EB100]"
-                      } py-1 px-2 rounded-full text-white font-bold cursor-pointer`}
-                    >
-                      {convertStatus(row.station.status) || "none"}
+                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                      <div
+                        className={`${
+                          row.station.status == 0
+                            ? "bg-[#5CD2E6]"
+                            : row.station.status == 1
+                            ? "bg-[#F4E869]"
+                            : "bg-[#2EB100]"
+                        } py-1 px-2 rounded-full text-white font-bold cursor-pointer`}
+                      >
+                        {convertStatus(row.station.status) || "none"}
+                      </div>
                     </div>
                   </TableCell>
                   <TableCell
@@ -199,7 +217,8 @@ export default function OngoingOrdersTable({
                   >
                     <span className="flex justify-center items-center">
                       <AiFillEye
-                        className="cursor-pointer text-[#76808B] hover:text-black transition-all duration-500 ease-in-out"
+                        className="text-[1.2rem] maxWeb1:text-[2rem] maxWeb2:text-[2.5rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem] cursor-pointer hover:text-[green] transition-all duration-500"
+                        // className="cursor-pointer text-[#76808B] hover:text-black transition-all duration-500 ease-in-out"
                         onClick={() => {
                           setOpen(true);
                           setCurrentID(i);

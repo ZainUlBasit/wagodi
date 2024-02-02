@@ -1,0 +1,48 @@
+@media (min-width: 1920px) and (max-width: 2560px) {
+  .maxWidth1 {
+    width: 450px;
+    height: 550px;
+  }
+  .ForgetWrapper {
+    width: 340px;
+  }
+  .WelcomeText {
+    font-size: 2.5rem;
+  }
+  .DescText {
+    font-size: 1.1rem;
+  }
+  .ForgetText {
+    font-size: 1.2rem !important;
+  }
+}
+@media (min-width: 2560px) and (max-width: 3440px) {
+  .maxWidth1 {
+    width: 500px;
+    height: 590px;
+  }
+  .ForgetWrapper {
+    width: 400px;
+  }
+  .WelcomeText {
+    font-size: 2.6rem;
+  }
+  .DescText {
+    font-size: 1.2rem;
+  }
+  .ForgetText {
+    font-size: 1.5rem !important;
+  }
+}
+@media (min-width: 3440px) and (max-width: 3840px) {
+  .maxWidth1 {
+    width: 550px;
+    height: 550px;
+  }
+}
+@media (min-width: 3840px) {
+  .maxWidth1 {
+    width: 600px;
+    height: 550px;
+  }
+}

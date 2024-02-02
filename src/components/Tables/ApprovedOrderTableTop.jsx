@@ -51,11 +51,13 @@ export default function ApprovedOrderTableTop({ Data }) {
                 // borderWidth: 0,
               }}
             >
-              <div className="font-[700] text-[13.9px] text-white bg-[#465462]">
-                RecieptNumber:
-                <span className="font-[400] ml-1">
-                  {Data?.reciept_number || "not specified"}
-                </span>
+              <div className="font-[700] text-[13.9px] text-white whitespace-nowrap">
+                <div className="maxWeb1:text-[1.1rem] maxWeb2:text-[1.3rem] maxWeb3:text-[1.5rem] maxWeb4:text-[1.5em] text-[.9rem] text-center">
+                  <span className="font-bold">RecieptNumber:</span>
+                  <span className="font-[400] ml-1">
+                    {Data?.reciept_number || "not specified"}
+                  </span>
+                </div>
               </div>
             </TableCell>
 
@@ -67,11 +69,13 @@ export default function ApprovedOrderTableTop({ Data }) {
                 fontSize: "13px",
               }}
             >
-              <div className="font-[700] text-[13.9px] text-white bg-[#465462]">
-                StationName:
-                <span className="font-[400] ml-1">
-                  {Data?.station?.id.name || "not specified"}
-                </span>
+              <div className="font-[700] text-[13.9px] text-white bg-[#465462] whitespace-nowrap">
+                <div className="maxWeb1:text-[1.1rem] maxWeb2:text-[1.3rem] maxWeb3:text-[1.5rem] maxWeb4:text-[1.5em] text-[.9rem] text-center">
+                  <span className="font-bold">StationName:</span>
+                  <span className="font-[400] ml-1">
+                    {Data?.station?.id.name || "not specified"}
+                  </span>
+                </div>
               </div>
             </TableCell>
 
@@ -83,11 +87,13 @@ export default function ApprovedOrderTableTop({ Data }) {
                 fontSize: "13px",
               }}
             >
-              <div className="font-[700] text-[13.9px] text-white bg-[#465462]">
-                PaidAmount:
-                <span className="font-[400] ml-1">
-                  {Data?.fuel_price || "not specified"}
-                </span>
+              <div className="font-[700] text-[13.9px] text-white bg-[#465462] whitespace-nowrap">
+                <div className="maxWeb1:text-[1.1rem] maxWeb2:text-[1.3rem] maxWeb3:text-[1.5rem] maxWeb4:text-[1.5em] text-[.9rem] text-center">
+                  <span className="font-bold">PaidAmount:</span>
+                  <span className="font-[400] ml-1">
+                    {Data?.fuel_price || "not specified"}
+                  </span>
+                </div>
               </div>
             </TableCell>
 
@@ -99,11 +105,13 @@ export default function ApprovedOrderTableTop({ Data }) {
                 fontSize: "13px",
               }}
             >
-              <div className="font-[700] text-[13.9px] text-white bg-[#465462]">
-                DriverName:
-                <span className="font-[400] ml-1">
-                  {Data?.driverId?.name || "not specified"}
-                </span>
+              <div className="font-[700] text-[13.9px] text-white bg-[#465462] whitespace-nowrap">
+                <div className="maxWeb1:text-[1.1rem] maxWeb2:text-[1.3rem] maxWeb3:text-[1.5rem] maxWeb4:text-[1.5em] text-[.9rem] text-center">
+                  <span className="font-bold">DriverName:</span>
+                  <span className="font-[400] ml-1">
+                    {Data?.driverId?.name || "not specified"}
+                  </span>
+                </div>
               </div>
             </TableCell>
 
@@ -115,11 +123,13 @@ export default function ApprovedOrderTableTop({ Data }) {
                 fontSize: "13px",
               }}
             >
-              <div className="font-[700] text-[13.9px] text-white bg-[#465462]">
-                PhoneNo:
-                <span className="font-[400] ml-1">
-                  {Data?.driverId?.phone_number || "not specified"}
-                </span>
+              <div className="font-[700] text-[13.9px] text-white bg-[#465462] whitespace-nowrap">
+                <div className="maxWeb1:text-[1.1rem] maxWeb2:text-[1.3rem] maxWeb3:text-[1.5rem] maxWeb4:text-[1.5em] text-[.9rem] text-center">
+                  <span className="font-bold">PhoneNo:</span>
+                  <span className="font-[400] ml-1">
+                    {Data?.driverId?.phone_number || "not specified"}
+                  </span>
+                </div>
               </div>
             </TableCell>
 
@@ -131,13 +141,15 @@ export default function ApprovedOrderTableTop({ Data }) {
                 fontSize: "13px",
               }}
             >
-              <div className="font-[700] text-[13.9px] text-white bg-[#465462]">
-                Status:
-                <span className="font-[400] ml-1 bg-[#2EB100] px-3 py-[5px] rounded-full">
-                  {Data?.station?.status != undefined
-                    ? convertStatus(Data?.station?.status)
-                    : "not specified"}
-                </span>
+              <div className="font-[700] text-[13.9px] text-white bg-[#465462] whitespace-nowrap">
+                <div className="maxWeb1:text-[1.1rem] maxWeb2:text-[1.3rem] maxWeb3:text-[1.5rem] maxWeb4:text-[1.5em] text-[.9rem] text-center">
+                  <span className="font-bold">Status:</span>
+                  <span className="font-[400] ml-1 bg-[#2EB100] px-3 py-[5px] rounded-full">
+                    {Data?.station?.status != undefined
+                      ? convertStatus(Data?.station?.status)
+                      : "not specified"}
+                  </span>
+                </div>
               </div>
             </TableCell>
 
@@ -151,7 +163,7 @@ export default function ApprovedOrderTableTop({ Data }) {
             >
               <div className="font-[700] text-[1.5rem] cursor-pointer text-white">
                 <FiDownload
-                  className="text-[2rem] cursor-pointer"
+                  className="text-[1.2rem] maxWeb1:text-[2rem] maxWeb2:text-[2.5rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem] cursor-pointer transition-all duration-500"
                   aria-describedby={id}
                   variant="contained"
                   onClick={handleClick}
@@ -217,8 +229,7 @@ export default function ApprovedOrderTableTop({ Data }) {
                                   type="checkbox"
                                   className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
                                   checked={
-                                    SendType === attachment.name ||
-                                    false
+                                    SendType === attachment.name || false
                                   }
                                 />
                                 <span>{`${attachment?.name}`}</span>
@@ -255,16 +266,17 @@ export default function ApprovedOrderTableTop({ Data }) {
                           <span>Receiving Receipt (Station Manager)</span>
                         </div> */}
                         <div className="flex justify-center items-center w-full my-4">
-                          {fileUrl && <button
-                            className={`mt-[20px] w-[197px] h-fit py-2 bg-[#90898E] hover:text-[#465462] hover:bg-white rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-                            onClick={() => {
-                              window.location.href = fileUrl;
-                              setFileUrl("")
-                            }}
-                          >
-                            Download
-                          </button>
-                          }
+                          {fileUrl && (
+                            <button
+                              className={`mt-[20px] w-[197px] h-fit py-2 bg-[#90898E] hover:text-[#465462] hover:bg-white rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+                              onClick={() => {
+                                window.location.href = fileUrl;
+                                setFileUrl("");
+                              }}
+                            >
+                              Download
+                            </button>
+                          )}
                         </div>
                       </div>
                     </div>

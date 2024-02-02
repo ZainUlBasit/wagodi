@@ -14,6 +14,7 @@ import { api } from "../../Https";
 import { useSelector } from "react-redux";
 import ErrorToast from "../../components/Toast/ErrorToast";
 import PageLoader from "../../components/Loaders/PageLoader";
+import TableWrapper from "../../components/Tables/TableWrapper";
 
 const OngoingOrder = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -59,9 +60,9 @@ const OngoingOrder = () => {
     <>
       <div className="w-full flex flex-col justify-center items-center mb-5 fade-in">
         {/* Header */}
-        <div className="w-[90%] max-w-[1200px] flex justify-between mt-6 mb-5">
+        <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 mb-10">
           {/* Left */}
-          <div className="font-[Quicksand] font-[700] text-[2rem] max767:text-[1.5rem]">
+          <div className="font-[Quicksand] font-[700] text-[2rem] max767:text-[1.5rem] maxWeb1:text-[3rem] maxWeb2:text-[4rem] maxWeb3:text-[5rem] maxWeb4:text-[5rem] capitalize">
             {ApplyFilter} Orders
           </div>
           {/* Right */}
@@ -109,14 +110,10 @@ const OngoingOrder = () => {
             />
           </div>
         </div>
-
         {Loading ? (
           <PageLoader />
         ) : (
-          <div
-            id="capture-component"
-            className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px]"
-          >
+          <TableWrapper className="rounded-[30px] overflow-hidden">
             <OngoingOrdersTable
               Filter={ApplyFilter}
               Search={SearchText}
@@ -124,7 +121,7 @@ const OngoingOrder = () => {
               setOpen={setOpenReservationDetailsModal}
               data={ordersData}
             />
-          </div>
+          </TableWrapper>
         )}
       </div>
       {OpenSendReport && (

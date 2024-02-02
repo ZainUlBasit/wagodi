@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { SetAuth } from "../../store/Slices/AuthSlice";
 import toast, { Toaster } from "react-hot-toast";
 import { MdWarning } from "react-icons/md";
+import "./LoginComp.css"
 
 const SuccessToast = (msg) => {
   return toast.success(msg, {
@@ -120,11 +121,11 @@ const LoginComp = () => {
   };
   return (
     <>
-      <div className="w-[383px] max767:w-[95%] max767:mb-4 h-[496px] shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] flex items-center flex-col rounded-md pt-[40px] font-[Quicksand] fade-in">
-        <h1 className="w-full text-[1.9rem] font-[700] text-center">
+      <div className="w-[383px] max767:w-[95%] max767:mb-4 h-[496px] shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] flex items-center flex-col rounded-md pt-[40px] font-[Quicksand] fade-in maxWidth1">
+        <h1 className="w-full text-[1.9rem] font-[700] text-center WelcomeText">
           WELCOME BACK!
         </h1>
-        <p className="mb-[80px] font-[300]">
+        <p className="mb-[80px] font-[300] DescText">
           Use Credentials to access your account
         </p>
         <AuthInput
@@ -143,7 +144,7 @@ const LoginComp = () => {
           required={false}
         />
         <div className="mb-1"></div>
-        <div className="w-[297px] flex justify-end mt-[-10px] mb-[60px]">
+        <div className="w-[297px] flex justify-end mt-[-10px] mb-[60px] ForgetWrapper">
           {/* <div>
             <label>
               <input
@@ -155,7 +156,7 @@ const LoginComp = () => {
               Remember Me
             </label>
           </div> */}
-          <Link to={"/forgot-password"} className="underline">
+          <Link to={"/forgot-password"} className="underline ForgetText">
             Forget Password?
           </Link>
         </div>

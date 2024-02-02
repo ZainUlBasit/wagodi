@@ -20,12 +20,12 @@ export default function ControlSubscribersTable({ Data, Search }) {
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleChangePage = (newPage) => {
-    console.log(newPage);
     setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (val) => {
     setRowsPerPage(parseInt(val, 10));
+    setPage(0);
   };
 
   return (
@@ -54,7 +54,7 @@ export default function ControlSubscribersTable({ Data, Search }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            {Data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               // .filter((dt) => {
               //   const searchLowerCase = Search.toLowerCase();
               //   if (Search === "") return dt;
@@ -68,7 +68,7 @@ export default function ControlSubscribersTable({ Data, Search }) {
               // })
               .map((row, i) => (
                 <TableRow
-                  key={row.name}
+                  key={row._id}
                   sx={{
                     "&:last-child td, &:last-child th": { border: 0 },
                   }}
@@ -96,7 +96,9 @@ export default function ControlSubscribersTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.allowedStations}
+                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                      {row.allowedStations}
+                    </div>
                   </TableCell>
                   <TableCell
                     sx={{
@@ -106,11 +108,13 @@ export default function ControlSubscribersTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.subscriptionId?.subscriptionType == 1
-                      ? "Enterprise"
-                      : row.subscriptionId?.subscriptionType == 0
-                      ? "Basic"
-                      : "unknown"}
+                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                      {row.subscriptionId?.subscriptionType == 1
+                        ? "Enterprise"
+                        : row.subscriptionId?.subscriptionType == 0
+                        ? "Basic"
+                        : "unknown"}
+                    </div>
                   </TableCell>
                   <TableCell
                     sx={{
@@ -120,11 +124,13 @@ export default function ControlSubscribersTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.subscriptionId?.valid_until
-                      ? new Date(
-                          Math.floor(row.subscriptionId?.valid_until * 1000)
-                        )
-                      : "not specified"}
+                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                      {row.subscriptionId?.valid_until
+                        ? new Date(
+                            Math.floor(row.subscriptionId?.valid_until * 1000)
+                          )
+                        : "not specified"}
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}

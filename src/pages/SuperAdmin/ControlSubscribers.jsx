@@ -5,6 +5,7 @@ import ControlSubscribersTable from "../../components/Tables/ControlSubscribersT
 import { api } from "../../Https";
 import ErrorToast from "../../components/Toast/ErrorToast";
 import TableWrapper from "../../components/Tables/TableWrapper";
+import PageLoader from "../../components/Loaders/PageLoader";
 
 const old_data = [
   {
@@ -58,12 +59,15 @@ const ControlSubscribers = () => {
   const [ToDate, setToDate] = useState(to_default);
   const [FromDate, setFromDate] = useState(from_default);
   const [data, setData] = useState([]);
+  const [Loading, setLoading] = useState(false);
+  const [IsError, setIsError] = useState(true);
 
   useEffect(() => {
     const requestBody = {};
     // const start_date = (new Date(ToDate).getTime() / 1000)
     // const end_date = (new Date(FromDate).getTime() / 1000)
     const fetchSubscriptionData = async () => {
+      setLoading(true);
       try {
         const responseData = await api.post("/company/all", requestBody);
         console.log(responseData);
@@ -71,7 +75,9 @@ const ControlSubscribers = () => {
       } catch (error) {
         console.log(error);
         ErrorToast("Error fetching Control Subscription Data!");
+        setIsError(true);
       }
+      setLoading(false);
     };
     fetchSubscriptionData();
   }, []);
@@ -128,9 +134,15 @@ const ControlSubscribers = () => {
             </div>
           </div>
         </div>
-        <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] my-5">
-          <ControlSubscribersTable Data={data} />
-        </div>
+        {Loading ? (
+          <div className="flex">
+            <PageLoader />
+          </div>
+        ) : (
+          <TableWrapper className="rounded-[30px] overflow-hidden">
+            <ControlSubscribersTable Data={data} />
+          </TableWrapper>
+        )}
       </div>
     </>
   );

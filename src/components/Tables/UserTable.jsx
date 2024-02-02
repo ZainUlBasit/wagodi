@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import * as React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -6,11 +6,28 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import TablePagination from "@mui/material/TablePagination";
+// import { Data } from "./DemoData/Orders";
+import { AiFillEye } from "react-icons/ai";
+import { UserData } from "./DemoData/UserData";
 import { BiEdit } from "react-icons/bi";
+import { VendorData } from "./DemoData/VendorData";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { UsersColumns } from "../../assets/Columns/UsersColumns";
+import TablePagination from "@mui/material/TablePagination";
+import { VendorsColumns } from "../../assets/Columns/VendorsColumns";
 import CustomPagination from "../TablePagination/TablePagination";
+import { UsersColumns } from "../../assets/Columns/UsersColumns";
+const vendorFuelType = (type) => {
+  switch (type) {
+    case 0:
+      return "91";
+    case 1:
+      return "95";
+    case 2:
+      return "D";
+    default:
+      return "";
+  }
+};
 
 export default function UserTable({
   setUserID,
@@ -20,8 +37,8 @@ export default function UserTable({
   Search,
   UserData,
 }) {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5); // You can adjust the number of rows per page as needed
 
   const handleChangePage = (newPage) => {
     setPage(newPage);
@@ -31,10 +48,9 @@ export default function UserTable({
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
   return (
-    <>
-      <TableContainer>
+    <div>
+      <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead style={{ borderBottomWidth: 2, borderColor: "#465462" }}>
             <TableRow>
@@ -246,6 +262,6 @@ export default function UserTable({
         RowsPerPage={rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </>
+    </div>
   );
 }

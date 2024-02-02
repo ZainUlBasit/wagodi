@@ -3,6 +3,8 @@ import { BsSearch } from "react-icons/bs";
 import SubscriptionRequestsTable from "../../components/Tables/SubscriptionRequestsTable";
 import { api } from "../../Https";
 import TableWrapper from "../../components/Tables/TableWrapper";
+import PageLoader from "../../components/Loaders/PageLoader";
+import { set } from "lodash";
 
 const old_data = [
   {
@@ -73,11 +75,14 @@ const old_data = [
 const SubscriptionRequests = () => {
   const [SearchText, setSearchText] = useState("");
   const [data, setData] = useState([]);
+  const [Loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchSubscriptionRequests = async () => {
-      const response = api.post("/company/all", { enterprise: true });
-      console.log(response.data);
+      setLoading(true);
+      const response = await api.post("/company/all", { enterprise: true });
+      console.log(response.data.data);
       if (response.data.success) setData(response.data.data);
+      setLoading(false);
     };
     fetchSubscriptionRequests();
   }, []);
@@ -103,9 +108,15 @@ const SubscriptionRequests = () => {
             </div>
           </div>
         </div>
-        <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] my-5">
-          <SubscriptionRequestsTable Data={data} />
-        </div>
+        {Loading ? (
+          <div className="flex">
+            <PageLoader />
+          </div>
+        ) : (
+          <TableWrapper className="rounded-[30px] overflow-hidden">
+            <SubscriptionRequestsTable Data={data} />
+          </TableWrapper>
+        )}
       </div>
     </>
   );
