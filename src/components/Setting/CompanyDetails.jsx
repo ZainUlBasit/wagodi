@@ -134,7 +134,8 @@ const CompanyDetails = () => {
         </div>
         <div className="max767:w-[90%] max767:flex  max767:justify-center ">
           <button
-            className={`mt-[20px] w-[297px] h-fit py-2 ml-5 max767:ml-0 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+            className={`relative text-center text-lg tracking-[1px] bg-[#90898E] no-underline text-white cursor-pointer transition-all ease-in-out duration-500  m-[15px] rounded-[40px] border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 mt-[20px] w-[297px] h-fit py-2 ml-5 max767:ml-0 flex items-center gap-x-2 justify-center text-[1.2rem] font-[700]`}
+            // className={` bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
             onClick={async () => handleSave()}
           >
             Save

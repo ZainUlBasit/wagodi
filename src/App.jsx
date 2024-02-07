@@ -39,6 +39,7 @@ import RoleRouting from "./components/RoleRouting/RoleRouting";
 import NavSelection from "./components/NavSelection/NavSelection";
 import { io } from "socket.io-client";
 import ErrorToast from "./components/Toast/ErrorToast";
+import { BASE_URL } from "./assets/config";
 
 const App = () => {
   const [Loading, setLoading] = useState(true);
@@ -47,7 +48,7 @@ const App = () => {
   const auth = useSelector((state) => state.auth);
   const userToken = localStorage.getItem("userToken");
 
-  const socket = io("https://wagoodi-app.onrender.com", {
+  const socket = io(BASE_URL, {
     extraHeaders: {
       token: userToken,
       secretkey: "wWXYF6QeeF",
@@ -87,7 +88,7 @@ const App = () => {
   useEffect(() => {
     CheckLocalStorage();
   }, []);
-  
+
   useEffect(() => {
     if (!userToken) return;
     // Listen for custom events

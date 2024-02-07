@@ -76,7 +76,7 @@ const Stations = () => {
               StationFilter={StationFilter}
             />
             <button
-              className={`border-2 border-[#465462] px-4 py-[5px] rounded-full font-[Quicksand] font-[700] bg-[#fff] text-[#465462] transition-all duration-500 ease-in-out flex gap-x-6 items-center hover:text-white hover:bg-[#465462] text-[1rem] maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem]  maxWeb4:text-[3rem] `}
+              className={`relative text-center tracking-[1px] no-underline cursor-pointer border-solid shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 border-2 border-[#465462] px-3 py-[5px] rounded-full font-[Quicksand] font-[700] bg-[#fff] text-[#465462] transition-all duration-500 ease-in-out flex gap-x-6 items-center hover:text-white hover:bg-[#465462] text-[1rem] maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem]  maxWeb4:text-[3rem]`}
               onClick={() => setOpenAddModal(!OpenAddModal)}
             >
               <span className="px-3">Add Station</span>

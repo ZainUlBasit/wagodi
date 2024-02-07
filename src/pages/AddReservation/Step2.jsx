@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const Step2 = ({ CurrentTabNumber, setCurrentTabNumber, state }) => {
   const [GasType, setGasType] = useState("");
-  const [UOM, setUOM] = useState("");
+  const [UOM, setUOM] = useState("Liters");
   const [BalanceVolume, setBalanceVolume] = useState("");
   const [RequireVolume, setRequireVolume] = useState("");
   const navigate = useNavigate();

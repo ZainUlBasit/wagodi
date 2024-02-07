@@ -15,9 +15,9 @@ import PageLoader from "../../components/Loaders/PageLoader";
 import CustomPoperOverHome from "../../components/Popover/CustomPoperOverHome";
 import HeaderWrapper from "../../components/Header/HeaderWrapper";
 import LocationSearchInput from "../../utility/LocationSearchInput";
+import FavBtn from "../../components/buttons/FavBtn";
 
 const Home = () => {
-  console.log("home");
   const [Favourites, setFavourites] = useState(false);
   const [Filter, setFilter] = useState("");
   const [Open, setOpen] = useState(false);
@@ -43,11 +43,18 @@ const Home = () => {
     dispatch(fetchStations(Auth.data.companyId));
   }, []);
 
+  const handleSelect = ({ address, latLng }) => {
+    console.log("Selected Address:", address);
+    console.log("Latitude:", latLng.lat);
+    console.log("Longitude:", latLng.lng);
+    // Perform additional actions with the selected address and coordinates
+  };
+
   return (
     <>
       {/* Main wrapper */}
       <div className="w-full flex flex-col items-center justify-center fade-in">
-        <LocationSearchInput />
+        <LocationSearchInput onSelect={handleSelect} />
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 mb-6">
           {/* Left */}
@@ -56,7 +63,8 @@ const Home = () => {
           </div>
           {/* Right */}
           <div className="flex items-center gap-x-4">
-            <button
+            <FavBtn Value={Favourites} setValue={setFavourites} />
+            {/* <button
               className={`border-2 border-[#465462] px-4 py-1 rounded-3xl font-[Quicksand] font-[700] ${
                 Favourites ? "bg-[#465462]" : "bg-white"
               } ${
@@ -65,7 +73,7 @@ const Home = () => {
               onClick={() => setFavourites(!Favourites)}
             >
               Favorites
-            </button>
+            </button> */}
             <LuFilter
               className="text-[2rem] cursor-pointer"
               aria-describedby={id}
@@ -80,113 +88,6 @@ const Home = () => {
               popover_id={id}
               popover_anchorEl={anchorEl}
             />
-            {/* <Popover
-              id={id}
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              PaperProps={{
-                sx: {
-                  borderRadius: "25px", // Add rounded corners
-                  backgroundColor: "white", // Set background color to white
-                  width: "400px", // Set the width as needed
-                  overflow: "hidden", // Hide overflowing content
-                },
-              }}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-            >
-              <Typography
-                sx={{
-                  p: 5,
-                  borderColor: "#465462",
-                  backgroundColor: "#465462",
-                  width: "400px",
-                  overflow: "hidden",
-                  borderRadius: "25px",
-                }}
-              >
-                <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px] overflow-hidden">
-                  <p className="h-[2px] w-[54px] bg-[#90898E]"></p>
-                  <p className="h-[2px] w-full bg-[#FFFFFF5C] mt-7 mb-3 rounded-full"></p>
-
-                  <div className="font-[Quicksand] font-[700] text-[1.8rem] mb-6">
-                    Choose Your Filter
-                  </div>
-                  <div className="w-[260px] flex flex-col justify-between">
-                    <div className="flex my-2 justify-between">
-                      <div
-                        className="rounded-[16px] bg-[#2EB100] px-4 py-2 w-[194px] font-[600] text-[1.2rem] text-center text-white font-[Quicksand] flex justify-center items-center cursor-pointer"
-                        onClick={() => {
-                          handleClose();
-                          setFilter("Healthy");
-                        }}
-                      >
-                        Healthy
-                      </div>
-                      <div className="h-full border-2 border-[#2EB100] px-1 py-2 text-[20px] font-[600] rounded-[10px] w-[60px] flex justify-center items-center">
-                        {
-                          StationsData.data.filter(
-                            (sd) => sd.current_status === "Healthy"
-                          ).length
-                        }
-                      </div>
-                    </div>
-                    <div className="flex my-2 justify-between">
-                      <div
-                        className="rounded-[16px] bg-[#6877DC] px-4 py-2 w-[194px] font-[600] text-[1.2rem] text-center text-white font-[Quicksand] flex justify-center items-center cursor-pointer"
-                        onClick={() => {
-                          handleClose();
-                          setFilter("BeReady");
-                        }}
-                      >
-                        Be Ready
-                      </div>
-                      <div className="h-full border-2 border-[#6877DC] px-1 py-2 text-[20px] font-[600] rounded-[10px] w-[60px] flex justify-center items-center">
-                        {
-                          StationsData.data.filter(
-                            (sd) => sd.current_status === "BeReady"
-                          ).length
-                        }
-                      </div>
-                    </div>
-                    <div className="flex my-2 justify-between">
-                      <div
-                        className="rounded-[16px] bg-[#C93D33] px-4 py-2 w-[194px] font-[600] text-[1.2rem] text-center text-white font-[Quicksand] flex justify-center items-center cursor-pointer"
-                        onClick={() => {
-                          setFilter("MakeOrder");
-                          handleClose();
-                        }}
-                      >
-                        Make an Order
-                      </div>
-                      <div className="h-full border-2 border-[#C93D33] px-1 py-2 text-[20px] font-[600] rounded-[10px]  w-[60px] flex justify-center items-center">
-                        {
-                          StationsData.data.filter(
-                            (sd) => sd.current_status === "MakeOrder"
-                          ).length
-                        }
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="mt-2 border-b-[#465462] border-b-[1px] hover:border-b-[#fff] transition-all duration-500 ease-in-out cursor-pointer"
-                    onClick={() => {
-                      setFilter("");
-                      handleClose();
-                    }}
-                  >
-                    Clear Filter
-                  </div>
-                </div>
-              </Typography>
-            </Popover> */}
           </div>
         </div>
         {/* Body */}
@@ -195,7 +96,7 @@ const Home = () => {
           <PageLoader />
         ) : (
           <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] maxWeb1:items-center maxWeb2:items-center maxWeb3:items-center maxWeb4:items-center flex flex-wrap xl:justify-center justify-center items-center my-4">
-            {StationsData.data
+            {StationsData?.data
               .filter((dt) => {
                 if (Favourites) {
                   if (Filter !== "" && Favourites === dt.favorite) {

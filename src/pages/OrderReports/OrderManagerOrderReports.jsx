@@ -14,16 +14,18 @@ import OrderDetail from "../../components/Cards/OrderDetail";
 import ErrorToast from "../../components/Toast/ErrorToast";
 import { useSelector } from "react-redux";
 import { api } from "../../Https";
+import PageLoader from "../../components/Loaders/PageLoader";
 
 const OrderManagerOrderReports = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
+  const [Loading, setLoading] = useState(false);
   const [ordersData, setOrdersData] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorElF, setAnchorElF] = useState(null);
   const [SendType, setSendType] = useState("");
   const [SearchText, setSearchText] = useState("");
   const [CurDate, setCurDate] = useState("");
-  const userData = useSelector(state => state.auth.data)
+  const userData = useSelector((state) => state.auth.data);
 
   const [Filter, setFilter] = useState("");
   const [ApplyFilter, setApplyFilter] = useState("");
@@ -48,16 +50,21 @@ const OrderManagerOrderReports = () => {
   };
 
   useEffect(() => {
-    ordersData == null && (async () => {
-    const data = await api.post("/order/company",  {companyId: userData.companyId._id})
-      const apiSuccess = data?.data?.success
-      if(!apiSuccess){
-        ErrorToast("Failed fetching data for orders!")
-        return
-      }
-      setOrdersData(data.data.data)
-    })()
-  }, [])
+    ordersData == null &&
+      (async () => {
+        setLoading(true);
+        const data = await api.post("/order/company", {
+          companyId: userData.companyId._id,
+        });
+        const apiSuccess = data?.data?.success;
+        if (!apiSuccess) {
+          ErrorToast("Failed fetching data for orders!");
+          return;
+        }
+        setOrdersData(data.data.data);
+        setLoading(false);
+      })();
+  }, []);
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -73,13 +80,29 @@ const OrderManagerOrderReports = () => {
         </div>
         <div className="w-[90%] max-w-[1200px] flex flex-wrap xl:justify-start justify-center items-center my-4">
           {/* <div className="grid grid-cols-3 gap-x-10 gap-y-5 w-[90%] max-w-[1200px] mb-4"> */}
-          {ordersData && ordersData.map((order) => {
-            return <OrderDetail key={`${order._id}-${order.station.id._id}`} Order={order} />;
-          })}
+          {Loading && 
+          <div className="flex justify-center items-center w-full">
+            <PageLoader />
+          </div>
+          
+          }
+          {ordersData &&
+            ordersData.map((order) => {
+              return (
+                <OrderDetail
+                  key={`${order._id}-${order.station.id._id}`}
+                  Order={order}
+                />
+              );
+            })}
         </div>
       </div>
       {OpenSendReport && (
-        <SendReport Open={OpenSendReport} setOpen={setOpenSendReport} Data = {ordersData} />
+        <SendReport
+          Open={OpenSendReport}
+          setOpen={setOpenSendReport}
+          Data={ordersData}
+        />
       )}
     </>
   );
