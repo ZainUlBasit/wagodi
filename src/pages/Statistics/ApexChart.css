@@ -1,3 +1,29 @@
 .apexcharts-xaxis-label {
   background-color: #ffff00; /* Set background color to yellow */
 }
+
+/* ApexChart.css */
+
+/* Add the following media queries to make label text responsive */
+
+/* @media screen and (max-width: 600px) {
+  .apexcharts-xaxis-label {
+    font-size: 10px !important;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 768px) {
+  .apexcharts-xaxis-label {
+    font-size: 12px !important;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 992px) {
+  .apexcharts-xaxis-label {
+    font-size: 14px !important;
+  }
+} */
+
+/* Add more media queries as needed for different screen widths */
+
+/* Rest of your existing styles */

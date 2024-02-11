@@ -11,7 +11,6 @@ import { AiFillEye } from "react-icons/ai";
 import { convertFuel } from "../../utility/utilityFunctions";
 
 export default function ApprovedOrderTable({ Data }) {
-  console.log(Data);
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">

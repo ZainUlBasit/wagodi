@@ -73,7 +73,15 @@ const LineColumnChart = () => {
   // Update window width when the component mounts and when the window is resized
   useEffect(() => {
     const handleResize = () => {
-      setWindowWidth(window.innerWidth > 1250 ? 1200 : window.innerWidth * 0.9);
+      setWindowWidth(
+        window.innerWidth > 1400 && window.innerWidth < 1900
+          ? 1500
+          : window.innerWidth > 1900 && window.innerWidth < 2500
+          ? 1900
+          : window.innerWidth > 2500 && window.innerWidth < 3400
+          ? 2500
+          : window.innerWidth * 0.9
+      );
     };
 
     // Add event listener for window resize
@@ -91,7 +99,17 @@ const LineColumnChart = () => {
         options={options}
         series={series}
         type="line"
-        height={350}
+        height={
+          windowWidth > 1400 && windowWidth < 1900
+            ? 350
+            : windowWidth > 1900 && windowWidth < 2500
+            ? 450
+            : windowWidth > 2500 && windowWidth < 3400
+            ? 550
+            : windowWidth < 1400
+            ? 300
+            : 650
+        }
         width={windowWidth}
       />
     </div>

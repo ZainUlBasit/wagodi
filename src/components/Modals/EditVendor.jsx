@@ -12,29 +12,32 @@ import WarningToast from "../Toast/WarningToast";
 const EditVendor = ({ Open, setOpen, Data, companyId }) => {
   const [VendorName, setVendorName] = useState(Data.name);
   const [Location, setLocation] = useState(Data.address);
-  const [_95, set_95] = useState(Data.fuels[0]?.price_litre || "");
-  const [_91, set_91] = useState(Data.fuels[1]?.price_litre || "");
-  const [_D, set_D] = useState(Data.fuels[2]?.price_litre || "");
+  const [_95, set_95] = useState(Data.fuels[0]?.price_litre);
+  const [_91, set_91] = useState(Data.fuels[1]?.price_litre);
+  const [_D, set_D] = useState(Data.fuels[2]?.price_litre);
   const dispatch = useDispatch();
   const onSubmit = async (e) => {
+    console.log(_91);
+    console.log(_95);
+    console.log(_D);
     e.preventDefault();
-    const Fuel_Array = Data.fuels.filter((fu, i) => {
+    const Fuel_Array = Data.fuels.map((fu, i) => {
       if (_91 !== "" && i === 0) {
         return {
           _id: fu._id,
-          type: i,
+          type: i + 1,
           price_litre: Number(_91),
         };
       } else if (_95 !== "" && i === 1) {
         return {
           _id: fu._id,
-          type: i,
+          type: i + 1,
           price_litre: Number(_95),
         };
       } else if (_D !== "" && i === 2) {
         return {
           _id: fu._id,
-          type: i,
+          type: i + 1,
           price_litre: Number(_D),
         };
       }

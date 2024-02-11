@@ -72,11 +72,19 @@ const ApexChart = () => {
   // Update window width when the component mounts and when the window is resized
   const handleResize = () => {
     setWindowWidth(
-      window.innerWidth > 1250
+      window.innerWidth > 1250 && window.innerWidth < 1400
         ? (window.innerWidth - 500) * 0.8
         : window.innerWidth > 1050 && window.innerWidth < 1250
         ? 400
-        : window.innerWidth * 0.9 - 0.1
+        : window.innerWidth > 1400 && window.innerWidth < 1900
+        ? (window.innerWidth - 500) * 0.8
+        : window.innerWidth > 1900 && window.innerWidth < 2500
+        ? (window.innerWidth - 550) * 0.8
+        : window.innerWidth > 2500 && window.innerWidth < 3400
+        ? (window.innerWidth - 600) * 0.8
+        : window.innerWidth > 3400
+        ? (window.innerWidth - 700) * 0.8
+        : window.innerWidth * 0.8
     );
   };
   useEffect(() => {
@@ -98,7 +106,19 @@ const ApexChart = () => {
         options={options}
         series={series}
         type="bar"
-        height={420}
+        height={
+          windowWidth > 1400 && windowWidth < 1900
+            ? 500
+            : windowWidth > 1900 && windowWidth < 2500
+            ? 550
+            : windowWidth > 2500 && windowWidth < 3400
+            ? 600
+            : windowWidth > 3400
+            ? 700
+            : windowWidth < 1400
+            ? 420
+            : 650
+        }
         width={windowWidth}
       />
     </div>

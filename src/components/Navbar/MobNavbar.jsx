@@ -95,7 +95,7 @@ const MobNavbar = () => {
             <>
               <ListItem
                 className="w-full flex justify-between py-1"
-                key={text.title}
+                key={text.index}
                 disablePadding
                 onClick={() => {
                   navigate(text.link);

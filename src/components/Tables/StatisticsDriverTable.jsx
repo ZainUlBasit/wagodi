@@ -51,8 +51,11 @@ export default function StatisticsDriverTable({ setCurrentID, setOpen }) {
   const id = open ? "simple-popover" : undefined;
   return (
     <div>
-      <div className="w-full flex justify-end py-[6px] px-4 border-b-[1px] border-b-[#465462] flex-wrap">
-        <div className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white">
+      <div className="w-full flex gap-x-2 justify-end py-[6px] px-4 border-b-[1px] border-b-[#465462] flex-wrap">
+        <div
+          // className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white"
+          className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
+        >
           <div className="flex items-center">
             <input
               type="text"
@@ -60,7 +63,7 @@ export default function StatisticsDriverTable({ setCurrentID, setOpen }) {
               id="date"
               placeholder="All"
               value={CurrentMonth}
-              className="w-[220px] max767:text-[1rem] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-[#465462]"
+              className="w-[220px] max767:text-[1rem] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
               disabled
             />
             <BiSolidChevronDown
@@ -82,7 +85,7 @@ export default function StatisticsDriverTable({ setCurrentID, setOpen }) {
               backgroundColor: "white", // Set background color to white
               width: "fit", // Set the width as needed
               overflow: "hidden", // Hide overflowing content
-              marginTop: "10px",
+              marginTop: "12px",
               boxShadow: "none",
             },
           }}
@@ -134,7 +137,7 @@ export default function StatisticsDriverTable({ setCurrentID, setOpen }) {
           </Typography>
         </Popover>
         <button
-          className={`border-2 border-[##90898E] px-4 py-1 rounded-3xl font-[Quicksand] font-[700] bg-[#90898E] text-white transition-all duration-500 ease-in-out`}
+          className={`relative text-center tracking-[1px] px-4 py-1 rounded-3xl font-[Quicksand] font-[700] bg-[#90898E] text-white no-underline text-#465462 cursor-pointer transition-all ease-in-out duration-500  border-2 border-solid border-[#90898E] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] hover:border-[#465462] active:scale-90 flex items-center gap-x-2 justify-center`}
           onClick={() => setOpenSendReport(!OpenSendReport)}
         >
           Send Report

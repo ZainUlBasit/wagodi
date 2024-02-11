@@ -38,7 +38,6 @@ const Users = () => {
         },
       })
     );
-    console.log(Users.data);
   }, []);
 
   const handleClick = (event) => {

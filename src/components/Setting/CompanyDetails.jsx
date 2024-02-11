@@ -41,8 +41,21 @@ const CompanyDetails = () => {
       };
       formData.append("payload", payload);
       selectedFile ? formData.append("image", selectedFile) : "";
+      console.log(formData);
       try {
-        await api.patch("/company/update", formData);
+        const response = await api.patch("/company/update", {
+          companyId: companyId,
+          payload: {
+            name: CompanyName,
+            email: Email,
+            crn_number: CommercialRegistrationNumber,
+            tax_number: TaxationNumber,
+            address: Address,
+            phone: PhoneNumber,
+            image: selectedFile ? selectedFile : "",
+          },
+        });
+        console.log(response.data.data.company);
       } catch (error) {
         console.log(error);
         ErrorToast("Error occured while updating!");

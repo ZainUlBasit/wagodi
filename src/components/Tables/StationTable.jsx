@@ -67,7 +67,7 @@ export default function StationTable({
         <Table aria-label="simple table">
           <TableHead style={{ borderBottomWidth: 2, borderColor: "#465462" }}>
             <TableRow>
-              {StationsColumns.map((dt) => {
+              {StationsColumns.map((dt,i) => {
                 return (
                   <TableCell
                     sx={{
@@ -75,6 +75,7 @@ export default function StationTable({
                       fontFamily: "Quicksand",
                     }}
                     align="center"
+                    key={i}
                   >
                     <div className="text-[14px] pt-[20px] pb-[5px] maxWeb1:pt-[45px] maxWeb1:pb-[6px] maxWeb1:text-[23px] maxWeb2:text-[28px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pt-[70px] maxWeb3:pt-[90px] maxWeb4:pt-[90px] maxWeb2:pb-[12px] maxWeb3:pb-[18px] maxWeb4:pb-[25px]">
                       {dt.title}

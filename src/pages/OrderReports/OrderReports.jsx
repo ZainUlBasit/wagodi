@@ -54,8 +54,8 @@ const OrderReports = () => {
       requestBody.start_date = Math.floor(start_date.getTime() / 1000);
       // requestBody.end_date = date - ;
     }
-    console.log(firstTime == 0);
-    console.log(CurDate != previousDate);
+    // console.log(firstTime == 0);
+    // console.log(CurDate != previousDate);
     firstTime == 0 || CurDate != previousDate
       ? (async () => {
           const data = await api.post("/order/company", requestBody);
@@ -114,7 +114,6 @@ const OrderReports = () => {
         ) : (
           orders
             ?.filter((order) => {
-              console.log(order);
               if (SearchText === "") return order;
               else {
                 if (order.station.id.name.toLowerCase().includes(SearchText))

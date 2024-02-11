@@ -21,7 +21,6 @@ const StationDetail = ({
   const [Status, setStatus] = useState("");
   const dispatch = useDispatch();
   const Current_User = useSelector((state) => state.auth);
-  console.log(StationDetailData);
   const setFuelsData = () => {
     StationDetailData?.populatedFuels.map((f_data) => {
       if (f_data.type === 0) {
@@ -37,7 +36,6 @@ const StationDetail = ({
   };
   useEffect(() => {
     setFuelsData();
-    console.log(StationDetailData);
   }, []);
 
   const navigate = useNavigate();
@@ -153,16 +151,19 @@ const StationDetail = ({
           e.preventDefault();
           try {
             setStatus(Status === "" ? !StationDetailData.favorite : !Status);
-            let response = await UpdateStationApi({
+            const BodyData = {
               stationId: StationDetailData._id,
               updateData: {
                 favorite: !StationDetailData.favorite,
               },
-            });
+            };
+            console.log(BodyData);
+            let response = await UpdateStationApi(BodyData);
             if (response.data.success) {
               SuccessToast("Station favourite Successfully...");
               // dispatch(FavouriteStation(StationDetailData._id));
             } else if (!response.data.success) {
+              console.log(response);
               toast.error(response.data?.error?.msg, {
                 duration: 4000,
                 position: "top-right",

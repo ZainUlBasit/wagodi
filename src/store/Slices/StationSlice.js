@@ -5,7 +5,6 @@ export const fetchStations = createAsyncThunk(
   "fetchStations",
   async (companyId, query = {}) => {
     try {
-      console.log(companyId);
       let response = await GetStationApi({
         companyId: companyId._id,
       });

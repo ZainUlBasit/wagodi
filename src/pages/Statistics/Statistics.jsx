@@ -26,6 +26,8 @@ import SendReport from "../../components/Modals/SendReport";
 import { Link } from "react-router-dom";
 import { api } from "../../Https";
 import { useSelector } from "react-redux";
+import TableWrapper from "../../components/Tables/TableWrapper";
+import "./Statistics.css"
 
 const Statistics = () => {
   const userData = useSelector((state) => state.auth.data);
@@ -113,7 +115,7 @@ const Statistics = () => {
   const [Days, setDays] = useState([]);
   const [OpenSendReport, setOpenSendReport] = useState(false);
 
-  useEffect( () => {
+  useEffect(() => {
     const currentYear = new Date().getFullYear();
     setDays(generateDaysArray());
     setYears(generateYears(currentYear - 10, currentYear));
@@ -125,8 +127,8 @@ const Statistics = () => {
         .then((response) => {
           console.log(response);
         });
-    }
-    fetchStats()
+    };
+    fetchStats();
   }, []);
 
   return (
@@ -142,11 +144,14 @@ const Statistics = () => {
           <div className="flex items-center gap-x-4">
             <Link
               to={"/employee-data"}
-              className="outline-none text-white font-[700] text-[1.1rem] text-center bg-[#465462] px-4 py-[6px] rounded-full cursor-pointer"
+              className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
             >
               Employee Data
             </Link>
-            <div className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white">
+            <div
+              // className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white"
+              className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
+            >
               <div className="flex items-center">
                 <input
                   type="text"
@@ -154,7 +159,7 @@ const Statistics = () => {
                   id="date"
                   placeholder="Month"
                   value={CurrentMonth}
-                  className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-[#465462]"
+                  className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
                   disabled
                 />
                 <BiSolidChevronDown
@@ -230,19 +235,22 @@ const Statistics = () => {
           </div>
         </div>
         {/* Top Table */}
-        <div className="w-[90%] max-w-[1200px] shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] mb-10 relative mt-1 overflow-hidden rounded-[15px]">
+        <TableWrapper className="rounded-[13px] overflow-hidden">
           <StatisticsTopTable />
-        </div>
+        </TableWrapper>
 
         <div className="flex justify-end w-[90%] mb-4 gap-x-3 gap-y-1 max767:flex-col max767:items-start">
           <button
-            className={`border-2 border-[##90898E] px-4 py-1 rounded-3xl font-[Quicksand] font-[700] bg-[#90898E] text-white transition-all duration-500 ease-in-out`}
+            className={`relative text-center tracking-[1px] px-4 py-1 rounded-3xl font-[Quicksand] font-[700] bg-[#90898E] text-white no-underline text-#465462 cursor-pointer transition-all ease-in-out duration-500  border-2 border-solid border-[#90898E] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] hover:border-[#465462] active:scale-90 flex items-center gap-x-2 justify-center`}
             onClick={() => setOpenSendReport(!OpenSendReport)}
           >
             Send Report
           </button>
           {/* show days, month and year as filter selected */}
-          <div className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white">
+          <div
+            className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
+            // className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white"
+          >
             <div className="flex items-center">
               <input
                 type="text"
@@ -250,7 +258,7 @@ const Statistics = () => {
                 id="date"
                 placeholder="Month"
                 value={CurrentMonthChart}
-                className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-[#465462]"
+                className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
                 disabled
               />
               <BiSolidChevronDown
@@ -262,7 +270,10 @@ const Statistics = () => {
             </div>
           </div>
           {/* Select Month Year Days */}
-          <div className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white">
+          <div
+            className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
+            // className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white"
+          >
             <div className="flex items-center">
               <input
                 type="text"
@@ -270,7 +281,7 @@ const Statistics = () => {
                 id="date"
                 placeholder="Month"
                 value={CurrentMonthChart1}
-                className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-[#465462]"
+                className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
                 disabled
               />
               <BiSolidChevronDown
@@ -478,7 +489,7 @@ const Statistics = () => {
         </div>
 
         <div className="gap-x-5 flex-wrap w-[90%] flex justify-between max767:items-center max767:justify-center max1056:items-center max1056:justify-center mt-2">
-          <div className="h-[360px] w-[500px] max767:w-auto overflow-scroll border-[1px] border-[#576370]">
+          <div className="h-[360px] w-[500px] max767:w-auto overflow-scroll border-[1px] border-[#576370] MaxTableWidth">
             <StationStatisticTopTable />
           </div>
           <ApexChart />

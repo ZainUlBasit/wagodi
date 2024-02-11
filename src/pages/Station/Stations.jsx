@@ -37,7 +37,6 @@ const Stations = () => {
   const Auth = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(fetchStations(Auth.data.companyId));
-    console.log("stations data : ", StationsData.data);
   }, []);
 
   return (

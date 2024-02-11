@@ -13,11 +13,13 @@ import { DeleteStationApi, api } from "../../Https";
 import SuccessToast from "../Toast/SuccessToast";
 import ErrorToast from "../Toast/ErrorToast";
 import { fetchStations } from "../../store/Slices/StationSlice";
+import { fetchVendors } from "../../store/Slices/VendorSlice";
+import { fetchUsers } from "../../store/Slices/UserSlice";
 
 const style = {
   position: "absolute",
   top: "50%",
-left: "50%",
+  left: "50%",
   transform: "translate(-50%, -50%)",
   // width: "auto",
   bgcolor: "#465462",
@@ -36,30 +38,46 @@ export default function DeleteModal({ Open, setOpen, State }) {
   const Deleting = async () => {
     setLoading(true);
     try {
-      const BodyData = {
-        stationId: State._id,
-        companyId: Current_User.data.companyId._id,
-      };
-      console.log("hjgsadjhfashgdf", BodyData);
       if (State.type === "station") {
+        const BodyData = {
+          stationId: State._id,
+          companyId: Current_User.data.companyId._id,
+        };
         let response = await DeleteStationApi(BodyData);
         SuccessToast(response.data.data.msg);
         setOpen(false);
         dispatch(fetchStations(Current_User.data.companyId));
-      }
-      if(State.type === "vendor") {
+      } else if (State.type === "vendor") {
         try {
-          let response = await api.delete(`vendor/${State._id}`)
-        SuccessToast(response.data.data.msg);
-        setOpen(false);
-        dispatch(fetchStations(Current_User.data.companyId));
+          let response = await api.delete(`vendor/${State._id}`);
+          SuccessToast(response.data.data.msg);
+          setOpen(false);
+          dispatch(fetchVendors(Current_User.data.companyId));
         } catch (error) {
-          console.log(error)
-          ErrorToast("Error deleting " + State.type + "!")
+          console.log(error);
+          ErrorToast("Error deleting " + State.type + "!");
+        }
+      } else if (State.type === "user") {
+        try {
+          let response = await api.delete(`auth/user/${State._id}`);
+          SuccessToast(response.data.data.msg);
+          setOpen(false);
+          dispatch(
+            fetchUsers({
+              companyId: Current_User.data.companyId,
+              query: {
+                companyId: Current_User.data.companyId,
+              },
+            })
+          );
+        } catch (error) {
+          console.log(error);
+          ErrorToast("Error deleting " + State.type + "!");
         }
       }
     } catch (err) {
-      ErrorToast(err.response.data.error.msg);
+      console.log(err);
+      ErrorToast(err?.response?.data?.error.msg);
     }
     setLoading(false);
   };

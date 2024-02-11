@@ -1,26 +1,25 @@
 /* DriverDetailTable.css */
-.custom-table-container {
-  max-height: 360px;
+.hike {
+  /* max-height: 800px; */
   overflow-y: auto;
+  /* overflow: scroll; */
   /* Hide the scrollbar */
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent; /* Hide scrollbar in Firefox */
+  /* scrollbar-width: thin; */
+  /* scrollbar-color: transparent transparent;  */
 }
 
-/* Webkit browsers (Chrome, Safari, etc.) */
-.custom-table-container::-webkit-scrollbar {
+/* .custom-table-container::-webkit-scrollbar {
   width: 0px;
 }
 
 .custom-table-container::-webkit-scrollbar-thumb {
-  background-color: transparent; /* Hide scrollbar thumb */
-}
+  background-color: transparent;
+} 
 
-/* Firefox */
 .custom-table-container::-moz-scrollbar {
-  width: 6px;
+  width: 1px;
 }
 
 .custom-table-container::-moz-scrollbar-thumb {
-  background-color: transparent; /* Hide scrollbar thumb */
-}
+  background-color: transparent; 
+} */

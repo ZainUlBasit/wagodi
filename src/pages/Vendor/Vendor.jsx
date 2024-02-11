@@ -40,7 +40,7 @@ const Vendor = () => {
           {/* Right */}
           <div className="flex items-center gap-x-4">
             <button
-              className={`border-2 border-[#465462] px-4 py-[5px] rounded-full font-[Quicksand] font-[700] bg-[#fff] text-[#465462] transition-all duration-500 ease-in-out flex gap-x-6 items-center hover:text-white hover:bg-[#465462] maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem]  maxWeb4:text-[3rem]`}
+              className={`relative text-center text-lg tracking-[1px] no-underline text-[#465462] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#fff] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
               onClick={() => setOpenAdd(!OpenAdd)}
             >
               <span className="pl-1">Add Vendor</span>
@@ -76,8 +76,7 @@ const Vendor = () => {
         <EditVendor
           Open={OpenEdit}
           setOpen={setOpenEdit}
-
-          Data={VendorsData.data.filter(dt=>dt._id === VendorID)[0]}
+          Data={VendorsData.data.filter((dt) => dt._id === VendorID)[0]}
           companyId={Auth.data.companyId}
         />
       )}

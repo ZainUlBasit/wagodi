@@ -13,6 +13,7 @@ import WarningToast from "../Toast/WarningToast";
 import ErrorToast from "../Toast/ErrorToast";
 import { fetchUsers } from "../../store/Slices/UserSlice";
 import AddingLightLoader from "../Loaders/AddingLightLoader";
+import LocationSearchInput from "../../utility/LocationSearchInput";
 
 const AddUser = ({ Open, setOpen }) => {
   const [Username, setUsername] = useState("");
@@ -26,6 +27,8 @@ const AddUser = ({ Open, setOpen }) => {
   const [StationName, setStationName] = useState("");
   const [Gender, setGender] = useState("");
   const [Loading, setLoading] = useState(false);
+  const [Long, setLong] = useState("")
+  const [Lat, setLat] = useState("")
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorElRole, setAnchorElRole] = useState(null);
@@ -51,7 +54,8 @@ const AddUser = ({ Open, setOpen }) => {
   };
 
   const onSubmit = async (e) => {
-    if(!Email.test(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) return ErrorToast("Invalid email entered!")
+    if (!Email.test(/^[^\s@]+@[^\s@]+\.[^\s@]+$/))
+      return ErrorToast("Invalid email entered!");
     setLoading(true);
     e.preventDefault();
     let req_data = {
@@ -146,6 +150,11 @@ const AddUser = ({ Open, setOpen }) => {
   const dispatch = useDispatch();
   const Auth = useSelector((state) => state.auth);
   const StationsData = useSelector((state) => state.StationReducer);
+  const handleSelect = ({ address, latLng }) => {
+    setAddress(address);
+    setLong(latLng.lat);
+    setLat(latLng.lng);
+  };
   useEffect(() => {
     dispatch(fetchStations(Auth.data.companyId));
   }, []);
@@ -181,13 +190,15 @@ const AddUser = ({ Open, setOpen }) => {
                 setValue={(data) => setPassword(data)}
               />
 
-              <AuthTextArea
+              <LocationSearchInput onSelect={handleSelect} />
+
+              {/* <AuthTextArea
                 label={"Address"}
                 placeholder={"Enter address"}
                 required={false}
                 Value={Address}
                 setValue={(data) => setAddress(data)}
-              />
+              /> */}
             </div>
             {/* right */}
             <div>
@@ -456,7 +467,7 @@ const AddUser = ({ Open, setOpen }) => {
               <AddingLightLoader />
             </div>
           ) : (
-            <div className="w-full flex justify-center items-center gap-x-5 font-[Quicksand]">
+            <div className="w-full flex justify-center items-center gap-x-5 font-[Quicksand] mt-4">
               <button
                 className={`mt-[5px] mb-[30px] w-[197px] max767:w-[120px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
                 onClick={onSubmit}

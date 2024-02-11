@@ -19,7 +19,6 @@ export default function OngoingOrdersTable({
   Search,
   data: Data,
 }) {
-  console.log(Data);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 

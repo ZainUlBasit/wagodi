@@ -6,10 +6,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Data } from "./DemoData/Orders";
-import { AiFillEye } from "react-icons/ai";
-import { StationStatisticsData } from "./DemoData/StationStatisticsData";
-import "../../assets/Style/style.css";
 import { StationStatisticsTopData } from "./DemoData/StationStatisticsTopData";
 import "./StationStatisticTopTable.css";
 
@@ -17,13 +13,11 @@ export default function StationStatisticTopTable() {
   return (
     <TableContainer
       component={Paper}
-      className="custom-table-container fade-in"
+      className="hike"
       sx={{
         borderWidth: 0,
-        borderTopLeftRadius: "0px",
-        borderTopRightRadius: "0px",
       }}
-      style={{ borderTopLeftRadius: "0px", position: "relative", zIndex: 1 }}
+      style={{ position: "relative", zIndex: 1 }}
     >
       <Table aria-label="simple table">
         <TableHead
@@ -31,66 +25,40 @@ export default function StationStatisticTopTable() {
             borderWidth: 0,
             backgroundColor: "#576370",
             position: "sticky",
+            right: 0,
             top: 0,
           }}
         >
           <TableRow>
-            <TableCell
-              sx={{
-                borderWidth: 0,
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "5px",
-                paddingBottom: "5px",
-                color: "#fff",
-
-                borderBottomLeftRadius: 10,
-              }}
-              align="center"
-            >
-              <div className="font-[Quicksand]">No</div>
-            </TableCell>
-            <TableCell
-              sx={{
-                borderWidth: 0,
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "5px",
-                paddingBottom: "5px",
-                color: "#fff",
-              }}
-              align="center"
-            >
-              <div className="font-[Quicksand]">Station Name</div>
-            </TableCell>
-            <TableCell
-              sx={{
-                borderWidth: 0,
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "5px",
-                paddingBottom: "5px",
-                color: "#fff",
-              }}
-              align="center"
-            >
-              <div className="font-[Quicksand]">Sales Volume</div>
-            </TableCell>
-            <TableCell
-              sx={{
-                borderWidth: 0,
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                paddingTop: "5px",
-                paddingBottom: "5px",
-                color: "#fff",
-
-                borderBottomRightRadius: 10,
-              }}
-              align="center"
-            >
-              <div className="font-[Quicksand]">Sales amount</div>
-            </TableCell>
+            {[
+              { title: "No" },
+              { title: "Station Name" },
+              { title: "Sales Volume" },
+              { title: "Sales Amount" },
+            ].map((dt, i) => {
+              return (
+                <TableCell
+                  sx={{
+                    fontWeight: "bold",
+                    fontFamily: "Quicksand",
+                    position: "sticky",
+                    top: 0,
+                    backgroundColor: "#576370",
+                    zIndex: 2,
+                    borderBottom: 0,
+                    ...(i === 0 && { borderBottomLeftRadius: 10 }),
+                    ...(i === 3 && { borderBottomRightRadius: 10 }),
+                  }}
+                  align="center"
+                >
+                  <div
+                    className={`text-[14px] pt-[2px] pb-[2px] maxWeb1:pt-[2px] maxWeb1:pb-[6px] maxWeb1:text-[18px] maxWeb2:text-[20px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pt-[6px] maxWeb3:pt-[6px] maxWeb4:pt-[6px] maxWeb2:pb-[6px] maxWeb3:pb-[6px] maxWeb4:pb-[6px] text-white`}
+                  >
+                    {dt.title}
+                  </div>
+                </TableCell>
+              );
+            })}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -104,12 +72,12 @@ export default function StationStatisticTopTable() {
                   borderBlockWidth: 0,
                   borderRight: 1,
                 }}
-                // component="th"
                 scope="row"
                 align="center"
               >
-                {i + 1}
-                {/* {row.no} */}
+                <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                  {i + 1}
+                </div>
               </TableCell>
               <TableCell
                 sx={{
@@ -121,7 +89,9 @@ export default function StationStatisticTopTable() {
                 }}
                 align="center"
               >
-                {row.StationName}
+                <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                  {row.StationName}
+                </div>
               </TableCell>
               <TableCell
                 sx={{
@@ -133,7 +103,9 @@ export default function StationStatisticTopTable() {
                 }}
                 align="center"
               >
-                {row.SalesVolume}
+                <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                  {row.SalesVolume}
+                </div>
               </TableCell>
               <TableCell
                 sx={{
@@ -144,7 +116,9 @@ export default function StationStatisticTopTable() {
                 }}
                 align="center"
               >
-                {row.SalesAmount}
+                <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                  {row.SalesAmount}
+                </div>
               </TableCell>
             </TableRow>
           ))}

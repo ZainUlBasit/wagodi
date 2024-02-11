@@ -47,14 +47,13 @@ const Home = () => {
     console.log("Selected Address:", address);
     console.log("Latitude:", latLng.lat);
     console.log("Longitude:", latLng.lng);
-    // Perform additional actions with the selected address and coordinates
   };
 
   return (
     <>
       {/* Main wrapper */}
       <div className="w-full flex flex-col items-center justify-center fade-in">
-        <LocationSearchInput onSelect={handleSelect} />
+        {/* <LocationSearchInput onSelect={handleSelect} /> */}
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 mb-6">
           {/* Left */}

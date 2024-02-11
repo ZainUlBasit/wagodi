@@ -9,7 +9,7 @@ const FavBtn = ({ Value, setValue }) => {
       onClick={() => setValue(!Value)}
     >
       <span class={Value ? "IconContainerFav" : "IconContainer"}>
-        <FaStar class={Value ? "iconFav" : "icon"} />
+        <FaStar class={Value ? "iconFav" : "iconF"} />
       </span>
       <p
         class={

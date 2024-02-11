@@ -1,197 +1,92 @@
-#wifi-loader {
-  --background: #96ADC5;
-  --front-color: #465462;
-  --back-color: #c3c8de;
-  --text-color: #414856;
-  width: 64px;
-  height: 64px;
-  border-radius: 50px;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.spinner {
+  width: 100px;
+  height: 100px;
+  display: grid;
+  border: 4.5px solid #0000;
+  border-radius: 50%;
+  border-color: #dbdcef #0000;
+  animation: spinner-e04l1k 1s infinite linear;
 }
 
-#wifi-loader svg {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.spinner::before,
+.spinner::after {
+  content: "";
+  grid-area: 1/1;
+  margin: 2.2px;
+  border: inherit;
+  border-radius: 50%;
 }
 
-#wifi-loader svg circle {
-  position: absolute;
-  fill: none;
-  stroke-width: 6px;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transform: rotate(-100deg);
-  transform-origin: center;
+.spinner::before {
+  border-color: #465462 #0000;
+  animation: inherit;
+  animation-duration: 0.5s;
+  animation-direction: reverse;
 }
 
-#wifi-loader svg circle.back {
-  stroke: var(--back-color);
+.spinner::after {
+  margin: 8.9px;
 }
 
-#wifi-loader svg circle.front {
-  stroke: var(--front-color);
-}
-
-#wifi-loader svg.circle-outer {
-  height: 86px;
-  width: 86px;
-}
-
-#wifi-loader svg.circle-outer circle {
-  stroke-dasharray: 62.75 188.25;
-}
-
-#wifi-loader svg.circle-outer circle.back {
-  animation: circle-outer135 1.8s ease infinite 0.3s;
-}
-
-#wifi-loader svg.circle-outer circle.front {
-  animation: circle-outer135 1.8s ease infinite 0.15s;
-}
-
-#wifi-loader svg.circle-middle {
-  height: 60px;
-  width: 60px;
-}
-
-#wifi-loader svg.circle-middle circle {
-  stroke-dasharray: 42.5 127.5;
-}
-
-#wifi-loader svg.circle-middle circle.back {
-  animation: circle-middle6123 1.8s ease infinite 0.25s;
-}
-
-#wifi-loader svg.circle-middle circle.front {
-  animation: circle-middle6123 1.8s ease infinite 0.1s;
-}
-
-#wifi-loader svg.circle-inner {
-  height: 34px;
-  width: 34px;
-}
-
-#wifi-loader svg.circle-inner circle {
-  stroke-dasharray: 22 66;
-}
-
-#wifi-loader svg.circle-inner circle.back {
-  animation: circle-inner162 1.8s ease infinite 0.2s;
-}
-
-#wifi-loader svg.circle-inner circle.front {
-  animation: circle-inner162 1.8s ease infinite 0.05s;
-}
-
-#wifi-loader .text {
-  position: absolute;
-  bottom: -40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-transform: lowercase;
-  font-weight: 500;
-  font-size: 14px;
-  letter-spacing: 0.2px;
-}
-
-#wifi-loader .text::before,
-#wifi-loader .text::after {
-  content: attr(data-text);
-}
-
-#wifi-loader .text::before {
-  color: var(--text-color);
-}
-
-#wifi-loader .text::after {
-  color: var(--front-color);
-  animation: text-animation76 3.6s ease infinite;
-  position: absolute;
-  left: 0;
-}
-
-@keyframes circle-outer135 {
-  0% {
-    stroke-dashoffset: 25;
-  }
-
-  25% {
-    stroke-dashoffset: 0;
-  }
-
-  65% {
-    stroke-dashoffset: 301;
-  }
-
-  80% {
-    stroke-dashoffset: 276;
-  }
-
+@keyframes spinner-e04l1k {
   100% {
-    stroke-dashoffset: 276;
+    transform: rotate(1turn);
   }
 }
 
-@keyframes circle-middle6123 {
-  0% {
-    stroke-dashoffset: 17;
+@media (min-width: 1920px) and (max-width: 2560px) {
+  .spinner {
+    width: 130px;
+    height: 130px;
+    border: 6.5px solid #0000;
+    border-color: #dbdcef #0000;
   }
-
-  25% {
-    stroke-dashoffset: 0;
+  .spinner::before {
+    margin: 3.2px;
   }
-
-  65% {
-    stroke-dashoffset: 204;
-  }
-
-  80% {
-    stroke-dashoffset: 187;
-  }
-
-  100% {
-    stroke-dashoffset: 187;
+  .spinner::after {
+    margin: 9.9px;
   }
 }
-
-@keyframes circle-inner162 {
-  0% {
-    stroke-dashoffset: 9;
+@media (min-width: 2560px) and (max-width: 3440px) {
+  .spinner {
+    width: 150px;
+    height: 150px;
+    border: 7.5px solid #0000;
+    border-color: #dbdcef #0000;
   }
-
-  25% {
-    stroke-dashoffset: 0;
+  .spinner::before {
+    margin: 4.2px;
   }
-
-  65% {
-    stroke-dashoffset: 106;
-  }
-
-  80% {
-    stroke-dashoffset: 97;
-  }
-
-  100% {
-    stroke-dashoffset: 97;
+  .spinner::after {
+    margin: 10.9px;
   }
 }
-
-@keyframes text-animation76 {
-  0% {
-    clip-path: inset(0 100% 0 0);
+@media (min-width: 3440px) and (max-width: 3840px) {
+  .spinner {
+    width: 170px;
+    height: 170px;
+    border: 8.5px solid #0000;
+    border-color: #dbdcef #0000;
   }
-
-  50% {
-    clip-path: inset(0);
+  .spinner::before {
+    margin: 5.2px;
   }
-
-  100% {
-    clip-path: inset(0 0 0 100%);
+  .spinner::after {
+    margin: 11.9px;
+  }
+}
+@media (min-width: 3840px) {
+  .spinner {
+    width: 180px;
+    height: 180px;
+    border: 9.5px solid #0000;
+    border-color: #dbdcef #0000;
+  }
+  .spinner::before {
+    margin: 6.2px;
+  }
+  .spinner::after {
+    margin: 12.9px;
   }
 }
