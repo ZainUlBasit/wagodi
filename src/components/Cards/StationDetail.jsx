@@ -43,6 +43,8 @@ const StationDetail = ({
     navigate("/add-reservation", {
       state: {
         type,
+        s_name: StationDetailData.name,
+        s_id: StationDetailData._id,
         max_value:
           type === 0
             ? _91.max_value

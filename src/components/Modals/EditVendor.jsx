@@ -8,13 +8,16 @@ import { fetchVendors } from "../../store/Slices/VendorSlice";
 import { useDispatch } from "react-redux";
 import ErrorToast from "../Toast/ErrorToast";
 import WarningToast from "../Toast/WarningToast";
+import LocationSearchInput from "../../utility/LocationSearchInput";
 
 const EditVendor = ({ Open, setOpen, Data, companyId }) => {
   const [VendorName, setVendorName] = useState(Data.name);
   const [Location, setLocation] = useState(Data.address);
-  const [_95, set_95] = useState(Data.fuels[0]?.price_litre);
-  const [_91, set_91] = useState(Data.fuels[1]?.price_litre);
+  const [_95, set_95] = useState(Data.fuels[1]?.price_litre);
+  const [_91, set_91] = useState(Data.fuels[0]?.price_litre);
   const [_D, set_D] = useState(Data.fuels[2]?.price_litre);
+  const [Longitude, setLongitude] = useState("");
+  const [Latitude, setLatitude] = useState("");
   const dispatch = useDispatch();
   const onSubmit = async (e) => {
     console.log(_91);
@@ -25,19 +28,19 @@ const EditVendor = ({ Open, setOpen, Data, companyId }) => {
       if (_91 !== "" && i === 0) {
         return {
           _id: fu._id,
-          type: i + 1,
+          type: 0,
           price_litre: Number(_91),
         };
       } else if (_95 !== "" && i === 1) {
         return {
           _id: fu._id,
-          type: i + 1,
+          type: 1,
           price_litre: Number(_95),
         };
       } else if (_D !== "" && i === 2) {
         return {
           _id: fu._id,
-          type: i + 1,
+          type: 2,
           price_litre: Number(_D),
         };
       }
@@ -49,6 +52,8 @@ const EditVendor = ({ Open, setOpen, Data, companyId }) => {
       id: Data._id,
       payload: { name: VendorName, address: Location },
       fuels: Fuel_Array,
+      longitude: Longitude,
+      latitude: Latitude,
     };
     try {
       const response = await UpdateVendorApi(BodyData);
@@ -63,6 +68,12 @@ const EditVendor = ({ Open, setOpen, Data, companyId }) => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleSelect = ({ address, latLng }) => {
+    setLocation(address);
+    setLongitude(latLng.lng);
+    setLatitude(latLng.lat);
   };
 
   return (
@@ -82,13 +93,18 @@ const EditVendor = ({ Open, setOpen, Data, companyId }) => {
                 Value={VendorName}
                 setValue={setVendorName}
               />
-              <AuthTextArea
+              <LocationSearchInput
+                CurrentValue={Data.address}
+                onSelect={handleSelect}
+              />
+              <div className="mb-3"></div>
+              {/* <AuthTextArea
                 label={"Location"}
                 placeholder={"Write Address"}
                 required={false}
                 Value={Location}
                 setValue={setLocation}
-              />
+              /> */}
             </div>
             {/* right */}
             <div className="flex flex-col">

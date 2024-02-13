@@ -1,10 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AuthInput from "../../components/Input/AuthInput";
 import { FaPlus } from "react-icons/fa";
+import moment from "moment";
+import AuthInputPopOver from "../../components/Input/AuthInputPopOver";
+import { Popover, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchStations } from "../../store/Slices/StationSlice";
+import { fetchVendors } from "../../store/Slices/VendorSlice";
+import { StationData } from "../../components/Tables/DemoData/StationData";
 
-const Step1 = ({setCurrentTabNumber,CurrentTabNumber, formData}) => {
-  const [StationName, setStationName] = useState("");
-  const [ReservationDate, setReservationDate] = useState("");
+const Step1 = ({
+  setCurrentTabNumber,
+  CurrentTabNumber,
+  formData,
+  s_name,
+  s_id,
+}) => {
+  const [StationName, setStationName] = useState(s_name);
+  const [ReservationDate, setReservationDate] = useState(
+    moment(new Date()).format("YYYY-MM-DD")
+  );
   const [ReceiptNumber, setReceiptNumber] = useState("");
   const [PaidAmouunt, setPaidAmouunt] = useState("");
   const [ArrivalDate, setArrivalDate] = useState("");
@@ -12,11 +27,45 @@ const Step1 = ({setCurrentTabNumber,CurrentTabNumber, formData}) => {
   const [AddTip, setAddTip] = useState("");
   const [AddBuyingReceipt, setAddBuyingReceipt] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElEnd, setAnchorElEnd] = useState(null);
+  const [OpenStation, setOpenStation] = useState(false);
+  const [OpenVendor, setOpenVendor] = useState(false);
+  const [StartPointType, setStartPointType] = useState("");
+  const [NameEnd, setNameEnd] = useState("");
+  const [IdEnd, setIdEnd] = useState("");
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
   };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const openEnd = Boolean(anchorElEnd);
+  const idEnd = openEnd ? "simple-popover" : undefined;
+  const handleClickEnd = (event) => {
+    setAnchorElEnd(event.currentTarget);
+  };
+  const handleCloseEnd = () => {
+    setAnchorElEnd(null);
+  };
+  const dispatch = useDispatch();
+  const StationsData = useSelector((state) => state.StationReducer);
+  const Auth = useSelector((state) => state.auth);
+  const VendorsData = useSelector((state) => state.Vendor);
+  useEffect(() => {
+    dispatch(fetchStations(Auth.data.companyId));
+    dispatch(fetchVendors(Auth.data.companyId));
+  }, []);
+
   return (
     <div className="w-[718px] flex flex-col gap-x-10 pt-[45px] mt-10 shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] justify-between h-[446px] rounded-[15px] fade-in">
       <div className="w-[718px] flex gap-x-10 justify-center rounded-[15px]">
@@ -30,6 +79,7 @@ const Step1 = ({setCurrentTabNumber,CurrentTabNumber, formData}) => {
             setValue={setStationName}
           />
           <AuthInput
+            Type={"date"}
             label={"Reservation Date"}
             placeholder={"19-Sep-2023"}
             required={false}
@@ -44,26 +94,26 @@ const Step1 = ({setCurrentTabNumber,CurrentTabNumber, formData}) => {
             setValue={setReceiptNumber}
           />
           <div className="flex flex-col">
-              <label
-                htmlFor="file-input"
-                className="cursor-pointer flex items-center w-fit border-[1px] border-[#DCDCDC] py-[5px] px-[20px] pl-[10px] rounded-[7.94px] text-[13.9px]"
-              >
-                <FaPlus className="text-[#465462] text-[1.1rem] font-bold mr-5 ml-2" />
-                Add Buying Receipt 
-              </label>
-              <input
-                id="file-input"
-                type="file"
-                accept=".jpg, .jpeg, .png"
-                className="hidden"
-                onChange={handleFileChange}
-              />
-              {selectedFile && (
-                <div className="ml-3">
-                  <p>Selected File: {selectedFile.name}</p>
-                </div>
-              )}
-            </div>
+            <label
+              htmlFor="file-input"
+              className="cursor-pointer flex items-center w-fit border-[1px] border-[#DCDCDC] py-[5px] px-[20px] pl-[10px] rounded-[7.94px] text-[13.9px]"
+            >
+              <FaPlus className="text-[#465462] text-[1.1rem] font-bold mr-5 ml-2" />
+              Add Buying Receipt
+            </label>
+            <input
+              id="file-input"
+              type="file"
+              accept=".jpg, .jpeg, .png"
+              className="hidden"
+              onChange={handleFileChange}
+            />
+            {selectedFile && (
+              <div className="ml-3">
+                <p>Selected File: {selectedFile.name}</p>
+              </div>
+            )}
+          </div>
         </div>
         {/* right side */}
         <div>
@@ -80,14 +130,185 @@ const Step1 = ({setCurrentTabNumber,CurrentTabNumber, formData}) => {
             required={false}
             Value={ArrivalDate}
             setValue={setArrivalDate}
+            Type={"date"}
           />
-          <AuthInput
-            label={"Start Point"}
+          <AuthInputPopOver
+            label={"Start Point Type"}
             placeholder={"Select Start Point..."}
-            required={false}
-            Value={StartPoint}
-            setValue={setStartPoint}
+            Value={StartPointType}
+            onClick={(data) => handleClick(data)}
           />
+          {(StartPointType === "Vendor" || StartPointType === "Station") && (
+            <AuthInputPopOver
+              label={"Start Point"}
+              placeholder={
+                StartPointType === "Vendor"
+                  ? "Select Vendor..."
+                  : "Select Station..."
+              }
+              Value={NameEnd}
+              onClick={(data) => handleClickEnd(data)}
+            />
+          )}
+          {/* Select Start Type */}
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            PaperProps={{
+              sx: {
+                borderRadius: "25px", // Add rounded corners
+                backgroundColor: "white", // Set background color to white
+                width: "300px", // Set the width as needed
+                overflow: "hidden", // Hide overflowing content
+                //   marginTop: "6px",
+              },
+            }}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+          >
+            <Typography
+              sx={{
+                p: 2,
+                borderColor: "#465462",
+                backgroundColor: "#465462",
+                width: "400px",
+                overflow: "hidden",
+                borderRadius: "25px",
+              }}
+            >
+              <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
+                <div className="w-full flex flex-col justify-between gap-y-3 items-start">
+                  <div
+                    className="flex gap-x-3 items-center cursor-pointer"
+                    onClick={() => {
+                      handleClose();
+                      setOpenVendor(true);
+                      setOpenStation(false);
+                      setStartPointType("Vendor");
+                      setIdEnd("");
+                      setNameEnd("");
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                      checked={OpenVendor}
+                    />
+                    <span>Vendor</span>
+                  </div>
+                  <div
+                    className="flex gap-x-3 items-center cursor-pointer"
+                    onClick={() => {
+                      handleClose();
+                      setOpenVendor(false);
+                      setOpenStation(true);
+                      setStartPointType("Station");
+                      setIdEnd("");
+                      setNameEnd("");
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                      checked={OpenStation}
+                    />
+                    <span>Station</span>
+                  </div>
+                </div>
+              </div>
+            </Typography>
+          </Popover>
+          {/* Select Start Type */}
+          <Popover
+            id={idEnd}
+            open={openEnd}
+            anchorEl={anchorElEnd}
+            onClose={handleCloseEnd}
+            PaperProps={{
+              sx: {
+                borderRadius: "25px", // Add rounded corners
+                backgroundColor: "white", // Set background color to white
+                width: "300px", // Set the width as needed
+                overflow: "hidden", // Hide overflowing content
+                //   marginTop: "6px",
+              },
+            }}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+          >
+            <Typography
+              sx={{
+                p: 2,
+                borderColor: "#465462",
+                backgroundColor: "#465462",
+                width: "400px",
+                overflow: "hidden",
+                borderRadius: "25px",
+              }}
+            >
+              <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
+                <div className="w-full flex flex-col justify-between gap-y-3 items-start">
+                  {/* start data here */}
+                  {StartPointType === "Station" &&
+                    StationsData?.data.map((data) => {
+                      return (
+                        <div
+                          className="flex gap-x-3 items-center cursor-pointer"
+                          onClick={() => {
+                            handleCloseEnd();
+                            setIdEnd(data._id);
+                            setNameEnd(data.name);
+                          }}
+                        >
+                          <input
+                            type="checkbox"
+                            className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                            checked={IdEnd === data._id}
+                          />
+                          <span>{data.name}</span>
+                        </div>
+                      );
+                    })}
+                  {StartPointType === "Vendor" &&
+                    VendorsData?.data.map((data) => {
+                      return (
+                        <div
+                          className="flex gap-x-3 items-center cursor-pointer"
+                          onClick={() => {
+                            handleCloseEnd();
+                            setIdEnd(data._id);
+                            setNameEnd(data.name);
+                          }}
+                        >
+                          <input
+                            type="checkbox"
+                            className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                            checked={IdEnd === data._id}
+                          />
+                          <span>{data.name}</span>
+                        </div>
+                      );
+                    })}
+
+                  {/* end data here */}
+                </div>
+              </div>
+            </Typography>
+          </Popover>
           <AuthInput
             label={"Add Tip"}
             placeholder={"Add Amount..."}

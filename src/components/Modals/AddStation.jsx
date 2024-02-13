@@ -13,20 +13,23 @@ import { CreateStationApi } from "../../Https";
 import toast from "react-hot-toast";
 import { fetchStations } from "../../store/Slices/StationSlice";
 import WarningToast from "../Toast/WarningToast";
+import LocationSearchInput from "../../utility/LocationSearchInput";
 
 const AddStation = ({ Open, setOpen }) => {
   const [StationNumber, setStationNumber] = useState("");
   const [StationName, setStationName] = useState("");
   const [Address, setAddress] = useState("");
+  const [Longitude, setLongitude] = useState("");
+  const [Latitude, setLatitude] = useState("");
   const Auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const [AllGases, setAllGases] = useState([]);
   const [ShowAddGassInputs, setShowAddGassInputs] = useState(false);
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(AllGases);
-  },[AllGases])
+  }, [AllGases]);
 
   const deleteGas = (index) => {
     const updatedGases = [...AllGases];
@@ -50,6 +53,8 @@ const AddStation = ({ Open, setOpen }) => {
       name: StationName,
       address: Address,
       phone: StationNumber,
+      longitude: Longitude,
+      latitude: Latitude,
     };
 
     if (StationNumber === "") {
@@ -74,6 +79,15 @@ const AddStation = ({ Open, setOpen }) => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleSelect = ({ address, latLng }) => {
+    setAddress(address);
+    setLongitude(latLng.lng);
+    setLatitude(latLng.lat);
+    // console.log("Selected Address:", address);
+    // console.log("Latitude:", latLng.lat);
+    // console.log("Longitude:", latLng.lng);
   };
 
   return (
@@ -103,7 +117,10 @@ const AddStation = ({ Open, setOpen }) => {
             </div>
             {/* right */}
             <div>
-              <AuthTextArea
+              <LocationSearchInput onSelect={handleSelect} />
+              <div className="mb-3"></div>
+
+              {/* <AuthTextArea
                 label={"Address"}
                 placeholder={
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis."
@@ -111,7 +128,7 @@ const AddStation = ({ Open, setOpen }) => {
                 required={false}
                 Value={Address}
                 setValue={setAddress}
-              />
+              /> */}
             </div>
           </div>
           {/* Show data of array of Gasses */}

@@ -7,10 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchVendors } from "../../store/Slices/VendorSlice";
 import toast from "react-hot-toast";
 import WarningToast from "../Toast/WarningToast";
+import LocationSearchInput from "../../utility/LocationSearchInput";
 
 const AddVendor = ({ Open, setOpen }) => {
   const [VendorName, setVendorName] = useState("");
   const [Location, setLocation] = useState("");
+  const [Longitude, setLongitude] = useState("");
+  const [Latitude, setLatitude] = useState("");
   const [_95, set_95] = useState("");
   const [_91, set_91] = useState("");
   const [_D, set_D] = useState("");
@@ -35,8 +38,8 @@ const AddVendor = ({ Open, setOpen }) => {
       },
     ];
     Fuel_Array = Fuel_Array.filter((fu) => fu !== "");
-    if(Fuel_Array.length === 0){
-      return WarningToast("Please provide atleast one Price Per/L")
+    if (Fuel_Array.length === 0) {
+      return WarningToast("Please provide atleast one Price Per/L");
     }
     try {
       const response = await CreateVendorApi({
@@ -44,6 +47,8 @@ const AddVendor = ({ Open, setOpen }) => {
         name: VendorName,
         address: Location,
         fuels: Fuel_Array,
+        longitude: Longitude,
+        latitude: Latitude,
       });
       console.log("", response);
       if (response.data?.success) {
@@ -55,6 +60,13 @@ const AddVendor = ({ Open, setOpen }) => {
       console.log(err);
     }
   };
+
+  const handleSelect = ({ address, latLng }) => {
+    setLocation(address);
+    setLongitude(latLng.lng);
+    setLatitude(latLng.lat);
+  };
+
   return (
     <CustomModal open={Open} setOpen={setOpen}>
       <div>
@@ -72,13 +84,8 @@ const AddVendor = ({ Open, setOpen }) => {
                 Value={VendorName}
                 setValue={setVendorName}
               />
-              <AuthTextArea
-                label={"Location"}
-                placeholder={"Write Address"}
-                required={false}
-                Value={Location}
-                setValue={setLocation}
-              />
+              <LocationSearchInput onSelect={handleSelect} />
+              <div className="mb-3"></div>
             </div>
             {/* right */}
             <div className="flex flex-col">

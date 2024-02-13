@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import ErrorToast from "../../components/Toast/ErrorToast";
 import PageLoader from "../../components/Loaders/PageLoader";
 import TableWrapper from "../../components/Tables/TableWrapper";
+import NoDataFound from "../../components/Loaders/Lottie/NoDataFound";
 
 const OngoingOrder = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -112,6 +113,8 @@ const OngoingOrder = () => {
         </div>
         {Loading ? (
           <PageLoader />
+        ) : ordersData.length === 0 ? (
+          <NoDataFound />
         ) : (
           <TableWrapper className="rounded-[30px] overflow-hidden">
             <OngoingOrdersTable

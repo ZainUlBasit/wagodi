@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import ErrorToast from "../../components/Toast/ErrorToast";
 import { captureComponent } from "../../utility/utilityFunctions";
 import PageLoader from "../../components/Loaders/PageLoader";
+import NoDataFound from "../../components/Loaders/Lottie/NoDataFound";
 
 const OrderReports = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -111,6 +112,8 @@ const OrderReports = () => {
         </div>
         {Loading ? (
           <PageLoader />
+        ) : orders.length === 0 ? (
+          <NoDataFound />
         ) : (
           orders
             ?.filter((order) => {

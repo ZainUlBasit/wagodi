@@ -6,7 +6,7 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import { getCoordinates } from "./googlemap";
 
-const LocationSearchInput = ({ onSelect }) => {
+const LocationSearchInput = ({ onSelect, CurrentValue }) => {
   const [address, setAddress] = useState("");
   const [SelectionDone, setSelectionDone] = useState(false);
 
@@ -16,16 +16,28 @@ const LocationSearchInput = ({ onSelect }) => {
 
   const handleSelect = async (newAddress) => {
     setSelectionDone(!SelectionDone);
-    console.log(newAddress);
-    console.log(await getCoordinates(newAddress));
     const results = await geocodeByAddress(newAddress);
     const latLng = await getLatLng(results[0]);
-    // const latLng = await getCoordinates(newAddress);
     onSelect({ address: newAddress, latLng });
-
-    // Set the selected address as the input value
     setAddress(newAddress);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (CurrentValue) {
+          setAddress(CurrentValue);
+          const results = await geocodeByAddress(CurrentValue);
+          const latLng = await getLatLng(results[0]);
+          onSelect({ address: CurrentValue, latLng });
+        }
+      } catch (error) {
+        console.error("Error in fetchData:", error);
+      }
+    };
+
+    fetchData();
+  }, [CurrentValue]);
 
   return (
     <PlacesAutocomplete

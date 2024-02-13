@@ -27,14 +27,17 @@ const AddUser = ({ Open, setOpen }) => {
   const [StationName, setStationName] = useState("");
   const [Gender, setGender] = useState("");
   const [Loading, setLoading] = useState(false);
-  const [Long, setLong] = useState("")
-  const [Lat, setLat] = useState("")
+  const [Long, setLong] = useState("");
+  const [Lat, setLat] = useState("");
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorElRole, setAnchorElRole] = useState(null);
   const [anchorElStationName, setAnchorElStationName] = useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
   };
   const handleClickRole = (event) => {
     setAnchorElRole(event.currentTarget);
@@ -43,9 +46,6 @@ const AddUser = ({ Open, setOpen }) => {
     setAnchorElStationName(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   const handleCloseRole = () => {
     setAnchorElRole(null);
   };
@@ -54,7 +54,8 @@ const AddUser = ({ Open, setOpen }) => {
   };
 
   const onSubmit = async (e) => {
-    if (!Email.test(/^[^\s@]+@[^\s@]+\.[^\s@]+$/))
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(Email))
       return ErrorToast("Invalid email entered!");
     setLoading(true);
     e.preventDefault();
@@ -85,7 +86,7 @@ const AddUser = ({ Open, setOpen }) => {
             stationId: StationNumber,
           };
     // console.log(req_data);
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^\d{11}$/;
     if (Username === "") {
       WarningToast("Please Enter Username...");
@@ -133,6 +134,7 @@ const AddUser = ({ Open, setOpen }) => {
         } else if (!response.data?.success) {
           ErrorToast(response.data?.error?.msg);
         }
+        console.log(response);
       } catch (err) {
         console.log(err);
       }
@@ -190,15 +192,15 @@ const AddUser = ({ Open, setOpen }) => {
                 setValue={(data) => setPassword(data)}
               />
 
-              <LocationSearchInput onSelect={handleSelect} />
+              {/* <LocationSearchInput onSelect={handleSelect} /> */}
 
-              {/* <AuthTextArea
+              <AuthTextArea
                 label={"Address"}
                 placeholder={"Enter address"}
                 required={false}
                 Value={Address}
                 setValue={(data) => setAddress(data)}
-              /> */}
+              />
             </div>
             {/* right */}
             <div>

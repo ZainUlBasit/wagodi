@@ -16,6 +16,7 @@ import CustomPoperOverHome from "../../components/Popover/CustomPoperOverHome";
 import HeaderWrapper from "../../components/Header/HeaderWrapper";
 import LocationSearchInput from "../../utility/LocationSearchInput";
 import FavBtn from "../../components/buttons/FavBtn";
+import NoDataFound from "../../components/Loaders/Lottie/NoDataFound";
 
 const Home = () => {
   const [Favourites, setFavourites] = useState(false);
@@ -55,7 +56,7 @@ const Home = () => {
       <div className="w-full flex flex-col items-center justify-center fade-in">
         {/* <LocationSearchInput onSelect={handleSelect} /> */}
         {/* Header */}
-        
+
         <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 mb-6">
           {/* Left */}
           <div className="font-[Quicksand] font-[700] text-[2rem]">
@@ -94,6 +95,8 @@ const Home = () => {
         {/* <div className="grid grid-cols-3 gap-x-5 gap-y-3 w-[90%] max-w-[1200px] my-4"> */}
         {StationsData.loading ? (
           <PageLoader />
+        ) : StationsData.data?.length === 0 ? (
+          <NoDataFound />
         ) : (
           <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] maxWeb1:items-center maxWeb2:items-center maxWeb3:items-center maxWeb4:items-center flex flex-wrap xl:justify-center justify-center items-center my-4">
             {StationsData?.data

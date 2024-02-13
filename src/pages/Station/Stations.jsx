@@ -19,6 +19,7 @@ import DeleteModal from "../../components/Modals/DeleteModal";
 import TableWrapper from "../../components/Tables/TableWrapper";
 import Search from "../../components/Search/Search";
 import HeaderWrapper from "../../components/Header/HeaderWrapper";
+import NoDataFound from "../../components/Loaders/Lottie/NoDataFound";
 
 const Stations = () => {
   const [Filter, setFilter] = useState("");
@@ -85,8 +86,8 @@ const Stations = () => {
         </HeaderWrapper>
         {StationsData.loading ? (
           <PageLoader />
-        ) : StationsData.data === 0 ? (
-          <div>Empty</div>
+        ) : StationsData.data?.length === 0 ? (
+          <NoDataFound />
         ) : (
           <TableWrapper>
             <Search

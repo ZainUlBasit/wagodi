@@ -10,9 +10,9 @@ import { useLocation } from "react-router-dom";
 const AddReservation = () => {
   const [CurrentTabNumber, setCurrentTabNumber] = useState(0);
   const location = useLocation();
-  const { type, max_value, value } = location.state;
+  const { type, max_value, value, s_name, s_id } = location.state;
   const formData = new FormData();
-  console.log(type, max_value, value);
+  console.log(type, max_value, value, s_name, s_id);
   return (
     <>
       <Tabs
@@ -52,6 +52,8 @@ const AddReservation = () => {
 
         <TabPanel>
           <Step1
+            s_id={s_id}
+            s_name={s_name}
             CurrentTabNumber={CurrentTabNumber}
             setCurrentTabNumber={setCurrentTabNumber}
             formData

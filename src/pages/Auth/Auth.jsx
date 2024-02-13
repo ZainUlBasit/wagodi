@@ -12,7 +12,6 @@ const Auth = () => {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  // Update the width value when the window is resized
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -25,7 +24,7 @@ const Auth = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []); // Empty dependency array ensures that this effect runs once after the initial render
+  }, []);
 
   return (
     <>

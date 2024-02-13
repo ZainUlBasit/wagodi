@@ -18,16 +18,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "../../store/Slices/UserSlice";
 import { fetchStations } from "../../store/Slices/StationSlice";
 import WarningToast from "../Toast/WarningToast";
+import LocationSearchInput from "../../utility/LocationSearchInput";
 
 const EditStation = ({ Open, setOpen, CurrentStation }) => {
   const [StationNumber, setStationNumber] = useState(CurrentStation.phone);
   const [StationName, setStationName] = useState(CurrentStation.name);
   const [Address, setAddress] = useState(CurrentStation.address);
+  const [Longitude, setLongitude] = useState("");
+  const [Latitude, setLatitude] = useState("");
   const [EditIndex, setEditIndex] = useState("");
   const [Status, setStatus] = useState(CurrentStation.active);
   const dispatch = useDispatch();
   const Current_User = useSelector((state) => state.auth);
-  
+
+  const handleSelect = ({ address, latLng }) => {
+    setAddress(address);
+    setLongitude(latLng.lng);
+    setLatitude(latLng.lat);
+  };
+
   const onSubmitMethod = async (e) => {
     e.preventDefault();
     const UpdateGases = AllGases.map((data) => {
@@ -57,10 +66,11 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
         phone: StationNumber,
         fuels: UpdateGases,
         active: Status,
+        longitude: Longitude,
+        latitude: Latitude,
       },
     };
-    
-    // console.log(BodyData);
+
     // return;
     if (StationNumber === "") {
       return WarningToast("Enter Valid Station Number");
@@ -129,7 +139,12 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
             </div>
             {/* right */}
             <div>
-              <AuthTextArea
+              <LocationSearchInput
+                CurrentValue={Address}
+                onSelect={handleSelect}
+              />
+              <div className="mb-3"></div>
+              {/* <AuthTextArea
                 label={"Address"}
                 placeholder={
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis."
@@ -137,7 +152,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
                 required={false}
                 Value={Address}
                 setValue={setAddress}
-              />
+              /> */}
               <div>
                 <Switch
                   defaultChecked
