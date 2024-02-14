@@ -1,0 +1,50 @@
+@media (min-width: 1920px) and (max-width: 2560px) {
+    .RegisterWrapper {
+      width: fit-content !important;
+      height: fit-content !important;
+      padding: 2rem 2.5rem !important;
+      justify-content: center !important;
+      border-radius: 10px !important;
+    }
+    .RegisterWelcomeText {
+      font-size: 2.7rem !important;
+    }
+    .RegisterDescText {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+    }
+    .ForgetText {
+      font-size: 1.2rem !important;
+    }
+  }
+  @media (min-width: 2560px) and (max-width: 3440px) {
+    .RegisterWrapper {
+      width: 500px;
+      height: 590px;
+    }
+    .ForgetWrapper {
+      width: 400px;
+    }
+    .WelcomeText {
+      font-size: 2.6rem;
+    }
+    .DescText {
+      font-size: 1.2rem;
+    }
+    .ForgetText {
+      font-size: 1.5rem !important;
+    }
+  }
+  @media (min-width: 3440px) and (max-width: 3840px) {
+    .RegisterWrapper {
+      width: 550px;
+      height: 550px;
+    }
+  }
+  @media (min-width: 3840px) {
+    .RegisterWrapper {
+      width: 600px;
+      height: 550px;
+    }
+  }
+  

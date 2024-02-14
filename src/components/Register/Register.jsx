@@ -7,6 +7,7 @@ import AuthBtn from "../buttons/AuthBtn";
 import "../../assets/Style/style.css";
 import { SignUpApi } from "../../Https";
 import toast from "react-hot-toast";
+import "./Register.css";
 
 const Register = () => {
   const [Email, setEmail] = useState("");
@@ -48,9 +49,11 @@ const Register = () => {
   };
   return (
     <>
-      <div className="w-fit font-[Quicksand] flex flex-col justify-center items-center shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] px-5 py-8 rounded-md sm:h-fit fade-in sm:w-[90%] max767:mb-4">
-        <h1 className="w-full text-[26px] font-[700] text-center">REGISTER</h1>
-        <p className="mb-[20px] font-[300]">
+      <div className="w-fit font-[Quicksand] flex flex-col justify-center items-center shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] px-5 py-8 rounded-md sm:h-fit fade-in sm:w-[90%] max767:mb-4 RegisterWrapper">
+        <h1 className="w-full text-[26px] font-[700] text-center RegisterWelcomeText">
+          REGISTER
+        </h1>
+        <p className="mb-[20px] font-[300] RegisterDescText">
           Just Some Information and you are in
         </p>
         {/* main wrapper */}
