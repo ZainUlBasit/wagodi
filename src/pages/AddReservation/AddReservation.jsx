@@ -12,7 +12,6 @@ const AddReservation = () => {
   const location = useLocation();
   const { type, max_value, value, s_name, s_id } = location.state;
   const formData = new FormData();
-  console.log(type, max_value, value, s_name, s_id);
   return (
     <>
       <Tabs

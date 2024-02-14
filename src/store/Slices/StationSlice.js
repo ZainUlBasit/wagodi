@@ -27,10 +27,11 @@ export const fetchStations = createAsyncThunk(
           current_status,
         };
       });
+      console.log(UpdatedReponse);
       UpdatedReponse = UpdatedReponse.sort((a, b) => {
         const dateA = new Date(a.createdAt);
         const dateB = new Date(b.createdAt);
-      
+
         // Compare timestamps for ascending order
         return dateA - dateB;
       });
@@ -48,7 +49,22 @@ const stationSlice = createSlice({
     data: [],
     isError: false,
   },
-  reducers: {},
+  reducers: {
+    MakeFav: (state, action) => {
+      state.data = state.data.map((dt) => {
+        if (dt._id === action.payload.id) {
+          return {
+            ...dt,
+            favorite: action.payload.status,
+          };
+        } else {
+          return {
+            ...dt,
+          };
+        }
+      });
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchStations.pending, (state, action) => {
       state.loading = true;
@@ -66,5 +82,7 @@ const stationSlice = createSlice({
     });
   },
 });
+
+export const { MakeFav } = stationSlice.actions;
 
 export default stationSlice.reducer;

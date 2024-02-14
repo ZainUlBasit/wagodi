@@ -66,7 +66,7 @@ const AddUser = ({ Open, setOpen }) => {
       password: Password,
       role:
         Role === "Administrator"
-          ? 0
+          ? 1
           : Role === "Order Manager"
           ? 2
           : Role === "Station Manager"
@@ -192,15 +192,15 @@ const AddUser = ({ Open, setOpen }) => {
                 setValue={(data) => setPassword(data)}
               />
 
-              {/* <LocationSearchInput onSelect={handleSelect} /> */}
+              <LocationSearchInput onSelect={handleSelect} />
 
-              <AuthTextArea
+              {/* <AuthTextArea
                 label={"Address"}
                 placeholder={"Enter address"}
                 required={false}
                 Value={Address}
                 setValue={(data) => setAddress(data)}
-              />
+              /> */}
             </div>
             {/* right */}
             <div>

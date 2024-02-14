@@ -32,13 +32,15 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
     setGender(CurrentUser?.gender || "");
     // setPassword(Current)
     setRole(
-      CurrentUser.role === 0
+      CurrentUser.role === 1
         ? "Administrator"
         : CurrentUser.role === 2
         ? "Order Manager"
         : CurrentUser.role === 3
         ? "Station Manager"
-        : "Driver"
+        : CurrentUser.role === 4
+        ? "Driver"
+        : ""
     );
     dispatch(fetchStations(Auth.data.companyId));
     if (CurrentUser.role === 3) {

@@ -4,7 +4,7 @@ import StationReport from "../Modals/StationReport";
 import toast from "react-hot-toast";
 import { UpdateStationApi } from "../../Https";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchStations } from "../../store/Slices/StationSlice";
+import { MakeFav, fetchStations } from "../../store/Slices/StationSlice";
 import SuccessToast from "../Toast/SuccessToast";
 import { useNavigate } from "react-router-dom";
 import { FavouriteStation } from "../../store/Slices/UserSlice";
@@ -152,7 +152,12 @@ const StationDetail = ({
         onClick={async (e) => {
           e.preventDefault();
           try {
-            setStatus(Status === "" ? !StationDetailData.favorite : !Status);
+            dispatch(
+              MakeFav({
+                id: StationDetailData._id,
+                status: !StationDetailData.favorite,
+              })
+            );
             const BodyData = {
               stationId: StationDetailData._id,
               updateData: {
