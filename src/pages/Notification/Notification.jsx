@@ -30,7 +30,7 @@ const Notification = () => {
     <>
       <div className="flex flex-col justify-center items-center w-full fade-in">
         {/* Header */}
-        <div className="w-[90%] max-w-[1200px] flex justify-between items-center mt-6 mb-5">
+        <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6">
           {/* Left */}
           <div className="font-[Quicksand] font-[700] text-[2rem] max767:text-[1.8rem]">
             General Notifications

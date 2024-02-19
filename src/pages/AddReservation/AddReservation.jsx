@@ -6,12 +6,48 @@ import Step2 from "./Step2";
 import Step3 from "./Step3";
 import OrderManagerNavbar from "../../components/Navbar/OrderManagerNavbar";
 import { useLocation } from "react-router-dom";
+import { OrderCreateApi } from "../../Https";
+import ErrorToast from "../../components/Toast/ErrorToast";
 // import "react-tabs/style/react-tabs.css";
 const AddReservation = () => {
   const [CurrentTabNumber, setCurrentTabNumber] = useState(0);
   const location = useLocation();
-  const { type, max_value, value, s_name, s_id } = location.state;
-  const formData = new FormData();
+  const { type, max_value, value, s_name, s_id, fuel_id, s_location } =
+    location.state;
+  const [FormData, setFormData] = useState({
+    stations: [
+      {
+        id: s_id,
+        address: s_location,
+        status: 0,
+        name: s_name,
+      },
+    ],
+    fuel_id: fuel_id,
+  });
+  const [FromStation, setFromStation] = useState({});
+  const [ToStation, setToStation] = useState({});
+  const [ProccessData, setProccessData] = useState(false);
+  const SetFormData = (Data) => {
+    setFormData({ ...FormData, [Data.key]: Data.value });
+  };
+  const ProccessingData = async (BodyData) => {
+    console.log(BodyData);
+    // return;
+    try {
+      const response = await OrderCreateApi(BodyData);
+      if (response?.data?.success) {
+        console.log(response);
+        setCurrentTabNumber(CurrentTabNumber + 1);
+      } else {
+        ErrorToast(response?.data?.error?.msg);
+      }
+    } catch (err) {
+      console.log(err);
+      console.log(err?.data?.error?.msg);
+    }
+  };
+
   return (
     <>
       <Tabs
@@ -55,7 +91,10 @@ const AddReservation = () => {
             s_name={s_name}
             CurrentTabNumber={CurrentTabNumber}
             setCurrentTabNumber={setCurrentTabNumber}
-            formData
+            setFromStation={setFromStation}
+            setToStation={setToStation}
+            setFormData={setFormData}
+            FormData={FormData}
           />
         </TabPanel>
         <TabPanel>
@@ -63,7 +102,9 @@ const AddReservation = () => {
             CurrentTabNumber={CurrentTabNumber}
             setCurrentTabNumber={setCurrentTabNumber}
             state={location.state}
-            formData
+            SetFormData={SetFormData}
+            ProccessingData={ProccessingData}
+            FormData={FormData}
           />
         </TabPanel>
         <TabPanel>

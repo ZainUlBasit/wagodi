@@ -12,7 +12,6 @@ const AuthInput = ({
   setValue,
   readonly,
 }) => {
-  console.log("readonly : ", readonly);
   return (
     <div className="relative mb-[15px] w-[297px] maxInputWidth font-[Quicksand]">
       <p className="absolute top-[-11px] left-3 w-fit bg-white h-[13px] text-[15px] font-bold InputLabel">

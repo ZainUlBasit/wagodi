@@ -8,19 +8,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchStations } from "../../store/Slices/StationSlice";
 import { fetchVendors } from "../../store/Slices/VendorSlice";
 import { StationData } from "../../components/Tables/DemoData/StationData";
+import LocationSearchInput from "../../utility/LocationSearchInput";
 
 const Step1 = ({
   setCurrentTabNumber,
   CurrentTabNumber,
-  formData,
+  FormData,
+  setFormData,
   s_name,
   s_id,
+  setFromStation,
+  setToStation,
+  setProccessData,
 }) => {
   const [StationName, setStationName] = useState(s_name);
   const [ReservationDate, setReservationDate] = useState(
     moment(new Date()).format("YYYY-MM-DD")
   );
   const [ReceiptNumber, setReceiptNumber] = useState("");
+  const [Address, setAddress] = useState("");
   const [PaidAmouunt, setPaidAmouunt] = useState("");
   const [ArrivalDate, setArrivalDate] = useState("");
   const [StartPoint, setStartPoint] = useState("");
@@ -34,6 +40,9 @@ const Step1 = ({
   const [StartPointType, setStartPointType] = useState("");
   const [NameEnd, setNameEnd] = useState("");
   const [IdEnd, setIdEnd] = useState("");
+  const [AddressEnd, setAddressEnd] = useState("");
+  // const [Long, setLong] = useState("");
+  // const [Lat, setLat] = useState("");
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -47,6 +56,10 @@ const Step1 = ({
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleSelect = ({ address, latLng }) => {
+    setAddress(address);
   };
 
   const openEnd = Boolean(anchorElEnd);
@@ -93,6 +106,14 @@ const Step1 = ({
             Value={ReceiptNumber}
             setValue={setReceiptNumber}
           />
+          {/* <LocationSearchInput onSelect={handleSelect} /> */}
+          {/* <AuthInput
+            label={"Location"}
+            placeholder={"Enter Address..."}
+            required={false}
+            Value={Address}
+            setValue={setAddress}
+          /> */}
           <div className="flex flex-col">
             <label
               htmlFor="file-input"
@@ -118,7 +139,7 @@ const Step1 = ({
         {/* right side */}
         <div>
           <AuthInput
-            label={"Paid Amouunt"}
+            label={"Paid Amount"}
             placeholder={"Add Amount..."}
             required={false}
             Value={PaidAmouunt}
@@ -135,16 +156,20 @@ const Step1 = ({
           <AuthInputPopOver
             label={"Start Point Type"}
             placeholder={"Select Start Point..."}
-            Value={StartPointType}
+            Value={
+              StartPointType === 0
+                ? "Vendors"
+                : StartPointType === 0
+                ? "Station"
+                : ""
+            }
             onClick={(data) => handleClick(data)}
           />
-          {(StartPointType === "Vendor" || StartPointType === "Station") && (
+          {(StartPointType === 0 || StartPointType === 1) && (
             <AuthInputPopOver
               label={"Start Point"}
               placeholder={
-                StartPointType === "Vendor"
-                  ? "Select Vendor..."
-                  : "Select Station..."
+                StartPointType === 0 ? "Select Vendor..." : "Select Station..."
               }
               Value={NameEnd}
               onClick={(data) => handleClickEnd(data)}
@@ -192,7 +217,7 @@ const Step1 = ({
                       handleClose();
                       setOpenVendor(true);
                       setOpenStation(false);
-                      setStartPointType("Vendor");
+                      setStartPointType(0);
                       setIdEnd("");
                       setNameEnd("");
                     }}
@@ -210,7 +235,7 @@ const Step1 = ({
                       handleClose();
                       setOpenVendor(false);
                       setOpenStation(true);
-                      setStartPointType("Station");
+                      setStartPointType(1);
                       setIdEnd("");
                       setNameEnd("");
                     }}
@@ -263,7 +288,7 @@ const Step1 = ({
               <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
                 <div className="w-full flex flex-col justify-between gap-y-3 items-start">
                   {/* start data here */}
-                  {StartPointType === "Station" &&
+                  {StartPointType === 1 &&
                     StationsData?.data.map((data) => {
                       return (
                         <div
@@ -272,6 +297,7 @@ const Step1 = ({
                             handleCloseEnd();
                             setIdEnd(data._id);
                             setNameEnd(data.name);
+                            setAddressEnd(data.address);
                           }}
                         >
                           <input
@@ -283,7 +309,7 @@ const Step1 = ({
                         </div>
                       );
                     })}
-                  {StartPointType === "Vendor" &&
+                  {StartPointType === 0 &&
                     VendorsData?.data.map((data) => {
                       return (
                         <div
@@ -292,6 +318,7 @@ const Step1 = ({
                             handleCloseEnd();
                             setIdEnd(data._id);
                             setNameEnd(data.name);
+                            setAddressEnd(data.address);
                           }}
                         >
                           <input
@@ -321,7 +348,46 @@ const Step1 = ({
       <div className="w-full flex justify-center items-center mb-10">
         <button
           className={`mt-[20px] w-[197px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-          onClick={() => setCurrentTabNumber(CurrentTabNumber + 1)}
+          onClick={() => {
+            if (StartPointType === 0)
+              setFormData({
+                ...FormData,
+                orderManagerId: Auth.data._id,
+                companyId: Auth.data.companyId._id,
+                location: Address,
+                status: 0,
+                receipt: ReceiptNumber,
+                fuel_price: PaidAmouunt,
+                expected_arrival: ArrivalDate,
+                driverTip: AddTip,
+                from: {
+                  option: StartPointType,
+                  vendorId: StartPointType === 0 ? IdEnd : "",
+                  address: AddressEnd,
+                },
+                attachment: selectedFile,
+              });
+            else
+              setFormData({
+                ...FormData,
+                orderManagerId: Auth.data._id,
+                companyId: Auth.data.companyId._id,
+                location: Address,
+                status: 0,
+                receipt: ReceiptNumber,
+                fuel_price: PaidAmouunt,
+                expected_arrival: ArrivalDate,
+                driverTip: AddTip,
+                from: {
+                  option: StartPointType,
+                  stationId: StartPointType === 1 ? IdEnd : "",
+                  address: AddressEnd,
+                },
+                attachment: selectedFile,
+              });
+            setCurrentTabNumber(CurrentTabNumber + 1);
+          }}
+          else
         >
           Next
         </button>

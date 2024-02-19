@@ -10,7 +10,7 @@ export const api = axios.create({
     Accept: "application/json",
     app_secret:
       "10ef42363582fd212242bf8da6598e6d15111a9a509c36242411d444e8c03728",
-      userToken
+    userToken,
   },
 });
 
@@ -81,8 +81,14 @@ export const GetAllOrderApi = (data) => api.post("/order/company", data);
 // *********************************************
 // Notification Request
 // *********************************************
-export const GetCompanyNotificationApi = (data) => api.post("/notification/company", data);
-export const GetAdminNotificationApi = (data) => api.post("/notification/admin", data);
+export const GetCompanyNotificationApi = (data) =>
+  api.post("/notification/company", data);
+export const GetAdminNotificationApi = (data) =>
+  api.post("/notification/admin", data);
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 // Notification Request
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+// *********************************************
+// Orders Request
+// *********************************************
+export const OrderCreateApi = (data) => api.post("/order/create", data);

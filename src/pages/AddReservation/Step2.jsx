@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import AuthInput from "../../components/Input/AuthInput";
 import { useNavigate } from "react-router-dom";
 
-const Step2 = ({ CurrentTabNumber, setCurrentTabNumber, state }) => {
+const Step2 = ({
+  ProccessingData,
+  CurrentTabNumber,
+  setCurrentTabNumber,
+  state,
+  FormData,
+  setFormData,
+}) => {
   const [GasType, setGasType] = useState("");
   const [UOM, setUOM] = useState("Liters");
   const [BalanceVolume, setBalanceVolume] = useState("");
@@ -10,7 +17,7 @@ const Step2 = ({ CurrentTabNumber, setCurrentTabNumber, state }) => {
   const navigate = useNavigate();
   useEffect(() => {
     setGasType(state.type === 0 ? "91" : state.type === 1 ? "95" : "D");
-    setBalanceVolume(state.value)
+    setBalanceVolume(state.value);
   }, []);
   return (
     <div className="w-[718px] flex flex-col gap-x-10 pt-[45px] mt-10 shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] justify-between h-[446px] rounded-[15px] fade-in">
@@ -59,7 +66,13 @@ const Step2 = ({ CurrentTabNumber, setCurrentTabNumber, state }) => {
         </button>
         <button
           className={`mt-[20px] w-[150px] h-fit py-2 bg-[#90898E] border-2 border-[#90898E] hover:border-[#465462] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-          onClick={() => setCurrentTabNumber(CurrentTabNumber + 1)}
+          onClick={() => {
+            ProccessingData({
+              ...FormData,
+              fuel_type: GasType === "91" ? 0 : GasType === "95" ? 1 : 2,
+              fuel_value: RequireVolume,
+            });
+          }}
         >
           Place Order
         </button>

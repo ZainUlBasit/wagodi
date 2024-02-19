@@ -91,7 +91,7 @@ const SubscriptionRequests = () => {
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6">
           {/* Left */}
-          <div className="text-[30px] font-[600] maxWeb1:text-[3rem] maxWeb2:text-[3rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem]">
+          <div className="text-[30px] font-[Quicksand] font-[600] maxWeb1:text-[3rem] maxWeb2:text-[3rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem]">
             Subscription Requests
           </div>
           {/* Right */}
@@ -99,7 +99,7 @@ const SubscriptionRequests = () => {
             <div className="flex border-[1px] w-[300px] maxWeb1:w-[400px] maxWeb2:w-[450px] maxWeb3:w-[500px] maxWeb4:w-[550px] border-black items-center gap-x-2 px-3 py-[6px] maxWeb1:px-4 maxWeb1:py-[8px] maxWeb2:px-5 maxWeb2:py-[10px] rounded-full overflow-hidden my-[10px] maxWeb1:my-[15px] maxWeb2:my-[20px]">
               <BsSearch />
               <input
-                className="outline-none w-full"
+                className="outline-none w-full font-[Quicksand]"
                 placeholder="Search Company name"
                 value={SearchText}
                 onChange={(e) => setSearchText(e.target.value)}

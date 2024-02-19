@@ -87,7 +87,7 @@ const ControlSubscribers = () => {
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6">
           {/* Left */}
-          <div className="text-[30px] font-[600] maxWeb1:text-[3rem] maxWeb2:text-[3rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem]">
+          <div className="text-[30px] font-[Quicksand] font-[600] maxWeb1:text-[3rem] maxWeb2:text-[3rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem]">
             Control Subscribers
           </div>
           {/* Right */}
@@ -118,7 +118,7 @@ const ControlSubscribers = () => {
                   name="todate"
                   id="todate"
                   value={ToDate}
-                  className="px-3 py-2 pr-2 border border-[#E8E8E8] rounded-[7.94px] w-full outline-none"
+                  className="px-3 font-[Quicksand] py-2 pr-2 border border-[#E8E8E8] rounded-[7.94px] w-full outline-none"
                   onChange={(e) => setToDate(e.target.value)}
                 />
               </div>
