@@ -28,6 +28,7 @@ import { api } from "../../Https";
 import { useSelector } from "react-redux";
 import TableWrapper from "../../components/Tables/TableWrapper";
 import "./Statistics.css";
+import { BsSearch } from "react-icons/bs";
 
 const Statistics = () => {
   const userData = useSelector((state) => state.auth.data);
@@ -44,6 +45,7 @@ const Statistics = () => {
   const [OpenDetail, setOpenDetail] = useState(false);
   const [OpenDriverDetail, setOpenDriverDetail] = useState(false);
   const [CurrentID, setCurrentID] = useState("");
+  const [SearchText, setSearchText] = useState("");
   const months = [
     "January",
     "February",
@@ -493,6 +495,18 @@ const Statistics = () => {
             <StationStatisticTopTable />
           </div>
           <ApexChart />
+        </div>
+        <div className="w-[90%] flex justify-start">
+
+        <div className="flex border-[1px] w-[300px] maxWeb1:w-[400px] maxWeb2:w-[450px] maxWeb3:w-[500px] maxWeb4:w-[550px] border-black items-center gap-x-2 px-3 py-[6px] maxWeb1:px-4 maxWeb1:py-[8px] maxWeb2:px-5 maxWeb2:py-[10px] rounded-full overflow-hidden my-[10px] maxWeb1:my-[15px] maxWeb2:my-[20px]">
+          <BsSearch />
+          <input
+            className="outline-none w-full"
+            placeholder="Search Company name"
+            value={SearchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+        </div>
         </div>
         <LineColumnChart />
 

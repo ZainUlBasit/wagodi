@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import {  GetUserApi } from "../../Https";
+import { GetUserApi } from "../../Https";
 
 export const fetchUsers = createAsyncThunk(
-  'fetchUsers',
+  "fetchUsers",
   async ({ companyId, query = {} }) => {
     try {
-      let response = await GetUserApi({ companyId: companyId._id });
+      let response = await GetUserApi({ query: { companyId: companyId._id } });
       const sortedData = response.data.data.sort((a, b) => {
         return a.name.localeCompare(b.name);
       });
@@ -16,7 +16,6 @@ export const fetchUsers = createAsyncThunk(
     }
   }
 );
-
 
 const userSlice = createSlice({
   name: "users",
@@ -55,6 +54,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { FavouriteStation } = userSlice.actions
+export const { FavouriteStation } = userSlice.actions;
 
 export default userSlice.reducer;
