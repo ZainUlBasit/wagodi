@@ -5,7 +5,7 @@ import { BiSolidChevronRight } from "react-icons/bi";
 import "../../assets/Style/style.css";
 import MobNavbar from "../../components/Navbar/MobNavbar";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAdminNotification, fetchNotification } from "../../store/Slices/NotificationSlice";
+import { fetchNotification } from "../../store/Slices/NotificationSlice";
 
 const Notification = () => {
   const [FromDate, setFromDate] = useState("2023-12-11");
@@ -13,18 +13,18 @@ const Notification = () => {
   const dispatch = useDispatch();
   const Current_User = useSelector((state) => state.auth.data);
   const Current_Notification = useSelector((state) => state.Notifications);
-  console.log("Notifications : ", Current_Notification)
-  console.log("user : ", Current_User)
+  console.log("Notifications : ", Current_Notification);
+  console.log("user : ", Current_User);
   useEffect(() => {
-    console.log(FromDate);
-    console.log(ToDate);
-    console.log(Current_User.role);
-    console.log(Current_User.companyId);
-    if(Current_User.role != 0){
-      dispatch(fetchNotification(Current_User?.companyId || undefined, Current_User?.role , {}));
-    } else {
-      dispatch(fetchAdminNotification())
-    }
+    dispatch(
+      fetchNotification(
+        Current_User?.role === 0 || Current_User?.role === 1
+          ? Current_User?.companyId
+          : Current_User || undefined,
+        Current_User?.role,
+        {}
+      )
+    );
   }, [FromDate, ToDate, Current_User]);
   return (
     <>

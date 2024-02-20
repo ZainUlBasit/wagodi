@@ -4,6 +4,7 @@ import {
   GetAllOrderApi,
   GetAllVendorApi,
   GetCompanyNotificationApi,
+  GetOrderManagerNotificationApi,
 } from "../../Https";
 import ErrorToast from "../../components/Toast/ErrorToast";
 
@@ -15,13 +16,19 @@ export const fetchNotification = createAsyncThunk(
       if (role == undefined) {
         ErrorToast("role should be define!");
         return [];
-      }
+      } else if (role === 0) {
+        response = await GetAdminNotificationApi({
+          companyId: companyId?._id,
+        });
+      } else if (role === 1)
         response = await GetCompanyNotificationApi({
           companyId: companyId?._id,
         });
-      console.log(response);
-      console.log(response.data.data);
-      console.log(response.data.data.payload);
+      else {
+        response = await GetOrderManagerNotificationApi({
+          accountId: companyId?._id,
+        });
+      }
       return response?.data?.data?.payload || response.data.data;
     } catch (error) {
       console.log(error);
@@ -29,21 +36,21 @@ export const fetchNotification = createAsyncThunk(
   }
 );
 
-export const fetchAdminNotification = createAsyncThunk(
-  "fetchAdminNotification",
-  async (query = {}) => {
-    let response;
-    try {
-      response = await GetAdminNotificationApi({});
-      console.log(response);
-      console.log(response.data.data);
-      console.log(response.data.data.payload);
-      return response?.data?.data?.payload || response.data.data;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);
+// export const fetchAdminNotification = createAsyncThunk(
+//   "fetchAdminNotification",
+//   async (query = {}) => {
+//     let response;
+//     try {
+//       response = await GetAdminNotificationApi({});
+//       console.log(response);
+//       console.log(response.data.data);
+//       console.log(response.data.data.payload);
+//       return response?.data?.data?.payload || response.data.data;
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
+// );
 
 const notificationSlice = createSlice({
   name: "notifications",
@@ -64,21 +71,6 @@ const notificationSlice = createSlice({
       state.isError = false;
     });
     builder.addCase(fetchNotification.rejected, (state, action) => {
-      console.log("Error", action);
-      // console.log("Error", action.payload);
-      state.loading = false;
-      state.isError = true;
-    });
-    builder.addCase(fetchAdminNotification.pending, (state, action) => {
-      state.loading = true;
-    });
-    builder.addCase(fetchAdminNotification.fulfilled, (state, action) => {
-      console.log("notification fulfilled payload : ", action.payload);
-      state.loading = false;
-      state.data = action.payload;
-      state.isError = false;
-    });
-    builder.addCase(fetchAdminNotification.rejected, (state, action) => {
       console.log("Error", action);
       // console.log("Error", action.payload);
       state.loading = false;

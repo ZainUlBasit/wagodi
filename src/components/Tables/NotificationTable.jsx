@@ -14,10 +14,10 @@ import { useEffect } from "react";
 import moment from "moment";
 
 export default function NotificationTable({ Data }) {
-  console.log(Data)
+  console.log(Data);
   const [CurrentNotification, setCurrentNotification] = useState([]);
   useEffect(() => {
-    const newData = Data?.notification || Data
+    const newData = Data?.notification || Data;
     setCurrentNotification(
       newData?.map((df) => {
         return {
@@ -111,7 +111,7 @@ export default function NotificationTable({ Data }) {
                 align="left"
               >
                 <span className="max767:text-[1.2rem] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                  {row.description}
+                  {row.description || row.orderDescription}
                 </span>
               </TableCell>
               <TableCell

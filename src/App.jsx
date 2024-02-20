@@ -40,6 +40,7 @@ import NavSelection from "./components/NavSelection/NavSelection";
 import { io } from "socket.io-client";
 import ErrorToast from "./components/Toast/ErrorToast";
 import { BASE_URL } from "./assets/config";
+import SuccessToast from "./components/Toast/SuccessToast";
 
 const App = () => {
   const [Loading, setLoading] = useState(true);
@@ -48,12 +49,12 @@ const App = () => {
   const auth = useSelector((state) => state.auth);
   const userToken = localStorage.getItem("userToken");
 
-  // const socket = io(BASE_URL, {
-  //   extraHeaders: {
-  //     token: userToken,
-  //     secretkey: "wWXYF6QeeF",
-  //   },
-  // }); // Replace with your server URL
+  const socket = io(BASE_URL, {
+    extraHeaders: {
+      token: userToken,
+      secretkey: "wWXYF6QeeF",
+    },
+  }); // Replace with your server URL
 
   const CheckLocalStorage = () => {
     const isLoggedIn = localStorage.getItem("logged-in");
@@ -89,24 +90,24 @@ const App = () => {
     CheckLocalStorage();
   }, []);
 
-  // useEffect(() => {
-  //   if (!userToken) return;
-  //   // Listen for custom events
-  //   socket.on("connect", (data) => {
-  //     console.log("connected");
-  //   });
-  //   // socket.on("notification-message", (data) => {
-  //   // Handle the event data
-  //   // console.log("Received data from server:", data);
-  //   // });
+  useEffect(() => {
+    if (!userToken) return;
+    // Listen for custom events
+    socket.on("connect", (data) => {
+      console.log("connected");
+    });
+    socket.on("notification-message", (data) => {
+      // Handle the event data
+      SuccessToast(data.description);
+    });
 
-  //   // Clean up the socket connection on component unmount
-  //   return () => {
-  //     socket.off("disconnect", (data) => {
-  //       console.log("disconnected");
-  //     });
-  //   };
-  // }, []);
+    // Clean up the socket connection on component unmount
+    return () => {
+      socket.off("disconnect", (data) => {
+        console.log("disconnected");
+      });
+    };
+  }, []);
 
   return Loading ? (
     <div className="flex h-screen w-full items-center justify-center">
