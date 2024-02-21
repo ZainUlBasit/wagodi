@@ -68,7 +68,6 @@ const AddStation = ({ Open, setOpen }) => {
     }
     try {
       const response = await CreateStationApi(BodyData);
-      console.log(response);
       if (response.data.success) {
         setOpen(false);
         toast.success(response.data.data?.msg);
@@ -85,9 +84,6 @@ const AddStation = ({ Open, setOpen }) => {
     setAddress(address);
     setLongitude(latLng.lng);
     setLatitude(latLng.lat);
-    // console.log("Selected Address:", address);
-    // console.log("Latitude:", latLng.lat);
-    // console.log("Longitude:", latLng.lng);
   };
 
   return (
@@ -119,16 +115,6 @@ const AddStation = ({ Open, setOpen }) => {
             <div>
               <LocationSearchInput onSelect={handleSelect} />
               <div className="mb-3"></div>
-
-              {/* <AuthTextArea
-                label={"Address"}
-                placeholder={
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis."
-                }
-                required={false}
-                Value={Address}
-                setValue={setAddress}
-              /> */}
             </div>
           </div>
           {/* Show data of array of Gasses */}

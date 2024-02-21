@@ -67,6 +67,7 @@ export const CreateStationManagerApi = (data) =>
 // Users Request
 // *********************************************
 export const GetUserApi = (data) => api.post("/auth/list/", data);
+export const UpdateUserApi = (data) => api.post("/auth/update/", data);
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 // Station Request
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

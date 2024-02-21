@@ -378,11 +378,12 @@ const Step1 = ({
                 fuel_price: PaidAmouunt,
                 expected_arrival: ArrivalDate,
                 driverTip: AddTip,
-                from: {
-                  option: StartPointType,
+                Stations: [{
+                  id: StartPointType,
                   stationId: StartPointType === 1 ? IdEnd : "",
                   address: AddressEnd,
-                },
+                  name: NameEnd
+                }],
                 attachment: selectedFile,
               });
             setCurrentTabNumber(CurrentTabNumber + 1);

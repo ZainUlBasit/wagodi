@@ -3,6 +3,7 @@ import AuthInput from "../Input/AuthInput";
 import GasInput from "../Input/GasInput";
 import { BsChevronDown } from "react-icons/bs";
 import { Popover, Typography } from "@mui/material";
+import WarningToast from "../Toast/WarningToast";
 
 const AddGasInputs = ({ AllGases, setAllGases, setShowAddGassInputs }) => {
   const [FuelType, setFuelType] = useState("");
@@ -133,16 +134,23 @@ const AddGasInputs = ({ AllGases, setAllGases, setShowAddGassInputs }) => {
             if (FuelType === "" || FuelVolume === "" || SellingPrice === "") {
               alert("All field are mandatory");
             } else {
-              setAllGases([
-                ...AllGases,
-                {
-                  type: FuelType,
-                  max_value: Number(FuelCapacity),
-                  value: Number(FuelVolume),
-                  price_litre: Number(SellingPrice),
-                },
-              ]);
-              setShowAddGassInputs(false);
+              const isFuelTypeExist = AllGases.some(
+                (gas) => gas.type === FuelType
+              );
+              if (isFuelTypeExist) {
+                WarningToast("Fuel type already exists");
+              } else {
+                setAllGases([
+                  ...AllGases,
+                  {
+                    type: FuelType,
+                    max_value: Number(FuelCapacity),
+                    value: Number(FuelVolume),
+                    price_litre: Number(SellingPrice),
+                  },
+                ]);
+                setShowAddGassInputs(false);
+              }
             }
           }}
         >

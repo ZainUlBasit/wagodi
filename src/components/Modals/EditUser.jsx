@@ -7,6 +7,10 @@ import AuthTextArea from "../Input/AuthTextArea";
 import AuthInputPassword from "../Input/AuthInputPassword";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchStations } from "../../store/Slices/StationSlice";
+import LocationSearchInput from "../../utility/LocationSearchInput";
+import { UpdateUserApi } from "../../Https";
+import ErrorToast from "../Toast/ErrorToast";
+import WarningToast from "../Toast/WarningToast";
 
 const EditUser = ({ Open, setOpen, CurrentUser }) => {
   const [Username, setUsername] = useState("");
@@ -18,6 +22,11 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
   const [Role, setRole] = useState("");
   const [StationName, setStationName] = useState("");
   const [StationNumber, setStationNumber] = useState("");
+  const [Long, setLong] = useState("");
+  const [Lat, setLat] = useState("");
+  const [Loading, setLoading] = useState(false);
+
+  console.log(CurrentUser);
 
   const [Gender, setGender] = useState("");
 
@@ -30,6 +39,8 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
     setEmail(CurrentUser.email);
     setAddress(CurrentUser?.address || "");
     setGender(CurrentUser?.gender || "");
+    setPhoneNumber(CurrentUser.phone_number || "");
+    setStationNumber(CurrentUser?.stationId || "");
     // setPassword(Current)
     setRole(
       CurrentUser.role === 1
@@ -46,6 +57,7 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
     if (CurrentUser.role === 3) {
       setAuthority(CurrentUser.privilage === 0 ? "Sales" : "Order");
       setPhoneNumber(CurrentUser.PhoneNumber);
+      // setStationNumber(CurrentUser.stationId)
     }
   }, []);
 
@@ -74,15 +86,75 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(Username);
-    console.log(Email);
-    console.log(Authority);
-    console.log(Address);
-    console.log(PhoneNumber);
-    console.log(Password);
-    console.log(Role);
-    console.log(StationName);
-    console.log(Gender);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(Email)) return ErrorToast("Invalid email entered!");
+    setLoading(true);
+    let req_data = {
+      name: Username,
+      email: Email,
+      companyId: Auth.data.companyId,
+      // password: Password,
+      role:
+        Role === "Administrator"
+          ? 1
+          : Role === "Order Manager"
+          ? 2
+          : Role === "Station Manager"
+          ? 3
+          : 4,
+      phone_number: PhoneNumber,
+      address: Address,
+    };
+    req_data =
+      Role === "Administrator" || Role === "Order Manager" || Role === "Driver"
+        ? {
+            ...req_data,
+          }
+        : {
+            ...req_data,
+            privilage: Authority === "Sales" ? 0 : 1,
+            stationId: StationNumber,
+          };
+    const phoneRegex = /^\d{11}$/;
+    console.log(req_data);
+    if (Username === "") {
+      WarningToast("Please Enter Username...");
+    } else if (!emailRegex.test(Email) || Email === "") {
+      ErrorToast(Email === "" ? "Please Enter Email..." : "Invalid Email...");
+    } 
+    // else if (Password === "") {
+    //   WarningToast("Please enter password...");
+    // } 
+    else if (!phoneRegex.test(PhoneNumber) || PhoneNumber === "") {
+      ErrorToast(
+        PhoneNumber === ""
+          ? "Please Enter valid phone number..."
+          : "Invalid Phone Number..."
+      );
+    } else if (Role === "") {
+      WarningToast("Please select role...");
+    } else if (Authority === "" && Role === "Station Manager") {
+      WarningToast("Please Select Authority and Privileges...");
+    } else if (StationNumber === "" && Role === "Station Manager") {
+      WarningToast("Please Select Station...");
+    } else {
+      try {
+        const response = await UpdateUserApi({
+          userId: CurrentUser._id,
+          payload: req_data,
+        });
+        console.log(response);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    setLoading(false);
+  };
+
+  const handleSelect = ({ address, latLng }) => {
+    setAddress(address);
+    setLong(latLng.lat);
+    setLat(latLng.lng);
   };
 
   const open = Boolean(anchorEl);
@@ -190,25 +262,6 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
                   </div>
                 </Typography>
               </Popover>
-              <AuthTextArea
-                label={"Address"}
-                placeholder={
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis."
-                }
-                required={false}
-                Value={Address}
-                setValue={setAddress}
-              />
-            </div>
-            {/* right */}
-            <div>
-              <AuthInput
-                label="Gender"
-                placeholder="Male"
-                required={false}
-                Value={Gender}
-                setValue={setGender}
-              />
               <AuthInputPassword
                 label={"Password"}
                 placeholder={"***************"}
@@ -216,6 +269,14 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
                 Value={Password}
                 setValue={setPassword}
               />
+            </div>
+            {/* right */}
+            <div>
+              <LocationSearchInput
+                onSelect={handleSelect}
+                CurrentValue={Address}
+              />
+              <div className="mb-4"></div>
 
               <AuthInputPopOver
                 label={"Role"}
@@ -377,7 +438,6 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
                   <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
                     <div className="w-full flex flex-col justify-between gap-y-3 items-start">
                       {StationsData.data.map((sd) => {
-                        console.log(sd);
                         return (
                           <div
                             className="flex gap-x-3 items-center cursor-pointer"

@@ -7,15 +7,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 // import { Data } from "./DemoData/Orders";
-import { AiFillEye } from "react-icons/ai";
-import { UserData } from "./DemoData/UserData";
 import { BiEdit } from "react-icons/bi";
-import { VendorData } from "./DemoData/VendorData";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import TablePagination from "@mui/material/TablePagination";
-import { VendorsColumns } from "../../assets/Columns/VendorsColumns";
-import CustomPagination from "../TablePagination/TablePagination";
 import { UsersColumns } from "../../assets/Columns/UsersColumns";
+import CustomPagination from "../TablePagination/TablePagination";
 const vendorFuelType = (type) => {
   switch (type) {
     case 0:
@@ -44,8 +39,8 @@ export default function UserTable({
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+  const handleChangeRowsPerPage = (value) => {
+    setRowsPerPage(parseInt(value, 10));
     setPage(0);
   };
   return (

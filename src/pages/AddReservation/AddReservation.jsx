@@ -15,14 +15,12 @@ const AddReservation = () => {
   const { type, max_value, value, s_name, s_id, fuel_id, s_location } =
     location.state;
   const [FormData, setFormData] = useState({
-    stations: [
-      {
-        id: s_id,
-        address: s_location,
-        status: 0,
-        name: s_name,
-      },
-    ],
+    from: {
+      id: s_id,
+      address: s_location,
+      status: 0,
+      name: s_name,
+    },
     fuel_id: fuel_id,
   });
   const [FromStation, setFromStation] = useState({});
