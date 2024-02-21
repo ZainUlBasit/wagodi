@@ -14,6 +14,7 @@ const AddReservation = () => {
   const location = useLocation();
   const { type, max_value, value, s_name, s_id, fuel_id, s_location } =
     location.state;
+  console.log(location.state);
   const [FormData, setFormData] = useState({
     from: {
       id: s_id,
@@ -45,6 +46,10 @@ const AddReservation = () => {
       console.log(err?.data?.error?.msg);
     }
   };
+
+  useEffect(() => {
+    console.log(FormData);
+  }, [FormData]);
 
   return (
     <>
@@ -87,6 +92,7 @@ const AddReservation = () => {
           <Step1
             s_id={s_id}
             s_name={s_name}
+            type={type}
             CurrentTabNumber={CurrentTabNumber}
             setCurrentTabNumber={setCurrentTabNumber}
             setFromStation={setFromStation}

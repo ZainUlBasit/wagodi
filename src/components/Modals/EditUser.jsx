@@ -11,13 +11,15 @@ import LocationSearchInput from "../../utility/LocationSearchInput";
 import { UpdateUserApi } from "../../Https";
 import ErrorToast from "../Toast/ErrorToast";
 import WarningToast from "../Toast/WarningToast";
+import SuccessToast from "../Toast/SuccessToast";
+import { fetchUsers } from "../../store/Slices/UserSlice";
 
 const EditUser = ({ Open, setOpen, CurrentUser }) => {
   const [Username, setUsername] = useState("");
   const [Email, setEmail] = useState("");
   const [Authority, setAuthority] = useState("");
   const [Address, setAddress] = useState("");
-  const [PhoneNumber, setPhoneNumber] = useState("");
+  const [PhoneNumber, setPhoneNumber] = useState(CurrentUser.phone_number);
   const [Password, setPassword] = useState("");
   const [Role, setRole] = useState("");
   const [StationName, setStationName] = useState("");
@@ -39,7 +41,7 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
     setEmail(CurrentUser.email);
     setAddress(CurrentUser?.address || "");
     setGender(CurrentUser?.gender || "");
-    setPhoneNumber(CurrentUser.phone_number || "");
+    setPhoneNumber(CurrentUser.phone_number);
     setStationNumber(CurrentUser?.stationId || "");
     // setPassword(Current)
     setRole(
@@ -121,10 +123,10 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
       WarningToast("Please Enter Username...");
     } else if (!emailRegex.test(Email) || Email === "") {
       ErrorToast(Email === "" ? "Please Enter Email..." : "Invalid Email...");
-    } 
+    }
     // else if (Password === "") {
     //   WarningToast("Please enter password...");
-    // } 
+    // }
     else if (!phoneRegex.test(PhoneNumber) || PhoneNumber === "") {
       ErrorToast(
         PhoneNumber === ""
@@ -143,8 +145,22 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
           userId: CurrentUser._id,
           payload: req_data,
         });
-        console.log(response);
+        if (response?.data?.success) {
+          SuccessToast("User Successfully Updated!");
+          setOpen(false);
+          dispatch(
+            fetchUsers({
+              companyId: Auth.data.companyId,
+              query: {
+                companyId: Auth.data.companyId,
+              },
+            })
+          );
+        } else {
+          ErrorToast("Unable to Update User!");
+        }
       } catch (err) {
+        ErrorToast("Error Occured While Updating User. Please Try Again!");
         console.log(err);
       }
     }
@@ -274,7 +290,7 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
             <div>
               <LocationSearchInput
                 onSelect={handleSelect}
-                CurrentValue={Address}
+                CurrentValue={CurrentUser.address}
               />
               <div className="mb-4"></div>
 

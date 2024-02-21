@@ -9,6 +9,7 @@ import { fetchStations } from "../../store/Slices/StationSlice";
 import { fetchVendors } from "../../store/Slices/VendorSlice";
 import { StationData } from "../../components/Tables/DemoData/StationData";
 import LocationSearchInput from "../../utility/LocationSearchInput";
+import WarningToast from "../../components/Toast/WarningToast";
 
 const Step1 = ({
   setCurrentTabNumber,
@@ -16,6 +17,7 @@ const Step1 = ({
   FormData,
   setFormData,
   s_name,
+  type,
   s_id,
   setFromStation,
   setToStation,
@@ -159,7 +161,7 @@ const Step1 = ({
             Value={
               StartPointType === 0
                 ? "Vendors"
-                : StartPointType === 0
+                : StartPointType === 1
                 ? "Station"
                 : ""
             }
@@ -295,9 +297,17 @@ const Step1 = ({
                           className="flex gap-x-3 items-center cursor-pointer"
                           onClick={() => {
                             handleCloseEnd();
-                            setIdEnd(data._id);
-                            setNameEnd(data.name);
-                            setAddressEnd(data.address);
+                            const checkFuel = data.populatedFuels.map(
+                              (fd) => fd.type === type
+                            );
+                            if (checkFuel.length) {
+                              setIdEnd(data._id);
+                              setNameEnd(data.name);
+                              setAddressEnd(data.address);
+                            }
+                            else{
+                              WarningToast("Selected Station Does't Contain Such Fuel Type!")
+                            }
                           }}
                         >
                           <input
@@ -378,12 +388,14 @@ const Step1 = ({
                 fuel_price: PaidAmouunt,
                 expected_arrival: ArrivalDate,
                 driverTip: AddTip,
-                Stations: [{
-                  id: StartPointType,
-                  stationId: StartPointType === 1 ? IdEnd : "",
-                  address: AddressEnd,
-                  name: NameEnd
-                }],
+                Stations: [
+                  {
+                    id: StartPointType,
+                    stationId: StartPointType === 1 ? IdEnd : "",
+                    address: AddressEnd,
+                    name: NameEnd,
+                  },
+                ],
                 attachment: selectedFile,
               });
             setCurrentTabNumber(CurrentTabNumber + 1);
