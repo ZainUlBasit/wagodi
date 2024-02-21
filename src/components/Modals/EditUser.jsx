@@ -15,6 +15,8 @@ import SuccessToast from "../Toast/SuccessToast";
 import { fetchUsers } from "../../store/Slices/UserSlice";
 
 const EditUser = ({ Open, setOpen, CurrentUser }) => {
+  const Auth = useSelector((state) => state.auth);
+  const StationsData = useSelector((state) => state.StationReducer);
   const [Username, setUsername] = useState("");
   const [Email, setEmail] = useState("");
   const [Authority, setAuthority] = useState("");
@@ -22,7 +24,9 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
   const [PhoneNumber, setPhoneNumber] = useState(CurrentUser.phone_number);
   const [Password, setPassword] = useState("");
   const [Role, setRole] = useState("");
-  const [StationName, setStationName] = useState("");
+  const [StationName, setStationName] = useState(
+    StationsData?.data.filter((dt) => dt._id === CurrentUser.stationId)[0].name
+  );
   const [StationNumber, setStationNumber] = useState("");
   const [Long, setLong] = useState("");
   const [Lat, setLat] = useState("");
@@ -33,16 +37,13 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
   const [Gender, setGender] = useState("");
 
   const dispatch = useDispatch();
-  const Auth = useSelector((state) => state.auth);
-  const StationsData = useSelector((state) => state.StationReducer);
 
   useEffect(() => {
     setUsername(CurrentUser.name);
     setEmail(CurrentUser.email);
     setAddress(CurrentUser?.address || "");
     setGender(CurrentUser?.gender || "");
-    setPhoneNumber(CurrentUser.phone_number);
-    setStationNumber(CurrentUser?.stationId || "");
+    setStationNumber(CurrentUser.stationId);
     // setPassword(Current)
     setRole(
       CurrentUser.role === 1
@@ -117,8 +118,12 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
             privilage: Authority === "Sales" ? 0 : 1,
             stationId: StationNumber,
           };
-    const phoneRegex = /^\d{11}$/;
-    console.log(req_data);
+    // const phoneRegex = /^\d{11}$/;
+    const phoneNumberString = String(
+      PhoneNumber === "" || PhoneNumber === undefined
+        ? CurrentUser.phone_number
+        : PhoneNumber
+    );
     if (Username === "") {
       WarningToast("Please Enter Username...");
     } else if (!emailRegex.test(Email) || Email === "") {
@@ -127,7 +132,7 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
     // else if (Password === "") {
     //   WarningToast("Please enter password...");
     // }
-    else if (!phoneRegex.test(PhoneNumber) || PhoneNumber === "") {
+    else if (phoneNumberString.length !== 11) {
       ErrorToast(
         PhoneNumber === ""
           ? "Please Enter valid phone number..."
@@ -207,7 +212,11 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
                 label="Phone Number"
                 placeholder="1234567890"
                 required={false}
-                Value={PhoneNumber}
+                Value={
+                  PhoneNumber === "" || PhoneNumber === undefined
+                    ? CurrentUser.phone_number
+                    : PhoneNumber
+                }
                 setValue={setPhoneNumber}
               />
               {/* Authority Popover */}
