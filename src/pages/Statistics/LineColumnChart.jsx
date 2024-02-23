@@ -66,6 +66,85 @@ const LineColumnChart = () => {
         },
       },
     ],
+    responsive: [
+      {
+        breakpoint: 1919, // Change settings when window width is less than 1400px
+        options: {
+          xaxis: {
+            labels: {
+              style: {
+                fontSize: "10px", // Adjust font size for smaller screens
+              },
+            },
+          },
+          yaxis: {
+            labels: {
+              style: {
+                fontSize: "18px", // Adjust font size for smaller screens
+              },
+            },
+          },
+        },
+      },
+      {
+        breakpoint: 2540, // Change settings when window width is less than 1400px
+        options: {
+          xaxis: {
+            labels: {
+              style: {
+                fontSize: "20px", // Adjust font size for smaller screens
+              },
+            },
+          },
+          yaxis: {
+            labels: {
+              style: {
+                fontSize: "20px", // Adjust font size for smaller screens
+              },
+            },
+          },
+        },
+      },
+      {
+        breakpoint: 3440, // Change settings when window width is less than 1400px
+        options: {
+          xaxis: {
+            labels: {
+              style: {
+                fontSize: "23px", // Adjust font size for smaller screens
+              },
+            },
+          },
+          yaxis: {
+            labels: {
+              style: {
+                fontSize: "23px", // Adjust font size for smaller screens
+              },
+            },
+          },
+        },
+      },
+      {
+        breakpoint: 3800, // Change settings when window width is less than 1400px
+        options: {
+          xaxis: {
+            labels: {
+              style: {
+                fontSize: "25px", // Adjust font size for smaller screens
+              },
+            },
+          },
+          yaxis: {
+            labels: {
+              style: {
+                fontSize: "25px", // Adjust font size for smaller screens
+              },
+            },
+          },
+        },
+      },
+    ],
+    
   };
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);

@@ -7,6 +7,7 @@ export const StationsColumns = [
     web4: "35px",
   },
   {
+    id: "phone",
     title: "Station Number",
     web1: "20px",
     web2: "25px",
@@ -21,6 +22,7 @@ export const StationsColumns = [
     web4: "35px",
   },
   {
+    id: "name",
     title: "Station Name",
     web1: "20px",
     web2: "25px",
@@ -28,6 +30,7 @@ export const StationsColumns = [
     web4: "35px",
   },
   {
+    id: "address",
     title: "Address",
     web1: "20px",
     web2: "25px",

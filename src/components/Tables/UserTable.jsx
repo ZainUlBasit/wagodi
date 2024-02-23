@@ -11,6 +11,7 @@ import { BiEdit } from "react-icons/bi";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { UsersColumns } from "../../assets/Columns/UsersColumns";
 import CustomPagination from "../TablePagination/TablePagination";
+import TableActionBtns from "../buttons/TableActionBtns";
 const vendorFuelType = (type) => {
   switch (type) {
     case 0:
@@ -43,6 +44,62 @@ export default function UserTable({
     setRowsPerPage(parseInt(value, 10));
     setPage(0);
   };
+
+  const ChangeFilterToEnum = (data) => {
+    return data === "Administrator"
+      ? 0
+      : data === "Order Manager"
+      ? 2
+      : data === "Station Manager"
+      ? 3
+      : data === "Driver"
+      ? 4
+      : 1;
+  };
+
+  const ChangePrivilageToEnum = (currentPrivilage) => {
+    return currentPrivilage.privilage === 1
+      ? "Order Manager"
+      : currentPrivilage.privilage === 0
+      ? "Sales Manager"
+      : "";
+  };
+
+  const ChangeRoleToEnum = (CurrentRoles) => {
+    return CurrentRoles.role === 0
+      ? "Administrator"
+      : CurrentRoles.role === 1
+      ? "Company Admin"
+      : CurrentRoles.role === 2
+      ? "Order Manager"
+      : CurrentRoles.role === 3
+      ? "Station Manager"
+      : "Driver";
+  };
+
+  const FilterationOfData = (data) => {
+    // change the filter text to Enum (0,1,2,3,4)
+    const CurrentRole = ChangeFilterToEnum(Filter);
+    const lowercasedSearch = Search.toLowerCase();
+    const lowercasedName = data.name.toLowerCase();
+    if (Filter !== "All") {
+      if (Search === "") {
+        return CurrentRole === data.role;
+      } else {
+        return (
+          CurrentRole === data.role &&
+          lowercasedName.startsWith(lowercasedSearch)
+        );
+      }
+    } else {
+      if (Search === "") {
+        return data;
+      } else {
+        return lowercasedName.startsWith(lowercasedSearch);
+      }
+    }
+  };
+
   return (
     <div>
       <TableContainer component={Paper}>
@@ -71,36 +128,7 @@ export default function UserTable({
           <TableBody>
             {UserData?.data
               ?.filter((data) => {
-                const CurrentRole =
-                  Filter === "Administrator"
-                    ? 0
-                    : Filter === "Order Manager"
-                    ? 2
-                    : Filter === "Station Manager"
-                    ? 3
-                    : Filter === "Driver"
-                    ? 4
-                    : 1;
-                const lowercasedSearch = Search.toLowerCase();
-                const lowercasedName = data.name.toLowerCase();
-                if (Filter !== "All") {
-                  if (Search === "") {
-                    return CurrentRole === data.role;
-                  } else {
-                    // Convert both Search and data.name to lowercase for case-insensitive comparison
-
-                    return (
-                      CurrentRole === data.role &&
-                      lowercasedName.startsWith(lowercasedSearch)
-                    );
-                  }
-                } else {
-                  if (Search === "") {
-                    return data;
-                  } else {
-                    return lowercasedName.startsWith(lowercasedSearch);
-                  }
-                }
+                return FilterationOfData(data);
               })
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((Data, i) => {
@@ -121,22 +149,13 @@ export default function UserTable({
                       scope="row"
                       align="center"
                     >
-                      <div className="flex justify-center items-center gap-x-2">
-                        <BiEdit
-                          className="text-[1.2rem] maxWeb1:text-[2rem] maxWeb2:text-[2.5rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem] cursor-pointer hover:text-[green] transition-all duration-500"
-                          onClick={() => {
-                            setUserID(Data._id);
-                            setOpen(true);
-                          }}
-                        />
-                        <RiDeleteBin5Line
-                          className="text-[1.2rem] maxWeb1:text-[2rem] maxWeb2:text-[2.5rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem] cursor-pointer hover:text-[red] transition-all duration-500"
-                          onClick={() => {
-                            setUserID(Data._id);
-                            setOpenDeleteModal(true);
-                          }}
-                        />
-                      </div>
+                      {/* Action Buttons */}
+                      <TableActionBtns
+                        id={Data._id}
+                        setId={setUserID}
+                        setEditModalOpen={setOpen}
+                        setDeleteModalOpen={setOpenDeleteModal}
+                      />
                     </TableCell>
                     <TableCell
                       sx={{
@@ -171,11 +190,7 @@ export default function UserTable({
                       align="center"
                     >
                       <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                        {Data.privilage === 1
-                          ? "Order Manager"
-                          : Data.privilage === 0
-                          ? "Sales Manager"
-                          : ""}
+                        {ChangePrivilageToEnum(Data)}
                       </div>
                     </TableCell>
                     <TableCell
@@ -199,15 +214,7 @@ export default function UserTable({
                       align="center"
                     >
                       <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                        {Data.role === 0
-                          ? "Administrator"
-                          : Data.role === 1
-                          ? "Company Admin"
-                          : Data.role === 2
-                          ? "Order Manager"
-                          : Data.role === 3
-                          ? "Station Manager"
-                          : "Driver"}
+                        {ChangeRoleToEnum(Data)}
                       </div>
                     </TableCell>
                   </TableRow>

@@ -25,7 +25,8 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
   const [Password, setPassword] = useState("");
   const [Role, setRole] = useState("");
   const [StationName, setStationName] = useState(
-    StationsData?.data.filter((dt) => dt._id === CurrentUser.stationId)[0].name
+    StationsData?.data.filter((dt) => dt._id === CurrentUser?.stationId)[0]
+      ?.name || ""
   );
   const [StationNumber, setStationNumber] = useState("");
   const [Long, setLong] = useState("");

@@ -4,6 +4,7 @@ import { BsSearch } from "react-icons/bs";
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import EmployeeTable from "../../components/Tables/EmployeeTable";
+import TableWrapper from "../../components/Tables/TableWrapper";
 
 const EmployeeData = () => {
   const [SearchText, setSearchText] = useState("");
@@ -17,7 +18,7 @@ const EmployeeData = () => {
     <>
       <div className="flex flex-col justify-center items-center">
         {/* Header */}
-        <div className="w-[90%] max-w-[1200px] flex max767:flex-col justify-between mt-6 mb-10">
+        <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 mb-10">
           {/* Left */}
           <div className="font-[Quicksand] font-[700] text-[2rem] flex items-center gap-x-4">
             <FaArrowLeft
@@ -45,7 +46,7 @@ const EmployeeData = () => {
             </div>
           </div>
         </div>
-        <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px]">
+        <TableWrapper className={"rounded-[20px] overflow-hidden"}>
           <EmployeeTable
             Data={[
               {
@@ -179,7 +180,7 @@ const EmployeeData = () => {
             ]}
             Search={SearchText}
           />
-        </div>
+        </TableWrapper>
         <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] flex justify-between px-5 py-3 mt-4">
           <div className="font-bold">Total</div>
           <div className="font-bold flex gap-x-[100px] pr-10">

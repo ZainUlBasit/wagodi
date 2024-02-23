@@ -1,21 +1,24 @@
 @media (min-width: 1900px) and (max-width: 2560px) {
   .MaxTableWidth {
-    width: 600px;
+    width: 550px !important;
+    height: 500px !important;
   }
 }
 @media (min-width: 2560px) and (max-width: 3440px) {
   .MaxTableWidth {
-    width: 700px;
+    width: 650px !important;
+    height: 550px !important;
   }
 }
 @media (min-width: 3400px) {
   .MaxTableWidth {
-    width: 800px;
+    width: 850px !important;
+    height: 600px !important;
   }
 }
 @media (min-width: 3840px) {
   .MaxTableWidth {
-    width: 900px;
-    height: 600px;
+    width: 910px !important;
+    height: 650px !important;
   }
 }

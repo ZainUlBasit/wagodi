@@ -15,6 +15,7 @@ import SwitchButton from "../buttons/SwitchButton";
 import { Switch } from "@mui/material";
 import { StationsColumns } from "../../assets/Columns/StationsColumns";
 import CustomPagination from "../TablePagination/TablePagination";
+import TableActionBtns from "../buttons/TableActionBtns";
 
 export default function StationTable({
   setStationID,
@@ -67,7 +68,7 @@ export default function StationTable({
         <Table aria-label="simple table">
           <TableHead style={{ borderBottomWidth: 2, borderColor: "#465462" }}>
             <TableRow>
-              {StationsColumns.map((dt,i) => {
+              {StationsColumns.map((dt, i) => {
                 return (
                   <TableCell
                     sx={{
@@ -101,82 +102,63 @@ export default function StationTable({
                     key={Data._id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell
-                      sx={{
-                        fontWeight: 400,
-                        fontFamily: "Quicksand",
-                        borderBlockWidth: 0,
-                      }}
-                      component="th"
-                      scope="row"
-                      align="center"
-                    >
-                      <div className="flex justify-center items-center gap-x-2">
-                        <BiEdit
-                          className="text-[1.2rem] maxWeb1:text-[2rem] maxWeb2:text-[2.5rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem] cursor-pointer hover:text-[green] transition-all duration-500"
-                          onClick={() => {
-                            setStationID(Data._id);
-                            setOpen(true);
-                          }}
-                        />
-                        <RiDeleteBin5Line
-                          className="text-[1.2rem] maxWeb1:text-[2rem] maxWeb2:text-[2.5rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem] cursor-pointer hover:text-[red] transition-all duration-500"
-                          onClick={() => {
-                            setStationID(Data._id);
-                            setOpenDeleteModal(true);
-                          }}
-                        />
-                      </div>
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontWeight: 400,
-                        fontFamily: "Quicksand",
-                        borderBottomWidth: 0,
-                      }}
-                      align="center"
-                    >
-                      <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                        {Data.phone}
-                      </div>
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontWeight: 400,
-                        fontFamily: "Quicksand",
-                        borderBottomWidth: 0,
-                      }}
-                      align="center"
-                    >
-                      <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                        {Auth.data.name}
-                      </div>
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontWeight: 400,
-                        fontFamily: "Quicksand",
-                        borderBottomWidth: 0,
-                      }}
-                      align="center"
-                    >
-                      <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                        {Data.name}
-                      </div>
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontWeight: 400,
-                        fontFamily: "Quicksand",
-                        borderBottomWidth: 0,
-                        width: "250px",
-                      }}
-                      align="center"
-                    >
-                      <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                        {Data.address}
-                      </div>
-                    </TableCell>
+                    {StationsColumns.map((col, index) => {
+                      if (index === 0) {
+                        return (
+                          <TableCell
+                            sx={{
+                              fontWeight: 400,
+                              fontFamily: "Quicksand",
+                              borderBlockWidth: 0,
+                            }}
+                            component="th"
+                            scope="row"
+                            align="center"
+                          >
+                            {/* the actions buttons */}
+                            <TableActionBtns
+                              id={Data._id}
+                              setId={setStationID}
+                              setEditModalOpen={setOpen}
+                              setDeleteModalOpen={setOpenDeleteModal}
+                            />
+                          </TableCell>
+                        );
+                      } else if (index === 2) {
+                        return (
+                          <TableCell
+                            sx={{
+                              fontWeight: 400,
+                              fontFamily: "Quicksand",
+                              borderBottomWidth: 0,
+                            }}
+                            align="center"
+                          >
+                            <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                              {Auth.data.name}
+                            </div>
+                          </TableCell>
+                        );
+                      } else {
+                        const value = Data[col.id];
+                        // const c_id = Data["_id"];
+                        return (
+                          <TableCell
+                            sx={{
+                              fontWeight: 400,
+                              fontFamily: "Quicksand",
+                              borderBottomWidth: 0,
+                            }}
+                            align="center"
+                          >
+                            <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                              {value}
+                            </div>
+                          </TableCell>
+                        );
+                      }
+                    })}
+
                     {/* <TableCell
                       sx={{
                         fontWeight: 400,

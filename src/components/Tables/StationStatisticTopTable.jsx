@@ -52,7 +52,7 @@ export default function StationStatisticTopTable() {
                   align="center"
                 >
                   <div
-                    className={`text-[14px] pt-[2px] pb-[2px] maxWeb1:pt-[2px] maxWeb1:pb-[6px] maxWeb1:text-[18px] maxWeb2:text-[20px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pt-[6px] maxWeb3:pt-[6px] maxWeb4:pt-[6px] maxWeb2:pb-[6px] maxWeb3:pb-[6px] maxWeb4:pb-[6px] text-white`}
+                    className={`text-[14px] pt-[2px] pb-[2px] maxWeb1:pt-[2px] maxWeb1:pb-[6px] maxWeb1:text-[18px] maxWeb2:text-[20px] maxWeb3:text-[30px] maxWeb4:text-[30px] maxWeb2:pt-[6px] maxWeb3:pt-[6px] maxWeb4:pt-[6px] maxWeb2:pb-[6px] maxWeb3:pb-[6px] maxWeb4:pb-[6px] text-white`}
                   >
                     {dt.title}
                   </div>
