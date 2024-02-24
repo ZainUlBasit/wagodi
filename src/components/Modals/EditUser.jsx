@@ -16,6 +16,7 @@ import { fetchUsers } from "../../store/Slices/UserSlice";
 
 const EditUser = ({ Open, setOpen, CurrentUser }) => {
   const Auth = useSelector((state) => state.auth);
+  console.log("CurrentUser", CurrentUser)
   const StationsData = useSelector((state) => state.StationReducer);
   const [Username, setUsername] = useState("");
   const [Email, setEmail] = useState("");
@@ -25,8 +26,7 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
   const [Password, setPassword] = useState("");
   const [Role, setRole] = useState("");
   const [StationName, setStationName] = useState(
-    StationsData?.data.filter((dt) => dt._id === CurrentUser?.stationId)[0]
-      ?.name || ""
+    StationsData?.data.filter((dt) => dt._id === CurrentUser.stationId).name
   );
   const [StationNumber, setStationNumber] = useState("");
   const [Long, setLong] = useState("");

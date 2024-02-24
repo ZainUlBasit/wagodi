@@ -3,18 +3,12 @@ import ReactApexChart from "react-apexcharts";
 import "./ApexChart.css"; // Import custom CSS for styling
 
 const ApexChart = () => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [CurrentWindowWidth, setCurrentWindowWidth] = useState(
-    window.innerWidth
-  );
-
   const series = [
     {
       name: "Sales Volume per L",
       group: "budget",
       data: [
         44000, 55000, 41000, 67000, 22000, 55000, 41000, 44000, 55000, 41000,
-        41000, 44000, 55000, 41000,
       ],
     },
     {
@@ -22,7 +16,6 @@ const ApexChart = () => {
       group: "budget",
       data: [
         13000, 36000, 20000, 8000, 13000, 36000, 20000, 8000, 13000, 36000,
-        20000, 8000, 13000, 36000,
       ],
     },
   ];
@@ -30,6 +23,7 @@ const ApexChart = () => {
   const options = {
     chart: {
       type: "bar",
+      height: 350,
       stacked: true,
       toolbar: {
         show: true, // Hide the toolbar, including the hamburger menu button
@@ -61,10 +55,6 @@ const ApexChart = () => {
         "MCJD-1016",
         "MCJD-1016",
         "MCJD-1016",
-        "MCJD-1016",
-        "MCJD-1016",
-        "MCJD-1016",
-        "MCJD-1016",
       ],
     },
     fill: {
@@ -74,98 +64,10 @@ const ApexChart = () => {
     legend: {
       position: "bottom",
       horizontalAlign: "center",
-      fontSize:
-        CurrentWindowWidth > 1400 && CurrentWindowWidth < 1920
-          ? "10px"
-          : CurrentWindowWidth > 1920 && CurrentWindowWidth < 2560
-          ? "20px"
-          : CurrentWindowWidth > 2560 && CurrentWindowWidth < 3440
-          ? "30px"
-          : CurrentWindowWidth > 3400 && CurrentWindowWidth < 3841
-          ? "35px"
-          : CurrentWindowWidth < 1400
-          ? "10px"
-          : "50px",
     },
-    responsive: [
-      {
-        breakpoint: 1919, // Change settings when window width is less than 1400px
-        options: {
-          yaxis: {
-            labels: {
-              style: {
-                fontSize: "18px", // Adjust font size for smaller screens
-              },
-            },
-          },
-          axis: {
-            labels: {
-              style: {
-                fontSize: "18px", // Adjust font size for smaller screens
-              },
-            },
-          },
-        },
-      },
-      {
-        breakpoint: 2540, // Change settings when window width is less than 1400px
-        options: {
-          yaxis: {
-            labels: {
-              style: {
-                fontSize: "20px", // Adjust font size for smaller screens
-              },
-            },
-          },
-          axis: {
-            labels: {
-              style: {
-                fontSize: "20px", // Adjust font size for smaller screens
-              },
-            },
-          },
-        },
-      },
-      {
-        breakpoint: 3440, // Change settings when window width is less than 1400px
-        options: {
-          yaxis: {
-            labels: {
-              style: {
-                fontSize: "23px", // Adjust font size for smaller screens
-              },
-            },
-          },
-          axis: {
-            labels: {
-              style: {
-                fontSize: "23px", // Adjust font size for smaller screens
-              },
-            },
-          },
-        },
-      },
-      {
-        breakpoint: 3800, // Change settings when window width is less than 1400px
-        options: {
-          yaxis: {
-            labels: {
-              style: {
-                fontSize: "25px", // Adjust font size for smaller screens
-              },
-            },
-          },
-          axis: {
-            labels: {
-              style: {
-                fontSize: "25px", // Adjust font size for smaller screens
-              },
-            },
-          },
-        },
-      },
-    ],
   };
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   // Update window width when the component mounts and when the window is resized
   const handleResize = () => {
@@ -184,7 +86,6 @@ const ApexChart = () => {
         ? (window.innerWidth - 700) * 0.8
         : window.innerWidth * 0.8
     );
-    setCurrentWindowWidth(window.innerWidth);
   };
   useEffect(() => {
     handleResize();
@@ -206,17 +107,17 @@ const ApexChart = () => {
         series={series}
         type="bar"
         height={
-          CurrentWindowWidth > 1400 && CurrentWindowWidth < 1920
+          windowWidth > 1400 && windowWidth < 1900
+            ? 500
+            : windowWidth > 1900 && windowWidth < 2500
             ? 550
-            : CurrentWindowWidth > 1920 && CurrentWindowWidth < 2560
+            : windowWidth > 2500 && windowWidth < 3400
             ? 600
-            : CurrentWindowWidth > 2560 && CurrentWindowWidth < 3440
+            : windowWidth > 3400
             ? 700
-            : CurrentWindowWidth > 3400 && CurrentWindowWidth < 3841
-            ? 750
-            : CurrentWindowWidth < 1400
-            ? 450
-            : 700
+            : windowWidth < 1400
+            ? 420
+            : 650
         }
         width={windowWidth}
       />
