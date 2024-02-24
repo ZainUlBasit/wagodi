@@ -1,7 +1,7 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
 import { v4 } from "uuid";
-import "./AuthInput.css"
+import "./AuthInput.css";
 
 const AuthInput = ({
   Type,
@@ -11,6 +11,7 @@ const AuthInput = ({
   Value,
   setValue,
   readonly,
+  disabled,
 }) => {
   return (
     <div className="relative mb-[15px] w-[297px] maxInputWidth font-[Quicksand]">
@@ -26,6 +27,7 @@ const AuthInput = ({
         value={Value}
         readOnly={readonly ? true : false}
         onChange={(e) => setValue(e.target.value)}
+        disabled={disabled ? disabled : false}
       />
     </div>
   );

@@ -40,12 +40,12 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
   const onSubmitMethod = async (e) => {
     e.preventDefault();
     const UpdateGases = AllGases.map((data) => {
-      if (data.type === 0 || data.type === "91") {
+      if (data.type === 0 || data.type === "91" || data.type === 91) {
         return {
           ...data,
           type: 0,
         };
-      } else if (data.type === 1 || data.type === "95") {
+      } else if (data.type === 1 || data.type === "95" || data.type === 95) {
         return {
           ...data,
           type: 1,
@@ -57,6 +57,9 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
         };
       }
     });
+
+    // console.log(UpdateGases);
+    // return;
     // previous state =false && current state = true then allowed station is equal to activeStation
     const BodyData = {
       stationId: CurrentStation._id,

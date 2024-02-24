@@ -8,6 +8,7 @@ import "../../assets/Style/style.css";
 import { SignUpApi } from "../../Https";
 import toast from "react-hot-toast";
 import "./Register.css";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [Email, setEmail] = useState("");
@@ -19,6 +20,7 @@ const Register = () => {
   const [Password, setPassword] = useState("");
   const [ConfirmPassword, setConfirmPassword] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+  const navigate = useNavigate();
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -41,8 +43,10 @@ const Register = () => {
     // console.log(BodyData);
     try {
       response = await SignUpApi(BodyData);
-      if (response.data.success) toast.success(response.data.data.msg);
-      else toast.error(response.data.error.msg);
+      if (response.data.success) {
+        toast.success(response.data.data.msg);
+        navigate("/free-trial");
+      } else toast.error(response.data.error.msg);
     } catch (err) {
       console.log(err);
     }

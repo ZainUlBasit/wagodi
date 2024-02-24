@@ -7,6 +7,7 @@ import Auth from "../../pages/Auth/Auth";
 import ForgotPassword from "../../pages/Auth/ForgotPassword";
 import OTP from "../../pages/Auth/OTP";
 import SetNewPassword from "../../pages/Auth/SetNewPassword";
+import FreeTrial from "../../pages/Auth/FreeTrial";
 
 const LoginRoutes = () => {
   return (
@@ -33,6 +34,14 @@ const LoginRoutes = () => {
         element={
           <LoginProtectedRoute>
             <Auth />
+          </LoginProtectedRoute>
+        }
+      />
+      <Route
+        path="/free-trial"
+        element={
+          <LoginProtectedRoute>
+            <FreeTrial />
           </LoginProtectedRoute>
         }
       />

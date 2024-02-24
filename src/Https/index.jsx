@@ -40,6 +40,9 @@ export const DeleteStationApi = (data) =>
   api.delete(
     `/station/?stationId=${data.stationId}&companyId=${data.companyId}`
   );
+
+export const AddFuel = (data) => api.post("station/fuel/add", data);
+
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 // Station Request
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -95,3 +98,9 @@ export const GetOrderManagerNotificationApi = (data) =>
 // Orders Request
 // *********************************************
 export const OrderCreateApi = (data) => api.post("/order/create", data);
+
+// ------------------------------------------------- company
+export const ApprovedCompany = (data) =>
+  api.patch("/company/company-approved", data);
+export const RejectCompany = (data) =>
+  api.patch("/company/company-reject", data);

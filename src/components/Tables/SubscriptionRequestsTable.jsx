@@ -12,7 +12,12 @@ import GreenRedSwitch from "../Switch/GreenRedSwitch";
 import { SubscriptionRequestsColumns } from "../../assets/Columns/SubscriptionRequestsColumns";
 import CustomPagination from "../TablePagination/TablePagination";
 
-export default function SubscriptionRequestsTable({ Data, Search }) {
+export default function SubscriptionRequestsTable({
+  Data,
+  Search,
+  setOpenModal,
+  setID,
+}) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -65,7 +70,6 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
               //   }
               // })
               .map((row, i) => (
-                
                 <TableRow
                   key={`${row.name}-${row._id}`}
                   sx={{
@@ -92,7 +96,9 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row?.subscriptionId?.subscriptionType == 1 ? "Enterprise" : "Basic"}
+                    {row?.subscriptionId?.subscriptionType == 1
+                      ? "Enterprise"
+                      : "Basic"}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -102,7 +108,9 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row?.allowedStations == undefined? "none": row?.allowedStations}
+                    {row?.allowedStations == undefined
+                      ? "none"
+                      : row?.allowedStations}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -132,9 +140,13 @@ export default function SubscriptionRequestsTable({ Data, Search }) {
                       width: "200px",
                     }}
                     align="center"
+                    onClick={() => {
+                      setID(row._id);
+                      setOpenModal(true);
+                    }}
                   >
                     <div
-                      className={`py-[6px] rounded-full text-white font-[Quicksand] ${
+                      className={`py-[6px] rounded-full text-white font-[Quicksand] cursor-pointer ${
                         row.active == null
                           ? "bg-[#FAAF3A]"
                           : row.active

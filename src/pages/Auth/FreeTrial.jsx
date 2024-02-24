@@ -21,9 +21,11 @@ const FreeTrial = () => {
   }, []);
   return (
     <>
-      {windowWidth > 767 ? <LogoDesign /> : <MobLogoDesign />}
-      <div className="flex justify-center flex-col items-center w-[55%] fade-in max550:w-full">
-        <FreeTrialBody />
+      <div className="flex w-[100vw] h-screen justify-between items-center pr-[100px] max950:flex-col max950:pr-0 max767:items-center">
+        {windowWidth > 767 ? <LogoDesign /> : <MobLogoDesign />}
+        <div className="flex justify-center flex-col items-center w-[55%] fade-in max550:w-full">
+          <FreeTrialBody />
+        </div>
       </div>
     </>
   );

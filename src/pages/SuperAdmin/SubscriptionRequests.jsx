@@ -5,6 +5,7 @@ import { api } from "../../Https";
 import TableWrapper from "../../components/Tables/TableWrapper";
 import PageLoader from "../../components/Loaders/PageLoader";
 import { set } from "lodash";
+import SubcriptionAcceptOrReject from "../../components/Modals/SubcriptionAcceptOrReject";
 
 const old_data = [
   {
@@ -76,6 +77,8 @@ const SubscriptionRequests = () => {
   const [SearchText, setSearchText] = useState("");
   const [data, setData] = useState([]);
   const [Loading, setLoading] = useState(false);
+  const [OpenModal, setOpenModal] = useState(false);
+  const [ID, setID] = useState("");
   useEffect(() => {
     const fetchSubscriptionRequests = async () => {
       const response = await api.post("/company/all", { enterprise: true });
@@ -113,8 +116,25 @@ const SubscriptionRequests = () => {
           </div>
         ) : (
           <TableWrapper className="rounded-[30px] overflow-hidden">
-            <SubscriptionRequestsTable Data={data} />
+            <SubscriptionRequestsTable
+              Data={data}
+              setID={setID}
+              setOpenModal={setOpenModal}
+            />
           </TableWrapper>
+        )}
+        {OpenModal && (
+          <SubcriptionAcceptOrReject
+            State={
+              data.filter((dt) => {
+                if (dt._id === ID) {
+                  return dt;
+                }
+              })[0]
+            }
+            Open={OpenModal}
+            setOpen={setOpenModal}
+          />
         )}
       </div>
     </>
