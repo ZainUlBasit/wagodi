@@ -10,21 +10,10 @@ import { fetchVendors } from "../../store/Slices/VendorSlice";
 import { StationData } from "../../components/Tables/DemoData/StationData";
 import LocationSearchInput from "../../utility/LocationSearchInput";
 import WarningToast from "../../components/Toast/WarningToast";
+import CustomInput from "../../components/Input/Formik/CustomInput";
 
-const Step1 = ({
-  setCurrentTabNumber,
-  CurrentTabNumber,
-  FormData,
-  setFormData,
-  s_name,
-  s_location,
-  type,
-  s_id,
-  setFromStation,
-  setToStation,
-  setProccessData,
-}) => {
-  const [StationName, setStationName] = useState(s_name);
+const Step1 = ({ setCurrentTabNumber, CurrentTabNumber, formik }) => {
+  const [StationName, setStationName] = useState("");
   const [ReservationDate, setReservationDate] = useState(
     moment(new Date()).format("YYYY-MM-DD")
   );
@@ -86,28 +75,39 @@ const Step1 = ({
     <div className="w-[718px] flex flex-col gap-x-10 pt-[45px] mt-10 shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] justify-between h-[446px] rounded-[15px] fade-in">
       <div className="w-[718px] flex gap-x-10 justify-center rounded-[15px]">
         {/* left side */}
-        <div>
-          <AuthInput
-            label={"Station Name"}
-            placeholder={"Select Station Name..."}
-            required={false}
-            Value={StationName}
-            setValue={setStationName}
+        <div className="flex flex-col gap-y-5">
+          <CustomInput
+            name="to_name"
+            label="Station Name"
+            placeholder="Station Name..."
+            type="text"
+            value={formik.values.to_name}
+            onChange={formik.handleChange}
+            touched={formik.touched.to_name}
+            isError={formik.errors.to_name}
+            errorMsg={formik.errors.to_name}
           />
-          <AuthInput
-            Type={"date"}
+          <CustomInput
+            name="res_date"
             label={"Reservation Date"}
             placeholder={"19-Sep-2023"}
-            required={false}
-            Value={ReservationDate}
-            setValue={setReservationDate}
+            type="date"
+            value={formik.values.res_date}
+            onChange={formik.handleChange}
+            touched={formik.touched.res_date}
+            isError={formik.errors.res_date}
+            errorMsg={formik.errors.res_date}
           />
-          <AuthInput
+          <CustomInput
+            name="reciept_number"
             label={"Receipt Number"}
             placeholder={"Add Receipt number..."}
-            required={false}
-            Value={ReceiptNumber}
-            setValue={setReceiptNumber}
+            type="text"
+            value={formik.values.reciept_number}
+            onChange={formik.handleChange}
+            touched={formik.touched.reciept_number}
+            isError={formik.errors.reciept_number}
+            errorMsg={formik.errors.reciept_number}
           />
           {/* <LocationSearchInput onSelect={handleSelect} /> */}
           {/* <AuthInput
@@ -140,41 +140,51 @@ const Step1 = ({
           </div>
         </div>
         {/* right side */}
-        <div>
-          <AuthInput
+        <div className="flex flex-col gap-y-5">
+          <CustomInput
+            name="paid_amount"
             label={"Paid Amount"}
             placeholder={"Add Amount..."}
-            required={false}
-            Value={PaidAmouunt}
-            setValue={setPaidAmouunt}
+            type="number"
+            value={formik.values.paid_amount}
+            onChange={formik.handleChange}
+            touched={formik.touched.paid_amount}
+            isError={formik.errors.paid_amount}
+            errorMsg={formik.errors.paid_amount}
           />
-          <AuthInput
+          <CustomInput
+            name="arrival_date"
             label={"Arrival Date"}
-            placeholder={"Add Amount..."}
-            required={false}
-            Value={ArrivalDate}
-            setValue={setArrivalDate}
-            Type={"date"}
+            placeholder={"19-Sep-2023"}
+            type="date"
+            value={formik.values.arrival_date}
+            onChange={formik.handleChange}
+            touched={formik.touched.arrival_date}
+            isError={formik.errors.arrival_date}
+            errorMsg={formik.errors.arrival_date}
           />
           <AuthInputPopOver
             label={"Start Point Type"}
             placeholder={"Select Start Point..."}
             Value={
-              StartPointType === 0
+              formik.values.from_option === 0
                 ? "Vendors"
-                : StartPointType === 1
+                : formik.values.from_option === 1
                 ? "Station"
                 : ""
             }
             onClick={(data) => handleClick(data)}
           />
-          {(StartPointType === 0 || StartPointType === 1) && (
+          {(formik.values.from_option === 0 ||
+            formik.values.from_option === 1) && (
             <AuthInputPopOver
               label={"Start Point"}
               placeholder={
-                StartPointType === 0 ? "Select Vendor..." : "Select Station..."
+                formik.values.from_option === 0
+                  ? "Select Vendor..."
+                  : "Select Station..."
               }
-              Value={NameEnd}
+              Value={formik.values.from_name}
               onClick={(data) => handleClickEnd(data)}
             />
           )}
@@ -220,6 +230,7 @@ const Step1 = ({
                       handleClose();
                       setOpenVendor(true);
                       setOpenStation(false);
+                      formik.setFieldValue("from_option", 0);
                       setStartPointType(0);
                       setIdEnd("");
                       setNameEnd("");
@@ -238,7 +249,7 @@ const Step1 = ({
                       handleClose();
                       setOpenVendor(false);
                       setOpenStation(true);
-                      setStartPointType(1);
+                      formik.setFieldValue("from_option", 1);
                       setIdEnd("");
                       setNameEnd("");
                     }}
@@ -291,52 +302,62 @@ const Step1 = ({
               <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
                 <div className="w-full flex flex-col justify-between gap-y-3 items-start">
                   {/* start data here */}
-                  {StartPointType === 1 &&
-                    StationsData?.data.map((data) => {
-                      return (
-                        <div
-                          className="flex gap-x-3 items-center cursor-pointer"
-                          onClick={() => {
-                            handleCloseEnd();
-                            const checkFuel = data.populatedFuels.map(
-                              (fd) => fd.type === type
-                            );
-                            if (checkFuel.length) {
-                              setIdEnd(data._id);
-                              setNameEnd(data.name);
-                              setAddressEnd(data.address);
-                            } else {
-                              WarningToast(
-                                "Selected Station Does't Contain Such Fuel Type!"
+                  {formik.values.from_option === 1 &&
+                    StationsData?.data
+                      .filter((dt) => dt.active)
+                      .map((data) => {
+                        return (
+                          <div
+                            className="flex gap-x-3 items-center cursor-pointer"
+                            onClick={() => {
+                              handleCloseEnd();
+                              const checkFuel = data.populatedFuels.filter(
+                                (fd) => {
+                                  if (fd.type === formik.values.fuel_type) {
+                                    formik.setFieldValue("fuel_id", fd._id);
+                                    return fd;
+                                  }
+                                }
                               );
-                            }
-                          }}
-                        >
-                          <input
-                            type="checkbox"
-                            className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                            checked={IdEnd === data._id}
-                          />
-                          <span>{data.name}</span>
-                        </div>
-                      );
-                    })}
-                  {StartPointType === 0 &&
+                              if (checkFuel.length) {
+                                formik.setFieldValue("stationId", data._id);
+                                formik.setFieldValue(
+                                  "from_address",
+                                  data.address
+                                );
+                                formik.setFieldValue("from_name", data.name);
+                              } else {
+                                WarningToast(
+                                  "Selected Station Does't Contain Such Fuel Type!"
+                                );
+                              }
+                            }}
+                          >
+                            <input
+                              type="checkbox"
+                              className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                              checked={formik.values.stationId === data._id}
+                            />
+                            <span>{data.name}</span>
+                          </div>
+                        );
+                      })}
+                  {formik.values.from_option === 0 &&
                     VendorsData?.data.map((data) => {
                       return (
                         <div
                           className="flex gap-x-3 items-center cursor-pointer"
                           onClick={() => {
                             handleCloseEnd();
-                            setIdEnd(data._id);
-                            setNameEnd(data.name);
-                            setAddressEnd(data.address);
+                            formik.setFieldValue("vendorId", data._id);
+                            formik.setFieldValue("from_address", data.address);
+                            formik.setFieldValue("from_name", data.name);
                           }}
                         >
                           <input
                             type="checkbox"
                             className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                            checked={IdEnd === data._id}
+                            checked={formik.values.vendorId === data._id}
                           />
                           <span>{data.name}</span>
                         </div>
@@ -348,12 +369,16 @@ const Step1 = ({
               </div>
             </Typography>
           </Popover>
-          <AuthInput
+          <CustomInput
+            name="tip"
             label={"Add Tip"}
             placeholder={"Add Amount..."}
-            required={false}
-            Value={AddTip}
-            setValue={setAddTip}
+            type="number"
+            value={formik.values.tip}
+            onChange={formik.handleChange}
+            touched={formik.touched.tip}
+            isError={formik.errors.tip}
+            errorMsg={formik.errors.tip}
           />
         </div>
       </div>
@@ -361,50 +386,6 @@ const Step1 = ({
         <button
           className={`mt-[20px] w-[197px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
           onClick={() => {
-            if (StartPointType === 0)
-              setFormData({
-                ...FormData,
-                orderManagerId: Auth.data._id,
-                companyId: Auth.data.companyId._id,
-                location: Address,
-                status: 0,
-                receipt: ReceiptNumber,
-                fuel_price: PaidAmouunt,
-                expected_arrival: ArrivalDate,
-                driverTip: AddTip,
-                from: {
-                  option: StartPointType,
-                  vendorId: IdEnd,
-                  address: AddressEnd,
-                },
-                attachment: selectedFile,
-              });
-            else
-              setFormData({
-                ...FormData,
-                orderManagerId: Auth.data._id,
-                companyId: Auth.data.companyId._id,
-                location: Address,
-                status: 0,
-                reciept_number: ReceiptNumber,
-                fuel_price: PaidAmouunt,
-                expected_arrival: Math.floor(new Date(ArrivalDate) / 1000),
-                driverTip: AddTip,
-                from: {
-                  option: StartPointType,
-                  stationId: s_id,
-                  address: AddressEnd,
-                  name: NameEnd,
-                },
-                stations: [
-                  {
-                    id: IdEnd,
-                    address: AddressEnd,
-                    name: s_name,
-                  },
-                ],
-                attachment: selectedFile,
-              });
             setCurrentTabNumber(CurrentTabNumber + 1);
           }}
           else

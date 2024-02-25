@@ -10,6 +10,7 @@ const CustomInput = ({
   touched,
   isError,
   errorMsg,
+  type,
 }) => {
   return (
     <div className="relative w-[297px] font-[Quicksand]">
@@ -20,11 +21,11 @@ const CustomInput = ({
         {label}
       </label>
       <input
-        type="text"
+        type={type ? type : "text"}
         required={required}
         name={name}
         placeholder={placeholder}
-        className="px-3 py-2 pr-10 border border-gray-300 rounded-[7.94px] w-full outline-none font-[Quicksand]"
+        className="px-3 py-2 border border-gray-300 rounded-[7.94px] w-full outline-none font-[Quicksand]"
         value={value}
         onChange={onChange}
       />

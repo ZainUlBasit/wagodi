@@ -8,6 +8,8 @@ import OrderManagerNavbar from "../../components/Navbar/OrderManagerNavbar";
 import { useLocation } from "react-router-dom";
 import { OrderCreateApi } from "../../Https";
 import ErrorToast from "../../components/Toast/ErrorToast";
+import { useFormik } from "formik";
+import { useSelector } from "react-redux";
 // import "react-tabs/style/react-tabs.css";
 const AddReservation = () => {
   const [CurrentTabNumber, setCurrentTabNumber] = useState(0);
@@ -24,6 +26,102 @@ const AddReservation = () => {
   const SetFormData = (Data) => {
     setFormData({ ...FormData, [Data.key]: Data.value });
   };
+  const CurrentUser = useSelector((state) => state.auth);
+
+  const formik = useFormik({
+    initialValues: {
+      to_name: s_name,
+      res_date: "",
+      paid_amount: "",
+      arrival_date: "",
+      tip: "",
+      fuel_id: "",
+      orderManagerId: "",
+      station_id: "",
+      station_address: "",
+      station_name: "",
+      companyId: "",
+      fuel_type: type,
+      fuel_value: "",
+      fuel_price: "",
+      from_option: "",
+      stationId: "",
+      vendorId: "",
+      from_address: "",
+      from_name: "",
+      reciept_number: "",
+      cur_value: value,
+    },
+    onSubmit: async (values) => {
+      const BodyData =
+        values.from_option === 0
+          ? {
+              // reciever
+              stations: [
+                {
+                  id: values.stationId,
+                  address: "xyz street",
+                  name: values.to_name,
+                },
+              ],
+              orderManagerId: CurrentUser.data._id,
+              companyId: CurrentUser.data.companyId._id,
+              fuel_type: values.fuel_type,
+              fuel_value: values.fuel_value,
+              fuel_price: values.paid_amount,
+              fuel_id: values.fuel_id,
+              // "location": "",
+              // sender
+              from: {
+                option: values.from_option,
+                vendorId: values.vendorId,
+                address: values.from_address,
+              },
+              reciept_number: values.reciept_number,
+            }
+          : {
+              // reciever
+              stations: [
+                {
+                  id: values.stationId,
+                  address: "xyz street",
+                  name: values.to_name,
+                },
+              ],
+              orderManagerId: CurrentUser.data._id,
+              companyId: CurrentUser.data.companyId._id,
+              fuel_type: values.fuel_type,
+              fuel_value: values.fuel_value,
+              fuel_price: values.paid_amount,
+              fuel_id: values.fuel_id,
+              // "location": "",
+              // sender
+              from: {
+                option: values.from_option,
+                stationId: values.stationId,
+                address: values.from_address,
+              },
+              reciept_number: values.reciept_number,
+            };
+
+      console.log(BodyData);
+      try {
+        const response = await OrderCreateApi(BodyData);
+        if (response?.data?.success) {
+          console.log(response);
+          setCurrentTabNumber(CurrentTabNumber + 1);
+        } else {
+          ErrorToast(response?.data?.error?.msg);
+        }
+      } catch (err) {
+        console.log(err);
+        console.log(err?.data?.error?.msg);
+      }
+      // your form submission logic
+    },
+    // ...other Formik configurations
+  });
+
   const ProccessingData = async (BodyData) => {
     console.log(BodyData);
     // return;
@@ -58,6 +156,9 @@ const AddReservation = () => {
                 ? "bg-[#465462]"
                 : "bg-[#96ADC5]"
             } text-[white] w-10 h-10 flex justify-center items-center relative z-[1] rounded-[50%] outline-none font-[Quicksand] select-none`}
+            onClick={() => {
+              if (CurrentTabNumber !== 2) setCurrentTabNumber(0);
+            }}
           >
             1
           </Tab>
@@ -67,6 +168,9 @@ const AddReservation = () => {
                 ? "bg-[#465462]"
                 : "bg-[#96ADC5]"
             } text-[white] w-10 h-10 flex justify-center items-center relative z-[1] rounded-[50%] outline-none font-[Quicksand] select-none`}
+            onClick={() => {
+              if (CurrentTabNumber !== 2) setCurrentTabNumber(1);
+            }}
           >
             2
           </Tab>
@@ -81,20 +185,14 @@ const AddReservation = () => {
 
         <TabPanel>
           <Step1
-            s_id={s_id}
-            s_name={s_name}
-            s_location={s_location}
-            type={type}
+            formik={formik}
             CurrentTabNumber={CurrentTabNumber}
             setCurrentTabNumber={setCurrentTabNumber}
-            setFromStation={setFromStation}
-            setToStation={setToStation}
-            setFormData={setFormData}
-            FormData={FormData}
           />
         </TabPanel>
         <TabPanel>
           <Step2
+            formik={formik}
             CurrentTabNumber={CurrentTabNumber}
             setCurrentTabNumber={setCurrentTabNumber}
             state={location.state}

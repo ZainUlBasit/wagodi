@@ -58,6 +58,8 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
       }
     });
 
+    let ids = [];
+
     // console.log(UpdateGases);
     // return;
     // previous state =false && current state = true then allowed station is equal to activeStation
