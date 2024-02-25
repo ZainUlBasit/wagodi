@@ -10,23 +10,25 @@ import ErrorToast from "../../components/Toast/ErrorToast";
 
 export const fetchNotification = createAsyncThunk(
   "fetchNotification",
-  async (companyId, role, query = {}) => {
+  async (current_user, role, query = {}) => {
+    console.log(current_user);
+    console.log(role);
     try {
       let response;
-      if (role == undefined) {
+      if (current_user.role == undefined) {
         ErrorToast("role should be define!");
         return [];
-      } else if (role === 0) {
+      } else if (current_user.role === 0) {
         response = await GetAdminNotificationApi({
-          companyId: companyId?._id,
+          companyId: current_user.companyId._id,
         });
-      } else if (role === 1)
+      } else if (current_user.role === 1) {
         response = await GetCompanyNotificationApi({
-          companyId: companyId?._id,
+          companyId: current_user._id,
         });
-      else {
+      } else {
         response = await GetOrderManagerNotificationApi({
-          accountId: companyId?._id,
+          accountId: current_user._id,
         });
       }
       return response?.data?.data?.payload || response.data.data;

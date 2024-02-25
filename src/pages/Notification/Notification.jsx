@@ -18,9 +18,7 @@ const Notification = () => {
   useEffect(() => {
     dispatch(
       fetchNotification(
-        Current_User?.role === 0 || Current_User?.role === 1
-          ? Current_User?.companyId
-          : Current_User || undefined,
+        Current_User,
         Current_User?.role,
         {}
       )

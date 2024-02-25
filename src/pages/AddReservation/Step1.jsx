@@ -17,6 +17,7 @@ const Step1 = ({
   FormData,
   setFormData,
   s_name,
+  s_location,
   type,
   s_id,
   setFromStation,
@@ -304,9 +305,10 @@ const Step1 = ({
                               setIdEnd(data._id);
                               setNameEnd(data.name);
                               setAddressEnd(data.address);
-                            }
-                            else{
-                              WarningToast("Selected Station Does't Contain Such Fuel Type!")
+                            } else {
+                              WarningToast(
+                                "Selected Station Does't Contain Such Fuel Type!"
+                              );
                             }
                           }}
                         >
@@ -372,7 +374,7 @@ const Step1 = ({
                 driverTip: AddTip,
                 from: {
                   option: StartPointType,
-                  vendorId: StartPointType === 0 ? IdEnd : "",
+                  vendorId: IdEnd,
                   address: AddressEnd,
                 },
                 attachment: selectedFile,
@@ -384,16 +386,21 @@ const Step1 = ({
                 companyId: Auth.data.companyId._id,
                 location: Address,
                 status: 0,
-                receipt: ReceiptNumber,
+                reciept_number: ReceiptNumber,
                 fuel_price: PaidAmouunt,
-                expected_arrival: ArrivalDate,
+                expected_arrival: Math.floor(new Date(ArrivalDate) / 1000),
                 driverTip: AddTip,
-                Stations: [
+                from: {
+                  option: StartPointType,
+                  stationId: s_id,
+                  address: AddressEnd,
+                  name: NameEnd,
+                },
+                stations: [
                   {
-                    id: StartPointType,
-                    stationId: StartPointType === 1 ? IdEnd : "",
+                    id: IdEnd,
                     address: AddressEnd,
-                    name: NameEnd,
+                    name: s_name,
                   },
                 ],
                 attachment: selectedFile,

@@ -16,12 +16,6 @@ const AddReservation = () => {
     location.state;
   console.log(location.state);
   const [FormData, setFormData] = useState({
-    from: {
-      id: s_id,
-      address: s_location,
-      status: 0,
-      name: s_name,
-    },
     fuel_id: fuel_id,
   });
   const [FromStation, setFromStation] = useState({});
@@ -35,6 +29,7 @@ const AddReservation = () => {
     // return;
     try {
       const response = await OrderCreateApi(BodyData);
+      console.log(response);
       if (response?.data?.success) {
         console.log(response);
         setCurrentTabNumber(CurrentTabNumber + 1);
@@ -46,10 +41,6 @@ const AddReservation = () => {
       console.log(err?.data?.error?.msg);
     }
   };
-
-  useEffect(() => {
-    console.log(FormData);
-  }, [FormData]);
 
   return (
     <>
@@ -92,6 +83,7 @@ const AddReservation = () => {
           <Step1
             s_id={s_id}
             s_name={s_name}
+            s_location={s_location}
             type={type}
             CurrentTabNumber={CurrentTabNumber}
             setCurrentTabNumber={setCurrentTabNumber}

@@ -14,7 +14,6 @@ import { useEffect } from "react";
 import moment from "moment";
 
 export default function NotificationTable({ Data }) {
-  console.log(Data);
   const [CurrentNotification, setCurrentNotification] = useState([]);
   useEffect(() => {
     const newData = Data?.notification || Data;
