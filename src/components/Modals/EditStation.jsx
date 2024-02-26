@@ -10,7 +10,7 @@ import AddGasInputs from "../AddGas/AddGasInputs";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi";
 import AddGasInputsPrefilled from "../AddGas/AddGasInputsPrefilled";
-import { UpdateStationApi } from "../../Https";
+import { AddFuel, UpdateFuel, UpdateStationApi } from "../../Https";
 import { data } from "autoprefixer";
 import toast from "react-hot-toast";
 import SuccessToast from "../Toast/SuccessToast";
@@ -58,10 +58,42 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
       }
     });
 
-    let ids = [];
-
-    // console.log(UpdateGases);
-    // return;
+    console.log(UpdateGases);
+    const UpdationIds = await Promise.all(
+      UpdateGases.map(async (data) => {
+        if (data?._id) {
+          const response = await UpdateFuel({
+            stationId: CurrentStation._id,
+            updateData: [
+              {
+                fuelId: data._id,
+                updatedValue: data.value,
+                updatePriceLitre: data.price_litre,
+                updateType: data.type,
+                updateMaxValue: data.max_value,
+              },
+            ],
+          });
+          return data._id;
+        }
+      })
+    );
+    const AddedIds = await Promise.all(
+      UpdateGases.map(async (data) => {
+        if (!data?._id) {
+          const response = await AddFuel({
+            payload: {
+              price_litre: data.price_litre,
+              max_value: data.max_value,
+              value: data.value,
+              type: data.type,
+            },
+          });
+          console.log(response);
+          return response?.data?.data?._id;
+        }
+      })
+    );
     // previous state =false && current state = true then allowed station is equal to activeStation
     const BodyData = {
       stationId: CurrentStation._id,
@@ -73,6 +105,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
         active: Status,
         longitude: Longitude,
         latitude: Latitude,
+        fuels: [...UpdationIds, ...AddedIds].filter((id) => id !== undefined),
       },
     };
 

@@ -84,9 +84,9 @@ const Stations = () => {
             </button>
           </div>
         </HeaderWrapper>
-        {StationsData.loading ? (
+        {StationsData?.loading ? (
           <PageLoader />
-        ) : StationsData.data?.length === 0 ? (
+        ) : StationsData?.data?.length === 0 ? (
           <NoDataFound />
         ) : (
           <TableWrapper>
@@ -102,7 +102,7 @@ const Stations = () => {
               Search={SearchText}
               ActiveStationSelection={ActiveStationSelection}
               setActiveStationSelection={setActiveStationSelection}
-              StationsData={StationsData?.data.filter((sdd) => {
+              StationsData={StationsData?.data?.filter((sdd) => {
                 if (StationFilter === "all") {
                   return sdd;
                 } else if (sdd.active && StationFilter === "active") {
@@ -134,7 +134,7 @@ const Stations = () => {
           Open={OpenDeleteModal}
           setOpen={setOpenDeleteModal}
           State={
-            StationsData.data
+            StationsData?.data
               .filter((sd) => sd._id === StationID)
               .map((data) => {
                 return { ...data, type: "station" };

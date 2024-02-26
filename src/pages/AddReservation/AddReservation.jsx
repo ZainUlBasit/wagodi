@@ -51,11 +51,13 @@ const AddReservation = () => {
       from_name: "",
       reciept_number: "",
       cur_value: value,
+      file: "",
     },
     onSubmit: async (values) => {
       const BodyData =
         values.from_option === 0
-          ? {
+          ? // for vendors
+            {
               // reciever
               stations: [
                 {
@@ -79,7 +81,8 @@ const AddReservation = () => {
               },
               reciept_number: values.reciept_number,
             }
-          : {
+          : // for stations
+            {
               // reciever
               stations: [
                 {
@@ -102,9 +105,8 @@ const AddReservation = () => {
                 address: values.from_address,
               },
               reciept_number: values.reciept_number,
+              attachment: values.file ? values.file : "",
             };
-
-      console.log(BodyData);
       try {
         const response = await OrderCreateApi(BodyData);
         if (response?.data?.success) {
@@ -117,9 +119,7 @@ const AddReservation = () => {
         console.log(err);
         console.log(err?.data?.error?.msg);
       }
-      // your form submission logic
     },
-    // ...other Formik configurations
   });
 
   const ProccessingData = async (BodyData) => {

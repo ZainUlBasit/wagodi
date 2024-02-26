@@ -42,6 +42,7 @@ export const DeleteStationApi = (data) =>
   );
 
 export const AddFuel = (data) => api.post("station/fuel/add", data);
+export const UpdateFuel = (data) => api.patch("station/fuel/update", data);
 
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 // Station Request
@@ -104,3 +105,7 @@ export const ApprovedCompany = (data) =>
   api.patch("/company/company-approved", data);
 export const RejectCompany = (data) =>
   api.patch("/company/company-reject", data);
+
+// **************************************************************
+// **************************************************************
+// export const AddFuel = (data)=> api.post("/station/")

@@ -140,16 +140,20 @@ const AddGasInputs = ({ AllGases, setAllGases, setShowAddGassInputs }) => {
               if (isFuelTypeExist) {
                 WarningToast("Fuel type already exists");
               } else {
-                setAllGases([
-                  ...AllGases,
-                  {
-                    type: FuelType,
-                    max_value: Number(FuelCapacity),
-                    value: Number(FuelVolume),
-                    price_litre: Number(SellingPrice),
-                  },
-                ]);
-                setShowAddGassInputs(false);
+                if (Number(FuelVolume) > Number(FuelCapacity)) {
+                  WarningToast("Fuel Volume must Less than Capacity!");
+                } else {
+                  setAllGases([
+                    ...AllGases,
+                    {
+                      type: FuelType,
+                      max_value: Number(FuelCapacity),
+                      value: Number(FuelVolume),
+                      price_litre: Number(SellingPrice),
+                    },
+                  ]);
+                  setShowAddGassInputs(false);
+                }
               }
             }
           }}

@@ -53,10 +53,19 @@ const AddUser = ({ Open, setOpen }) => {
     setAnchorElStationName(null);
   };
 
+  const RoleToEnum = (role) => {
+    return role === "Administrator"
+      ? 1
+      : role === "Order Manager"
+      ? 2
+      : role === "Station Manager"
+      ? 3
+      : 4;
+  };
+
   const onSubmit = async (e) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(Email))
-      return ErrorToast("Invalid email entered!");
+    if (!emailRegex.test(Email)) return ErrorToast("Invalid email entered!");
     setLoading(true);
     e.preventDefault();
     let req_data = {
@@ -64,14 +73,7 @@ const AddUser = ({ Open, setOpen }) => {
       email: Email,
       companyId: Auth.data.companyId,
       password: Password,
-      role:
-        Role === "Administrator"
-          ? 1
-          : Role === "Order Manager"
-          ? 2
-          : Role === "Station Manager"
-          ? 3
-          : 4,
+      role: RoleToEnum(Role),
       phone_number: PhoneNumber,
       address: Address,
     };

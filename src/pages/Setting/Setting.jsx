@@ -36,13 +36,13 @@ const Setting = () => {
               title={"Change password"}
               Icon={RiLockPasswordFill}
             />
-            <SideBtn
+            {/* <SideBtn
               ActiveButton={ActiveButton}
               setActiveButton={setActiveButton}
               FilterText={"Subscription"}
               title={"Subscription"}
               Icon={LuShoppingBag}
-            />
+            /> */}
           </div>
           <div>
             <SideBtn

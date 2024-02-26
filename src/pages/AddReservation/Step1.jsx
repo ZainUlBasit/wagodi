@@ -38,6 +38,7 @@ const Step1 = ({ setCurrentTabNumber, CurrentTabNumber, formik }) => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+    formik.setFieldValue("file",file)
     setSelectedFile(file);
   };
 

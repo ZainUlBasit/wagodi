@@ -7,17 +7,18 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TablePagination from "@mui/material/TablePagination";
+import CustomPagination from "../TablePagination/TablePagination";
 
 export default function EmployeeTable({ Data, Search }) {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(5); // You can adjust the number of rows per page as needed
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (newPage) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+  const handleChangeRowsPerPage = (val) => {
+    setRowsPerPage(parseInt(val, 10));
     setPage(0);
   };
 
@@ -181,16 +182,25 @@ export default function EmployeeTable({ Data, Search }) {
               ))}
           </TableBody>
         </Table>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={Data.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
       </TableContainer>
+      <CustomPagination
+        count={
+          Data.filter((dt) => {
+            const searchLowerCase = Search.toLowerCase();
+            if (Search === "") return dt;
+            else {
+              if (dt.stationName.toLowerCase().startsWith(searchLowerCase)) {
+                return dt;
+              }
+            }
+          }).length
+        }
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        RowsPerPage={rowsPerPage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </>
   );
 }

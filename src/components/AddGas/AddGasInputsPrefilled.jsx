@@ -3,6 +3,7 @@ import AuthInput from "../Input/AuthInput";
 import GasInput from "../Input/GasInput";
 import { BsChevronDown } from "react-icons/bs";
 import { Popover, Typography } from "@mui/material";
+import { api } from "../../Https";
 
 const AddGasInputsPrefilled = ({
   AllGases,
@@ -153,17 +154,31 @@ const AddGasInputsPrefilled = ({
             } else {
               setShowAddGassInputsPrefilled(false);
               setEditIndex("");
+              // const response = await UpdateFuel(FuelId,{
+              // type: FuelType,
+              // max_value: FuelCapacity,
+              // value: FuelVolume,
+              // price_litre: SellingPrice,
+              // })
               setAllGases(
                 AllGases.map((ag, i) => {
-                  console.log(FuelType);
-                  if (i === index)
-                    return {
-                      type: FuelType,
-                      max_value: FuelCapacity,
-                      value: FuelVolume,
-                      price_litre: SellingPrice,
-                    };
-                  else return ag;
+                  if (i === index) {
+                    if (ag?._id)
+                      return {
+                        _id: ag._id,
+                        type: FuelType,
+                        max_value: FuelCapacity,
+                        value: FuelVolume,
+                        price_litre: SellingPrice,
+                      };
+                    else
+                      return {
+                        type: FuelType,
+                        max_value: FuelCapacity,
+                        value: FuelVolume,
+                        price_litre: SellingPrice,
+                      };
+                  } else return ag;
                 })
               );
             }
