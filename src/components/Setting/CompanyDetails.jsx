@@ -9,6 +9,7 @@ import { api } from "../../Https";
 import ErrorToast from "../Toast/ErrorToast";
 import AddGasInputs from "../AddGas/AddGasInputs";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import AddGasTypeInputs from "../AddGas/AddGasTypeInputs";
 
 const CompanyDetails = () => {
   const Auth = useSelector((state) => state.auth);
@@ -33,9 +34,7 @@ const CompanyDetails = () => {
   };
 
   const deleteGas = (index) => {
-    const updatedGases = [...AllGases];
-    updatedGases.splice(index, 1);
-    setAllGases(updatedGases);
+    setAllGases([]);
   };
 
   const handleSave = async () => {
@@ -154,33 +153,28 @@ const CompanyDetails = () => {
                 </div>
               )}
             </div>
-            {AllGases.map((ag, index) => {
-              return (
-                <div className="max767:ml-0 flex max767:justify-center max767:items-center gap-x-2 my-3 font-[Quicksand] text-[13.9px]">
-                  <span className="font-[700] mr-1">Gas Type:</span>
-                  <div className="flex font-[Quicksand] font-[300] items-center">
-                    <div className="px-5 max767:w-[35px] border-r-[1px] border-r-[#606060]">
-                      {ag.type}
-                    </div>
-                    <div className="px-5 max767:w-[80px] border-r-[1px] border-r-[#606060] text-center">
-                      {ag.max_value}
-                    </div>
-                    <div className="px-5 max767:w-[70px] border-r-[1px] border-r-[#606060] text-center">
-                      {ag.value}
-                    </div>
-                    <div className="px-5 max767:w-[45px] text-right">
-                      {ag.price_litre}
-                    </div>
-                    <RiDeleteBin6Line
-                      onClick={() => deleteGas(index)}
-                      className="ml-4 text-[1.3rem] cursor-pointer hover:text-[red] transition-all duration-500"
-                    />
-                  </div>
+            {AllGases.length !== 0 && (
+              <div className="max767:ml-0 flex max767:justify-center max767:items-center gap-x-2 my-3 font-[Quicksand] text-[13.9px]">
+                <span className="font-[700] mr-1">Gas Type:</span>
+                <div className="flex font-[Quicksand] font-[300] items-center">
+                  {AllGases.map((gas, index) => {
+                    return (
+                      <div className={`px-5 max767:w-[35px] border-r-[1px] border-r-[#606060]`}>
+                        {gas}
+                      </div>
+                    );
+                  })}
+                  <RiDeleteBin6Line
+                    onClick={() => {
+                      setAllGases([]);
+                    }}
+                    className="ml-4 text-[1.3rem] cursor-pointer hover:text-[red] transition-all duration-500"
+                  />
                 </div>
-              );
-            })}
+              </div>
+            )}
             {ShowAddGassInputs && (
-              <AddGasInputs
+              <AddGasTypeInputs
                 setAllGases={setAllGases}
                 AllGases={AllGases}
                 setShowAddGassInputs={setShowAddGassInputs}
