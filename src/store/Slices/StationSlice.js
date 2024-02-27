@@ -17,11 +17,13 @@ export const fetchStations = createAsyncThunk(
           }
         });
         const current_status =
-          minAge >= 1 && minAge <= 50
+          minAge >= 0 && minAge <= 30
             ? "MakeOrder"
-            : minAge > 50 && minAge <= 80
+            : minAge > 30 && minAge <= 70
             ? "BeReady"
-            : "Healthy";
+            : minAge > 70 && minAge <= 100
+            ? "Healthy"
+            : "";
         return {
           ...data,
           current_status,
