@@ -17,6 +17,7 @@ import HeaderWrapper from "../../components/Header/HeaderWrapper";
 import LocationSearchInput from "../../utility/LocationSearchInput";
 import FavBtn from "../../components/buttons/FavBtn";
 import NoDataFound from "../../components/Loaders/Lottie/NoDataFound";
+import { BsSearch } from "react-icons/bs";
 
 const Home = () => {
   const [Favourites, setFavourites] = useState(false);
@@ -24,6 +25,7 @@ const Home = () => {
   const [Open, setOpen] = useState(false);
   const [CurrentStationName, setCurrentStationName] = useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [SearchText, setSearchText] = useState("");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -64,6 +66,15 @@ const Home = () => {
           </div>
           {/* Right */}
           <div className="flex items-center gap-x-4">
+            <div className="flex border-[1px] w-[300px] border-black items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden max767:hidden">
+              <BsSearch />
+              <input
+                className="outline-none w-full"
+                placeholder="Search..."
+                value={SearchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
+            </div>
             <FavBtn Value={Favourites} setValue={setFavourites} />
             {/* <button
               className={`border-2 border-[#465462] px-4 py-1 rounded-3xl font-[Quicksand] font-[700] ${
@@ -101,19 +112,30 @@ const Home = () => {
           <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] maxWeb1:items-center maxWeb2:items-center maxWeb3:items-center maxWeb4:items-center flex flex-wrap xl:justify-center justify-center items-center my-4">
             {StationsData?.data
               .filter((dt) => {
+                const searchLowerCase = SearchText.toLowerCase();
+                // Check if dt.name starts with the text in SearchText
+                const nameStartsWithSearchText = dt.name
+                  .toLowerCase()
+                  .startsWith(searchLowerCase);
+
                 if (Favourites) {
                   if (Filter !== "" && Favourites === dt.favorite) {
-                    if (Filter === dt.current_status) {
+                    if (
+                      Filter === dt.current_status &&
+                      nameStartsWithSearchText
+                    ) {
                       return dt;
                     }
-                  } else if (dt.favorite) {
+                  } else if (dt.favorite && nameStartsWithSearchText) {
                     return dt;
                   }
-                } else if (Filter !== "") {
+                } else if (Filter !== "" && nameStartsWithSearchText) {
                   if (Filter === dt.current_status) {
                     return dt;
                   }
-                } else return dt;
+                } else if (nameStartsWithSearchText) {
+                  return dt;
+                }
               })
               .map((dt) => {
                 return (

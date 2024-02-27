@@ -11,6 +11,7 @@ import { StationData } from "../../components/Tables/DemoData/StationData";
 import LocationSearchInput from "../../utility/LocationSearchInput";
 import WarningToast from "../../components/Toast/WarningToast";
 import CustomInput from "../../components/Input/Formik/CustomInput";
+import ErrorToast from "../../components/Toast/ErrorToast";
 
 const Step1 = ({ setCurrentTabNumber, CurrentTabNumber, formik }) => {
   const [StationName, setStationName] = useState("");
@@ -38,7 +39,7 @@ const Step1 = ({ setCurrentTabNumber, CurrentTabNumber, formik }) => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    formik.setFieldValue("file",file)
+    formik.setFieldValue("file", file);
     setSelectedFile(file);
   };
 
@@ -82,6 +83,7 @@ const Step1 = ({ setCurrentTabNumber, CurrentTabNumber, formik }) => {
             label="Station Name"
             placeholder="Station Name..."
             type="text"
+            disabled={true}
             value={formik.values.to_name}
             onChange={formik.handleChange}
             touched={formik.touched.to_name}
@@ -92,6 +94,7 @@ const Step1 = ({ setCurrentTabNumber, CurrentTabNumber, formik }) => {
             name="res_date"
             label={"Reservation Date"}
             placeholder={"19-Sep-2023"}
+            disabled={true}
             type="date"
             value={formik.values.res_date}
             onChange={formik.handleChange}
@@ -387,7 +390,25 @@ const Step1 = ({ setCurrentTabNumber, CurrentTabNumber, formik }) => {
         <button
           className={`mt-[20px] w-[197px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
           onClick={() => {
-            setCurrentTabNumber(CurrentTabNumber + 1);
+            if (
+              formik.values.name !== "" &&
+              formik.values.res_date !== "" &&
+              formik.values.reciept_number !== "" &&
+              formik.values.paid_amount !== "" &&
+              formik.values.arrival_date !== "" &&
+              formik.values.from_option !== ""
+            ) {
+              if (
+                (formik.values.stationId === "" &&
+                  formik.values.from_option === 1) ||
+                (formik.values.vendorId === "" &&
+                  formik.values.from_option === 0)
+              ) {
+                ErrorToast("Required Fields is Undefined!");
+              } else {
+                setCurrentTabNumber(CurrentTabNumber + 1);
+              }
+            } else ErrorToast("Required Fields is Undefined!");
           }}
           else
         >

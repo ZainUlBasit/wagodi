@@ -97,18 +97,14 @@ export default function EmployeeTable({ Data, Search }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .filter((dt) => {
-                const searchLowerCase = Search.toLowerCase();
-                if (Search === "") return dt;
-                else {
-                  if (
-                    dt.stationName.toLowerCase().startsWith(searchLowerCase)
-                  ) {
-                    return dt;
-                  }
-                }
-              })
+            {Data.filter((dt) => {
+              const searchLowerCase = Search.toLowerCase();
+              if (Search === "") return dt;
+              else if (dt.name.toLowerCase().startsWith(searchLowerCase)) {
+                return dt;
+              }
+            })
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, i) => (
                 <TableRow
                   key={row.name}
@@ -116,6 +112,7 @@ export default function EmployeeTable({ Data, Search }) {
                     "&:last-child td, &:last-child th": { border: 0 },
                   }}
                 >
+                  {console.log(row)}
                   <TableCell
                     sx={{
                       fontWeight: 400,
@@ -189,7 +186,7 @@ export default function EmployeeTable({ Data, Search }) {
             const searchLowerCase = Search.toLowerCase();
             if (Search === "") return dt;
             else {
-              if (dt.stationName.toLowerCase().startsWith(searchLowerCase)) {
+              if (dt.name.toLowerCase().startsWith(searchLowerCase)) {
                 return dt;
               }
             }

@@ -30,6 +30,7 @@ const Step2 = ({
             label={"Gas Type"}
             placeholder={"95"}
             type="text"
+            disabled={true}
             value={
               formik.values.fuel_type === 0
                 ? "91"
@@ -45,6 +46,7 @@ const Step2 = ({
             label={"UOM"}
             placeholder={"Litre"}
             type="text"
+            disabled={true}
             value={"Litres"}
           />
         </div>
@@ -54,6 +56,7 @@ const Step2 = ({
             name="value"
             label={"Balance Volume"}
             placeholder={"20,000"}
+            disabled={true}
             type="number"
             value={formik.values.cur_value}
           />

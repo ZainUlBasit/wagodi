@@ -11,6 +11,7 @@ const CustomInput = ({
   isError,
   errorMsg,
   type,
+  disabled,
 }) => {
   return (
     <div className="relative w-[297px] font-[Quicksand]">
@@ -28,6 +29,7 @@ const CustomInput = ({
         className="px-3 py-2 border border-gray-300 rounded-[7.94px] w-full outline-none font-[Quicksand]"
         value={value}
         onChange={onChange}
+        disabled={disabled ? disabled : false}
       />
       {touched && isError && (
         <div className="text-red-500 font-[Quicksand] pl-2 pt-1">

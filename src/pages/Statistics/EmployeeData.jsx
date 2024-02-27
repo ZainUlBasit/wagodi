@@ -99,6 +99,15 @@ const EmployeeData = () => {
               >
                 <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
                   <div className="w-full flex flex-col justify-between gap-y-3 items-start">
+                    <div className="flex border-[1px] w-[260px] border-black items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden max767:hidden bg-white">
+                      <BsSearch className="text-black" />
+                      <input
+                        className="outline-none w-full"
+                        placeholder="Search Station name"
+                        value={SearchText}
+                        onChange={(e) => setSearchText(e.target.value)}
+                      />
+                    </div>
                     {StationsData.data.map((data) => {
                       return (
                         <div
@@ -126,7 +135,7 @@ const EmployeeData = () => {
               <BsSearch />
               <input
                 className="outline-none w-full"
-                placeholder="Search Station name"
+                placeholder="Search..."
                 value={SearchText}
                 onChange={(e) => setSearchText(e.target.value)}
               />
@@ -257,7 +266,7 @@ const EmployeeData = () => {
                 amount: "123",
               },
               {
-                name: "testing",
+                name: "zain",
                 station: "testing station",
                 phone_number: "testing 123",
                 fuel_type: "testing fuel",

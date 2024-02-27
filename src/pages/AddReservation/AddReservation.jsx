@@ -31,7 +31,7 @@ const AddReservation = () => {
   const formik = useFormik({
     initialValues: {
       to_name: s_name,
-      res_date: "",
+      res_date: new Date().toISOString().split("T")[0],
       paid_amount: "",
       arrival_date: "",
       tip: "",
@@ -54,70 +54,74 @@ const AddReservation = () => {
       file: "",
     },
     onSubmit: async (values) => {
-      const BodyData =
-        values.from_option === 0
-          ? // for vendors
-            {
-              // reciever
-              stations: [
-                {
-                  id: values.stationId,
-                  address: "xyz street",
-                  name: values.to_name,
+      if (values.fuel_value !== "") {
+        const BodyData =
+          values.from_option === 0
+            ? // for vendors
+              {
+                // reciever
+                stations: [
+                  {
+                    id: values.stationId,
+                    address: "xyz street",
+                    name: values.to_name,
+                  },
+                ],
+                orderManagerId: CurrentUser.data._id,
+                companyId: CurrentUser.data.companyId._id,
+                fuel_type: values.fuel_type,
+                fuel_value: values.fuel_value,
+                fuel_price: values.paid_amount,
+                fuel_id: values.fuel_id,
+                // "location": "",
+                // sender
+                from: {
+                  option: values.from_option,
+                  vendorId: values.vendorId,
+                  address: values.from_address,
                 },
-              ],
-              orderManagerId: CurrentUser.data._id,
-              companyId: CurrentUser.data.companyId._id,
-              fuel_type: values.fuel_type,
-              fuel_value: values.fuel_value,
-              fuel_price: values.paid_amount,
-              fuel_id: values.fuel_id,
-              // "location": "",
-              // sender
-              from: {
-                option: values.from_option,
-                vendorId: values.vendorId,
-                address: values.from_address,
-              },
-              reciept_number: values.reciept_number,
-            }
-          : // for stations
-            {
-              // reciever
-              stations: [
-                {
-                  id: values.stationId,
-                  address: "xyz street",
-                  name: values.to_name,
+                reciept_number: values.reciept_number,
+              }
+            : // for stations
+              {
+                // reciever
+                stations: [
+                  {
+                    id: values.stationId,
+                    address: "xyz street",
+                    name: values.to_name,
+                  },
+                ],
+                orderManagerId: CurrentUser.data._id,
+                companyId: CurrentUser.data.companyId._id,
+                fuel_type: values.fuel_type,
+                fuel_value: values.fuel_value,
+                fuel_price: values.paid_amount,
+                fuel_id: values.fuel_id,
+                // "location": "",
+                // sender
+                from: {
+                  option: values.from_option,
+                  stationId: values.stationId,
+                  address: values.from_address,
                 },
-              ],
-              orderManagerId: CurrentUser.data._id,
-              companyId: CurrentUser.data.companyId._id,
-              fuel_type: values.fuel_type,
-              fuel_value: values.fuel_value,
-              fuel_price: values.paid_amount,
-              fuel_id: values.fuel_id,
-              // "location": "",
-              // sender
-              from: {
-                option: values.from_option,
-                stationId: values.stationId,
-                address: values.from_address,
-              },
-              reciept_number: values.reciept_number,
-              attachment: values.file ? values.file : "",
-            };
-      try {
-        const response = await OrderCreateApi(BodyData);
-        if (response?.data?.success) {
-          console.log(response);
-          setCurrentTabNumber(CurrentTabNumber + 1);
-        } else {
-          ErrorToast(response?.data?.error?.msg);
+                reciept_number: values.reciept_number,
+                attachment: values.file ? values.file : "",
+              };
+        try {
+          const response = await OrderCreateApi(BodyData);
+          if (response?.data?.success) {
+            console.log(response);
+            setCurrentTabNumber(CurrentTabNumber + 1);
+          } else {
+            ErrorToast(response?.data?.error?.msg);
+          }
+        } catch (err) {
+          console.log(err);
+          console.log(err?.data?.error?.msg);
         }
-      } catch (err) {
-        console.log(err);
-        console.log(err?.data?.error?.msg);
+      } else {
+        ErrorToast("Required Fields is Undefined!");
       }
     },
   });
@@ -169,7 +173,25 @@ const AddReservation = () => {
                 : "bg-[#96ADC5]"
             } text-[white] w-10 h-10 flex justify-center items-center relative z-[1] rounded-[50%] outline-none font-[Quicksand] select-none`}
             onClick={() => {
-              if (CurrentTabNumber !== 2) setCurrentTabNumber(1);
+              if (
+                formik.values.name !== "" &&
+                formik.values.res_date !== "" &&
+                formik.values.reciept_number !== "" &&
+                formik.values.paid_amount !== "" &&
+                formik.values.arrival_date !== "" &&
+                formik.values.from_option !== ""
+              ) {
+                if (
+                  (formik.values.stationId === "" &&
+                    formik.values.from_option === 1) ||
+                  (formik.values.vendorId === "" &&
+                    formik.values.from_option === 0)
+                ) {
+                  ErrorToast("Required Fields is Undefined!");
+                } else {
+                  if (CurrentTabNumber !== 2) setCurrentTabNumber(1);
+                }
+              } else ErrorToast("Required Fields is Undefined!");
             }}
           >
             2
