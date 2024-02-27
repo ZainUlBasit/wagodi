@@ -7,6 +7,8 @@ import MobNavbar from "../Navbar/MobNavbar";
 import { useSelector } from "react-redux";
 import { api } from "../../Https";
 import ErrorToast from "../Toast/ErrorToast";
+import AddGasInputs from "../AddGas/AddGasInputs";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const CompanyDetails = () => {
   const Auth = useSelector((state) => state.auth);
@@ -22,9 +24,18 @@ const CompanyDetails = () => {
   const [Address, setAddress] = useState(Auth.data.companyId.address);
   const [selectedFile, setSelectedFile] = useState(null);
 
+  const [AllGases, setAllGases] = useState([]);
+  const [ShowAddGassInputs, setShowAddGassInputs] = useState(false);
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
+  };
+
+  const deleteGas = (index) => {
+    const updatedGases = [...AllGases];
+    updatedGases.splice(index, 1);
+    setAllGases(updatedGases);
   };
 
   const handleSave = async () => {
@@ -122,7 +133,7 @@ const CompanyDetails = () => {
               Value={Address}
               setValue={setAddress}
             />
-            <div className="flex flex-col">
+            <div className="flex flex-col mb-6">
               <label
                 htmlFor="file-input"
                 className="cursor-pointer flex items-center w-fit border-[1px] border-[#DCDCDC] py-[5px] px-[20px] pl-[10px] rounded-[7.94px] text-[13.9px]"
@@ -142,6 +153,50 @@ const CompanyDetails = () => {
                   <p>Selected File: {selectedFile.name}</p>
                 </div>
               )}
+            </div>
+            {AllGases.map((ag, index) => {
+              return (
+                <div className="max767:ml-0 flex max767:justify-center max767:items-center gap-x-2 my-3 font-[Quicksand] text-[13.9px]">
+                  <span className="font-[700] mr-1">Gas Type:</span>
+                  <div className="flex font-[Quicksand] font-[300] items-center">
+                    <div className="px-5 max767:w-[35px] border-r-[1px] border-r-[#606060]">
+                      {ag.type}
+                    </div>
+                    <div className="px-5 max767:w-[80px] border-r-[1px] border-r-[#606060] text-center">
+                      {ag.max_value}
+                    </div>
+                    <div className="px-5 max767:w-[70px] border-r-[1px] border-r-[#606060] text-center">
+                      {ag.value}
+                    </div>
+                    <div className="px-5 max767:w-[45px] text-right">
+                      {ag.price_litre}
+                    </div>
+                    <RiDeleteBin6Line
+                      onClick={() => deleteGas(index)}
+                      className="ml-4 text-[1.3rem] cursor-pointer hover:text-[red] transition-all duration-500"
+                    />
+                  </div>
+                </div>
+              );
+            })}
+            {ShowAddGassInputs && (
+              <AddGasInputs
+                setAllGases={setAllGases}
+                AllGases={AllGases}
+                setShowAddGassInputs={setShowAddGassInputs}
+              />
+            )}
+            <div className="flex flex-col">
+              <label
+                htmlFor="file-input1"
+                className="cursor-pointer flex items-center w-fit border-[1px] border-[#DCDCDC] py-[5px] px-[20px] pl-[10px] rounded-[7.94px] text-[13.9px]"
+                onClick={() => {
+                  setShowAddGassInputs(true);
+                }}
+              >
+                <FaPlus className="text-[#465462] text-[1.1rem] font-bold mr-5 ml-2" />
+                Add Gas
+              </label>
             </div>
           </div>
         </div>
