@@ -54,7 +54,7 @@ const AddReservation = () => {
       file: "",
     },
     onSubmit: async (values) => {
-      if (values.fuel_value !== "" && values.file === "") {
+      if (values.fuel_value !== "" && values.file !== "") {
         const BodyData =
           values.from_option === 0
             ? // for vendors
