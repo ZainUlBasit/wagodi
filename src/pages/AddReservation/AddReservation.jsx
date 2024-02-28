@@ -54,7 +54,7 @@ const AddReservation = () => {
       file: "",
     },
     onSubmit: async (values) => {
-      if (values.fuel_value !== "") {
+      if (values.fuel_value !== "" && values.file === "") {
         const BodyData =
           values.from_option === 0
             ? // for vendors
@@ -81,6 +81,7 @@ const AddReservation = () => {
                   address: values.from_address,
                 },
                 reciept_number: values.reciept_number,
+                attachment: values.file ? values.file : "",
               }
             : // for stations
               {
