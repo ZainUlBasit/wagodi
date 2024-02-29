@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 const Step3 = () => {
   const navigate = useNavigate();
   return (
-    <div className="w-[718px] flex flex-col gap-x-10 pt-[45px] mt-10 shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] justify-between h-[446px] rounded-[15px] fade-in">
-      <div className="w-[718px] flex flex-col items-center gap-x-10 justify-center rounded-[15px] font-[Quicksand]">
+    <div className="flex flex-col gap-x-10 mt-10 shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] justify-between rounded-[15px] fade-in">
+      <div className="w-auto p-8 flex flex-col items-center gap-x-10 justify-center rounded-[15px] font-[Quicksand]">
         <img src={Success} className="w-[230px]" />
         <span className="text-[#2EB100] text-[1.9rem] font-bold mt-2">
           Congratulations !

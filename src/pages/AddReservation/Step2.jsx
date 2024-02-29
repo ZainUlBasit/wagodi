@@ -21,8 +21,8 @@ const Step2 = ({
     setBalanceVolume(state.value);
   }, []);
   return (
-    <div className="w-[718px] flex flex-col gap-x-10 pt-[45px] mt-10 shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] justify-between h-[446px] rounded-[15px] fade-in">
-      <div className="w-[718px] flex gap-x-10 justify-center rounded-[15px]">
+    <div className="flex flex-col gap-x-10 mt-10 shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] justify-between rounded-[15px] fade-in">
+      <div className="w-auto p-10 flex-wrap flex gap-x-10 justify-center rounded-[15px]">
         {/* left side */}
         <div className="flex flex-col gap-y-5">
           <CustomInput
@@ -49,9 +49,6 @@ const Step2 = ({
             disabled={true}
             value={"Litres"}
           />
-        </div>
-        {/* right side */}
-        <div className="flex flex-col gap-y-5">
           <CustomInput
             name="value"
             label={"Balance Volume"}
@@ -60,6 +57,9 @@ const Step2 = ({
             type="number"
             value={formik.values.cur_value}
           />
+        </div>
+        {/* right side */}
+        <div className="flex flex-col gap-y-5">
           <CustomInput
             name="fuel_value"
             label={"Require Volume"}

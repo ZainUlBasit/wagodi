@@ -12,9 +12,7 @@ import { useFormik } from "formik";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../../assets/config";
-import { BiLeftArrow, BiRightArrow, BiSolidRightArrow } from "react-icons/bi";
-import { FaRegHandPointRight } from "react-icons/fa";
-import { MdSwipeRightAlt } from "react-icons/md";
+import InactiveLine from "../../assets/images/inactiveline.png";
 // import "react-tabs/style/react-tabs.css";
 const AddReservation = () => {
   const [CurrentTabNumber, setCurrentTabNumber] = useState(0);
@@ -162,11 +160,11 @@ const AddReservation = () => {
   return (
     <>
       <Tabs
-        className="flex justify-center flex-col items-center w-[100%]"
+        className="flex justify-center flex-col items-center"
         //   onSelect={handleTabChange} // Call handleTabChange when a tab is selected
         selectedIndex={CurrentTabNumber} // Set the selected tab index
       >
-        <TabList className="flex gap-x-4 justify-between items-center w-[50%]">
+        <TabList className="flex w-auto justify-between items-center">
           <Tab
             className={`Tab ${
               CurrentTabNumber === 0 ||
@@ -181,12 +179,10 @@ const AddReservation = () => {
           >
             1
           </Tab>
-          <MdSwipeRightAlt
-            className={`${
-              CurrentTabNumber === 1 || CurrentTabNumber === 2
-                ? "text-[#465462]"
-                : "text-[#96ADC5]"
-            } text-5xl`}
+          <img
+            src={InactiveLine}
+            className="h-[2px] overflow-hidden"
+            alt="testing"
           />
           <Tab
             className={`Tab ${
@@ -217,14 +213,10 @@ const AddReservation = () => {
           >
             2
           </Tab>
-          <MdSwipeRightAlt
-            className={`${
-              
-              
-              CurrentTabNumber === 2
-                ? "text-[#465462]"
-                : "text-[#96ADC5]"
-            } text-5xl`}
+          <img
+            src={InactiveLine}
+            className="h-[2px] overflow-hidden"
+            alt="testing"
           />
 
           <Tab

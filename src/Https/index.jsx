@@ -44,7 +44,7 @@ export const UpdatePasswordApi = (data) =>
 // Station Request
 // *********************************************
 export const CreateStationApi = (data) => api.post("/station", data);
-export const GetStationApi = (data) => api.post("/station/all", data);
+export const GetStationApi = (data) => api.post("/station/site/all", data);
 export const GetCompanySubscription = (data) =>
   api.post("/subscription/company", data);
 export const UpdateStationApi = (data) => api.patch("/station/update", data);
