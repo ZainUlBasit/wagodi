@@ -78,7 +78,6 @@ const LoginComp = () => {
   const navigate = useNavigate();
   const [Loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -89,6 +88,7 @@ const LoginComp = () => {
       response = await SignInApi({ email: Email, password: Password });
       console.log(response.data.success);
       response_type = response.data.success;
+
       // console.log(response.data.success);
       if (response.data.success) SuccessToast(response.data?.data?.msg);
     } catch (err) {
@@ -104,6 +104,10 @@ const LoginComp = () => {
       localStorage.setItem("logged-in", response_type);
       // console.log(response)
       localStorage.setItem("userToken", response?.data?.token);
+      localStorage.setItem(
+        "companyData",
+        JSON.stringify(response.data.data.data.companyId)
+      );
       localStorage.setItem(
         "user-data",
         JSON.stringify(response.data.data.data)
@@ -129,7 +133,7 @@ const LoginComp = () => {
         <p className="mb-[80px] font-[300] DescText">
           Use Credentials to access your account
         </p>
-        
+
         <AuthInput
           label={"E-mail"}
           placeholder={"user123@gmail.com"}
@@ -159,7 +163,6 @@ const LoginComp = () => {
             </label>
           </div> */}
           <Link to={"/forgot-password"} className="underline ForgetTextLogin">
-            
             Forget Password?
           </Link>
         </div>

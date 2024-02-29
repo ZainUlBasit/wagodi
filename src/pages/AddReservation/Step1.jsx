@@ -80,10 +80,10 @@ const Step1 = ({
   }, []);
 
   return (
-    <div className="w-[718px] flex flex-col gap-x-10 pt-[45px] mt-10 shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] justify-between h-[446px] rounded-[15px] fade-in">
-      <div className="w-[718px] flex gap-x-10 justify-center rounded-[15px]">
+    <div className="w-full flex flex-col gap-x-10 mt-10 shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] justify-between items-center h-auto rounded-[15px] fade-in">
+      <div className="p-10 flex-wrap flex-column-reverse flex gap-x-10 justify-center rounded-[15px]">
         {/* left side */}
-        <div className="flex flex-col gap-y-5">
+        <div className="flex flex-col gap-y-5 mb-5">
           <CustomInput
             name="to_name"
             label="Station Name"
@@ -127,37 +127,6 @@ const Step1 = ({
             Value={Address}
             setValue={setAddress}
           /> */}
-          <div className="flex flex-col">
-            <label
-              htmlFor="file-input"
-              className="cursor-pointer flex items-center w-fit border-[1px] border-[#DCDCDC] py-[5px] px-[20px] pl-[10px] rounded-[7.94px] text-[13.9px]"
-            >
-              <FaPlus className="text-[#465462] text-[1.1rem] font-bold mr-5 ml-2" />
-              Add Buying Receipt
-            </label>
-            {/* <input
-              id="file-input"
-              type="file"
-              name="attachment"
-              multiple
-              onChange={handleFileChange}
-            /> */}
-            <input
-              id="file-input"
-              type="file"
-              accept=".jpg, .jpeg, .png"
-              className="hidden"
-              onChange={handleFileChange}
-            />
-            {formik.values.attachment && (
-              <div className="ml-3">
-                <p>Selected File: {formik.values.attachment.name}</p>
-              </div>
-            )}
-          </div>
-        </div>
-        {/* right side */}
-        <div className="flex flex-col gap-y-5">
           <CustomInput
             name="arrival_date"
             label={"Arrival Date"}
@@ -169,6 +138,9 @@ const Step1 = ({
             isError={formik.errors.arrival_date}
             errorMsg={formik.errors.arrival_date}
           />
+        </div>
+        {/* right side */}
+        <div className="flex flex-col gap-y-5">
           <AuthInputPopOver
             label={"Start Point Type"}
             placeholder={"Select Start Point..."}
@@ -364,6 +336,8 @@ const Step1 = ({
                               "vendor_price",
                               currentFuelData
                             );
+                            formik.setFieldValue("from_long", data.longitude);
+                            formik.setFieldValue("from_lat", data.latitude);
                             formik.setFieldValue("vendorId", data._id);
                             formik.setFieldValue("from_address", data.address);
                             formik.setFieldValue("from_name", data.name);
@@ -395,6 +369,34 @@ const Step1 = ({
             isError={formik.errors.tip}
             errorMsg={formik.errors.tip}
           />
+          <div className="flex flex-col">
+            <label
+              htmlFor="file-input"
+              className="cursor-pointer flex items-center w-fit border-[1px] border-[#DCDCDC] py-[5px] px-[20px] pl-[10px] rounded-[7.94px] text-[13.9px]"
+            >
+              <FaPlus className="text-[#465462] text-[1.1rem] font-bold mr-5 ml-2" />
+              Add Buying Receipt
+            </label>
+            {/* <input
+              id="file-input"
+              type="file"
+              name="attachment"
+              multiple
+              onChange={handleFileChange}
+            /> */}
+            <input
+              id="file-input"
+              type="file"
+              accept=".jpg, .jpeg, .png"
+              className="hidden"
+              onChange={handleFileChange}
+            />
+            {formik.values.attachment && (
+              <div className="ml-3">
+                <p>Selected File: {formik.values.attachment.name}</p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <div className="w-full flex justify-center items-center mb-10">

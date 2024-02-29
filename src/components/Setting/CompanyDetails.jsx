@@ -12,18 +12,17 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import AddGasTypeInputs from "../AddGas/AddGasTypeInputs";
 
 const CompanyDetails = () => {
+  const CompanyDataa = JSON.parse(localStorage.getItem("companyData"));
   const Auth = useSelector((state) => state.auth);
-  const companyId = Auth?.data?.companyId._id;
-  const [CompanyName, setCompanyName] = useState(Auth.data.name);
-  const [Email, setEmail] = useState(Auth.data.email);
-  const [PhoneNumber, setPhoneNumber] = useState(Auth.data.companyId.phone);
+  const companyId = CompanyDataa._id;
+  const [CompanyName, setCompanyName] = useState(CompanyDataa.name);
+  const [Email, setEmail] = useState(CompanyDataa.email);
+  const [PhoneNumber, setPhoneNumber] = useState(CompanyDataa.phone);
   const [CommercialRegistrationNumber, setCommercialRegistrationNumber] =
-    useState(Auth.data.companyId.crn_number);
-  const [TaxationNumber, setTaxationNumber] = useState(
-    Auth.data.companyId.tax_number
-  );
-  const [Address, setAddress] = useState(Auth.data.companyId.address);
-  const [selectedFile, setSelectedFile] = useState(null);
+    useState(CompanyDataa.crn_number);
+  const [TaxationNumber, setTaxationNumber] = useState(CompanyDataa.tax_number);
+  const [Address, setAddress] = useState(CompanyDataa.address);
+  const [selectedFile, setSelectedFile] = useState(CompanyDataa.imageUrl);
 
   const [AllGases, setAllGases] = useState([]);
   const [ShowAddGassInputs, setShowAddGassInputs] = useState(false);
@@ -67,7 +66,11 @@ const CompanyDetails = () => {
             image: selectedFile ? selectedFile : "",
           },
         });
-        console.log(response.data.data.company);
+        localStorage.removeItem("companyData");
+        localStorage.setItem(
+          "companyData",
+          JSON.stringify(response.data.data.company)
+        );
       } catch (error) {
         console.log(error);
         ErrorToast("Error occured while updating!");
@@ -162,14 +165,10 @@ const CompanyDetails = () => {
                   {AllGases.map((gas, index) => {
                     return (
                       <div className="flex border-l-2 border-l-black w-full justify-between">
-                        <div
-                          className={`px-5 max767:w-[35px]`}
-                        >
-                          {gas}
-                        </div>
+                        <div className={`px-5 max767:w-[35px]`}>{gas}</div>
                         <RiDeleteBin6Line
                           onClick={() => {
-                            deleteGas(index)
+                            deleteGas(index);
                           }}
                           className="ml-4 text-[1.3rem] cursor-pointer hover:text-[red] transition-all duration-500"
                         />

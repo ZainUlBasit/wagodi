@@ -75,10 +75,12 @@ const AddReservation = () => {
       cur_value: value,
       attachment: "",
       vendor_price: 0,
+      from_long :"",
+      from_lat :""
     },
     onSubmit: async (values) => {
       const formData = new FormData();
-      
+
       formData.append("orderManagerId", CurrentUser.data._id);
       formData.append("companyId", CurrentUser.data.companyId._id);
       formData.append("fuel_type", values.fuel_type);
@@ -91,6 +93,8 @@ const AddReservation = () => {
       if (values.from_option === 0) {
         formData.append("from[vendorId]", values.vendorId);
         formData.append("fuel_price", values.vendor_price * values.fuel_value);
+        formData.append("from[longitude]", values.from_long);
+        formData.append("from[latitude]", values.from_lat);
       } else if (values.from_option === 0) {
         formData.append("from[stationId]", values.stationId);
         formData.append("fuel_price", values.paid_amount);
@@ -159,7 +163,7 @@ const AddReservation = () => {
         //   onSelect={handleTabChange} // Call handleTabChange when a tab is selected
         selectedIndex={CurrentTabNumber} // Set the selected tab index
       >
-        <TabList className="flex w-[718px] justify-between">
+        <TabList className="flex gap-x-4 justify-between">
           <Tab
             className={`Tab ${
               CurrentTabNumber === 0 ||

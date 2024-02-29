@@ -118,22 +118,31 @@ const Home = () => {
                   .toLowerCase()
                   .startsWith(searchLowerCase);
 
-                if (Favourites) {
+                if (Favourites && dt.active) {
                   if (Filter !== "" && Favourites === dt.favorite) {
                     if (
                       Filter === dt.current_status &&
-                      nameStartsWithSearchText
+                      nameStartsWithSearchText &&
+                      dt.active
                     ) {
                       return dt;
                     }
-                  } else if (dt.favorite && nameStartsWithSearchText) {
+                  } else if (
+                    dt.favorite &&
+                    nameStartsWithSearchText &&
+                    dt.active
+                  ) {
                     return dt;
                   }
-                } else if (Filter !== "" && nameStartsWithSearchText) {
+                } else if (
+                  Filter !== "" &&
+                  nameStartsWithSearchText &&
+                  dt.active
+                ) {
                   if (Filter === dt.current_status) {
                     return dt;
                   }
-                } else if (nameStartsWithSearchText) {
+                } else if (nameStartsWithSearchText && dt.active) {
                   return dt;
                 }
               })
