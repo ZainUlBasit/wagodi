@@ -75,8 +75,6 @@ const AddReservation = () => {
       cur_value: value,
       attachment: "",
       vendor_price: 0,
-      from_long: "",
-      from_lat: "",
     },
     onSubmit: async (values) => {
       const formData = new FormData();
@@ -115,10 +113,8 @@ const AddReservation = () => {
         if (formik.values.paid_amount !== "" && values.from_option === 0) {
           ErrorToast("Required Fields is Undefined!");
           return;
-        } else if (
-          formik.values.paid_amount !== "" &&
-          values.from_option === 0
-        ) {
+        }
+        else if (formik.values.paid_amount !== "" && values.from_option === 0) {
           ErrorToast("Required Fields is Undefined!");
           return;
         }
