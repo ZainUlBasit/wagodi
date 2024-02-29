@@ -10,7 +10,7 @@ const OrderDetail = ({ Order }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative shadow-[rgba(0,0,0,0.24)_0px_3px_8px] rounded-[16px] overflow-hidden border border-[#465462] mx-8 my-3 h-[138px] w-[330px]">
+    <div className="relative shadow-[rgba(0,0,0,0.24)_0px_3px_8px] rounded-[16px] overflow-hidden border border-[#465462] mx-8 my-3 h-auto w-[330px]">
       <div className={`w-full cursor-pointer px-4`} onClick={() => {}}>
         {/* Header (Station Name*/}
         <div className="flex justify-between items-center w-full px-4 pr-5 pt-4 pb-[2px]">
