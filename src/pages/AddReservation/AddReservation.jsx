@@ -78,6 +78,7 @@ const AddReservation = () => {
     },
     onSubmit: async (values) => {
       const formData = new FormData();
+      
       formData.append("orderManagerId", CurrentUser.data._id);
       formData.append("companyId", CurrentUser.data.companyId._id);
       formData.append("fuel_type", values.fuel_type);
