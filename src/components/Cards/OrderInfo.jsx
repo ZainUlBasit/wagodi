@@ -7,14 +7,28 @@ import { convertFuel } from "../../utility/utilityFunctions";
 
 const OrderInfo = () => {
   const order = useSelector((state) => state.selectedOrder?.data);
-  const ReqDateTime = order.expected_arrival ? new Date(order.expected_arrival).toLocaleDateString() : "not specified";
+  console.log(order);
+  const ReqDateTime = order.expected_arrival
+    ? new Date(order.expected_arrival).toLocaleDateString()
+    : "not specified";
   const GasType = convertFuel(order.fuel_type);
   const UOM = "Liters";
-  const BalanceVolume = order.fuel_receieved || "not specified"
-  const RequiredVolume = order.fuel_value || "not specified"
-  const IssuedVolume = order.station.fuel_value || "not specified"
-  const RecievedVolume = order.station.fuel_recieved || "not specified"
-  const DeliveredDateTime = order.station.deliveryTime ? new Date(order.station.deliveryTime).toLocaleDateString() : "not specified";
+  const BalanceVolume = order.fuel_receieved || "not specified";
+  const RequiredVolume = order.fuel_value || "not specified";
+  const IssuedVolume = order.station.fuel_value || "not specified";
+  const RecievedVolume = order.station.fuel_recieved || "not specified";
+  const DeliveredDateTime = order.station.deliveryTime
+    ? new Date(order.station.deliveryTime).toLocaleDateString()
+    : "not specified";
+
+  const downloadAttachment = (url, fileName) => {
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <>
@@ -27,10 +41,10 @@ const OrderInfo = () => {
             Receipt No: <span className="font-[400]">1231236512456</span>
           </div>
         </div>
-        <div className="w-full flex  flex-col justify-center items-center mt-10">
-          <div className="w-auto p-10 flex-wrap shadow-[rgba(0,0,0,0.24)_0px_3px_8px] flex justify-between flex-wrap px-14 py-10 rounded-[20px]">
+        <div className="w-auto flex  flex-col justify-center items-center mt-10 shadow-[rgba(0,0,0,0.24)_0px_3px_8px] rounded-[20px] p-10">
+          <div className="w-auto flex flex-wrap gap-x-5">
             {/* left side */}
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-y-3">
               <AuthInput
                 label="Required Date and Time"
                 placeholder="21-Sep-23    11:30PM"
@@ -61,7 +75,7 @@ const OrderInfo = () => {
               />
             </div>
             {/* right side */}
-            <div>
+            <div className="flex flex-col gap-y-3">
               <AuthInput
                 label="Required Volume"
                 placeholder="36,000"
@@ -91,14 +105,18 @@ const OrderInfo = () => {
                 Value={DeliveredDateTime}
               />
             </div>
-            <div className="w-full flex justify-center items-center mt-5">
-              {order?.attachments.map( attachment => 
-              <button className="text flex items-center w-fit gap-x-2 border-[2px] border-[#96ADC5] hover:bg-[#96ADC5] hover:text-white px-2 py-2 text-[#465462] font-bold rounded-[10px] transition-all duration-500 ease-in-out">
+          </div>
+          <div className="w-auto flex justify-center items-center">
+            {order?.attachments.map((attachment) => (
+              <button
+                className="text flex items-center w-fit gap-x-2 border-[2px] border-[#96ADC5] hover:bg-[#96ADC5] hover:text-white px-2 py-2 text-[#465462] font-bold rounded-[10px] transition-all duration-500 ease-in-out"
+                onClick={() =>
+                  downloadAttachment(attachment.url, attachment.name)
+                }
+              >
                 <BiDownload className="text-[1.5rem]" /> {attachment.name}
               </button>
-              )}
-
-            </div>
+            ))}
           </div>
         </div>
       </div>
