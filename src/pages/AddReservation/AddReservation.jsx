@@ -172,7 +172,7 @@ const AddReservation = () => {
               CurrentTabNumber === 2
                 ? "bg-[#465462]"
                 : "bg-[#96ADC5]"
-            } text-[white] w-10 h-10 flex justify-center items-center relative z-[1] rounded-[50%] outline-none font-[Quicksand] select-none`}
+            } text-[white] min-w-10 min-h-10 flex justify-center items-center relative z-[1] rounded-[50%] outline-none font-[Quicksand] select-none`}
             onClick={() => {
               if (CurrentTabNumber !== 2) setCurrentTabNumber(0);
             }}
@@ -189,7 +189,7 @@ const AddReservation = () => {
               CurrentTabNumber === 1 || CurrentTabNumber === 2
                 ? "bg-[#465462]"
                 : "bg-[#96ADC5]"
-            } text-[white] w-10 h-10 flex justify-center items-center relative z-[1] rounded-[50%] outline-none font-[Quicksand] select-none`}
+            } text-[white] min-w-10 min-h-10 flex justify-center items-center relative z-[1] rounded-[50%] outline-none font-[Quicksand] select-none`}
             onClick={() => {
               if (
                 formik.values.name !== "" &&
@@ -222,7 +222,7 @@ const AddReservation = () => {
           <Tab
             className={`${
               CurrentTabNumber === 2 ? "bg-[#465462]" : "bg-[#96ADC5]"
-            } text-[white] w-10 h-10 flex justify-center items-center relative z-[1] rounded-[50%] outline-none font-[Quicksand] select-none`}
+            } text-[white] min-w-10 min-h-10 flex justify-center items-center relative z-[1] rounded-[50%] outline-none font-[Quicksand] select-none`}
           >
             3
           </Tab>
