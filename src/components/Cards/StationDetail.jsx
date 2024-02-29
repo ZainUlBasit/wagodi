@@ -61,7 +61,7 @@ const StationDetail = ({
   };
 
   return (
-    <div className="relative mx-5 my-3 w-[350px] maxWeb1:w-[440px] maxWeb2:w-[480px] maxWeb3:w-[530px] maxWeb4:w-[580px] rounded-[16px] h-[165px] maxWeb1:h-[200px] maxWeb2:h-[250px] maxWeb3:h-[300px] maxWeb4:h-[300px] overflow-hidden">
+    <div className="relative mx-5 my-3 w-[350px] maxWeb1:w-[440px] maxWeb2:w-[480px] maxWeb3:w-[530px] maxWeb4:w-[580px] rounded-[16px] h-auto pb-3 maxWeb1:h-[200px] maxWeb2:h-[250px] maxWeb3:h-[300px] maxWeb4:h-[300px] overflow-hidden">
       <div
         className={`${
           StationDetailData.current_status === "Healthy"
