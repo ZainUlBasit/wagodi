@@ -12,6 +12,9 @@ import { useFormik } from "formik";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../../assets/config";
+import { BiLeftArrow, BiRightArrow, BiSolidRightArrow } from "react-icons/bi";
+import { FaRegHandPointRight } from "react-icons/fa";
+import { MdSwipeRightAlt } from "react-icons/md";
 // import "react-tabs/style/react-tabs.css";
 const AddReservation = () => {
   const [CurrentTabNumber, setCurrentTabNumber] = useState(0);
@@ -75,8 +78,8 @@ const AddReservation = () => {
       cur_value: value,
       attachment: "",
       vendor_price: 0,
-      from_long :"",
-      from_lat :""
+      from_long: "",
+      from_lat: "",
     },
     onSubmit: async (values) => {
       const formData = new FormData();
@@ -159,11 +162,11 @@ const AddReservation = () => {
   return (
     <>
       <Tabs
-        className="flex justify-center flex-col items-center"
+        className="flex justify-center flex-col items-center w-[100%]"
         //   onSelect={handleTabChange} // Call handleTabChange when a tab is selected
         selectedIndex={CurrentTabNumber} // Set the selected tab index
       >
-        <TabList className="flex gap-x-4 justify-between">
+        <TabList className="flex gap-x-4 justify-between items-center w-[50%]">
           <Tab
             className={`Tab ${
               CurrentTabNumber === 0 ||
@@ -178,6 +181,13 @@ const AddReservation = () => {
           >
             1
           </Tab>
+          <MdSwipeRightAlt
+            className={`${
+              CurrentTabNumber === 1 || CurrentTabNumber === 2
+                ? "text-[#465462]"
+                : "text-[#96ADC5]"
+            } text-5xl`}
+          />
           <Tab
             className={`Tab ${
               CurrentTabNumber === 1 || CurrentTabNumber === 2
@@ -207,6 +217,16 @@ const AddReservation = () => {
           >
             2
           </Tab>
+          <MdSwipeRightAlt
+            className={`${
+              
+              
+              CurrentTabNumber === 2
+                ? "text-[#465462]"
+                : "text-[#96ADC5]"
+            } text-5xl`}
+          />
+
           <Tab
             className={`${
               CurrentTabNumber === 2 ? "bg-[#465462]" : "bg-[#96ADC5]"
