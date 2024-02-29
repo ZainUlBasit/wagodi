@@ -82,7 +82,6 @@ const AddReservation = () => {
       formData.append("companyId", CurrentUser.data.companyId._id);
       formData.append("fuel_type", values.fuel_type);
       formData.append("fuel_value", values.fuel_value);
-      formData.append("fuel_price", values.paid_amount);
       formData.append("fuel_id", values.fuel_id);
       formData.append("reciept_number", values.reciept_number);
       // Append 'from' object fields to the FormData object
@@ -90,8 +89,10 @@ const AddReservation = () => {
       formData.append("from[address]", values.from_address);
       if (values.from_option === 0) {
         formData.append("from[vendorId]", values.vendorId);
+        formData.append("fuel_price", values.vendor_price * values.fuel_value);
       } else if (values.from_option === 0) {
         formData.append("from[stationId]", values.stationId);
+        formData.append("fuel_price", values.paid_amount);
       }
       // to stations
       formData.append(`stations[${0}][id]`, s_id);
@@ -110,11 +111,7 @@ const AddReservation = () => {
         values.arrival_date !== "" &&
         values.from_option !== ""
       ) {
-        if (formik.values.paid_amount !== "" && values.from_option === 0) {
-          ErrorToast("Required Fields is Undefined!");
-          return;
-        }
-        else if (formik.values.paid_amount !== "" && values.from_option === 0) {
+        if (values.from_option !== 0 && values.paid_amount === "") {
           ErrorToast("Required Fields is Undefined!");
           return;
         }
