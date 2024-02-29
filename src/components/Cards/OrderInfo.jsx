@@ -28,7 +28,7 @@ const OrderInfo = () => {
           </div>
         </div>
         <div className="w-full flex  flex-col justify-center items-center mt-10">
-          <div className="w-[800px] shadow-[rgba(0,0,0,0.24)_0px_3px_8px] flex justify-between flex-wrap px-14 py-10 rounded-[20px]">
+          <div className="w-auto p-10 flex-wrap shadow-[rgba(0,0,0,0.24)_0px_3px_8px] flex justify-between flex-wrap px-14 py-10 rounded-[20px]">
             {/* left side */}
             <div className="flex flex-col">
               <AuthInput
