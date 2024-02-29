@@ -34,7 +34,9 @@ const CompanyDetails = () => {
   };
 
   const deleteGas = (index) => {
-    setAllGases([]);
+    const updatedGases = [...AllGases];
+    updatedGases.splice(index, 1);
+    setAllGases(updatedGases);
   };
 
   const handleSave = async () => {
@@ -156,20 +158,24 @@ const CompanyDetails = () => {
             {AllGases.length !== 0 && (
               <div className="max767:ml-0 flex max767:justify-center max767:items-center gap-x-2 my-3 font-[Quicksand] text-[13.9px]">
                 <span className="font-[700] mr-1">Gas Type:</span>
-                <div className="flex font-[Quicksand] font-[300] items-center">
+                <div className="flex flex-col gap-y-2 font-[Quicksand] font-[300] w-auto">
                   {AllGases.map((gas, index) => {
                     return (
-                      <div className={`px-5 max767:w-[35px] border-r-[1px] border-r-[#606060]`}>
-                        {gas}
+                      <div className="flex border-l-2 border-l-black w-full justify-between">
+                        <div
+                          className={`px-5 max767:w-[35px]`}
+                        >
+                          {gas}
+                        </div>
+                        <RiDeleteBin6Line
+                          onClick={() => {
+                            deleteGas(index)
+                          }}
+                          className="ml-4 text-[1.3rem] cursor-pointer hover:text-[red] transition-all duration-500"
+                        />
                       </div>
                     );
                   })}
-                  <RiDeleteBin6Line
-                    onClick={() => {
-                      setAllGases([]);
-                    }}
-                    className="ml-4 text-[1.3rem] cursor-pointer hover:text-[red] transition-all duration-500"
-                  />
                 </div>
               </div>
             )}

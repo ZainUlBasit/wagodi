@@ -45,8 +45,9 @@ const StationDetail = ({
         type,
         s_name: StationDetailData.name,
         s_id: StationDetailData._id,
-        s_location: StationDetailData.address
-        ,
+        s_location: StationDetailData.address,
+        s_long: StationDetailData.longitude,
+        s_lat: StationDetailData.latitude,
         fuel_id: type === 0 ? _91._id : type === 1 ? _95._id : _D._id,
         max_value:
           type === 0

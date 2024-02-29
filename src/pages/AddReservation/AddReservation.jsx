@@ -10,23 +10,45 @@ import { OrderCreateApi } from "../../Https";
 import ErrorToast from "../../components/Toast/ErrorToast";
 import { useFormik } from "formik";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { BASE_URL } from "../../assets/config";
 // import "react-tabs/style/react-tabs.css";
 const AddReservation = () => {
   const [CurrentTabNumber, setCurrentTabNumber] = useState(0);
   const location = useLocation();
-  const { type, max_value, value, s_name, s_id, fuel_id, s_location } =
-    location.state;
+  const {
+    type,
+    max_value,
+    value,
+    s_name,
+    s_id,
+    fuel_id,
+    s_location,
+    s_long,
+    s_lat,
+  } = location.state;
   console.log(location.state);
-  const [FormData, setFormData] = useState({
-    fuel_id: fuel_id,
-  });
+  // const [FormData, setFormData] = useState({
+  //   fuel_id: fuel_id,
+  // });
   const [FromStation, setFromStation] = useState({});
   const [ToStation, setToStation] = useState({});
   const [ProccessData, setProccessData] = useState(false);
-  const SetFormData = (Data) => {
-    setFormData({ ...FormData, [Data.key]: Data.value });
-  };
+  const [selectedFile, setSelectedFile] = useState("");
+
+  // const SetFormData = (Data) => {
+  //   setFormData({ ...FormData, [Data.key]: Data.value });
+  // };
   const CurrentUser = useSelector((state) => state.auth);
+
+  function convertFileToObject(file) {
+    return {
+      name: file.name,
+      size: file.size,
+      type: file.type,
+      lastModified: file.lastModified, // You can include other properties if needed
+    };
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -35,7 +57,7 @@ const AddReservation = () => {
       paid_amount: "",
       arrival_date: "",
       tip: "",
-      fuel_id: "",
+      fuel_id: fuel_id,
       orderManagerId: "",
       station_id: "",
       station_address: "",
@@ -51,68 +73,48 @@ const AddReservation = () => {
       from_name: "",
       reciept_number: "",
       cur_value: value,
-      file: "",
+      attachment: "",
+      vendor_price: 0,
     },
     onSubmit: async (values) => {
-      if (values.fuel_value !== "" && values.file !== "") {
-        const BodyData =
-          values.from_option === 0
-            ? // for vendors
-              {
-                // reciever
-                stations: [
-                  {
-                    id: values.stationId,
-                    address: "xyz street",
-                    name: values.to_name,
-                  },
-                ],
-                orderManagerId: CurrentUser.data._id,
-                companyId: CurrentUser.data.companyId._id,
-                fuel_type: values.fuel_type,
-                fuel_value: values.fuel_value,
-                fuel_price: values.paid_amount,
-                fuel_id: values.fuel_id,
-                // "location": "",
-                // sender
-                from: {
-                  option: values.from_option,
-                  vendorId: values.vendorId,
-                  address: values.from_address,
-                },
-                reciept_number: values.reciept_number,
-                attachment: values.file ? values.file : "",
-              }
-            : // for stations
-              {
-                // reciever
-                stations: [
-                  {
-                    id: values.stationId,
-                    address: "xyz street",
-                    name: values.to_name,
-                  },
-                ],
-                orderManagerId: CurrentUser.data._id,
-                companyId: CurrentUser.data.companyId._id,
-                fuel_type: values.fuel_type,
-                fuel_value: values.fuel_value,
-                fuel_price: values.paid_amount,
-                fuel_id: values.fuel_id,
-                // "location": "",
-                // sender
-                from: {
-                  option: values.from_option,
-                  stationId: values.stationId,
-                  address: values.from_address,
-                },
-                reciept_number: values.reciept_number,
-                attachment: values.file ? values.file : "",
-              };
+      const formData = new FormData();
+      formData.append("orderManagerId", CurrentUser.data._id);
+      formData.append("companyId", CurrentUser.data.companyId._id);
+      formData.append("fuel_type", values.fuel_type);
+      formData.append("fuel_value", values.fuel_value);
+      formData.append("fuel_price", values.paid_amount);
+      formData.append("fuel_id", values.fuel_id);
+      formData.append("reciept_number", values.reciept_number);
+      // Append 'from' object fields to the FormData object
+      formData.append("from[option]", values.from_option);
+      formData.append("from[address]", values.from_address);
+      if (values.from_option === 0) {
+        formData.append("from[vendorId]", values.vendorId);
+      } else if (values.from_option === 0) {
+        formData.append("from[stationId]", values.stationId);
+      }
+      // to stations
+      formData.append(`stations[${0}][id]`, s_id);
+      formData.append(`stations[${0}][address]`, s_location);
+      formData.append(`stations[${0}][name]`, s_name);
+      formData.append(`stations[${0}][latitude]`, s_lat);
+      formData.append(`stations[${0}][longitude]`, s_long);
+      formData.append(`attachment`, values.attachment);
+
+      if (
+        values.fuel_value !== "" &&
+        values.attachment !== "" &&
+        values.name !== "" &&
+        values.res_date !== "" &&
+        values.reciept_number !== "" &&
+        values.paid_amount !== "" &&
+        values.arrival_date !== "" &&
+        values.from_option !== ""
+      ) {
         try {
-          const response = await OrderCreateApi(BodyData);
+          const response = await OrderCreateApi(formData);
           if (response?.data?.success) {
-            console.log(response);
+            console.log("response", response);
             setCurrentTabNumber(CurrentTabNumber + 1);
           } else {
             ErrorToast(response?.data?.error?.msg);
@@ -128,11 +130,11 @@ const AddReservation = () => {
   });
 
   const ProccessingData = async (BodyData) => {
-    console.log(BodyData);
+    console.log("BodyData", BodyData);
     // return;
     try {
       const response = await OrderCreateApi(BodyData);
-      console.log(response);
+      console.log("response", response);
       if (response?.data?.success) {
         console.log(response);
         setCurrentTabNumber(CurrentTabNumber + 1);
@@ -178,7 +180,6 @@ const AddReservation = () => {
                 formik.values.name !== "" &&
                 formik.values.res_date !== "" &&
                 formik.values.reciept_number !== "" &&
-                formik.values.paid_amount !== "" &&
                 formik.values.arrival_date !== "" &&
                 formik.values.from_option !== ""
               ) {
@@ -209,6 +210,8 @@ const AddReservation = () => {
         <TabPanel>
           <Step1
             formik={formik}
+            selectedFile={selectedFile}
+            setSelectedFile={setSelectedFile}
             CurrentTabNumber={CurrentTabNumber}
             setCurrentTabNumber={setCurrentTabNumber}
           />
@@ -219,7 +222,7 @@ const AddReservation = () => {
             CurrentTabNumber={CurrentTabNumber}
             setCurrentTabNumber={setCurrentTabNumber}
             state={location.state}
-            SetFormData={SetFormData}
+            // SetFormData={SetFormData}
             ProccessingData={ProccessingData}
             FormData={FormData}
           />

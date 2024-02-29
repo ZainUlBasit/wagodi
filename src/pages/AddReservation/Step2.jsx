@@ -71,6 +71,22 @@ const Step2 = ({
             isError={formik.errors.fuel_value}
             errorMsg={formik.errors.fuel_value}
           />
+          <CustomInput
+            name="paid_amount"
+            label={"Paid Amount"}
+            placeholder={"Add Amount..."}
+            type="number"
+            value={
+              formik.values.from_option === 0
+                ? formik.values.vendor_price * formik.values.fuel_value
+                : formik.values.paid_amount
+            }
+            onChange={formik.handleChange}
+            touched={formik.touched.paid_amount}
+            isError={formik.errors.paid_amount}
+            errorMsg={formik.errors.paid_amount}
+            disabled={formik.values.from_option === 0 ? true : false}
+          />
           {/* <AuthInput
             label={"Require Volume"}
             placeholder={"36,000"}

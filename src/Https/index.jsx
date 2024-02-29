@@ -1,12 +1,24 @@
 import axios from "axios";
 import { BASE_URL } from "../assets/config";
 
-const userToken = localStorage.getItem("userToken");
+export const userToken = localStorage.getItem("userToken");
 export const api = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
   headers: {
     "Content-type": "application/json",
+    Accept: "application/json",
+    app_secret:
+      "10ef42363582fd212242bf8da6598e6d15111a9a509c36242411d444e8c03728",
+    userToken,
+  },
+});
+
+export const apiForImage = axios.create({
+  baseURL: BASE_URL,
+  withCredentials: true,
+  headers: {
+    "Content-Type": "multipart/form-data",
     Accept: "application/json",
     app_secret:
       "10ef42363582fd212242bf8da6598e6d15111a9a509c36242411d444e8c03728",
@@ -98,7 +110,7 @@ export const GetOrderManagerNotificationApi = (data) =>
 // *********************************************
 // Orders Request
 // *********************************************
-export const OrderCreateApi = (data) => api.post("/order/create", data);
+export const OrderCreateApi = (data) => apiForImage.post("/order/create", data);
 
 // ------------------------------------------------- company
 export const ApprovedCompany = (data) =>

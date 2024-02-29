@@ -13,7 +13,13 @@ import WarningToast from "../../components/Toast/WarningToast";
 import CustomInput from "../../components/Input/Formik/CustomInput";
 import ErrorToast from "../../components/Toast/ErrorToast";
 
-const Step1 = ({ setCurrentTabNumber, CurrentTabNumber, formik }) => {
+const Step1 = ({
+  setCurrentTabNumber,
+  setSelectedFile,
+  selectedFile,
+  CurrentTabNumber,
+  formik,
+}) => {
   const [StationName, setStationName] = useState("");
   const [ReservationDate, setReservationDate] = useState(
     moment(new Date()).format("YYYY-MM-DD")
@@ -25,7 +31,6 @@ const Step1 = ({ setCurrentTabNumber, CurrentTabNumber, formik }) => {
   const [StartPoint, setStartPoint] = useState("");
   const [AddTip, setAddTip] = useState("");
   const [AddBuyingReceipt, setAddBuyingReceipt] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorElEnd, setAnchorElEnd] = useState(null);
   const [OpenStation, setOpenStation] = useState(false);
@@ -39,7 +44,8 @@ const Step1 = ({ setCurrentTabNumber, CurrentTabNumber, formik }) => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    formik.setFieldValue("file", file);
+    // formik.setFieldValue("attachment", e.currentTarget.files);
+    formik.setFieldValue("attachment", e.target.files[0]);
     setSelectedFile(file);
   };
 
@@ -129,6 +135,13 @@ const Step1 = ({ setCurrentTabNumber, CurrentTabNumber, formik }) => {
               <FaPlus className="text-[#465462] text-[1.1rem] font-bold mr-5 ml-2" />
               Add Buying Receipt
             </label>
+            {/* <input
+              id="file-input"
+              type="file"
+              name="attachment"
+              multiple
+              onChange={handleFileChange}
+            /> */}
             <input
               id="file-input"
               type="file"
@@ -136,26 +149,15 @@ const Step1 = ({ setCurrentTabNumber, CurrentTabNumber, formik }) => {
               className="hidden"
               onChange={handleFileChange}
             />
-            {selectedFile && (
+            {formik.values.attachment && (
               <div className="ml-3">
-                <p>Selected File: {selectedFile.name}</p>
+                <p>Selected File: {formik.values.attachment.name}</p>
               </div>
             )}
           </div>
         </div>
         {/* right side */}
         <div className="flex flex-col gap-y-5">
-          <CustomInput
-            name="paid_amount"
-            label={"Paid Amount"}
-            placeholder={"Add Amount..."}
-            type="number"
-            value={formik.values.paid_amount}
-            onChange={formik.handleChange}
-            touched={formik.touched.paid_amount}
-            isError={formik.errors.paid_amount}
-            errorMsg={formik.errors.paid_amount}
-          />
           <CustomInput
             name="arrival_date"
             label={"Arrival Date"}
@@ -353,6 +355,15 @@ const Step1 = ({ setCurrentTabNumber, CurrentTabNumber, formik }) => {
                           className="flex gap-x-3 items-center cursor-pointer"
                           onClick={() => {
                             handleCloseEnd();
+                            let currentFuelData = data.fuels.filter(
+                              (fuel) => fuel.type === formik.values.fuel_type
+                            );
+                            currentFuelData = currentFuelData[0].price_litre;
+
+                            formik.setFieldValue(
+                              "vendor_price",
+                              currentFuelData
+                            );
                             formik.setFieldValue("vendorId", data._id);
                             formik.setFieldValue("from_address", data.address);
                             formik.setFieldValue("from_name", data.name);
@@ -394,7 +405,7 @@ const Step1 = ({ setCurrentTabNumber, CurrentTabNumber, formik }) => {
               formik.values.name !== "" &&
               formik.values.res_date !== "" &&
               formik.values.reciept_number !== "" &&
-              formik.values.paid_amount !== "" &&
+              // formik.values.paid_amount !== "" &&
               formik.values.arrival_date !== "" &&
               formik.values.from_option !== ""
             ) {
