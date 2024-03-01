@@ -31,6 +31,7 @@ export const fetchNotification = createAsyncThunk(
           accountId: current_user._id,
         });
       }
+      console.log(response);
       return response?.data?.data?.payload || response.data.data;
     } catch (error) {
       console.log(error);

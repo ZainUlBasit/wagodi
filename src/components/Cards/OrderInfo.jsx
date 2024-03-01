@@ -21,24 +21,14 @@ const OrderInfo = () => {
     ? new Date(order.station.deliveryTime).toLocaleDateString()
     : "not specified";
 
-  const downloadAttachment = (url, fileName) => {
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   return (
     <>
       {/* <OrderManagerNavbar /> */}
       <div className="w-full flex flex-col items-center justify-center fade-in">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex flex-col justify-between mt-6">
-          {/* Left */}
-          <div className="font-[Quicksand] font-[600] text-[2rem]">
-            Receipt No: <span className="font-[400]">1231236512456</span>
+          <div className="font-[Quicksand] font-[600] text-[2rem] flex justify-center gap-x-2 select-none">
+            Receipt No: <span className="font-[400] select-text">1231236512456</span>
           </div>
         </div>
         <div className="w-auto flex  flex-col justify-center items-center mt-10 shadow-[rgba(0,0,0,0.24)_0px_3px_8px] rounded-[20px] p-10">
@@ -108,14 +98,13 @@ const OrderInfo = () => {
           </div>
           <div className="w-auto flex justify-center items-center">
             {order?.attachments.map((attachment) => (
-              <button
+              <a
+                href={attachment.url}
+                download={attachment.name}
                 className="text flex items-center w-fit gap-x-2 border-[2px] border-[#96ADC5] hover:bg-[#96ADC5] hover:text-white px-2 py-2 text-[#465462] font-bold rounded-[10px] transition-all duration-500 ease-in-out"
-                onClick={() =>
-                  downloadAttachment(attachment.url, attachment.name)
-                }
               >
                 <BiDownload className="text-[1.5rem]" /> {attachment.name}
-              </button>
+              </a>
             ))}
           </div>
         </div>
