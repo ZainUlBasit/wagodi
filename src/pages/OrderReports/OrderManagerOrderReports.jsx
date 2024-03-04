@@ -72,10 +72,19 @@ const OrderManagerOrderReports = () => {
     <>
       <div className="flex flex-col justify-center items-center w-full fade-in">
         {/* Header */}
-        <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6">
+        <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 flex-wrap items-center">
           {/* Left */}
           <div className="font-[Quicksand] font-[700] text-[2rem]">
             Approved Orders
+          </div>
+          <div className="flex border-[1px] w-[300px] border-black items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden">
+            <BsSearch />
+            <input
+              className="outline-none w-full"
+              placeholder="Search Reciept Number..."
+              value={SearchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
           </div>
         </div>
         <div className="w-[90%] max-w-[1200px] flex flex-wrap xl:justify-start justify-center items-center my-4">
@@ -86,14 +95,18 @@ const OrderManagerOrderReports = () => {
             </div>
           )}
           {ordersData &&
-            ordersData.map((order) => {
-              return (
-                <OrderDetail
-                  key={`${order._id}-${order.station.id._id}`}
-                  Order={order}
-                />
-              );
-            })}
+            ordersData
+              .filter((order) =>
+                SearchText !== "" ? order.reciept_number === SearchText : true
+              )
+              .map((order) => {
+                return (
+                  <OrderDetail
+                    key={`${order._id}-${order.station.id._id}`}
+                    Order={order}
+                  />
+                );
+              })}
         </div>
       </div>
       {OpenSendReport && (

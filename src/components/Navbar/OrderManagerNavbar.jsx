@@ -27,6 +27,7 @@ const OrderManagerNavbar = () => {
   const pathname = location.pathname;
   useEffect(() => {
     if ("/order-manager-home" === pathname) handleNavItemClick("HOME");
+    else if ("/order-manager-orders-report" === pathname) handleNavItemClick("Order Report");
     else if ("/ongoing-orders" === pathname)
       handleNavItemClick("ONGOING ORDERS");
     else if ("/add-reservation" === pathname) handleNavItemClick("HOME");

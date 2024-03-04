@@ -10,3 +10,8 @@ export const MobNavData = [
   { title: "Change Password", link: "/change-password" },
   { title: "Subscription", link: "/subscription" },
 ];
+
+export const MobNavDataOrderManager = [
+  { title: "Home", link: "/home" },
+  { title: "ORDER REPORTS", link: "/order-manager-orders-report" },
+];

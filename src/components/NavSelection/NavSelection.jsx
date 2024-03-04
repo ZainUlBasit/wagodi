@@ -48,14 +48,16 @@ const NavSelection = () => {
     auth.data.role === 0 &&
     windowWidth > 767 ? (
     <SuperAdminNavbar />
-  ) : pathname !== "/" &&
-    pathname !== "/onboarding" &&
-    pathname !== "/auth" &&
-    pathname !== "/forgot-password" &&
-    pathname !== "/logout" &&
-    pathname !== "/otp-verification" &&
-    pathname !== "/set-new-password" &&
-    auth.data.role === 1 ? (
+  ) : (pathname !== "/" &&
+      pathname !== "/onboarding" &&
+      pathname !== "/auth" &&
+      pathname !== "/forgot-password" &&
+      pathname !== "/logout" &&
+      pathname !== "/otp-verification" &&
+      pathname !== "/set-new-password" &&
+      auth.data.role === 1) ||
+    auth.data.role === 0 ||
+    (auth.data.role === 2 && windowWidth < 767) ? (
     <MobNavbar />
   ) : (
     pathname !== "/" &&

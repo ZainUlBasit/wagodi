@@ -220,6 +220,8 @@ const AddUser = ({ Open, setOpen }) => {
                 Value={Role}
                 onClick={(data) => handleClickRole(data)}
               />
+              <div className="mb-4"></div>
+
               {/* Role Popover */}
               <Popover
                 id={idRole}
@@ -325,6 +327,7 @@ const AddUser = ({ Open, setOpen }) => {
                     Value={Authority}
                     onClick={handleClick}
                   />
+                  <div className="mb-4"></div>
                   {/* Station Name */}
                   <AuthInputPopOver
                     label={"Station Name"}

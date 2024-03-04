@@ -24,9 +24,9 @@ const Home = () => {
   const [Filter, setFilter] = useState("");
   const [Open, setOpen] = useState(false);
   const [CurrentStationName, setCurrentStationName] = useState("");
-  const [anchorEl, setAnchorEl] = React.useState(null);
   const [SearchText, setSearchText] = useState("");
-
+  
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };

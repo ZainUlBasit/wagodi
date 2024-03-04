@@ -12,18 +12,21 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import { MobNavData } from "./MobNavData";
+import { MobNavData, MobNavDataOrderManager } from "./MobNavData";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { Typography } from "@mui/material";
 import Logo from "../../assets/images/logoWhite.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import { TbLogout } from "react-icons/tb";
 import Logout from "../Modals/Logout";
+import { useSelector } from "react-redux";
+import LoggingOut from "../Modals/LoggingOut";
 
 const MobNavbar = () => {
   const [showNotificationDot, setShowNotificationDot] = useState(true);
   const [ActiveNavItem, setActiveNavItem] = useState("");
   const [OpenLogoutModal, setOpenLogoutModal] = useState(false);
+  const [OpenLoggingOut, setOpenLoggingOut] = useState(false);
 
   const handleNotificationClick = () => {
     setShowNotificationDot(false);
@@ -58,6 +61,7 @@ const MobNavbar = () => {
     else if ("/ongoing-orders" === pathname)
       handleNavItemClick("ONGOING ORDERS");
     else if ("/orders-report" === pathname) handleNavItemClick("ORDER REPORTS");
+    else if ("/orders-report" === pathname) handleNavItemClick("ORDER REPORTS");
     else if ("/users" === pathname) handleNavItemClick("USERS");
     else if ("/notification" === pathname) handleNavItemClick("Notification");
     else if ("/setting" === pathname) handleNavItemClick("Setting");
@@ -70,9 +74,17 @@ const MobNavbar = () => {
     });
   }, [pathname]);
 
+  const CurrentUser = useSelector((state) => state.auth);
   const list = (anchor) => (
     <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+      sx={{
+        width:
+          anchor === "top" || anchor === "bottom"
+            ? "auto"
+            : CurrentUser.data.role === 0
+            ? 280
+            : 250,
+      }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
@@ -91,38 +103,166 @@ const MobNavbar = () => {
         }}
       >
         <div>
-          {MobNavData.map((text, index) => (
+          {CurrentUser.data.role === 1 ? (
+            MobNavData.map((text, index) => (
+              <>
+                <ListItem
+                  className="w-full flex justify-between py-1"
+                  key={text.index}
+                  disablePadding
+                  onClick={() => {
+                    navigate(text.link);
+                    handleNavItemClick(text.title);
+                  }}
+                >
+                  <ListItemButton className="w-full flex">
+                    <Typography
+                      //   variant="body1"
+                      className="text-white w-full"
+                      sx={{ fontFamily: "Quicksand", fontWeight: "bold" }}
+                    >
+                      {text.title}
+                    </Typography>
+                    <ListItemIcon className="flex justify-end">
+                      <KeyboardArrowRightIcon className="text-white" />
+                    </ListItemIcon>
+                  </ListItemButton>
+                </ListItem>
+                <Typography
+                  //   variant="div"
+                  component="div"
+                  className="text-white w-[90%] h-[2px] bg-[#FFFFFFB2]"
+                  sx={{ fontFamily: "Quicksand", fontWeight: "bold" }}
+                ></Typography>
+              </>
+            ))
+          ) : CurrentUser.data.role === 0 ? (
             <>
-              <ListItem
-                className="w-full flex justify-between py-1"
-                key={text.index}
-                disablePadding
-                onClick={() => {
-                  navigate(text.link);
-                  handleNavItemClick(text.title);
-                }}
-              >
-                <ListItemButton className="w-full flex">
-                  <Typography
-                    //   variant="body1"
-                    className="text-white w-full"
-                    sx={{ fontFamily: "Quicksand", fontWeight: "bold" }}
-                  >
-                    {text.title}
-                  </Typography>
-                  <ListItemIcon className="flex justify-end">
-                    <KeyboardArrowRightIcon className="text-white" />
-                  </ListItemIcon>
-                </ListItemButton>
-              </ListItem>
-              <Typography
-                //   variant="div"
-                component="div"
-                className="text-white w-[90%] h-[2px] bg-[#FFFFFFB2]"
-                sx={{ fontFamily: "Quicksand", fontWeight: "bold" }}
-              ></Typography>
+              <>
+                <ListItem
+                  className="w-full flex justify-between py-1"
+                  key={1}
+                  disablePadding
+                  onClick={() => {
+                    navigate("/home");
+                    handleNavItemClick("Home");
+                  }}
+                >
+                  <ListItemButton className="w-full flex">
+                    <Typography
+                      //   variant="body1"
+                      className="text-white w-full"
+                      sx={{ fontFamily: "Quicksand", fontWeight: "bold" }}
+                    >
+                      Companies Information
+                    </Typography>
+                    <ListItemIcon className="flex justify-end">
+                      <KeyboardArrowRightIcon className="text-white" />
+                    </ListItemIcon>
+                  </ListItemButton>
+                </ListItem>
+                <Typography
+                  //   variant="div"
+                  component="div"
+                  className="text-white w-[90%] h-[2px] bg-[#FFFFFFB2]"
+                  sx={{ fontFamily: "Quicksand", fontWeight: "bold" }}
+                ></Typography>
+              </>
+              <>
+                <ListItem
+                  className="w-full flex justify-between py-1"
+                  key={1}
+                  disablePadding
+                  onClick={() => {
+                    navigate("/subscription-requests");
+                    handleNavItemClick("Subscription Requests");
+                  }}
+                >
+                  <ListItemButton className="w-full flex">
+                    <Typography
+                      //   variant="body1"
+                      className="text-white w-full"
+                      sx={{ fontFamily: "Quicksand", fontWeight: "bold" }}
+                    >
+                      Subscription Requests{" "}
+                    </Typography>
+                    <ListItemIcon className="flex justify-end">
+                      <KeyboardArrowRightIcon className="text-white" />
+                    </ListItemIcon>
+                  </ListItemButton>
+                </ListItem>
+                <Typography
+                  //   variant="div"
+                  component="div"
+                  className="text-white w-[90%] h-[2px] bg-[#FFFFFFB2]"
+                  sx={{ fontFamily: "Quicksand", fontWeight: "bold" }}
+                ></Typography>
+              </>
+              <>
+                <ListItem
+                  className="w-full flex justify-between py-1"
+                  key={1}
+                  disablePadding
+                  onClick={() => {
+                    navigate("/control-subscribers");
+                    handleNavItemClick("Control Subscribers");
+                  }}
+                >
+                  <ListItemButton className="w-full flex">
+                    <Typography
+                      //   variant="body1"
+                      className="text-white w-full"
+                      sx={{ fontFamily: "Quicksand", fontWeight: "bold" }}
+                    >
+                      Control Subscribers
+                    </Typography>
+                    <ListItemIcon className="flex justify-end">
+                      <KeyboardArrowRightIcon className="text-white" />
+                    </ListItemIcon>
+                  </ListItemButton>
+                </ListItem>
+                <Typography
+                  //   variant="div"
+                  component="div"
+                  className="text-white w-[90%] h-[2px] bg-[#FFFFFFB2]"
+                  sx={{ fontFamily: "Quicksand", fontWeight: "bold" }}
+                ></Typography>
+              </>
             </>
-          ))}
+          ) : (
+            MobNavDataOrderManager.map((text, index) => (
+              <>
+                <ListItem
+                  className="w-full flex justify-between py-1"
+                  key={text.index}
+                  disablePadding
+                  onClick={() => {
+                    navigate(text.link);
+                    handleNavItemClick(text.title);
+                  }}
+                >
+                  <ListItemButton className="w-full flex">
+                    <Typography
+                      //   variant="body1"
+                      className="text-white w-full"
+                      sx={{ fontFamily: "Quicksand", fontWeight: "bold" }}
+                    >
+                      {text.title}
+                    </Typography>
+                    <ListItemIcon className="flex justify-end">
+                      <KeyboardArrowRightIcon className="text-white" />
+                    </ListItemIcon>
+                  </ListItemButton>
+                </ListItem>
+                <Typography
+                  //   variant="div"
+                  component="div"
+                  className="text-white w-[90%] h-[2px] bg-[#FFFFFFB2]"
+                  sx={{ fontFamily: "Quicksand", fontWeight: "bold" }}
+                ></Typography>
+              </>
+            ))
+          )}
         </div>
         <div className="flex flex-col w-[90%]">
           <ListItem
@@ -192,7 +332,16 @@ const MobNavbar = () => {
         </div>
       </div>
       {OpenLogoutModal && (
-        <Logout Open={OpenLogoutModal} setOpen={setOpenLogoutModal} />
+        <Logout
+          Open={OpenLogoutModal}
+          setOpen={setOpenLogoutModal}
+          setOpenLoggingOut={setOpenLoggingOut}
+        />
+      )}
+      {OpenLoggingOut && (
+        <div className="rounded-[20px] overflow-hidden">
+          <LoggingOut Open={OpenLoggingOut} setOpen={setOpenLoggingOut} />
+        </div>
       )}
     </div>
   );

@@ -25,7 +25,8 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
   const [Password, setPassword] = useState("");
   const [Role, setRole] = useState("");
   const [StationName, setStationName] = useState(
-    StationsData?.data.filter((dt) => dt._id === CurrentUser?.stationId)[0]?.name || ""
+    StationsData?.data.filter((dt) => dt._id === CurrentUser?.stationId)[0]
+      ?.name || ""
   );
   const [StationNumber, setStationNumber] = useState("");
   const [Long, setLong] = useState("");
@@ -310,6 +311,8 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
                 Value={Role}
                 onClick={handleClickRole}
               />
+              <div className="mb-4"></div>
+
               {Role === "Station Manager" && (
                 <>
                   <AuthInputPopOver
@@ -319,6 +322,7 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
                     Value={Authority}
                     onClick={handleClick}
                   />
+                  <div className="mb-4"></div>
                   {/* Station Name */}
                   <AuthInputPopOver
                     label={"Station Name"}
