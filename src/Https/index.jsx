@@ -117,6 +117,8 @@ export const ApprovedCompany = (data) =>
   api.patch("/company/company-approved", data);
 export const RejectCompany = (data) =>
   api.patch("/company/company-reject", data);
+export const UpdateFuelCompany = (data) =>
+  api.patch("company/fuel/update", data);
 
 // **************************************************************
 // **************************************************************

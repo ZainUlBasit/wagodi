@@ -166,14 +166,14 @@ const AddGasInputsPrefilled = ({
                     if (ag?._id)
                       return {
                         _id: ag._id,
-                        type: FuelType,
+                        type: i,
                         max_value: FuelCapacity,
                         value: FuelVolume,
                         price_litre: SellingPrice,
                       };
                     else
                       return {
-                        type: FuelType,
+                        type: i,
                         max_value: FuelCapacity,
                         value: FuelVolume,
                         price_litre: SellingPrice,
