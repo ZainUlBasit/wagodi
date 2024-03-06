@@ -22,6 +22,7 @@ const AddStation = ({ Open, setOpen }) => {
   const [Address, setAddress] = useState("");
   const [Longitude, setLongitude] = useState("");
   const [Latitude, setLatitude] = useState("");
+  const [Loading, setLoading] = useState(false)
   const Auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
