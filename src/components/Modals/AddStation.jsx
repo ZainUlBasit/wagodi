@@ -48,6 +48,12 @@ const AddStation = ({ Open, setOpen }) => {
           price_litre: Number(ag.price_litre),
           value: Number(ag.value),
           max_value: Number(ag.max_value),
+          type_name:
+            ag.type === "91"
+              ? "91"
+              : ag.type === "95"
+              ? "95"
+              : ag.type === "D" && "D",
         };
       }),
       name: StationName,
