@@ -96,6 +96,12 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
               max_value: data.max_value,
               value: data.value,
               type: data.type,
+              type_name:
+                data.type === 0
+                  ? "91"
+                  : data.type === 1
+                  ? "95"
+                  : data.type === 2 && "D",
             },
           });
           console.log(response);
