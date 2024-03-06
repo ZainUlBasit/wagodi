@@ -19,6 +19,7 @@ import { fetchUsers } from "../../store/Slices/UserSlice";
 import { fetchStations } from "../../store/Slices/StationSlice";
 import WarningToast from "../Toast/WarningToast";
 import LocationSearchInput from "../../utility/LocationSearchInput";
+import AddingLightLoader from "../Loaders/AddingLightLoader";
 
 const EditStation = ({ Open, setOpen, CurrentStation }) => {
   const [StationNumber, setStationNumber] = useState(CurrentStation.phone);
@@ -27,6 +28,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
   const [Longitude, setLongitude] = useState("");
   const [Latitude, setLatitude] = useState("");
   const [EditIndex, setEditIndex] = useState("");
+  const [Loading, setLoading] = useState(false);
   const [Status, setStatus] = useState(CurrentStation.active);
   const dispatch = useDispatch();
   const Current_User = useSelector((state) => state.auth);
@@ -38,6 +40,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
   };
 
   const onSubmitMethod = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const UpdateGases = AllGases.map((data) => {
       if (data.type === 0 || data.type === "91" || data.type === 91) {
@@ -71,6 +74,12 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
                 updatePriceLitre: data.price_litre,
                 updateType: data.type,
                 updateMaxValue: data.max_value,
+                updateTypeName:
+                  data.type === 0
+                    ? "91"
+                    : data.type === 1
+                    ? "95"
+                    : data.type === 2 && "D",
               },
             ],
           });
@@ -111,28 +120,30 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
 
     // return;
     if (StationNumber === "") {
-      return WarningToast("Enter Valid Station Number");
+      WarningToast("Enter Valid Station Number");
     } else if (StationName === "") {
-      return WarningToast("Enter Valid Name");
+      WarningToast("Enter Valid Name");
     } else if (Address === "") {
-      return WarningToast("Enter Valid Address");
+      WarningToast("Enter Valid Address");
     } else if (BodyData.updateData.fuels.length === 0) {
-      return WarningToast("Please Provide atleast one Gas");
-    }
-    try {
-      let response = await UpdateStationApi(BodyData);
-      console.log(response);
-      if (response.data.success) {
-        SuccessToast("Station Successfully Updated...");
-        dispatch(fetchStations(Current_User.data.companyId));
-        setOpen(false);
-      } else if (!response.data.success) {
-        toast.error(response.data?.error?.msg);
+      WarningToast("Please Provide atleast one Gas");
+    } else {
+      try {
+        let response = await UpdateStationApi(BodyData);
+        console.log(response);
+        if (response.data.success) {
+          SuccessToast("Station Successfully Updated...");
+          dispatch(fetchStations(Current_User.data.companyId));
+          setOpen(false);
+        } else if (!response.data.success) {
+          toast.error(response.data?.error?.msg);
+        }
+      } catch (err) {
+        toast.error(err.response?.data?.error?.msg);
+        console.log(err);
       }
-    } catch (err) {
-      toast.error(err.response?.data?.error?.msg);
-      console.log(err);
     }
+    setLoading(false);
   };
 
   const [AllGases, setAllGases] = useState(CurrentStation.populatedFuels);
@@ -272,20 +283,24 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
             </label>
           </div>
           {/* buttons */}
-          <div className="w-full flex justify-center items-center gap-x-5 mb-5">
-            <button
-              className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-              onClick={onSubmitMethod}
-            >
-              Edit
-            </button>
-            <button
-              className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-              onClick={() => setOpen(false)}
-            >
-              Cancel
-            </button>
-          </div>
+          {Loading ? (
+            <AddingLightLoader />
+          ) : (
+            <div className="w-full flex justify-center items-center gap-x-5 mb-5">
+              <button
+                className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+                onClick={onSubmitMethod}
+              >
+                Edit
+              </button>
+              <button
+                className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+                onClick={() => setOpen(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </CustomModal>
