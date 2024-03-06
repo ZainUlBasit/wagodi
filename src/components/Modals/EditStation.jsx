@@ -116,7 +116,6 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
         name: StationName,
         address: Address,
         phone: StationNumber,
-        fuels: UpdateGases,
         active: Status,
         longitude: Longitude,
         latitude: Latitude,
