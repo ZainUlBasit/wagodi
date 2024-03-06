@@ -22,7 +22,7 @@ const AddStation = ({ Open, setOpen }) => {
   const [Address, setAddress] = useState("");
   const [Longitude, setLongitude] = useState("");
   const [Latitude, setLatitude] = useState("");
-  const [Loading, setLoading] = useState(false)
+  const [Loading, setLoading] = useState(false);
   const Auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -176,7 +176,9 @@ const AddStation = ({ Open, setOpen }) => {
           </div>
           {/* buttons */}
           {Loading ? (
-            <AddingLightLoader />
+            <div className="w-full flex justify-center items-center gap-x-5 mb-5">
+              <AddingLightLoader />
+            </div>
           ) : (
             <div className="w-full flex justify-center items-center gap-x-5 mb-5 font-[Quicksand]">
               <button
