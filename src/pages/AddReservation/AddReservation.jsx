@@ -86,6 +86,7 @@ const AddReservation = () => {
       formData.append("companyId", CurrentUser.data.companyId._id);
       formData.append("fuel_type", values.fuel_type);
       formData.append("fuel_value", values.fuel_value);
+      formData.append("requiredVolume", values.fuel_value);
       formData.append("fuel_id", values.fuel_id);
       formData.append("reciept_number", values.reciept_number);
       // Append 'from' object fields to the FormData object
