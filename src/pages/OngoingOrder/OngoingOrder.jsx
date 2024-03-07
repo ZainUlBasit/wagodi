@@ -48,6 +48,7 @@ const OngoingOrder = () => {
         ErrorToast("Failed fetching data for on-going orders!");
         return;
       }
+      console.log(data.data.data);
       setOrdersData(data.data.data);
       setLoading(false);
     })();

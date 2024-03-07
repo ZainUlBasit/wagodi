@@ -14,7 +14,6 @@ import toast from "react-hot-toast";
 import { fetchStations } from "../../store/Slices/StationSlice";
 import WarningToast from "../Toast/WarningToast";
 import LocationSearchInput from "../../utility/LocationSearchInput";
-import AddingLightLoader from "../Loaders/AddingLightLoader";
 
 const AddStation = ({ Open, setOpen }) => {
   const [StationNumber, setStationNumber] = useState("");
@@ -22,7 +21,6 @@ const AddStation = ({ Open, setOpen }) => {
   const [Address, setAddress] = useState("");
   const [Longitude, setLongitude] = useState("");
   const [Latitude, setLatitude] = useState("");
-  const [Loading, setLoading] = useState(false);
   const Auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -40,7 +38,6 @@ const AddStation = ({ Open, setOpen }) => {
   };
 
   const onSubmit = async (e) => {
-    setLoading(true);
     e.preventDefault();
     const BodyData = {
       companyId: Auth.data.companyId,
@@ -51,12 +48,6 @@ const AddStation = ({ Open, setOpen }) => {
           price_litre: Number(ag.price_litre),
           value: Number(ag.value),
           max_value: Number(ag.max_value),
-          type_name:
-            ag.type === "91"
-              ? "91"
-              : ag.type === "95"
-              ? "95"
-              : ag.type === "D" && "D",
         };
       }),
       name: StationName,
@@ -67,28 +58,26 @@ const AddStation = ({ Open, setOpen }) => {
     };
 
     if (StationNumber === "") {
-      WarningToast("Enter Valid Station Number");
+      return WarningToast("Enter Valid Station Number");
     } else if (StationName === "") {
-      WarningToast("Enter Valid Name");
+      return WarningToast("Enter Valid Name");
     } else if (Address === "") {
-      WarningToast("Enter Valid Address");
+      return WarningToast("Enter Valid Address");
     } else if (BodyData.fuels.length === 0) {
-      WarningToast("Please Provide atleast one Gas");
-    } else {
-      try {
-        const response = await CreateStationApi(BodyData);
-        if (response.data.success) {
-          setOpen(false);
-          toast.success(response.data.data?.msg);
-          dispatch(fetchStations(Auth.data.companyId));
-        } else {
-          toast.success(response.data.error?.msg);
-        }
-      } catch (err) {
-        console.log(err);
-      }
+      return WarningToast("Please Provide atleast one Gas");
     }
-    setLoading(false);
+    try {
+      const response = await CreateStationApi(BodyData);
+      if (response.data.success) {
+        setOpen(false);
+        toast.success(response.data.data?.msg);
+        dispatch(fetchStations(Auth.data.companyId));
+      } else {
+        toast.success(response.data.error?.msg);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleSelect = ({ address, latLng }) => {
@@ -175,26 +164,20 @@ const AddStation = ({ Open, setOpen }) => {
             </label>
           </div>
           {/* buttons */}
-          {Loading ? (
-            <div className="w-full flex justify-center items-center gap-x-5 mb-5">
-              <AddingLightLoader />
-            </div>
-          ) : (
-            <div className="w-full flex justify-center items-center gap-x-5 mb-5 font-[Quicksand]">
-              <button
-                className={`mt-[5px] mb-[30px] w-[197px] max767:w-[100px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-                onClick={onSubmit}
-              >
-                Add
-              </button>
-              <button
-                className={`mt-[5px] mb-[30px] w-[197px] max767:w-[100px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-                onClick={() => setOpen(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          )}
+          <div className="w-full flex justify-center items-center gap-x-5 mb-5 font-[Quicksand]">
+            <button
+              className={`mt-[5px] mb-[30px] w-[197px] max767:w-[100px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+              onClick={onSubmit}
+            >
+              Add
+            </button>
+            <button
+              className={`mt-[5px] mb-[30px] w-[197px] max767:w-[100px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+              onClick={() => setOpen(false)}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     </CustomModal>

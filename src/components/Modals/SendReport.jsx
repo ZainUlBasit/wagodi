@@ -77,7 +77,7 @@ const SendReport = ({ Open, setOpen }) => {
         <div className="flex w-full justify-center font-[Quicksand] font-[600] text-[25px] pb-3 pt-7">
           Send Report
         </div>
-        <span className="w-[85%] h-[2px] bg-[#46546266] mb-[80px]"></span>
+        <span className="w-[85%] h-[2px] bg-[#46546266] mb-[50px]"></span>
         <AuthInput
           label={"Email"}
           placeholder={"123@gmail.com"}
@@ -174,7 +174,7 @@ const SendReport = ({ Open, setOpen }) => {
           </Typography>
         </Popover> */}
         <button
-          className={`mb-10 w-[197px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+          className={`mb-10 mt-10 w-[197px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
           onClick={onSubmit}
         >
           Send

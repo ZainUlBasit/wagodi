@@ -74,12 +74,6 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
                 updatePriceLitre: data.price_litre,
                 updateType: data.type,
                 updateMaxValue: data.max_value,
-                updateTypeName:
-                  data.type === 0
-                    ? "91"
-                    : data.type === 1
-                    ? "95"
-                    : data.type === 2 && "D",
               },
             ],
           });
@@ -96,12 +90,6 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
               max_value: data.max_value,
               value: data.value,
               type: data.type,
-              type_name:
-                data.type === 0
-                  ? "91"
-                  : data.type === 1
-                  ? "95"
-                  : data.type === 2 && "D",
             },
           });
           console.log(response);
@@ -116,6 +104,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
         name: StationName,
         address: Address,
         phone: StationNumber,
+        fuels: UpdateGases,
         active: Status,
         longitude: Longitude,
         latitude: Latitude,
@@ -289,9 +278,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
           </div>
           {/* buttons */}
           {Loading ? (
-            <div className="w-full flex justify-center items-center gap-x-5 mb-5">
-              <AddingLightLoader />
-            </div>
+            <AddingLightLoader />
           ) : (
             <div className="w-full flex justify-center items-center gap-x-5 mb-5">
               <button

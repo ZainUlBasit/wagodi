@@ -100,7 +100,7 @@ export default function OngoingOrdersTable({
                     align="center"
                   >
                     <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {row._id ? row._id : "none"}
+                      {row.orderNumber ? row.orderNumber : "none"}
                     </div>
                   </TableCell>
                   <TableCell
