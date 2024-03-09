@@ -81,7 +81,8 @@ const AddReservation = () => {
     },
     onSubmit: async (values) => {
       const formData = new FormData();
-
+      console.log(values.vendor_price);
+      console.log(values.fuel_value * values.vendor_price);
       formData.append("orderManagerId", CurrentUser.data._id);
       formData.append("companyId", CurrentUser.data.companyId._id);
       formData.append("fuel_type", values.fuel_type);
@@ -97,7 +98,7 @@ const AddReservation = () => {
         formData.append("fuel_price", values.vendor_price * values.fuel_value);
         formData.append("from[longitude]", values.from_long);
         formData.append("from[latitude]", values.from_lat);
-      } else if (values.from_option === 0) {
+      } else if (values.from_option === 1) {
         formData.append("from[stationId]", values.stationId);
         formData.append("fuel_price", values.paid_amount);
       }
@@ -107,7 +108,23 @@ const AddReservation = () => {
       formData.append(`stations[${0}][name]`, s_name);
       formData.append(`stations[${0}][latitude]`, s_lat);
       formData.append(`stations[${0}][longitude]`, s_long);
+      formData.append(
+        `stations[${0}][paid_amount]`,
+        values.from_option === 0
+          ? values.fuel_value * values.vendor_price
+          : values.paid_amount
+      );
+      formData.append(`stations[${0}][required_volume]`, values.fuel_value);
+      // const currentPaidAmount = values.fuel_value * values.vendor_price;
+      // console.log(values.vendor_price);
+      // console.log(currentPaidAmount);
+      // formData.append(`stations[${0}][paid_amount]`, currentPaidAmount);
+
       formData.append(`attachment`, values.attachment);
+
+      for (const pair of formData.entries()) {
+        console.log(pair[0], pair[1]);
+      }
 
       if (
         values.fuel_value !== "" &&
