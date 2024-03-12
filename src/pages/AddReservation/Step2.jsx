@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import AuthInput from "../../components/Input/AuthInput";
 import { useNavigate } from "react-router-dom";
 import CustomInput from "../../components/Input/Formik/CustomInput";
+import AddingLightLoader from "../../components/Loaders/AddingLightLoader";
 
 const Step2 = ({
   ProccessingData,
@@ -10,7 +11,7 @@ const Step2 = ({
   state,
   FormData,
   formik,
-  Loading
+  Loading,
 }) => {
   const [GasType, setGasType] = useState("");
   const [UOM, setUOM] = useState("Liters");
@@ -98,7 +99,9 @@ const Step2 = ({
         </div>
       </div>
       {Loading ? (
-        <div className="w-full gap-x-3 flex justify-center items-center mb-10"></div>
+        <div className="w-full gap-x-3 flex justify-center items-center mb-10">
+          <AddingLightLoader />
+        </div>
       ) : (
         <div className="w-full gap-x-3 flex justify-center items-center mb-10">
           <button
