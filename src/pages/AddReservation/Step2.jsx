@@ -10,6 +10,7 @@ const Step2 = ({
   state,
   FormData,
   formik,
+  Loading
 }) => {
   const [GasType, setGasType] = useState("");
   const [UOM, setUOM] = useState("Liters");
