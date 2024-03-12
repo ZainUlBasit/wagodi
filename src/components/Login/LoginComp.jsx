@@ -88,40 +88,40 @@ const LoginComp = () => {
       response = await SignInApi({ email: Email, password: Password });
       console.log(response.data.success);
       response_type = response.data.success;
-      console.log();
-
-      // console.log(response.data.success);
-      if (response.data.success) SuccessToast(response.data?.data?.msg);
+      if (response.data.success) {
+        if (response.data.data.data.role > 2) {
+          ErrorToast(
+            "Only Admin, Company and Order Manager can access Web App!"
+          );
+          return;
+        }
+        SuccessToast(response.data?.data?.msg);
+        localStorage.setItem("logged-in", response.data.success);
+        // console.log(response)
+        localStorage.setItem("userToken", response?.data?.token);
+        localStorage.setItem(
+          "companyData",
+          JSON.stringify(response.data.data.data.companyId)
+        );
+        localStorage.setItem(
+          "user-data",
+          JSON.stringify(response.data.data.data)
+        );
+        dispatch(SetAuth(response.data.data.data));
+        navigate("/home");
+      } else {
+        const current_status = response.response?.status || response.status;
+        if (current_status === 200) {
+          ErrorToast(response.data.error.msg);
+        } else if (current_status === 401) {
+          ErrorToast(response.response?.data?.error?.msg);
+        }
+      }
     } catch (err) {
       response = err;
       response_type = response.data?.success || false;
     }
     // console.log(response_type);
-    if (response_type) {
-      if (response.data.data.data.role > 2) {
-        ErrorToast("Only Admin, Company and Order Manager can access Web App!");
-        return;
-      }
-      localStorage.setItem("logged-in", response_type);
-      // console.log(response)
-      localStorage.setItem("userToken", response?.data?.token);
-      localStorage.setItem(
-        "companyData",
-        JSON.stringify(response.data.data.data.companyId)
-      );
-      localStorage.setItem(
-        "user-data",
-        JSON.stringify(response.data.data.data)
-      );
-      dispatch(SetAuth(response.data.data.data));
-    } else {
-      const current_status = response.response?.status || response.status;
-      if (current_status === 200) {
-        ErrorToast(response.data.error.msg);
-      } else if (current_status === 401) {
-        ErrorToast(response.response?.data?.error?.msg);
-      }
-    }
     setLoading(false);
   };
   return (
