@@ -38,6 +38,8 @@ const AddReservation = () => {
   const [ProccessData, setProccessData] = useState(false);
   const [selectedFile, setSelectedFile] = useState("");
 
+  const [Loading, setLoading] = useState(false);
+
   // const SetFormData = (Data) => {
   //   setFormData({ ...FormData, [Data.key]: Data.value });
   // };
@@ -82,6 +84,7 @@ const AddReservation = () => {
       from_fuel_id: "",
     },
     onSubmit: async (values) => {
+      setLoading(true);
       const formData = new FormData();
       console.log(values.vendor_price);
       console.log(values.fuel_value * values.vendor_price);
@@ -145,6 +148,7 @@ const AddReservation = () => {
       }
 
       if (values.fuel_value > max_value - value) {
+        setLoading(false);
         WarningToast("Required Volume must be under Station Capacity!");
       } else if (
         values.fuel_value !== "" &&
@@ -157,6 +161,7 @@ const AddReservation = () => {
       ) {
         if (values.from_option !== 0 && values.paid_amount === "") {
           ErrorToast("Required Fields is Undefined!");
+          setLoading(false);
           return;
         }
         try {
@@ -174,6 +179,7 @@ const AddReservation = () => {
       } else {
         ErrorToast("Required Fields is Undefined!");
       }
+      setLoading(false);
     },
   });
 
@@ -285,6 +291,7 @@ const AddReservation = () => {
             // SetFormData={SetFormData}
             ProccessingData={ProccessingData}
             FormData={FormData}
+            Loading={Loading}
           />
         </TabPanel>
         <TabPanel>

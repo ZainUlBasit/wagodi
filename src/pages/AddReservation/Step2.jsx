@@ -96,20 +96,24 @@ const Step2 = ({
           /> */}
         </div>
       </div>
-      <div className="w-full gap-x-3 flex justify-center items-center mb-10">
-        <button
-          className={`mt-[20px] w-[150px] h-fit py-2 text-[#90898E] hover:text-white hover:bg-[#90898E] rounded-[40px] bg-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out border-2 border-[#90898E]`}
-          onClick={() => navigate("/home")}
-        >
-          Cancel
-        </button>
-        <button
-          className={`mt-[20px] w-[150px] h-fit py-2 bg-[#90898E] border-2 border-[#90898E] hover:border-[#465462] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-          onClick={formik.handleSubmit}
-        >
-          Place Order
-        </button>
-      </div>
+      {Loading ? (
+        <div className="w-full gap-x-3 flex justify-center items-center mb-10"></div>
+      ) : (
+        <div className="w-full gap-x-3 flex justify-center items-center mb-10">
+          <button
+            className={`mt-[20px] w-[150px] h-fit py-2 text-[#90898E] hover:text-white hover:bg-[#90898E] rounded-[40px] bg-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out border-2 border-[#90898E]`}
+            onClick={() => navigate("/home")}
+          >
+            Cancel
+          </button>
+          <button
+            className={`mt-[20px] w-[150px] h-fit py-2 bg-[#90898E] border-2 border-[#90898E] hover:border-[#465462] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+            onClick={formik.handleSubmit}
+          >
+            Place Order
+          </button>
+        </div>
+      )}
     </div>
   );
 };
