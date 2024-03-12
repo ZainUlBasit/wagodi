@@ -108,7 +108,7 @@ const LoginComp = () => {
         SuccessToast(response.data?.data?.msg);
         localStorage.setItem("logged-in", response.data.success);
         // console.log(response)
-        localStorage.setItem("userToken", response?.data?.token);
+        localStorage.setItem("userToken", response.data.token);
         localStorage.setItem(
           "companyData",
           JSON.stringify(response.data.data.data.companyId)
@@ -133,6 +133,14 @@ const LoginComp = () => {
     // console.log(response_type);
     setLoading(false);
   };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      onSubmit(e);
+    }
+  };
+
   return (
     <>
       <div className="w-[383px] max767:w-[95%] max767:mb-4 h-[496px] shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] flex items-center flex-col rounded-md pt-[40px] font-[Quicksand] fade-in LoginWrapper">
@@ -143,21 +151,24 @@ const LoginComp = () => {
           Use Credentials to access your account
         </p>
 
-        <AuthInput
-          label={"E-mail"}
-          placeholder={"user123@gmail.com"}
-          Value={Email}
-          setValue={setEmail}
-          required={false}
-        />
-        <div className="mb-1 LoginBet"></div>
-        <AuthInputPassword
-          label={"Password"}
-          placeholder={"*************"}
-          Value={Password}
-          setValue={setPassword}
-          required={false}
-        />
+        <form onKeyDown={handleKeyDown} className="flex flex-col gap-y-[2px]">
+          <AuthInput
+            label={"E-mail"}
+            placeholder={"user123@gmail.com"}
+            Value={Email}
+            setValue={setEmail}
+            required={false}
+          />
+          <div className="mb-1 LoginBet"></div>
+          <AuthInputPassword
+            label={"Password"}
+            placeholder={"*************"}
+            Value={Password}
+            setValue={setPassword}
+            required={false}
+          />
+        </form>
+
         <div className="mb-1"></div>
         <div className="w-[297px] flex justify-end mt-[-10px] mb-[60px] ForgetWrapper">
           {/* <div>

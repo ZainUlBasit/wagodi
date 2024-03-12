@@ -23,10 +23,12 @@ import CompanyInfo from "../../pages/SuperAdmin/CompanyInfo";
 import SubscriptionRequests from "../../pages/SuperAdmin/SubscriptionRequests";
 import ControlSubscribers from "../../pages/SuperAdmin/ControlSubscribers";
 import Auth from "../../pages/Auth/Auth";
+import { useSelector } from "react-redux";
 
 const RoleRouting = ({ role }) => {
-  console.log("role ", role);
-  return role === 1 ? (
+  const CurrentUser = useSelector((state) => state.auth.data);
+  const isLoggedIn = localStorage.getItem("logged-in");
+  return CurrentUser.role === 1 && isLoggedIn ? (
     <Routes>
       <Route path="/" element={<Navigate to="/home" />} />
       <Route
@@ -158,7 +160,7 @@ const RoleRouting = ({ role }) => {
   ) : // **************************************
   // routing for order manager
   // **************************************
-  role === 2 ? (
+  CurrentUser.role === 2 && isLoggedIn ? (
     <Routes>
       <Route path="/" element={<Navigate to="/home" />} />
       <Route
@@ -203,7 +205,7 @@ const RoleRouting = ({ role }) => {
       />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
-  ) : role === 0 ? (
+  ) : CurrentUser.role === 0 && isLoggedIn ? (
     <Routes>
       <Route path="/" element={<Navigate to="/home" />} />
       <Route
