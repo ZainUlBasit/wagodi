@@ -121,12 +121,12 @@ const AddReservation = () => {
           ? values.fuel_value * values.vendor_price
           : values.paid_amount
       );
-      formData.append(
-        `from[paid_amount]`,
-        values.from_option === 0
-          ? values.fuel_value * values.vendor_price
-          : values.paid_amount
-      );
+      // formData.append(
+      //   `from[paid_amount]`,
+      //   values.from_option === 0
+      //     ? values.fuel_value * values.vendor_price
+      //     : values.paid_amount
+      // );
       formData.append(`stations[${0}][required_volume]`, values.fuel_value);
       // const currentPaidAmount = values.fuel_value * values.vendor_price;
       // console.log(values.vendor_price);
