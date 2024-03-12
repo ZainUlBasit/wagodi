@@ -4,7 +4,7 @@ import { FaRegEdit } from "react-icons/fa";
 import AuthTextArea from "../Input/AuthTextArea";
 import { FaPlus } from "react-icons/fa";
 import MobNavbar from "../Navbar/MobNavbar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UpdateFuelCompany, api, apiForImage } from "../../Https";
 import ErrorToast from "../Toast/ErrorToast";
 import AddGasInputs from "../AddGas/AddGasInputs";
@@ -12,6 +12,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import AddGasTypeInputs from "../AddGas/AddGasTypeInputs";
 import SuccessToast from "../Toast/SuccessToast";
 import AddingLightLoader from "../Loaders/AddingLightLoader";
+import { fetchCompanyDetails } from "../../store/Slices/CompanySlice";
 
 const CompanyDetails = () => {
   // const [CompanyDataa, setCompanyDataa] = useState(null);
@@ -26,6 +27,12 @@ const CompanyDetails = () => {
   const [Address, setAddress] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
   const [Loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const CompanyData = useSelector((state) => state.Company);
+
+  useEffect(() => {
+    dispatch(fetchCompanyDetails(Auth.data));
+  }, []);
 
   const [AllGases, setAllGases] = useState([]);
   const [ShowAddGassInputs, setShowAddGassInputs] = useState(false);
@@ -63,9 +70,10 @@ const CompanyDetails = () => {
 
     try {
       const response = await apiForImage.patch("/company/update", formData);
-      console.log(response);
-      // SuccessToast("Company Successfully Updated!");
-
+      if (response.data.success) SuccessToast("Company Successfully Updated!");
+      else {
+        ErrorToast("Unable to update company!");
+      }
       localStorage.removeItem("companyData");
       localStorage.setItem(
         "companyData",
@@ -89,23 +97,19 @@ const CompanyDetails = () => {
 
   useEffect(() => {
     const callApi = async () => {
-      try {
-        const response = await api.get("/company/" + Auth.data.companyId._id);
-        const data = response.data.data;
-        setCompanyId(data._id);
-        setCompanyName(data.name);
-        setEmail(data.email);
-        setPhoneNumber(data.phone);
-        setCommercialRegistrationNumber(data.crn_number);
-        setTaxationNumber(data.tax_number);
-        setAddress(data.address);
-        setSelectedFile(data.imageUrl);
-      } catch (err) {
-        console.log(err);
+      if (CompanyData.loading) {
+        setCompanyId(CompanyData.data._id);
+        setCompanyName(CompanyData.data.name);
+        setEmail(CompanyData.data.email);
+        setPhoneNumber(CompanyData.data.phone);
+        setCommercialRegistrationNumber(CompanyData.data.crn_number);
+        setTaxationNumber(CompanyData.data.tax_number);
+        setAddress(CompanyData.data.address);
+        setSelectedFile(CompanyData.data.imageUrl);
       }
     };
     callApi();
-  }, []);
+  }, [CompanyData.loading]);
 
   // useEffect(()=>{
   //   console.log(CompanyDataa);
@@ -235,7 +239,7 @@ const CompanyDetails = () => {
         </div>
         <div className="max767:w-[90%] max767:flex  max767:justify-center ">
           {Loading ? (
-            <div className="mt-[30px]">
+            <div className="mt-[30px] ml-[30px]">
               <AddingLightLoader />
             </div>
           ) : (

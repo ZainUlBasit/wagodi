@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CustomModal from "./CustomModal";
 import AuthInput from "../Input/AuthInput";
 import { ImCross } from "react-icons/im";
+import moment from "moment";
 
 const fuelTypeFunc = (type) => {
   switch (type) {
@@ -18,6 +19,7 @@ const fuelTypeFunc = (type) => {
 
 const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
   const orderData = data[SelectedID];
+  console.log(orderData);
   // const [OrderNumber, setOrderNumber] = useState();
   // const [StationName, setStationName] = useState("");
   // const [ReservationDetails, setReservationDetails] = useState("");
@@ -59,7 +61,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
               label="Order Number"
               placeholder="50"
               required={false}
-              Value={orderData._id}
+              Value={orderData.orderNumber}
               // setValue={setOrderNumber}
               readonly={true}
             />
@@ -75,7 +77,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
               label="Reservation Date"
               placeholder="Reservation Date"
               required={false}
-              Value={new Date(orderData.createdAt * 1000)}
+              Value={moment(new Date(orderData.createdAt * 1000)).format("DD/MM/YYYY h:mm a")}
               // setValue={setReservationDetails}
               readonly={true}
             />

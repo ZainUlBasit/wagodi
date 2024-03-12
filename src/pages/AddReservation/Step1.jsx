@@ -80,7 +80,7 @@ const Step1 = ({
   }, []);
 
   return (
-    <div className="w-full flex flex-col gap-x-10 mt-10 shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] justify-between items-center h-auto rounded-[15px] fade-in">
+    <div className="w-full flex flex-col gap-x-10 mt-10 shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] justify-between items-center h-auto rounded-[15px] fade-in mb-5">
       <div className="p-10 flex-wrap flex-column-reverse flex gap-x-10 justify-center rounded-[15px]">
         {/* left side */}
         <div className="flex flex-col gap-y-5 mb-5">
@@ -330,8 +330,10 @@ const Step1 = ({
                             let currentFuelData = data.fuels.filter(
                               (fuel) => fuel.type === formik.values.fuel_type
                             );
+                            const currentFuelId = currentFuelData[0]._id;
                             currentFuelData = currentFuelData[0].price_litre;
 
+                            formik.setFieldValue("from_fuel_id", currentFuelId);
                             formik.setFieldValue(
                               "vendor_price",
                               currentFuelData
@@ -409,6 +411,7 @@ const Step1 = ({
               formik.values.reciept_number !== "" &&
               // formik.values.paid_amount !== "" &&
               formik.values.arrival_date !== "" &&
+              formik.values.attachment !== "" &&
               formik.values.from_option !== ""
             ) {
               if (

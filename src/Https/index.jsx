@@ -36,6 +36,9 @@ export const ForgetPasswordApi = (data) =>
 export const VerifyOtpApi = (data) => api.post("/auth/verify-otp", data);
 export const UpdatePasswordApi = (data) =>
   api.patch("/auth/update-password", data);
+
+export const GetComapanyDetails = (companyId) =>
+  api.get("/company/" + companyId);
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 // Auth Request
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -118,7 +121,7 @@ export const ApprovedCompany = (data) =>
 export const RejectCompany = (data) =>
   api.patch("/company/company-reject", data);
 export const UpdateFuelCompany = (data) =>
-  api.patch("company/fuel/update", data);
+  api.patch("/company/fuel/update", data);
 
 // **************************************************************
 // **************************************************************

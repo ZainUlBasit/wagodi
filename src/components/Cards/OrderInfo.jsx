@@ -4,17 +4,18 @@ import AuthInput from "../Input/AuthInput";
 import { BiDownload } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { convertFuel } from "../../utility/utilityFunctions";
+import moment from "moment";
 
 const OrderInfo = () => {
   const order = useSelector((state) => state.selectedOrder?.data);
   console.log(order);
-  const ReqDateTime = order.expected_arrival
-    ? new Date(order.expected_arrival).toLocaleDateString()
+  const ReqDateTime = order.createdAt
+    ? moment(new Date(order.createdAt * 1000)).format("DD/MM/YYYY h:mm a")
     : "not specified";
   const GasType = convertFuel(order.fuel_type);
   const UOM = "Liters";
   const BalanceVolume = order.fuel_receieved || "not specified";
-  const RequiredVolume = order.fuel_value || "not specified";
+  const RequiredVolume = order.station.required_volume || "not specified";
   const IssuedVolume = order.station.fuel_value || "not specified";
   const RecievedVolume = order.station.fuel_recieved || "not specified";
   const DeliveredDateTime = order.station.deliveryTime

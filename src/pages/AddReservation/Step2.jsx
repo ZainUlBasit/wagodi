@@ -21,7 +21,7 @@ const Step2 = ({
     setBalanceVolume(state.value);
   }, []);
   return (
-    <div className="flex flex-col gap-x-10 mt-10 shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] justify-between rounded-[15px] fade-in">
+    <div className="flex flex-col gap-x-10 mt-10 shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] justify-between rounded-[15px] fade-in mb-5">
       <div className="w-auto p-10 flex-wrap flex gap-x-10 justify-center rounded-[15px]">
         {/* left side */}
         <div className="flex flex-col gap-y-5">

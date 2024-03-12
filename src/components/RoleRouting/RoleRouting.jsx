@@ -24,8 +24,8 @@ import SubscriptionRequests from "../../pages/SuperAdmin/SubscriptionRequests";
 import ControlSubscribers from "../../pages/SuperAdmin/ControlSubscribers";
 import Auth from "../../pages/Auth/Auth";
 
-const RoleRouting = ( ({ role }) => {
-  console.log("role ", role)
+const RoleRouting = ({ role }) => {
+  console.log("role ", role);
   return role === 1 ? (
     <Routes>
       <Route path="/" element={<Navigate to="/home" />} />
@@ -200,6 +200,7 @@ const RoleRouting = ( ({ role }) => {
           </ProtectedRoute>
         }
       />
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   ) : role === 0 ? (
     <Routes>
@@ -237,10 +238,11 @@ const RoleRouting = ( ({ role }) => {
           </ProtectedRoute>
         }
       />
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   ) : (
     <Auth />
   );
-});
+};
 
 export default RoleRouting;

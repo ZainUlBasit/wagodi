@@ -7,6 +7,7 @@ import VendorReducer from "./Slices/VendorSlice";
 import UserReducer from "./Slices/UserSlice";
 import SubscriptionSlice from "./Slices/SubscriptionSlice";
 import SelectedOrder from "./Slices/SelectedOrder";
+import CompanyReducer from "./Slices/CompanySlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     selectedOrder: SelectedOrder,
     Orders: OrderReducer,
     Notifications: NotificationsReducer,
+    Company: CompanyReducer,
   },
 });

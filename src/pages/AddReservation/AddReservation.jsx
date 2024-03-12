@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../../assets/config";
 import InactiveLine from "../../assets/images/inactiveline.png";
+import WarningToast from "../../components/Toast/WarningToast";
 // import "react-tabs/style/react-tabs.css";
 const AddReservation = () => {
   const [CurrentTabNumber, setCurrentTabNumber] = useState(0);
@@ -78,6 +79,7 @@ const AddReservation = () => {
       vendor_price: 0,
       from_long: "",
       from_lat: "",
+      from_fuel_id: "",
     },
     onSubmit: async (values) => {
       const formData = new FormData();
@@ -88,6 +90,7 @@ const AddReservation = () => {
       formData.append("fuel_type", values.fuel_type);
       formData.append("fuel_value", values.fuel_value);
       formData.append("requiredVolume", values.fuel_value);
+      formData.append("receivedVolume", 0);
       formData.append("fuel_id", values.fuel_id);
       formData.append("reciept_number", values.reciept_number);
       // Append 'from' object fields to the FormData object
@@ -98,16 +101,25 @@ const AddReservation = () => {
         formData.append("fuel_price", values.vendor_price * values.fuel_value);
         formData.append("from[longitude]", values.from_long);
         formData.append("from[latitude]", values.from_lat);
+        formData.append("from[fuelId]", values.from_fuel_id);
+        formData.append(
+          `stations[${0}][paid_amount]`,
+          values.vendor_price * values.fuel_value
+        );
       } else if (values.from_option === 1) {
         formData.append("from[stationId]", values.stationId);
         formData.append("fuel_price", values.paid_amount);
+        formData.append("from[fuelId]", values.fuel_id);
+        formData.append(`stations[${0}][paid_amount]`, values.paid_amount);
       }
+      formData.append("from[fuel_value]", values.fuel_value);
       // to stations
       formData.append(`stations[${0}][id]`, s_id);
       formData.append(`stations[${0}][address]`, s_location);
       formData.append(`stations[${0}][name]`, s_name);
       formData.append(`stations[${0}][latitude]`, s_lat);
       formData.append(`stations[${0}][longitude]`, s_long);
+      formData.append(`stations[${0}][fuelId]`, fuel_id);
       formData.append(
         `stations[${0}][paid_amount]`,
         values.from_option === 0
@@ -121,12 +133,19 @@ const AddReservation = () => {
       // formData.append(`stations[${0}][paid_amount]`, currentPaidAmount);
 
       formData.append(`attachment`, values.attachment);
+      formData.append(
+        `expected_arrival`,
+        Math.floor(values.arrival_date / 1000)
+      );
+      formData.append(`driverTip`, values.tip !== "" ? values.tip : 0);
 
       for (const pair of formData.entries()) {
         console.log(pair[0], pair[1]);
       }
 
-      if (
+      if (values.fuel_value > max_value - value) {
+        WarningToast("Required Volume must be under Station Capacity!");
+      } else if (
         values.fuel_value !== "" &&
         values.attachment !== "" &&
         values.name !== "" &&
@@ -182,7 +201,7 @@ const AddReservation = () => {
         //   onSelect={handleTabChange} // Call handleTabChange when a tab is selected
         selectedIndex={CurrentTabNumber} // Set the selected tab index
       >
-        <TabList className="flex w-auto justify-between items-center">
+        <TabList className="flex w-auto justify-between items-center py-5">
           <Tab
             className={`Tab ${
               CurrentTabNumber === 0 ||
@@ -214,6 +233,7 @@ const AddReservation = () => {
                 formik.values.res_date !== "" &&
                 formik.values.reciept_number !== "" &&
                 formik.values.arrival_date !== "" &&
+                formik.values.attachment !== "" &&
                 formik.values.from_option !== ""
               ) {
                 if (
