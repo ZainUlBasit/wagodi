@@ -79,6 +79,16 @@ const LoginComp = () => {
   const [Loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    // Check if the response_type is set in localStorage
+    const loggedIn = localStorage.getItem("logged-in");
+
+    // If it's set, navigate to the home page
+    if (loggedIn) {
+      navigate("/home");
+    }
+  }, [localStorage]);
+
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -108,7 +118,6 @@ const LoginComp = () => {
           JSON.stringify(response.data.data.data)
         );
         dispatch(SetAuth(response.data.data.data));
-        navigate("/home");
       } else {
         const current_status = response.response?.status || response.status;
         if (current_status === 200) {
