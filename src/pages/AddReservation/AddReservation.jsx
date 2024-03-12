@@ -102,19 +102,10 @@ const AddReservation = () => {
         formData.append("from[longitude]", values.from_long);
         formData.append("from[latitude]", values.from_lat);
         formData.append("from[fuelId]", values.from_fuel_id);
-        formData.append(
-          `from[paid_amount]`,
-          values.vendor_price * values.fuel_value
-        );
-        formData.append(
-          `stations[${0}][paid_amount]`,
-          values.vendor_price * values.fuel_value
-        );
       } else if (values.from_option === 1) {
         formData.append("from[stationId]", values.stationId);
         formData.append("fuel_price", values.paid_amount);
         formData.append("from[fuelId]", values.fuel_id);
-        formData.append(`stations[${0}][paid_amount]`, values.paid_amount);
       }
       formData.append("from[fuel_value]", values.fuel_value);
       // to stations
@@ -130,6 +121,12 @@ const AddReservation = () => {
           ? values.fuel_value * values.vendor_price
           : values.paid_amount
       );
+      formData.append(
+        `from[paid_amount]`,
+        values.from_option === 0
+          ? values.fuel_value * values.vendor_price
+          : values.paid_amount
+      );
       formData.append(`stations[${0}][required_volume]`, values.fuel_value);
       // const currentPaidAmount = values.fuel_value * values.vendor_price;
       // console.log(values.vendor_price);
@@ -139,7 +136,7 @@ const AddReservation = () => {
       formData.append(`attachment`, values.attachment);
       formData.append(
         `expected_arrival`,
-        Math.floor(values.arrival_date / 1000)
+        Math.floor(new Date(values.arrival_date) / 1000)
       );
       formData.append(`driverTip`, values.tip !== "" ? values.tip : 0);
 
