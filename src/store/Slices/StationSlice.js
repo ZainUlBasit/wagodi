@@ -41,6 +41,7 @@ export const fetchStations = createAsyncThunk(
     } catch (error) {
       console.log(error);
     }
+    return [];
   }
 );
 

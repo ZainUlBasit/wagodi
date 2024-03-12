@@ -153,6 +153,7 @@ const RoleRouting = ({ role }) => {
           </ProtectedRoute>
         }
       />
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   ) : // **************************************
   // routing for order manager

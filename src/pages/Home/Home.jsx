@@ -110,7 +110,7 @@ const Home = () => {
           <NoDataFound />
         ) : (
           <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] maxWeb1:items-center maxWeb2:items-center maxWeb3:items-center maxWeb4:items-center flex flex-wrap xl:justify-center justify-center items-center my-4">
-            {StationsData?.data
+            {StationsData.data
               .filter((dt) => {
                 const searchLowerCase = SearchText.toLowerCase();
                 // Check if dt.name starts with the text in SearchText

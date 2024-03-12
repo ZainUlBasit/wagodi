@@ -114,7 +114,6 @@ const LoginComp = () => {
         JSON.stringify(response.data.data.data)
       );
       dispatch(SetAuth(response.data.data.data));
-      window.location.reload()
     } else {
       const current_status = response.response?.status || response.status;
       if (current_status === 200) {

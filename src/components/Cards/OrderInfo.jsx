@@ -29,7 +29,7 @@ const OrderInfo = () => {
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex flex-col justify-between mt-6">
           <div className="font-[Quicksand] font-[600] text-[2rem] flex justify-center gap-x-2 select-none">
-            Receipt No: <span className="font-[400] select-text">1231236512456</span>
+            Receipt No: <span className="font-[400] select-text">{order.reciept_number}</span>
           </div>
         </div>
         <div className="w-auto flex  flex-col justify-center items-center mt-10 shadow-[rgba(0,0,0,0.24)_0px_3px_8px] rounded-[20px] p-10">
