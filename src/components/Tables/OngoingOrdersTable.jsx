@@ -11,6 +11,7 @@ import { AiFillEye } from "react-icons/ai";
 import { OngoingOrdersColumns } from "../../assets/Columns/OngoingOrdersColumns";
 import { convertStatus } from "../../utility/utilityFunctions";
 import CustomPagination from "../TablePagination/TablePagination";
+import moment from "moment";
 
 export default function OngoingOrdersTable({
   Filter,
@@ -112,7 +113,7 @@ export default function OngoingOrdersTable({
                     align="center"
                   >
                     <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {new Date(row.createdAt * 1000).toDateString()}
+                      {moment(new Date(row.createdAt * 1000)).format("DD/MM/YYYY h:mm A")}
                     </div>
                   </TableCell>
                   <TableCell
@@ -148,7 +149,7 @@ export default function OngoingOrdersTable({
                     align="center"
                   >
                     <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {row?.fuel_price}
+                      {row?.station?.paid_amount}
                     </div>
                   </TableCell>
                   <TableCell
@@ -173,13 +174,13 @@ export default function OngoingOrdersTable({
                   >
                     <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
                       {row?.station?.deliveryTime
-                        ? new Date(
+                        ? moment(new Date(
                             row?.station?.deliveryTime * 1000
-                          ).toDateString()
+                          )).format("DD/MM/YYYY h:mm A")
                         : row.arrival_date
-                        ? new Date(row.arrival_date * 1000).toDateString()
+                        ? moment(new Date(row.arrival_date * 1000)).format("DD/MM/YYYY h:mm A")
                         : row.expected_arrival
-                        ? new Date(row.expected_arrival * 1000).toDateString()
+                        ? moment(new Date(row.expected_arrival * 1000)).format("DD/MM/YYYY h:mm A")
                         : "Not specified"}
                     </div>
                   </TableCell>
