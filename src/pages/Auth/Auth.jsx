@@ -28,11 +28,11 @@ const Auth = () => {
 
   return (
     <>
-      <div className="flex w-[100vw] h-screen justify-between items-center pr-[100px] max950:flex-col max950:pr-0 max767:items-center">
+      <div className="flex w-[100vw] h-screen justify-between items-center pr-[100px] max950:flex-col max950:pr-0 max767:items-center fade-in">
         {windowWidth > 767 ? <LogoDesign /> : <MobLogoDesign />}
         <div className="flex justify-center flex-col items-center w-[55%] fade-in max550:w-full">
           {/* button / login and register page */}
-          <div className="bg-[#EFE7EC] text-[#586571] overflow-hidden rounded-[100px] font-[Quicksand] font-[700] w-fit mb-5">
+          <div className="bg-[#EFE7EC] text-[#020202] overflow-hidden rounded-[100px] font-[Quicksand] font-[700] w-fit mb-5">
             <button
               className={`${
                 !IsLogin
