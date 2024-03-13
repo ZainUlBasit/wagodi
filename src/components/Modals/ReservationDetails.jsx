@@ -77,7 +77,9 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
               label="Reservation Date"
               placeholder="Reservation Date"
               required={false}
-              Value={moment(new Date(orderData.createdAt * 1000)).format("DD/MM/YYYY h:mm a")}
+              Value={moment(new Date(orderData.createdAt * 1000)).format(
+                "DD/MM/YYYY h:mm A"
+              )}
               // setValue={setReservationDetails}
               readonly={true}
             />
@@ -93,7 +95,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
               label="Paid Amount"
               placeholder="Add Amount..."
               required={false}
-              Value={orderData.fuel_price}
+              Value={orderData.station.paid_amount}
               // setValue={setPaidAmount}
               readonly={true}
             />
@@ -103,13 +105,15 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
               required={false}
               Value={
                 orderData?.station?.deliveryTime
-                  ? new Date(orderData?.station?.deliveryTime * 1000)
+                  ? moment(
+                      new Date(orderData?.station?.deliveryTime * 1000)
+                    ).format("DD/MM/YYYY h:mm A")
                   : // .toDateString()
                   orderData.arrival_data
-                  ? new Date(orderData.arrival_data * 1000)
+                  ? moment(new Date(orderData.arrival_data * 1000)).format("DD/MM/YYYY h:mm A")
                   : // .toDateString()
                   orderData.expected_arrival
-                  ? new Date(orderData.expected_arrival * 1000)
+                  ? moment(new Date(orderData.expected_arrival * 1000)).format("DD/MM/YYYY h:mm A")
                   : // .toDateString()
                     "Not specified"
               }
@@ -163,7 +167,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
               label="Require Volume"
               placeholder="not specified"
               required={false}
-              Value={orderData.station.fuel_value}
+              Value={orderData.station.required_volume}
               // setValue={setRequireVolume}
               readonly={true}
             />
