@@ -109,7 +109,7 @@ export default function ApprovedOrderTable({ Data }) {
               align="center"
             >
               <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                {Data?.station?.fuel_value || "not specified"}
+                {Data?.station?.required_volume || "not specified"}
               </div>
             </TableCell>
             <TableCell

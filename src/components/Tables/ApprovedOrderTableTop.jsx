@@ -37,7 +37,7 @@ export default function ApprovedOrderTableTop({ Data }) {
             // borderBottomWidth: 0,
             // borderColor: "#465462",
             backgroundColor: "#465462",
-            padding: 1,
+            height:"10vh"
           }}
         >
           <TableRow sx={{ borderWidth: 0 }}>
@@ -90,7 +90,7 @@ export default function ApprovedOrderTableTop({ Data }) {
                 <div className="maxWeb1:text-[1.1rem] maxWeb2:text-[1.3rem] maxWeb3:text-[1.5rem] maxWeb4:text-[1.5em] text-[.9rem] text-center">
                   <span className="font-bold">PaidAmount:</span>
                   <span className="font-[400] ml-1">
-                    {Data?.fuel_price || "not specified"}
+                    {Data?.station?.paid_amount || "not specified"}
                   </span>
                 </div>
               </div>
