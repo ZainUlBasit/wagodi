@@ -5,7 +5,7 @@ import "./LogoDesign.css"
 
 const LogoDesign = () => {
   return (
-    <div className="relative">
+    <div className="relative fade-in">
       <img src={AuthBG} className="w-fit h-screen" />
       <img
         src={LogoWhite}
