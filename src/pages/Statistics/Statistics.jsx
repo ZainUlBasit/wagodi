@@ -25,10 +25,11 @@ import StationStatisticTopTable from "../../components/Tables/StationStatisticTo
 import SendReport from "../../components/Modals/SendReport";
 import { Link } from "react-router-dom";
 import { api } from "../../Https";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TableWrapper from "../../components/Tables/TableWrapper";
 import "./Statistics.css";
 import { BsSearch } from "react-icons/bs";
+import { fetchCompanyStats } from "../../store/Slices/CompanyStatsSlice";
 
 const Statistics = () => {
   const userData = useSelector((state) => state.auth.data);
@@ -116,21 +117,14 @@ const Statistics = () => {
   const [Years, setYears] = useState([]);
   const [Days, setDays] = useState([]);
   const [OpenSendReport, setOpenSendReport] = useState(false);
+  const dispatch = useDispatch();
+  const CompanyStats = useSelector((state) => state.CompanyStats);
 
   useEffect(() => {
     const currentYear = new Date().getFullYear();
     setDays(generateDaysArray());
     setYears(generateYears(currentYear - 10, currentYear));
-    const fetchStats = async () => {
-      api
-        .post("/statistics/company", {
-          companyId: userData.companyId._id,
-        })
-        .then((response) => {
-          console.log(response);
-        });
-    };
-    fetchStats();
+    dispatch(fetchCompanyStats({ companyId: userData.companyId._id }));
   }, []);
 
   return (
@@ -238,7 +232,7 @@ const Statistics = () => {
         </div>
         {/* Top Table */}
         <TableWrapper className="rounded-[13px] overflow-hidden">
-          <StatisticsTopTable />
+          <StatisticsTopTable StationInfo={CompanyStats.data} />
         </TableWrapper>
 
         <div className="flex justify-end w-[90%] mb-4 gap-x-3 gap-y-1 max767:flex-col max767:items-start">
@@ -497,16 +491,15 @@ const Statistics = () => {
           <ApexChart />
         </div>
         <div className="w-[90%] flex justify-start">
-
-        <div className="flex border-[1px] w-[300px] maxWeb1:w-[400px] maxWeb2:w-[450px] maxWeb3:w-[500px] maxWeb4:w-[550px] border-black items-center gap-x-2 px-3 py-[6px] maxWeb1:px-4 maxWeb1:py-[8px] maxWeb2:px-5 maxWeb2:py-[10px] rounded-full overflow-hidden my-[10px] maxWeb1:my-[15px] maxWeb2:my-[20px]">
-          <BsSearch />
-          <input
-            className="outline-none w-full"
-            placeholder="Search Company name"
-            value={SearchText}
-            onChange={(e) => setSearchText(e.target.value)}
-          />
-        </div>
+          <div className="flex border-[1px] w-[300px] maxWeb1:w-[400px] maxWeb2:w-[450px] maxWeb3:w-[500px] maxWeb4:w-[550px] border-black items-center gap-x-2 px-3 py-[6px] maxWeb1:px-4 maxWeb1:py-[8px] maxWeb2:px-5 maxWeb2:py-[10px] rounded-full overflow-hidden my-[10px] maxWeb1:my-[15px] maxWeb2:my-[20px]">
+            <BsSearch />
+            <input
+              className="outline-none w-full"
+              placeholder="Search Company name"
+              value={SearchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+          </div>
         </div>
         <LineColumnChart />
 

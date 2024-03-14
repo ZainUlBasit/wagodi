@@ -124,5 +124,6 @@ export const UpdateFuelCompany = (data) =>
   api.patch("/company/fuel/update", data);
 
 // **************************************************************
+// Statistics Requests
 // **************************************************************
-// export const AddFuel = (data)=> api.post("/station/")
+export const GetCompantStats = (data) => api.post("/statistics/company", data);
