@@ -6,7 +6,9 @@ export const fetchCompanyStats = createAsyncThunk(
   "fetch/CompanyStats",
   async (current_user) => {
     try {
-      const response = await GetCompantStats(current_user.companyId._id);
+      const response = await GetCompantStats({
+        companyId: current_user.companyId,
+      });
       return response?.data?.data;
     } catch (error) {
       ErrorToast(error.response.data.error.msg);
