@@ -4,11 +4,9 @@ import { GetCompantStats } from "../../Https";
 
 export const fetchCompanyStats = createAsyncThunk(
   "fetch/CompanyStats",
-  async (current_user) => {
+  async (currentCompanyId) => {
     try {
-      const response = await GetCompantStats({
-        companyId: current_user.companyId,
-      });
+      const response = await GetCompantStats(currentCompanyId);
       return response?.data?.data;
     } catch (error) {
       ErrorToast(error.response.data.error.msg);
