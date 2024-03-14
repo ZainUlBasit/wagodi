@@ -9,6 +9,7 @@ export const fetchCompanyStats = createAsyncThunk(
       const response = await GetCompantStats(current_user.companyId._id);
       return response?.data?.data;
     } catch (error) {
+      ErrorToast(error.response.data.error.msg);
       console.log(error);
     }
     return [];
