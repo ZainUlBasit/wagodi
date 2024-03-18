@@ -100,7 +100,7 @@ export default function StatisticsTopTable({ StationInfo }) {
               align="center"
             >
               <div className="max767:text-[1.3rem]">
-                {StationInfo.totalStations ? StationInfo.totalStations : "-"}
+                {StationInfo[0]?.totalStations}
               </div>
             </TableCell>
             <TableCell
@@ -115,7 +115,7 @@ export default function StatisticsTopTable({ StationInfo }) {
               align="center"
             >
               <div className="max767:text-[1.3rem]">
-                {StationInfo.totalDrivers ? StationInfo.totalDrivers : "-"}
+                {StationInfo[0]?.totalDrivers}
               </div>
             </TableCell>
             <TableCell
@@ -130,9 +130,7 @@ export default function StatisticsTopTable({ StationInfo }) {
               align="center"
             >
               <div className="max767:text-[1.3rem]">
-                {StationInfo.totalSaleAmount
-                  ? StationInfo.totalSaleAmount
-                  : "-"}
+                {StationInfo[0]?.totalSaleAmount}
               </div>
             </TableCell>
             <TableCell
@@ -146,9 +144,7 @@ export default function StatisticsTopTable({ StationInfo }) {
               align="center"
             >
               <div className="max767:text-[1.3rem]">
-                {StationInfo.totalOrderValue
-                  ? StationInfo.totalOrderValue
-                  : "-"}
+                {StationInfo[0]?.totalOrderValue}
               </div>
             </TableCell>
           </TableRow>

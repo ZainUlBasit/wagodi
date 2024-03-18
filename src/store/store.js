@@ -9,6 +9,7 @@ import SubscriptionSlice from "./Slices/SubscriptionSlice";
 import SelectedOrder from "./Slices/SelectedOrder";
 import CompanyReducer from "./Slices/CompanySlice";
 import CompanyStatsSlice from "./Slices/CompanyStatsSlice";
+import EmployeeSlice from "./Slices/EmployeeSlice";
 
 export const store = configureStore({
   reducer: {
@@ -22,5 +23,6 @@ export const store = configureStore({
     Notifications: NotificationsReducer,
     Company: CompanyReducer,
     CompanyStats: CompanyStatsSlice,
+    EmployeeData: EmployeeSlice,
   },
 });

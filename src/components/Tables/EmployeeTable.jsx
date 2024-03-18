@@ -10,6 +10,7 @@ import TablePagination from "@mui/material/TablePagination";
 import CustomPagination from "../TablePagination/TablePagination";
 
 export default function EmployeeTable({ Data, Search }) {
+  console.log(Data);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5); // You can adjust the number of rows per page as needed
 
@@ -107,7 +108,7 @@ export default function EmployeeTable({ Data, Search }) {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, i) => (
                 <TableRow
-                  key={row.name}
+                  key={row._id}
                   sx={{
                     "&:last-child td, &:last-child th": { border: 0 },
                   }}
@@ -123,7 +124,7 @@ export default function EmployeeTable({ Data, Search }) {
                     scope="row"
                     align="center"
                   >
-                    {row.name}
+                    {row.employeeName}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -133,7 +134,7 @@ export default function EmployeeTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.station}
+                    {row.stationName ? row.stationName : "-"}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -143,7 +144,7 @@ export default function EmployeeTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.phone_number}
+                    {row.phoneNumber ? row.phoneNumber : "-"}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -153,7 +154,7 @@ export default function EmployeeTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.fuel_type}
+                    {row.fuelType ? row.fuelType : "-"}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -163,7 +164,7 @@ export default function EmployeeTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.fuel_volume}
+                    {row.fuelVolume ? row.fuelVolume : "-"}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -173,7 +174,7 @@ export default function EmployeeTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.amount}
+                    {row.amount ? row.amount : "-"}
                   </TableCell>
                 </TableRow>
               ))}

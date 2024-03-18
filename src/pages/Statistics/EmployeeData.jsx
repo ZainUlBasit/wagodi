@@ -8,18 +8,23 @@ import AuthInputPopOver from "../../components/Input/AuthInputPopOver";
 import { Popover, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchStations } from "../../store/Slices/StationSlice";
+import { fetchEmployeeData } from "../../store/Slices/EmployeeSlice";
 
 const EmployeeData = () => {
   const [SearchText, setSearchText] = useState("");
+  const [SearchPopOver, setSearchPopOver] = useState("");
   const [StationId, setStationId] = useState("");
   const [StationName, setStationName] = useState("");
   const [CurDate, setCurDate] = useState("");
 
   const dispatch = useDispatch();
   const StationsData = useSelector((state) => state.StationReducer);
+  const Employee_Data = useSelector((state) => state.EmployeeData);
   const Auth = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(fetchStations(Auth.data.companyId));
+    dispatch(fetchEmployeeData(Auth.data.companyId));
+    console.log(EmployeeData);
   }, []);
 
   const navigate = useNavigate();
@@ -102,31 +107,41 @@ const EmployeeData = () => {
                     <div className="flex border-[1px] w-[260px] border-black items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden max767:hidden bg-white">
                       <BsSearch className="text-black" />
                       <input
-                        className="outline-none w-full"
+                        className="outline-none w-full text-black"
                         placeholder="Search Station name"
-                        value={SearchText}
-                        onChange={(e) => setSearchText(e.target.value)}
+                        value={SearchPopOver}
+                        onChange={(e) => setSearchPopOver(e.target.value)}
                       />
                     </div>
-                    {StationsData.data.map((data) => {
-                      return (
-                        <div
-                          className="flex gap-x-3 items-center cursor-pointer"
-                          onClick={() => {
-                            handleClose();
-                            setStationId(data._id);
-                            setStationName(data.name);
-                          }}
-                        >
-                          <input
-                            type="checkbox"
-                            className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                            checked={StationId === data._id}
-                          />
-                          <span>{data.name}</span>
-                        </div>
-                      );
-                    })}
+                    {StationsData.data
+                      .filter((dt) => {
+                        const lowerCaseSearch = SearchPopOver.toLowerCase();
+                        const lowerCaseStation = dt.name.toLowerCase();
+                        if (SearchPopOver !== "") {
+                          return lowerCaseStation.includes(lowerCaseSearch);
+                        } else {
+                          return dt;
+                        }
+                      })
+                      .map((data) => {
+                        return (
+                          <div
+                            className="flex gap-x-3 items-center cursor-pointer"
+                            onClick={() => {
+                              handleClose();
+                              setStationId(data._id);
+                              setStationName(data.name);
+                            }}
+                          >
+                            <input
+                              type="checkbox"
+                              className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                              checked={StationId === data._id}
+                            />
+                            <span>{data.name}</span>
+                          </div>
+                        );
+                      })}
                   </div>
                 </div>
               </Typography>
@@ -143,139 +158,7 @@ const EmployeeData = () => {
           </div>
         </div>
         <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px]">
-          <EmployeeTable
-            Data={[
-              {
-                name: "testing",
-                station: "testing station",
-                phone_number: "testing 123",
-                fuel_type: "testing fuel",
-                fuel_volume: "testing fuel 123",
-                amount: "123",
-              },
-              {
-                name: "testing",
-                station: "testing station",
-                phone_number: "testing 123",
-                fuel_type: "testing fuel",
-                fuel_volume: "testing fuel 123",
-                amount: "123",
-              },
-              {
-                name: "testing",
-                station: "testing station",
-                phone_number: "testing 123",
-                fuel_type: "testing fuel",
-                fuel_volume: "testing fuel 123",
-                amount: "123",
-              },
-              {
-                name: "testing",
-                station: "testing station",
-                phone_number: "testing 123",
-                fuel_type: "testing fuel",
-                fuel_volume: "testing fuel 123",
-                amount: "123",
-              },
-              {
-                name: "testing",
-                station: "testing station",
-                phone_number: "testing 123",
-                fuel_type: "testing fuel",
-                fuel_volume: "testing fuel 123",
-                amount: "123",
-              },
-              {
-                name: "testing",
-                station: "testing station",
-                phone_number: "testing 123",
-                fuel_type: "testing fuel",
-                fuel_volume: "testing fuel 123",
-                amount: "123",
-              },
-              {
-                name: "testing",
-                station: "testing station",
-                phone_number: "testing 123",
-                fuel_type: "testing fuel",
-                fuel_volume: "testing fuel 123",
-                amount: "123",
-              },
-              {
-                name: "testing",
-                station: "testing station",
-                phone_number: "testing 123",
-                fuel_type: "testing fuel",
-                fuel_volume: "testing fuel 123",
-                amount: "123",
-              },
-              {
-                name: "testing",
-                station: "testing station",
-                phone_number: "testing 123",
-                fuel_type: "testing fuel",
-                fuel_volume: "testing fuel 123",
-                amount: "123",
-              },
-              {
-                name: "testing",
-                station: "testing station",
-                phone_number: "testing 123",
-                fuel_type: "testing fuel",
-                fuel_volume: "testing fuel 123",
-                amount: "123",
-              },
-              {
-                name: "testing",
-                station: "testing station",
-                phone_number: "testing 123",
-                fuel_type: "testing fuel",
-                fuel_volume: "testing fuel 123",
-                amount: "123",
-              },
-              {
-                name: "testing",
-                station: "testing station",
-                phone_number: "testing 123",
-                fuel_type: "testing fuel",
-                fuel_volume: "testing fuel 123",
-                amount: "123",
-              },
-              {
-                name: "testing",
-                station: "testing station",
-                phone_number: "testing 123",
-                fuel_type: "testing fuel",
-                fuel_volume: "testing fuel 123",
-                amount: "123",
-              },
-              {
-                name: "testing",
-                station: "testing station",
-                phone_number: "testing 123",
-                fuel_type: "testing fuel",
-                fuel_volume: "testing fuel 123",
-                amount: "123",
-              },
-              {
-                name: "testing",
-                station: "testing station",
-                phone_number: "testing 123",
-                fuel_type: "testing fuel",
-                fuel_volume: "testing fuel 123",
-                amount: "123",
-              },
-              {
-                name: "zain",
-                station: "testing station",
-                phone_number: "testing 123",
-                fuel_type: "testing fuel",
-                fuel_volume: "testing fuel 123",
-                amount: "123",
-              },
-            ]}
-            Search={SearchText}
-          />
+          <EmployeeTable Data={Employee_Data.data} Search={SearchText} />
         </div>
         <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] flex justify-between px-5 py-3 mt-4">
           <div className="font-bold">Total</div>
