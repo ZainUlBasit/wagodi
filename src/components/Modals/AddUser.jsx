@@ -14,6 +14,7 @@ import ErrorToast from "../Toast/ErrorToast";
 import { fetchUsers } from "../../store/Slices/UserSlice";
 import AddingLightLoader from "../Loaders/AddingLightLoader";
 import LocationSearchInput from "../../utility/LocationSearchInput";
+import { BsSearch } from "react-icons/bs";
 
 const AddUser = ({ Open, setOpen }) => {
   const [Username, setUsername] = useState("");
@@ -29,6 +30,7 @@ const AddUser = ({ Open, setOpen }) => {
   const [Loading, setLoading] = useState(false);
   const [Long, setLong] = useState("");
   const [Lat, setLat] = useState("");
+  const [SearchPopOver, setSearchPopOver] = useState("");
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorElRole, setAnchorElRole] = useState(null);
@@ -443,26 +445,45 @@ const AddUser = ({ Open, setOpen }) => {
                 >
                   <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
                     <div className="w-full flex flex-col justify-between gap-y-3 items-start">
-                      {StationsData.data.map((sd) => {
-                        console.log(sd);
-                        return (
-                          <div
-                            className="flex gap-x-3 items-center cursor-pointer"
-                            onClick={() => {
-                              handleCloseStationName();
-                              setStationNumber(sd._id);
-                              setStationName(sd.name);
-                            }}
-                          >
-                            <input
-                              type="checkbox"
-                              className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                              checked={StationNumber === sd._id}
-                            />
-                            <span>{sd.name}</span>
-                          </div>
-                        );
-                      })}
+                      <div className="flex border-[1px] w-[260px] border-black items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden bg-white">
+                        <BsSearch className="text-black" />
+                        <input
+                          className="outline-none w-full text-black"
+                          placeholder="Search Station name"
+                          value={SearchPopOver}
+                          onChange={(e) => setSearchPopOver(e.target.value)}
+                        />
+                      </div>
+                      {StationsData.data
+                        .filter((dt) => {
+                          const lowerCaseSearch = SearchPopOver.toLowerCase();
+                          const lowerCaseStation = dt.name.toLowerCase();
+                          if (SearchPopOver !== "") {
+                            return lowerCaseStation.includes(lowerCaseSearch);
+                          } else {
+                            return dt;
+                          }
+                        })
+                        .map((sd) => {
+                          console.log(sd);
+                          return (
+                            <div
+                              className="flex gap-x-3 items-center cursor-pointer"
+                              onClick={() => {
+                                handleCloseStationName();
+                                setStationNumber(sd._id);
+                                setStationName(sd.name);
+                              }}
+                            >
+                              <input
+                                type="checkbox"
+                                className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                                checked={StationNumber === sd._id}
+                              />
+                              <span>{sd.name}</span>
+                            </div>
+                          );
+                        })}
                     </div>
                   </div>
                 </Typography>

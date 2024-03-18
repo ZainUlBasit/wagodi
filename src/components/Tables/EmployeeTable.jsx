@@ -100,10 +100,10 @@ export default function EmployeeTable({ Data, Search }) {
           <TableBody>
             {Data.filter((dt) => {
               const searchLowerCase = Search.toLowerCase();
-              if (Search === "") return dt;
-              else if (dt.name.toLowerCase().startsWith(searchLowerCase)) {
-                return dt;
-              }
+              const employeeLowerCase = dt.employeeName.toLowerCase();
+              if (Search !== "") {
+                return employeeLowerCase.startsWith(searchLowerCase);
+              } else return dt;
             })
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, i) => (
@@ -187,7 +187,7 @@ export default function EmployeeTable({ Data, Search }) {
             const searchLowerCase = Search.toLowerCase();
             if (Search === "") return dt;
             else {
-              if (dt.name.toLowerCase().startsWith(searchLowerCase)) {
+              if (dt.employeeName.toLowerCase().startsWith(searchLowerCase)) {
                 return dt;
               }
             }

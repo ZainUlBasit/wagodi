@@ -17,23 +17,27 @@ import PageLoader from "../Loaders/PageLoader";
 
 const CompanyDetails = () => {
   // const [CompanyDataa, setCompanyDataa] = useState(null);
-  const Auth = useSelector((state) => state.auth);
-  const [companyId, setCompanyId] = useState("");
-  const [CompanyName, setCompanyName] = useState("");
-  const [Email, setEmail] = useState("");
-  const [PhoneNumber, setPhoneNumber] = useState("");
-  const [CommercialRegistrationNumber, setCommercialRegistrationNumber] =
-    useState("");
-  const [TaxationNumber, setTaxationNumber] = useState("");
-  const [Address, setAddress] = useState("");
-  const [selectedFile, setSelectedFile] = useState("");
-  const [Loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const CompanyData = useSelector((state) => state.Company);
+  const Auth = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(fetchCompanyDetails(Auth.data));
   }, []);
+  const [companyId, setCompanyId] = useState(CompanyData.data._id || "");
+  const [CompanyName, setCompanyName] = useState(CompanyData.data.name || "");
+  const [Email, setEmail] = useState(CompanyData.data.email || "");
+  const [PhoneNumber, setPhoneNumber] = useState(CompanyData.data.phone || "");
+  const [CommercialRegistrationNumber, setCommercialRegistrationNumber] =
+    useState(CompanyData.data.crn_number || "");
+  const [TaxationNumber, setTaxationNumber] = useState(
+    CompanyData.data.tax_number || ""
+  );
+  const [Address, setAddress] = useState(CompanyData.data.address || "");
+  const [selectedFile, setSelectedFile] = useState(
+    CompanyData.data.imageUrl || ""
+  );
+  const [Loading, setLoading] = useState(false);
 
   const [AllGases, setAllGases] = useState([]);
   const [ShowAddGassInputs, setShowAddGassInputs] = useState(false);
@@ -96,21 +100,19 @@ const CompanyDetails = () => {
     setLoading(false);
   };
 
-  useEffect(() => {
-    const callApi = async () => {
-      if (CompanyData.loading) {
-        setCompanyId(CompanyData.data._id);
-        setCompanyName(CompanyData.data.name);
-        setEmail(CompanyData.data.email);
-        setPhoneNumber(CompanyData.data.phone);
-        setCommercialRegistrationNumber(CompanyData.data.crn_number);
-        setTaxationNumber(CompanyData.data.tax_number);
-        setAddress(CompanyData.data.address);
-        setSelectedFile(CompanyData.data.imageUrl);
-      }
-    };
-    callApi();
-  }, [CompanyData.loading]);
+  const callApi = async () => {
+    if (CompanyData.loading) {
+      setCompanyId(CompanyData.data._id);
+      setCompanyName(CompanyData.data.name);
+      setEmail(CompanyData.data.email);
+      setPhoneNumber(CompanyData.data.phone);
+      setCommercialRegistrationNumber(CompanyData.data.crn_number);
+      setTaxationNumber(CompanyData.data.tax_number);
+      setAddress(CompanyData.data.address);
+      setSelectedFile(CompanyData.data.imageUrl);
+    }
+  };
+  useEffect(() => {}, [CompanyData.loading]);
 
   // useEffect(()=>{
   //   console.log(CompanyDataa);

@@ -45,7 +45,7 @@ const EmployeeData = () => {
     <>
       <div className="flex flex-col justify-center items-center">
         {/* Header */}
-        <div className="w-[90%] max-w-[1200px] flex max767:flex-col justify-between mt-6 mb-10">
+        <div className="w-[90%] max-w-[1200px] flex max767:flex-col justify-between mt-6 mb-10 flex-wrap gap-y-4">
           {/* Left */}
           <div className="font-[Quicksand] font-[700] text-[2rem] flex items-center gap-x-4">
             <FaArrowLeft
@@ -55,7 +55,7 @@ const EmployeeData = () => {
             Employee Data
           </div>
           {/* Right */}
-          <div className="flex items-center gap-x-4  max767:w-full max767:justify-end  max767:mt-3">
+          <div className="flex items-center gap-x-4  max767:w-full max767:justify-end  max767:mt-3 flex-wrap gap-y-4">
             <DateInput
               label="Date"
               required={false}
@@ -104,7 +104,7 @@ const EmployeeData = () => {
               >
                 <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
                   <div className="w-full flex flex-col justify-between gap-y-3 items-start">
-                    <div className="flex border-[1px] w-[260px] border-black items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden max767:hidden bg-white">
+                    <div className="flex border-[1px] w-[260px] border-black items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden bg-white">
                       <BsSearch className="text-black" />
                       <input
                         className="outline-none w-full text-black"
@@ -146,7 +146,7 @@ const EmployeeData = () => {
                 </div>
               </Typography>
             </Popover>
-            <div className="flex border-[1px] w-[300px] border-black items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden max767:hidden">
+            <div className="flex border-[1px] w-[300px] border-black items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden">
               <BsSearch />
               <input
                 className="outline-none w-full"
