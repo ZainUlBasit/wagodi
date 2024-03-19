@@ -345,7 +345,7 @@ const Step1 = ({
                                 (fuel) => fuel.type === formik.values.fuel_type
                               );
                               // console.log(currentFuelData);
-                              const currentFuelId = data.fuels?._id;
+                              const currentFuelId = currentFuelData._id;
                               currentFuelData = currentFuelData?.price_litre;
 
                               formik.setFieldValue(
