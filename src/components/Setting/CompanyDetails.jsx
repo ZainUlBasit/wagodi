@@ -24,6 +24,7 @@ const CompanyDetails = () => {
   useEffect(() => {
     dispatch(fetchCompanyDetails(Auth.data));
   }, []);
+  const [dataFetched, setDataFetched] = useState(false);
   const [companyId, setCompanyId] = useState(CompanyData.data._id || "");
   const [CompanyName, setCompanyName] = useState(CompanyData.data.name || "");
   const [Email, setEmail] = useState(CompanyData.data.email || "");
@@ -112,7 +113,20 @@ const CompanyDetails = () => {
       setSelectedFile(CompanyData.data.imageUrl);
     }
   };
-  useEffect(() => {}, [CompanyData.loading]);
+  useEffect(() => {
+    // Check if the data has been fetched and set the initial state values
+    if (!CompanyData.loading && !dataFetched) {
+      setCompanyId(CompanyData.data._id || "");
+      setCompanyName(CompanyData.data.name || "");
+      setEmail(CompanyData.data.email || "");
+      setPhoneNumber(CompanyData.data.phone || "");
+      setCommercialRegistrationNumber(CompanyData.data.crn_number || "");
+      setTaxationNumber(CompanyData.data.tax_number || "");
+      setAddress(CompanyData.data.address || "");
+      setSelectedFile(CompanyData.data.imageUrl || "");
+      setDataFetched(true); // Update the flag to indicate that data has been fetched
+    }
+  }, [CompanyData]);
 
   // useEffect(()=>{
   //   console.log(CompanyDataa);

@@ -85,7 +85,7 @@ export default function OngoingOrdersTable({
               .filter(Boolean)
               .map((row, i) => (
                 <TableRow
-                  key={`${row?._id}-${row?.station.id._id}`}
+                  key={`${row?._id}}`}
                   sx={{
                     "&:last-child td, &:last-child th": { border: 0 },
                   }}
@@ -113,7 +113,9 @@ export default function OngoingOrdersTable({
                     align="center"
                   >
                     <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {moment(new Date(row.createdAt * 1000)).format("DD/MM/YYYY h:mm A")}
+                      {moment(new Date(row.createdAt * 1000)).format(
+                        "DD/MM/YYYY h:mm A"
+                      )}
                     </div>
                   </TableCell>
                   <TableCell
@@ -174,13 +176,17 @@ export default function OngoingOrdersTable({
                   >
                     <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
                       {row?.station?.deliveryTime
-                        ? moment(new Date(
-                            row?.station?.deliveryTime * 1000
-                          )).format("DD/MM/YYYY h:mm A")
+                        ? moment(
+                            new Date(row?.station?.deliveryTime * 1000)
+                          ).format("DD/MM/YYYY h:mm A")
                         : row.arrival_date
-                        ? moment(new Date(row.arrival_date * 1000)).format("DD/MM/YYYY h:mm A")
+                        ? moment(new Date(row.arrival_date * 1000)).format(
+                            "DD/MM/YYYY h:mm A"
+                          )
                         : row.expected_arrival
-                        ? moment(new Date(row.expected_arrival * 1000)).format("DD/MM/YYYY h:mm A")
+                        ? moment(new Date(row.expected_arrival * 1000)).format(
+                            "DD/MM/YYYY h:mm A"
+                          )
                         : "Not specified"}
                     </div>
                   </TableCell>

@@ -110,10 +110,14 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
                     ).format("DD/MM/YYYY h:mm A")
                   : // .toDateString()
                   orderData.arrival_data
-                  ? moment(new Date(orderData.arrival_data * 1000)).format("DD/MM/YYYY h:mm A")
+                  ? moment(new Date(orderData.arrival_data * 1000)).format(
+                      "DD/MM/YYYY h:mm A"
+                    )
                   : // .toDateString()
                   orderData.expected_arrival
-                  ? moment(new Date(orderData.expected_arrival * 1000)).format("DD/MM/YYYY h:mm A")
+                  ? moment(new Date(orderData.expected_arrival * 1000)).format(
+                      "DD/MM/YYYY h:mm A"
+                    )
                   : // .toDateString()
                     "Not specified"
               }
@@ -159,7 +163,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
               label="Balance Volume"
               placeholder="not specified"
               required={false}
-              Value={orderData.fuel_recieved}
+              Value={orderData.station.value}
               // setValue={setBalanceVolume}
               readonly={true}
             />

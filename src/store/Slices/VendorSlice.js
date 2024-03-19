@@ -14,7 +14,7 @@ export const fetchVendors = createAsyncThunk(
   async (companyId, query = {}) => {
     try {
       let response = await GetVendorApi({
-        companyId:companyId._id,
+        companyId: companyId._id,
       });
       console.log(response);
       return response.data.data;
@@ -23,6 +23,7 @@ export const fetchVendors = createAsyncThunk(
       toast.error(err.response?.data?.error.msg);
       // LogginOut();
     }
+    return [];
   }
 );
 
