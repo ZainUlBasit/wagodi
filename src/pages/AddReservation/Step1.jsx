@@ -79,6 +79,12 @@ const Step1 = ({
     dispatch(fetchVendors(Auth.data.companyId));
   }, []);
 
+  const CheckFuelTypeVendor = (data) => {
+    return data.find((dt) => {
+      return dt.type === formik.values.fuel_type;
+    });
+  };
+
   return (
     <div className="w-full flex flex-col gap-x-10 mt-10 shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] justify-between items-center h-auto rounded-[15px] fade-in mb-5">
       <div className="p-10 flex-wrap flex-column-reverse flex gap-x-10 justify-center rounded-[15px]">
@@ -321,39 +327,57 @@ const Step1 = ({
                         );
                       })}
                   {formik.values.from_option === 0 &&
-                    VendorsData?.data.map((data) => {
-                      return (
-                        <div
-                          className="flex gap-x-3 items-center cursor-pointer"
-                          onClick={() => {
-                            handleCloseEnd();
-                            let currentFuelData = data.fuels.filter(
-                              (fuel) => fuel.type === formik.values.fuel_type
-                            );
-                            const currentFuelId = currentFuelData[0]._id;
-                            currentFuelData = currentFuelData[0].price_litre;
+                    VendorsData?.data
+                      .filter((dt) => {
+                        const boolll = CheckFuelTypeVendor(dt.fuels);
+                        console.log(boolll);
+                        if (boolll) {
+                          return dt;
+                        }
+                      })
+                      .map((data) => {
+                        console.log(data);
+                        return (
+                          <div
+                            className="flex gap-x-3 items-center cursor-pointer"
+                            onClick={() => {
+                              console.log(data.fuels);
+                              // console.log(currentFuelData);
+                              return;
+                              console.log(formik.values.fuel_type);
+                              const currentFuelId = currentFuelData?._id;
+                              currentFuelData = currentFuelData?.price_litre;
 
-                            formik.setFieldValue("from_fuel_id", currentFuelId);
-                            formik.setFieldValue(
-                              "vendor_price",
-                              currentFuelData
-                            );
-                            formik.setFieldValue("from_long", data.longitude);
-                            formik.setFieldValue("from_lat", data.latitude);
-                            formik.setFieldValue("vendorId", data._id);
-                            formik.setFieldValue("from_address", data.address);
-                            formik.setFieldValue("from_name", data.name);
-                          }}
-                        >
-                          <input
-                            type="checkbox"
-                            className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                            checked={formik.values.vendorId === data._id}
-                          />
-                          <span>{data.name}</span>
-                        </div>
-                      );
-                    })}
+                              formik.setFieldValue(
+                                "from_fuel_id",
+                                currentFuelId
+                              );
+                              formik.setFieldValue(
+                                "vendor_price",
+                                currentFuelData
+                              );
+
+                              alert(data.name);
+                              formik.setFieldValue("from_long", data.longitude);
+                              formik.setFieldValue("from_lat", data.latitude);
+                              formik.setFieldValue("vendorId", data._id);
+                              formik.setFieldValue(
+                                "from_address",
+                                data.address
+                              );
+                              formik.setFieldValue("from_name", data.name);
+                              handleCloseEnd();
+                            }}
+                          >
+                            <input
+                              type="checkbox"
+                              className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                              checked={formik.values.vendorId === data._id}
+                            />
+                            <span>{data.name}</span>
+                          </div>
+                        );
+                      })}
 
                   {/* end data here */}
                 </div>
