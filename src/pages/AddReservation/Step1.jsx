@@ -341,12 +341,10 @@ const Step1 = ({
                           <div
                             className="flex gap-x-3 items-center cursor-pointer"
                             onClick={() => {
-                              console.log(data.fuels);
                               let currentFuelData = data.fuels.find(
                                 (fuel) => fuel.type === formik.values.fuel_type
                               );
                               // console.log(currentFuelData);
-                              console.log(formik.values.fuel_type);
                               const currentFuelId = data.fuels?._id;
                               currentFuelData = currentFuelData?.price_litre;
 
