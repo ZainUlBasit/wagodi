@@ -74,6 +74,7 @@ const OrderManagerOrderReports = () => {
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 flex-wrap items-center">
           {/* Left */}
+
           <div className="font-[Quicksand] font-[700] text-[2rem]">
             Approved Orders
           </div>
