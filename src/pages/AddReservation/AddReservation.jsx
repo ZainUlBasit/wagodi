@@ -93,6 +93,7 @@ const AddReservation = () => {
       formData.append("fuel_type", values.fuel_type);
       formData.append("fuel_value", values.fuel_value);
       formData.append("requiredVolume", values.fuel_value);
+      formData.append("fuel_quantity", values.fuel_value);
       formData.append("receivedVolume", 0);
       formData.append("fuel_id", values.fuel_id);
       formData.append("reciept_number", values.reciept_number);
