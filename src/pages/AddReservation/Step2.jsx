@@ -3,6 +3,7 @@ import AuthInput from "../../components/Input/AuthInput";
 import { useNavigate } from "react-router-dom";
 import CustomInput from "../../components/Input/Formik/CustomInput";
 import AddingLightLoader from "../../components/Loaders/AddingLightLoader";
+import AuthInputPopOver from "../../components/Input/AuthInputPopOver";
 
 const Step2 = ({
   ProccessingData,
@@ -22,6 +23,16 @@ const Step2 = ({
     setGasType(state.type === 0 ? "91" : state.type === 1 ? "95" : "D");
     setBalanceVolume(state.value);
   }, []);
+
+  const [anchorEl, setAnchorEl] = useState(false);
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <div className="flex flex-col gap-x-10 mt-10 shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] justify-between rounded-[15px] fade-in mb-5">
       <div className="w-auto p-10 flex-wrap flex gap-x-10 justify-center rounded-[15px]">
@@ -88,6 +99,12 @@ const Step2 = ({
             isError={formik.errors.paid_amount}
             errorMsg={formik.errors.paid_amount}
             disabled={formik.values.from_option === 0 ? true : false}
+          />
+          <AuthInputPopOver
+            label={"Assign Driver (Optional)"}
+            placeholder={"Select Driver..."}
+            Value={formik.values.driver_name}
+            onClick={(data) => handleClick(data)}
           />
           {/* <AuthInput
             label={"Require Volume"}

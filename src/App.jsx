@@ -41,6 +41,7 @@ import { io } from "socket.io-client";
 import ErrorToast from "./components/Toast/ErrorToast";
 import { BASE_URL } from "./assets/config";
 import SuccessToast from "./components/Toast/SuccessToast";
+import { SetNotify } from "./store/Slices/NotifySlice";
 
 const App = () => {
   const [Loading, setLoading] = useState(true);
@@ -97,6 +98,7 @@ const App = () => {
       console.log("connected");
     });
     socket.on("notification-message", (data) => {
+      localStorage.setItem("notify", true);
       // Handle the event data
       SuccessToast(data.description);
     });

@@ -10,6 +10,7 @@ import SelectedOrder from "./Slices/SelectedOrder";
 import CompanyReducer from "./Slices/CompanySlice";
 import CompanyStatsSlice from "./Slices/CompanyStatsSlice";
 import EmployeeSlice from "./Slices/EmployeeSlice";
+import NotifySlice from "./Slices/NotifySlice";
 
 export const store = configureStore({
   reducer: {
@@ -24,5 +25,6 @@ export const store = configureStore({
     Company: CompanyReducer,
     CompanyStats: CompanyStatsSlice,
     EmployeeData: EmployeeSlice,
+    Notify: NotifySlice,
   },
 });

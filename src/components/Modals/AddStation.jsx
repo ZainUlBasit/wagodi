@@ -14,11 +14,13 @@ import toast from "react-hot-toast";
 import { fetchStations } from "../../store/Slices/StationSlice";
 import WarningToast from "../Toast/WarningToast";
 import LocationSearchInput from "../../utility/LocationSearchInput";
+import AddingLightLoader from "../Loaders/AddingLightLoader";
 
 const AddStation = ({ Open, setOpen }) => {
   const [StationNumber, setStationNumber] = useState("");
   const [StationName, setStationName] = useState("");
   const [Address, setAddress] = useState("");
+  const [Loading, setLoading] = useState(false);
   const [Longitude, setLongitude] = useState("");
   const [Latitude, setLatitude] = useState("");
   const Auth = useSelector((state) => state.auth);
@@ -38,6 +40,7 @@ const AddStation = ({ Open, setOpen }) => {
   };
 
   const onSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const BodyData = {
       companyId: Auth.data.companyId,
@@ -58,26 +61,28 @@ const AddStation = ({ Open, setOpen }) => {
     };
 
     if (StationNumber === "") {
-      return WarningToast("Enter Valid Station Number");
+      WarningToast("Enter Valid Station Number");
     } else if (StationName === "") {
-      return WarningToast("Enter Valid Name");
+      WarningToast("Enter Valid Name");
     } else if (Address === "") {
-      return WarningToast("Enter Valid Address");
+      WarningToast("Enter Valid Address");
     } else if (BodyData.fuels.length === 0) {
-      return WarningToast("Please Provide atleast one Gas");
-    }
-    try {
-      const response = await CreateStationApi(BodyData);
-      if (response.data.success) {
-        setOpen(false);
-        toast.success(response.data.data?.msg);
-        dispatch(fetchStations(Auth.data.companyId));
-      } else {
-        toast.success(response.data.error?.msg);
+      WarningToast("Please Provide atleast one Gas");
+    } else {
+      try {
+        const response = await CreateStationApi(BodyData);
+        if (response.data.success) {
+          setOpen(false);
+          toast.success(response.data.data?.msg);
+          dispatch(fetchStations(Auth.data.companyId));
+        } else {
+          toast.success(response.data.error?.msg);
+        }
+      } catch (err) {
+        console.log(err);
       }
-    } catch (err) {
-      console.log(err);
     }
+    setLoading(false);
   };
 
   const handleSelect = ({ address, latLng }) => {
@@ -163,21 +168,26 @@ const AddStation = ({ Open, setOpen }) => {
               Add Gas
             </label>
           </div>
-          {/* buttons */}
-          <div className="w-full flex justify-center items-center gap-x-5 mb-5 font-[Quicksand]">
-            <button
-              className={`mt-[5px] mb-[30px] w-[197px] max767:w-[100px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-              onClick={onSubmit}
-            >
-              Add
-            </button>
-            <button
-              className={`mt-[5px] mb-[30px] w-[197px] max767:w-[100px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-              onClick={() => setOpen(false)}
-            >
-              Cancel
-            </button>
-          </div>
+          {Loading ? (
+            <div className="w-full flex justify-center items-center gap-x-5 mb-5 font-[Quicksand]">
+              <AddingLightLoader />
+            </div>
+          ) : (
+            <div className="w-full flex justify-center items-center gap-x-5 mb-5 font-[Quicksand]">
+              <button
+                className={`mt-[5px] mb-[30px] w-[197px] max767:w-[100px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+                onClick={onSubmit}
+              >
+                Add
+              </button>
+              <button
+                className={`mt-[5px] mb-[30px] w-[197px] max767:w-[100px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+                onClick={() => setOpen(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </CustomModal>

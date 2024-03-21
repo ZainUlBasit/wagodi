@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import ErrorToast from "../Toast/ErrorToast";
 import WarningToast from "../Toast/WarningToast";
 import LocationSearchInput from "../../utility/LocationSearchInput";
+import AddingLightLoader from "../Loaders/AddingLightLoader";
 
 const EditVendor = ({ Open, setOpen, Data, companyId }) => {
   const [VendorName, setVendorName] = useState(Data.name);
@@ -18,11 +19,10 @@ const EditVendor = ({ Open, setOpen, Data, companyId }) => {
   const [_D, set_D] = useState(Data.fuels[2]?.price_litre);
   const [Longitude, setLongitude] = useState("");
   const [Latitude, setLatitude] = useState("");
+  const [Loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const onSubmit = async (e) => {
-    console.log(_91);
-    console.log(_95);
-    console.log(_D);
+    setLoading(true);
     e.preventDefault();
     const Fuel_Array = Data.fuels.map((fu, i) => {
       if (_91 !== "" && i === 0) {
@@ -68,6 +68,7 @@ const EditVendor = ({ Open, setOpen, Data, companyId }) => {
     } catch (err) {
       console.log(err);
     }
+    setLoading(false);
   };
 
   const handleSelect = ({ address, latLng }) => {
@@ -155,20 +156,26 @@ const EditVendor = ({ Open, setOpen, Data, companyId }) => {
               </div>
             </div>
           </div>
-          <div className="w-full flex justify-center items-center gap-x-5 mt-5 mb-3 font-[Quicksand]">
-            <button
-              className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-              onClick={onSubmit}
-            >
-              Edit
-            </button>
-            <button
-              className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-              onClick={() => setOpen(false)}
-            >
-              Cancel
-            </button>
-          </div>
+          {Loading ? (
+            <div className="w-full flex justify-center items-center gap-x-5 mt-5 mb-7 font-[Quicksand]">
+              <AddingLightLoader />
+            </div>
+          ) : (
+            <div className="w-full flex justify-center items-center gap-x-5 mt-5 mb-3 font-[Quicksand]">
+              <button
+                className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+                onClick={onSubmit}
+              >
+                Edit
+              </button>
+              <button
+                className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+                onClick={() => setOpen(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </CustomModal>

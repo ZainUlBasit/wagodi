@@ -278,9 +278,9 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
           </div>
           {/* buttons */}
           {Loading ? (
-            <div className="w-full flex justify-center items-center gap-x-5 mb-5">
+            <div className="w-full flex justify-center items-center gap-x-5 mb-[55px]">
               <AddingLightLoader />
-              </div>
+            </div>
           ) : (
             <div className="w-full flex justify-center items-center gap-x-5 mb-5">
               <button

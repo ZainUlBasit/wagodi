@@ -13,6 +13,7 @@ import ErrorToast from "../Toast/ErrorToast";
 import WarningToast from "../Toast/WarningToast";
 import SuccessToast from "../Toast/SuccessToast";
 import { fetchUsers } from "../../store/Slices/UserSlice";
+import AddingLightLoader from "../Loaders/AddingLightLoader";
 
 const EditUser = ({ Open, setOpen, CurrentUser }) => {
   const Auth = useSelector((state) => state.auth);
@@ -91,7 +92,7 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(Email)) return ErrorToast("Invalid email entered!");
+    // if (!emailRegex.test(Email)) return ErrorToast("Invalid email entered!");
     setLoading(true);
     let req_data = {
       name: Username,
@@ -491,20 +492,26 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
               </Popover>
             </div>
           </div>
-          <div className="w-full flex justify-center items-center gap-x-5 font-[Quicksand]">
-            <button
-              className={`mt-[5px] mb-[30px] w-[197px] max767:w-[120px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-              onClick={onSubmit}
-            >
-              Edit
-            </button>
-            <button
-              className={`mt-[5px] mb-[30px] w-[197px] max767:w-[120px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-              onClick={() => setOpen(false)}
-            >
-              Cancel
-            </button>
-          </div>
+          {Loading ? (
+            <div className="w-full flex justify-center items-center gap-x-5 font-[Quicksand]">
+              <AddingLightLoader />
+            </div>
+          ) : (
+            <div className="w-full flex justify-center items-center gap-x-5 font-[Quicksand]">
+              <button
+                className={`mt-[5px] mb-[30px] w-[197px] max767:w-[120px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+                onClick={onSubmit}
+              >
+                Edit
+              </button>
+              <button
+                className={`mt-[5px] mb-[30px] w-[197px] max767:w-[120px] border-[1px] border-[#90898E] h-fit py-2 bg-[#fff] hover:bg-[#465462] rounded-[40px] text-[#90898E] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+                onClick={() => setOpen(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </CustomModal>

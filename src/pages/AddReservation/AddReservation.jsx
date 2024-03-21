@@ -82,6 +82,8 @@ const AddReservation = () => {
       from_long: "",
       from_lat: "",
       from_fuel_id: "",
+      driver_name: "",
+      driver_id: "",
     },
     onSubmit: async (values) => {
       setLoading(true);

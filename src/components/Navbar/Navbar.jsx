@@ -3,10 +3,13 @@ import NavbarLogo from "../../assets/images/logoNavbar.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { RiNotification3Fill, RiSettings2Fill } from "react-icons/ri"; // Import eye icons from react-icons
 import "./Navbar.css";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [activeNavItem, setActiveNavItem] = useState(""); // State to track the active navigation item
   const [showNotificationDot, setShowNotificationDot] = useState(true);
+  // const NotifyNew = useSelector((state) => state.Notify.new);
+  const NotifyNew = localStorage.getItem("noitfy") || false;
   const navigate = useNavigate();
 
   // Function to handle click on navigation items and set the active item
@@ -153,7 +156,7 @@ const Navbar = () => {
           </nav>
           {/* Right Side Icons */}
           <div className="flex items-center gap-x-7 relative h-fit">
-            {showNotificationDot && (
+            {NotifyNew && (
               <div className="h-[9px] w-[9px] maxWeb1:w-[15px] maxWeb1:h-[15px] bg-[#FF4423] rounded-full absolute top-[2px] maxWeb1:top-0 left-[24px] maxWeb1:left-[35px]"></div>
             )}
             <div

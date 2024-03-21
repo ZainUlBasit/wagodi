@@ -76,24 +76,12 @@ const CompanyDetails = () => {
 
     try {
       const response = await apiForImage.patch("/company/update", formData);
-      if (response.data.success) SuccessToast("Company Successfully Updated!");
-      else {
+      if (response.data.success) {
+        dispatch(fetchCompanyDetails(Auth.data));
+        SuccessToast("Company Successfully Updated!");
+      } else {
         ErrorToast("Unable to update company!");
       }
-      localStorage.removeItem("companyData");
-      localStorage.setItem(
-        "companyData",
-        JSON.stringify({
-          _id: companyId,
-          name: CompanyName,
-          email: Email,
-          crn_number: CommercialRegistrationNumber,
-          tax_number: TaxationNumber,
-          address: Address,
-          phone: PhoneNumber,
-          image: selectedFile ? selectedFile : null,
-        })
-      );
     } catch (error) {
       console.log(error);
       ErrorToast("Error occured while updating!");

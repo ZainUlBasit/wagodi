@@ -6,10 +6,14 @@ import "./Navbar.css";
 import { TbLogout } from "react-icons/tb";
 import Logout from "../Modals/Logout";
 import LoggingOut from "../Modals/LoggingOut";
+import { useSelector } from "react-redux";
 
 const OrderManagerNavbar = () => {
   const [activeNavItem, setActiveNavItem] = useState(""); // State to track the active navigation item
   const location = useLocation(); // Get the current location from react-router-dom
+
+  const NotifyNew = localStorage.getItem("noitfy") || false;
+
   const [showNotificationDot, setShowNotificationDot] = useState(true);
   const [OpenModal, setOpenModal] = useState(false);
   const [OpenLoggingOut, setOpenLoggingOut] = useState(false);
@@ -27,7 +31,8 @@ const OrderManagerNavbar = () => {
   const pathname = location.pathname;
   useEffect(() => {
     if ("/order-manager-home" === pathname) handleNavItemClick("HOME");
-    else if ("/order-manager-orders-report" === pathname) handleNavItemClick("Order Report");
+    else if ("/order-manager-orders-report" === pathname)
+      handleNavItemClick("Order Report");
     else if ("/ongoing-orders" === pathname)
       handleNavItemClick("ONGOING ORDERS");
     else if ("/add-reservation" === pathname) handleNavItemClick("HOME");
@@ -85,7 +90,7 @@ const OrderManagerNavbar = () => {
           </nav>
           {/* Right Side Icons */}
           <div className="flex items-center gap-x-3 relative h-fit">
-            {showNotificationDot && (
+            {NotifyNew && (
               <div className="h-[9px] w-[9px] maxWeb1:w-[15px] maxWeb1:h-[15px] bg-[#FF4423] rounded-full absolute top-[2px] maxWeb1:top-0 left-[24px] maxWeb1:left-[35px]"></div>
             )}
             <div
