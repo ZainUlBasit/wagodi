@@ -11,6 +11,7 @@ import CompanyReducer from "./Slices/CompanySlice";
 import CompanyStatsSlice from "./Slices/CompanyStatsSlice";
 import EmployeeSlice from "./Slices/EmployeeSlice";
 import NotifySlice from "./Slices/NotifySlice";
+import DriverSlice from "./Slices/DriverSlice";
 
 export const store = configureStore({
   reducer: {
@@ -26,5 +27,6 @@ export const store = configureStore({
     CompanyStats: CompanyStatsSlice,
     EmployeeData: EmployeeSlice,
     Notify: NotifySlice,
+    Drivers: DriverSlice,
   },
 });

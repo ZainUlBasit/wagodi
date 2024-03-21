@@ -9,11 +9,12 @@ import { useLocation } from "react-router-dom";
 import { OrderCreateApi } from "../../Https";
 import ErrorToast from "../../components/Toast/ErrorToast";
 import { useFormik } from "formik";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../../assets/config";
 import InactiveLine from "../../assets/images/inactiveline.png";
 import WarningToast from "../../components/Toast/WarningToast";
+import { fetchDrivers } from "../../store/Slices/DriverSlice";
 // import "react-tabs/style/react-tabs.css";
 const AddReservation = () => {
   const [CurrentTabNumber, setCurrentTabNumber] = useState(0);
@@ -44,6 +45,7 @@ const AddReservation = () => {
   //   setFormData({ ...FormData, [Data.key]: Data.value });
   // };
   const CurrentUser = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   function convertFileToObject(file) {
     return {
@@ -204,6 +206,10 @@ const AddReservation = () => {
       console.log(err?.data?.error?.msg);
     }
   };
+
+  useEffect(() => {
+    dispatch(fetchDrivers());
+  }, []);
 
   return (
     <>

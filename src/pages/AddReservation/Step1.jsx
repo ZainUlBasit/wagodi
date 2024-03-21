@@ -357,7 +357,6 @@ const Step1 = ({
                                 currentFuelData
                               );
 
-                              alert(data.name);
                               formik.setFieldValue("from_long", data.longitude);
                               formik.setFieldValue("from_lat", data.latitude);
                               formik.setFieldValue("vendorId", data._id);

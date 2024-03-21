@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import CustomInput from "../../components/Input/Formik/CustomInput";
 import AddingLightLoader from "../../components/Loaders/AddingLightLoader";
 import AuthInputPopOver from "../../components/Input/AuthInputPopOver";
+import { useSelector } from "react-redux";
+import { Popover, Typography } from "@mui/material";
 
 const Step2 = ({
   ProccessingData,
@@ -15,6 +17,7 @@ const Step2 = ({
   Loading,
 }) => {
   const [GasType, setGasType] = useState("");
+  const AllDrivers = useSelector((state) => state.Drivers.data);
   const [UOM, setUOM] = useState("Liters");
   const [BalanceVolume, setBalanceVolume] = useState("");
   const [RequireVolume, setRequireVolume] = useState("");
@@ -106,6 +109,65 @@ const Step2 = ({
             Value={formik.values.driver_name || "Select Driver..."}
             onClick={(data) => handleClick(data)}
           />
+
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            PaperProps={{
+              sx: {
+                borderRadius: "25px", // Add rounded corners
+                backgroundColor: "white", // Set background color to white
+                width: "300px", // Set the width as needed
+                overflow: "hidden", // Hide overflowing content
+                //   marginTop: "6px",
+              },
+            }}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+          >
+            <Typography
+              sx={{
+                p: 2,
+                borderColor: "#465462",
+                backgroundColor: "#465462",
+                width: "400px",
+                overflow: "hidden",
+                borderRadius: "25px",
+              }}
+            >
+              <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
+                <div className="w-full flex flex-col justify-between gap-y-3 items-start">
+                  {AllDrivers.map((driver) => {
+                    return (
+                      <div
+                        className="flex gap-x-3 items-center cursor-pointer"
+                        onClick={() => {
+                          handleClose();
+                          formik.setFieldValue("driver_name", driver.name);
+                          formik.setFieldValue("driver_id", driver._id);
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                          checked={formik.values.driver_id === driver._id}
+                        />
+                        <span>{driver.name}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </Typography>
+          </Popover>
           {/* <AuthInput
             label={"Require Volume"}
             placeholder={"36,000"}
