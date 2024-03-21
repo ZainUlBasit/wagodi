@@ -121,6 +121,7 @@ const AddReservation = () => {
       formData.append(`stations[${0}][latitude]`, s_lat);
       formData.append(`stations[${0}][longitude]`, s_long);
       formData.append(`stations[${0}][fuelId]`, fuel_id);
+      formData.append(`stations[${0}][value]`, values.cur_value);
       formData.append(
         `stations[${0}][paid_amount]`,
         values.from_option === 0

@@ -103,7 +103,7 @@ const Step2 = ({
           <AuthInputPopOver
             label={"Assign Driver (Optional)"}
             placeholder={"Select Driver..."}
-            Value={formik.values.driver_name}
+            Value={formik.values.driver_name || "Select Driver..."}
             onClick={(data) => handleClick(data)}
           />
           {/* <AuthInput
