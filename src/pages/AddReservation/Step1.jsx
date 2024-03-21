@@ -394,7 +394,7 @@ const Step1 = ({
             isError={formik.errors.tip}
             errorMsg={formik.errors.tip}
           />
-          <div className="flex flex-col">
+          <div className="flex flex-col w-[297px]">
             <label
               htmlFor="file-input"
               className="cursor-pointer flex items-center w-fit border-[1px] border-[#DCDCDC] py-[5px] px-[20px] pl-[10px] rounded-[7.94px] text-[13.9px]"
@@ -417,9 +417,7 @@ const Step1 = ({
               onChange={handleFileChange}
             />
             {formik.values.attachment && (
-              <div className="ml-3">
-                <p>Selected File: {formik.values.attachment.name}</p>
-              </div>
+              <div className="ml-3">{formik.values.attachment.name}</div>
             )}
           </div>
         </div>
