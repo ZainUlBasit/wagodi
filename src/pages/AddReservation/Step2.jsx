@@ -23,7 +23,15 @@ const Step2 = ({
   const [RequireVolume, setRequireVolume] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
-    setGasType(state.type === 0 ? "91" : state.type === 1 ? "95" : "D");
+    setGasType(
+      state.type === 0
+        ? "91"
+        : state.type === 1
+        ? "95"
+        : state.type === 2
+        ? "D"
+        : ""
+    );
     setBalanceVolume(state.value);
   }, []);
 
