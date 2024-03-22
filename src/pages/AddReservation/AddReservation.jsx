@@ -19,17 +19,7 @@ import { fetchDrivers } from "../../store/Slices/DriverSlice";
 const AddReservation = () => {
   const [CurrentTabNumber, setCurrentTabNumber] = useState(0);
   const location = useLocation();
-  const {
-    type,
-    max_value,
-    value,
-    s_name,
-    s_id,
-    fuel_id,
-    s_location,
-    s_long,
-    s_lat,
-  } = location.state;
+  const { type, name } = location.state;
   console.log(location.state);
   // const [FormData, setFormData] = useState({
   //   fuel_id: fuel_id,
@@ -58,12 +48,12 @@ const AddReservation = () => {
 
   const formik = useFormik({
     initialValues: {
-      to_name: s_name,
+      to_name: name,
       res_date: new Date().toISOString().split("T")[0],
       paid_amount: "",
       arrival_date: "",
       tip: "",
-      fuel_id: fuel_id,
+      fuel_id: "",
       orderManagerId: "",
       station_id: "",
       station_address: "",
@@ -78,7 +68,7 @@ const AddReservation = () => {
       from_address: "",
       from_name: "",
       reciept_number: "",
-      cur_value: value,
+      cur_value: "",
       attachment: "",
       vendor_price: 0,
       from_long: "",
@@ -86,6 +76,7 @@ const AddReservation = () => {
       from_fuel_id: "",
       driver_name: "",
       driver_id: "",
+      stations: [],
     },
     onSubmit: async (values) => {
       setLoading(true);
@@ -97,8 +88,10 @@ const AddReservation = () => {
       formData.append("fuel_type", values.fuel_type);
       formData.append("fuel_value", values.fuel_value);
       formData.append("requiredVolume", values.fuel_value);
-      formData.append("fuel_quantity", values.fuel_value);
+
       formData.append("receivedVolume", 0);
+      if (values.driver_id !== "")
+        formData.append("driverId", values.driver_id);
       formData.append("fuel_id", values.fuel_id);
       formData.append("reciept_number", values.reciept_number);
       // Append 'from' object fields to the FormData object
@@ -117,26 +110,46 @@ const AddReservation = () => {
       }
       formData.append("from[fuel_value]", values.fuel_value);
       // to stations
-      formData.append(`stations[${0}][id]`, s_id);
-      formData.append(`stations[${0}][address]`, s_location);
-      formData.append(`stations[${0}][name]`, s_name);
-      formData.append(`stations[${0}][latitude]`, s_lat);
-      formData.append(`stations[${0}][longitude]`, s_long);
-      formData.append(`stations[${0}][fuelId]`, fuel_id);
-      formData.append(`stations[${0}][value]`, values.cur_value);
-      formData.append(
-        `stations[${0}][paid_amount]`,
-        values.from_option === 0
-          ? values.fuel_value * values.vendor_price
-          : values.paid_amount
-      );
+      //
+      // console.log(f);
+
+      let fuelQuantity = 0; // Initialize fuel quantity sum
+
+      values.stations.forEach((station, index) => {
+        formData.append(`stations[${index}][id]`, station._id);
+        formData.append(`stations[${index}][address]`, station.address);
+        formData.append(`stations[${index}][name]`, station.name);
+        formData.append(`stations[${index}][latitude]`, station.latitude);
+        formData.append(`stations[${index}][longitude]`, station.longitude);
+        formData.append(`stations[${index}][fuelId]`, station.fuel_id);
+        formData.append(`stations[${index}][value]`, station.current_value);
+
+        // Calculate paid amount based on from_option
+        const paidAmount =
+          values.from_option === 0
+            ? parseFloat(station.required_volume) *
+              parseFloat(values.vendor_price)
+            : parseFloat(station.required_volume) *
+              parseFloat(station.current_price);
+        formData.append(`stations[${index}][paid_amount]`, paidAmount);
+
+        formData.append(
+          `stations[${index}][required_volume]`,
+          station.required_volume
+        );
+
+        // Add station's required volume to fuel quantity sum
+        fuelQuantity += parseFloat(station.required_volume);
+      });
+
+      // Set fuel quantity in formData
+      formData.append("fuel_quantity", fuelQuantity);
       // formData.append(
       //   `from[paid_amount]`,
       //   values.from_option === 0
       //     ? values.fuel_value * values.vendor_price
       //     : values.paid_amount
       // );
-      formData.append(`stations[${0}][required_volume]`, values.fuel_value);
       // const currentPaidAmount = values.fuel_value * values.vendor_price;
       // console.log(values.vendor_price);
       // console.log(currentPaidAmount);
@@ -153,11 +166,14 @@ const AddReservation = () => {
         console.log(pair[0], pair[1]);
       }
 
-      if (values.fuel_value > max_value - value) {
+      // return;
+
+      if (values.stations.length === 0) {
         setLoading(false);
-        WarningToast("Required Volume must be under Station Capacity!");
+        WarningToast("Please select atleast destination station!");
+        // WarningToast("Required Volume must be under Station Capacity!");
       } else if (
-        values.fuel_value !== "" &&
+        // values.fuel_value !== "" &&
         values.attachment !== "" &&
         values.name !== "" &&
         values.res_date !== "" &&

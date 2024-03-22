@@ -12,6 +12,10 @@ import LocationSearchInput from "../../utility/LocationSearchInput";
 import WarningToast from "../../components/Toast/WarningToast";
 import CustomInput from "../../components/Input/Formik/CustomInput";
 import ErrorToast from "../../components/Toast/ErrorToast";
+import { BsPlusCircle, BsTrash2Fill } from "react-icons/bs";
+import AddStationsReservation from "../../components/Modals/AddStationsReservation";
+import { Delete } from "@mui/icons-material";
+import { BiTrash } from "react-icons/bi";
 
 const Step1 = ({
   setCurrentTabNumber,
@@ -85,12 +89,14 @@ const Step1 = ({
     });
   };
 
+  const [SelectModal, setSelectModal] = useState(false);
+
   return (
     <div className="w-full flex flex-col gap-x-10 mt-10 shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] justify-between items-center h-auto rounded-[15px] fade-in mb-5">
       <div className="p-10 flex-wrap flex-column-reverse flex gap-x-10 justify-center rounded-[15px]">
         {/* left side */}
         <div className="flex flex-col gap-y-5 mb-5">
-          <CustomInput
+          {/* <CustomInput
             name="to_name"
             label="Station Name"
             placeholder="Station Name..."
@@ -101,7 +107,7 @@ const Step1 = ({
             touched={formik.touched.to_name}
             isError={formik.errors.to_name}
             errorMsg={formik.errors.to_name}
-          />
+          /> */}
           <CustomInput
             name="res_date"
             label={"Reservation Date"}
@@ -143,6 +149,17 @@ const Step1 = ({
             touched={formik.touched.arrival_date}
             isError={formik.errors.arrival_date}
             errorMsg={formik.errors.arrival_date}
+          />
+          <CustomInput
+            name="tip"
+            label={"Add Tip"}
+            placeholder={"Add Amount..."}
+            type="number"
+            value={formik.values.tip}
+            onChange={formik.handleChange}
+            touched={formik.touched.tip}
+            isError={formik.errors.tip}
+            errorMsg={formik.errors.tip}
           />
         </div>
         {/* right side */}
@@ -249,7 +266,7 @@ const Step1 = ({
               </div>
             </Typography>
           </Popover>
-          {/* Select Start Type */}
+          {/* Select Start Type Name */}
           <Popover
             id={idEnd}
             open={openEnd}
@@ -383,17 +400,6 @@ const Step1 = ({
               </div>
             </Typography>
           </Popover>
-          <CustomInput
-            name="tip"
-            label={"Add Tip"}
-            placeholder={"Add Amount..."}
-            type="number"
-            value={formik.values.tip}
-            onChange={formik.handleChange}
-            touched={formik.touched.tip}
-            isError={formik.errors.tip}
-            errorMsg={formik.errors.tip}
-          />
           <div className="flex flex-col w-[297px]">
             <label
               htmlFor="file-input"
@@ -420,11 +426,33 @@ const Step1 = ({
               <div className="ml-3">{formik.values.attachment.name}</div>
             )}
           </div>
+          {/* to stations */}
+          <div>
+            <div
+              className="flex justify-between items-center"
+              onClick={() => setSelectModal(true)}
+            >
+              <div className="font-bold text-xl">Stations</div>
+              <BsPlusCircle className="text-2xl rounded-full cursor-pointer" />
+            </div>
+            <div className="flex flex-col gap-y-4 mt-2 items-center font-[Quicksand] w-[297px] flex-wrap">
+              {formik.values.stations.map((station, i) => (
+                <div className="flex justify-between w-full">
+                  <div className="flex font-bold">
+                    {`${i + 1}) ${station.name} (${
+                      station.required_volume
+                    } L) ${station.required_volume * station.current_price}`}
+                  </div>
+                  <BiTrash className="hover:text-[red] text-2xl transition-all duration-700 cursor-pointer" />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
       <div className="w-full flex justify-center items-center mb-10">
         <button
-          className={`mt-[20px] w-[197px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+          className={`w-[197px] h-fit py-2 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
           onClick={() => {
             if (
               formik.values.name !== "" &&
@@ -452,6 +480,13 @@ const Step1 = ({
           Next
         </button>
       </div>
+      {SelectModal && (
+        <AddStationsReservation
+          Open={SelectModal}
+          setOpen={setSelectModal}
+          formik={formik}
+        />
+      )}
     </div>
   );
 };

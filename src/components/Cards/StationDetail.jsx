@@ -101,15 +101,7 @@ const StationDetail = ({
                 95
               </div>
               <div className="font-[500] font-[Quicksand] text-[1rem] w-[95%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]  maxWeb1:w-[94%] maxWeb2:w-[93%] maxWeb3:w-[92%] maxWeb4:w-[92%]">
-                {_95.max_value}/ <span>{_95.value}</span>{" "}
-                {Current_User.data.role === 2 && (
-                  <span
-                    className="clicking-button"
-                    onClick={() => navigateToAddReservation(1)}
-                  >
-                    +
-                  </span>
-                )}
+                {_95.max_value} / <span>{_95.value}</span>
               </div>
             </div>
           )}
@@ -119,15 +111,7 @@ const StationDetail = ({
                 91
               </div>
               <div className="font-[500] font-[Quicksand] text-[1rem] w-[95%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]  maxWeb1:w-[94%] maxWeb2:w-[93%] maxWeb3:w-[92%] maxWeb4:w-[92%]">
-                {_91.max_value}/<span>{_91.value}</span>{" "}
-                {Current_User.data.role === 2 && (
-                  <span
-                    className="clicking-button"
-                    onClick={() => navigateToAddReservation(0)}
-                  >
-                    +
-                  </span>
-                )}
+                {_91.max_value} / <span>{_91.value}</span>
               </div>
             </div>
           )}
@@ -137,15 +121,7 @@ const StationDetail = ({
                 D
               </div>
               <div className="font-[500] font-[Quicksand] text-[1rem] w-[95%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]  maxWeb1:w-[94%] maxWeb2:w-[93%] maxWeb3:w-[92%] maxWeb4:w-[92%]">
-                {_D.max_value}/<span>{_D.value}</span>{" "}
-                {Current_User.data.role === 2 && (
-                  <span
-                    className="clicking-button"
-                    onClick={() => navigateToAddReservation(2)}
-                  >
-                    +
-                  </span>
-                )}
+                {_D.max_value} / <span>{_D.value}</span>
               </div>
             </div>
           )}

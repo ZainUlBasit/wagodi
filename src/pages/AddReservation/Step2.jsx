@@ -73,18 +73,18 @@ const Step2 = ({
             disabled={true}
             value={"Litres"}
           />
-          <CustomInput
+          {/* <CustomInput
             name="value"
             label={"Balance Volume"}
             placeholder={"20,000"}
             disabled={true}
             type="number"
             value={formik.values.cur_value}
-          />
+          /> */}
         </div>
         {/* right side */}
         <div className="flex flex-col gap-y-5">
-          <CustomInput
+          {/* <CustomInput
             name="fuel_value"
             label={"Require Volume"}
             placeholder={"36,000"}
@@ -94,8 +94,8 @@ const Step2 = ({
             touched={formik.touched.fuel_value}
             isError={formik.errors.fuel_value}
             errorMsg={formik.errors.fuel_value}
-          />
-          <CustomInput
+          /> */}
+          {/* <CustomInput
             name="paid_amount"
             label={"Paid Amount"}
             placeholder={"Add Amount..."}
@@ -110,7 +110,7 @@ const Step2 = ({
             isError={formik.errors.paid_amount}
             errorMsg={formik.errors.paid_amount}
             disabled={formik.values.from_option === 0 ? true : false}
-          />
+          /> */}
           <AuthInputPopOver
             label={"Assign Driver (Optional)"}
             placeholder={"Select Driver..."}

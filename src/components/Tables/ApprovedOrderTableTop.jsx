@@ -14,6 +14,7 @@ import "./styles/AOTop.css";
 import { convertStatus } from "../../utility/utilityFunctions";
 
 export default function ApprovedOrderTableTop({ Data }) {
+  console.log(Data);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [SendType, setSendType] = React.useState("");
   const [fileUrl, setFileUrl] = React.useState();
@@ -37,7 +38,7 @@ export default function ApprovedOrderTableTop({ Data }) {
             // borderBottomWidth: 0,
             // borderColor: "#465462",
             backgroundColor: "#465462",
-            height:"10vh"
+            height: "10vh",
           }}
         >
           <TableRow sx={{ borderWidth: 0 }}>
@@ -145,7 +146,7 @@ export default function ApprovedOrderTableTop({ Data }) {
                   <span className="font-bold">Status:</span>
                   <span className="font-[400] ml-1 bg-[#2EB100] px-3 py-[5px] rounded-full">
                     {Data?.station?.status != undefined
-                      ? convertStatus(Data?.station?.status)
+                      ? convertStatus(Data?.status)
                       : "not specified"}
                   </span>
                 </div>

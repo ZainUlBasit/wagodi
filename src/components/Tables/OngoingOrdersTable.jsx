@@ -208,7 +208,7 @@ export default function OngoingOrdersTable({
                             : "bg-[#2EB100]"
                         } py-1 px-2 rounded-full text-white font-bold cursor-pointer`}
                       >
-                        {convertStatus(row.station.status) || "none"}
+                        {convertStatus(row.status) || "none"}
                       </div>
                     </div>
                   </TableCell>

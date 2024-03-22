@@ -17,7 +17,8 @@ import HeaderWrapper from "../../components/Header/HeaderWrapper";
 import LocationSearchInput from "../../utility/LocationSearchInput";
 import FavBtn from "../../components/buttons/FavBtn";
 import NoDataFound from "../../components/Loaders/Lottie/NoDataFound";
-import { BsSearch } from "react-icons/bs";
+import { BsPlusCircle, BsSearch } from "react-icons/bs";
+import SelectModal from "../../components/Modals/SelectModal";
 
 const Home = () => {
   const [Favourites, setFavourites] = useState(false);
@@ -25,7 +26,7 @@ const Home = () => {
   const [Open, setOpen] = useState(false);
   const [CurrentStationName, setCurrentStationName] = useState("");
   const [SearchText, setSearchText] = useState("");
-  
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -41,6 +42,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const StationsData = useSelector((state) => state.StationReducer);
   const Auth = useSelector((state) => state.auth);
+  const [OpenSelectModal, setOpenSelectModal] = useState(false);
 
   useEffect(() => {
     dispatch(fetchStations(Auth.data.companyId));
@@ -75,6 +77,17 @@ const Home = () => {
                 onChange={(e) => setSearchText(e.target.value)}
               />
             </div>
+            {Auth.data.role === 2 && (
+              <div className="flex items-center gap-x-3 max767:justify-end max767:mt-2">
+                <button
+                  className={`relative text-center text-lg tracking-[1px] no-underline text-[#465462] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#fff] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
+                  onClick={() => setOpenSelectModal(true)}
+                >
+                  <span>Create Order</span>
+                  <BsPlusCircle />
+                </button>
+              </div>
+            )}
             <FavBtn Value={Favourites} setValue={setFavourites} />
             {/* <button
               className={`border-2 border-[#465462] px-4 py-1 rounded-3xl font-[Quicksand] font-[700] ${
@@ -165,6 +178,9 @@ const Home = () => {
           Open={Open}
           setOpen={setOpen}
         />
+      )}
+      {OpenSelectModal && (
+        <SelectModal Open={OpenSelectModal} setOpen={setOpenSelectModal} />
       )}
     </>
   );
