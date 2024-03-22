@@ -41,14 +41,14 @@ export function convertFuel(fuel_type) {
 export const captureComponent = (componentId, Email, companyId) => {
   const componentElement = document.getElementById(componentId);
   html2canvas(componentElement)
-  .then((canvas) => {
+    .then((canvas) => {
       // Convert the canvas to a Blob
-      
+
       canvas.toBlob(async (blob) => {
         // Send the Blob to the server
-        const ImageFile = new File([blob], "report.png", { type: "image/png" })
+        const ImageFile = new File([blob], "report.png", { type: "image/png" });
         await sendImageToServer(ImageFile, Email, companyId);
-      }, 'image/png');
+      }, "image/png");
     })
     .catch((error) => console.log(error));
 };
