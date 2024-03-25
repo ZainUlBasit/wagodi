@@ -4,8 +4,10 @@ import StationReport from "../Modals/StationReport";
 import { useNavigate } from "react-router-dom";
 import { SetSelectedOrder } from "../../store/Slices/SelectedOrder";
 import { useDispatch } from "react-redux";
+import { convertStatus } from "../../utility/utilityFunctions";
 
-const OrderDetail = ({ Order }) => {
+const OrderDetail = ({ Order, Filter }) => {
+  if (convertStatus(Order.status) !== Filter && Filter !== "All") return;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -51,7 +53,7 @@ const OrderDetail = ({ Order }) => {
       <div
         className="absolute top-4 right-3 cursor-pointer text-[#465462] text-[1.8rem]"
         onClick={() => {
-          dispatch(SetSelectedOrder(Order))
+          dispatch(SetSelectedOrder(Order));
           navigate("/orders-report-info");
         }}
       >

@@ -46,6 +46,12 @@ const Step1 = ({
   // const [Long, setLong] = useState("");
   // const [Lat, setLat] = useState("");
 
+  const removeStation = (index) => {
+    const updatedStations = [...formik.values.stations];
+    updatedStations.splice(index, 1);
+    formik.setFieldValue("stations", updatedStations);
+  };
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     // formik.setFieldValue("attachment", e.currentTarget.files);
@@ -443,7 +449,10 @@ const Step1 = ({
                       station.required_volume
                     } L) ${station.required_volume * station.current_price}`}
                   </div>
-                  <BiTrash className="hover:text-[red] text-2xl transition-all duration-700 cursor-pointer" />
+                  <BiTrash
+                    className="hover:text-[red] text-2xl transition-all duration-700 cursor-pointer"
+                    onClick={() => removeStation(i)}
+                  />
                 </div>
               ))}
             </div>

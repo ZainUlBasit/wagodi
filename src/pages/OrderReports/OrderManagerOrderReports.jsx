@@ -15,6 +15,7 @@ import ErrorToast from "../../components/Toast/ErrorToast";
 import { useSelector } from "react-redux";
 import { api } from "../../Https";
 import PageLoader from "../../components/Loaders/PageLoader";
+import CustomPoperOverWithShow from "../../components/Popover/CustomPoperOverWithShow";
 
 const OrderManagerOrderReports = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -28,7 +29,7 @@ const OrderManagerOrderReports = () => {
   const userData = useSelector((state) => state.auth.data);
 
   const [Filter, setFilter] = useState("");
-  const [ApplyFilter, setApplyFilter] = useState("");
+  const [ApplyFilter, setApplyFilter] = useState("All");
 
   const handleClickF = (event) => {
     setAnchorElF(event.currentTarget);
@@ -75,16 +76,44 @@ const OrderManagerOrderReports = () => {
         <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 flex-wrap items-center">
           {/* Left */}
 
-          <div className="font-[Quicksand] font-[700] text-[2rem]">
-            Approved Orders
+          <div className="font-[Quicksand] font-[700] text-[2rem] capitalize">
+            {ApplyFilter} Orders
           </div>
-          <div className="flex border-[1px] w-[300px] border-black items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden">
-            <BsSearch />
-            <input
-              className="outline-none w-full"
-              placeholder="Search Reciept Number..."
-              value={SearchText}
-              onChange={(e) => setSearchText(e.target.value)}
+          <div className="flex items-center gap-x-2">
+            <div className="flex border-[1px] w-[300px] border-black items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden">
+              <BsSearch />
+              <input
+                className="outline-none w-full"
+                placeholder="Search Reciept Number..."
+                value={SearchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
+            </div>
+            <LuFilter
+              className="text-[2rem] cursor-pointer"
+              aria-describedby={id}
+              variant="contained"
+              onClick={handleClick}
+            />
+            <CustomPoperOverWithShow
+              Title={"Choose Your Filter"}
+              Content={[
+                // 0 : on-going, 1 : assigned, 2: recieved, 3: delivered, 4 : complete, 5: canceled
+                { Text: "All", FilterText: "All" },
+                { Text: "on-going", FilterText: "on-going" },
+                { Text: "assigned", FilterText: "assigned" },
+                { Text: "recieved", FilterText: "recieved" },
+                { Text: "delivered", FilterText: "delivered" },
+                { Text: "canceled", FilterText: "canceled" },
+              ]}
+              Filter={Filter}
+              setFilter={setFilter}
+              ApplyFilter={ApplyFilter}
+              setApplyFilter={setApplyFilter}
+              popover_open={open}
+              popover_id={id}
+              handleClose={handleClose}
+              popover_anchorEl={anchorEl}
             />
           </div>
         </div>
@@ -103,6 +132,7 @@ const OrderManagerOrderReports = () => {
               .map((order) => {
                 return (
                   <OrderDetail
+                    Filter={ApplyFilter}
                     key={`${order._id}-${order.station.id._id}`}
                     Order={order}
                   />

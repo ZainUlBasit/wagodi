@@ -57,6 +57,34 @@ const AddStationsReservation = ({ Open, setOpen, formik }) => {
   };
 
   const onSubmit = async (e) => {
+    const MaxVal = CurrentStation.populatedFuels.find(
+      (data) => data.type === formik.values.fuel_type
+    ).max_value;
+    const Val = CurrentStation.populatedFuels.find(
+      (data) => data.type === formik.values.fuel_type
+    ).value;
+    const CheckStationVol = formik.values.stations.find(
+      (st) => st._id === CurrentStation._id
+    );
+    // console.log(CheckStationVol);
+    // return;
+    const CurrentAvail =
+      CheckStationVol !== undefined
+        ? MaxVal - Val - Number(CheckStationVol?.required_volume)
+        : MaxVal - Val;
+    // console.log(MaxVal, Val, CheckStationVol, CurrentAvail);
+    // return;
+
+    if (CurrentAvail < RequiredVolume) {
+      WarningToast(
+        `Required Volume must be less than ${
+          CheckStationVol !== undefined
+            ? MaxVal - Val - CheckStationVol?.required_volume
+            : MaxVal - Val
+        }`
+      );
+      return;
+    }
     setLoading(true);
     e.preventDefault();
     const CheckStation = formik.values.stations.filter(
@@ -109,6 +137,8 @@ const AddStationsReservation = ({ Open, setOpen, formik }) => {
   const [CurrentStation, setCurrentStation] = useState({});
   const [RequiredVolume, setRequiredVolume] = useState("");
   const [FuelId, setFuelId] = useState("");
+
+  const [CurrentFuel, setCurrentFuel] = useState(null);
 
   return (
     <CustomModal open={Open} setOpen={setOpen}>
@@ -188,6 +218,7 @@ const AddStationsReservation = ({ Open, setOpen, formik }) => {
                       // }
                       //   }
                     );
+                    // setCurrentFuel
                     if (dt.active && checkFuel) return dt;
                   })
                   .map((data) => {
