@@ -19,6 +19,9 @@ import { fetchUsers } from "../../store/Slices/UserSlice";
 import { fetchStations } from "../../store/Slices/StationSlice";
 import WarningToast from "../Toast/WarningToast";
 import LocationSearchInput from "../../utility/LocationSearchInput";
+import ErrorToast from "../Toast/ErrorToast";
+import { fetchAllCompany } from "../../store/Slices/AllCompanySlice";
+import AddingLightLoader from "../Loaders/AddingLightLoader";
 
 const SubcriptionAcceptOrReject = ({ Open, setOpen, State }) => {
   console.log(State);
@@ -28,6 +31,8 @@ const SubcriptionAcceptOrReject = ({ Open, setOpen, State }) => {
   const [CRN, setCRN] = useState(State?.crn_number);
   const [TaxNumber, setTaxNumber] = useState(State?.tax_number);
   const [Address, setAddress] = useState(State?.address);
+  const dispatch = useDispatch();
+  const [Loading, setLoading] = useState(false);
   return (
     <CustomModal open={Open} setOpen={setOpen}>
       <div>
@@ -91,30 +96,46 @@ const SubcriptionAcceptOrReject = ({ Open, setOpen, State }) => {
             </div>
             {/* buttons */}
           </div>
-          <div className="w-full flex justify-center items-center gap-x-5 my-5">
-            <button
-              className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] h-fit py-2 border-[1px] border-[green] bg-[green] hover:bg-[#008000c7] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-              onClick={async () => {
-                const response = await ApprovedCompany({
-                  companyId: State._id,
-                });
-                setOpen(false);
-              }}
-            >
-              Accept
-            </button>
-            <button
-              className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] border-[1px] border-[red] h-fit py-2 bg-[#fff] hover:bg-[red] rounded-[40px] text-[red] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-              onClick={async () => {
-                const response = await RejectCompany({
-                  companyId: State._id,
-                });
-                setOpen(false);
-              }}
-            >
-              Reject
-            </button>
-          </div>
+          {Loading ? (
+            <div className="w-full flex justify-center items-center gap-x-5 my-5">
+              <AddingLightLoader />
+            </div>
+          ) : (
+            <div className="w-full flex justify-center items-center gap-x-5 my-5">
+              <button
+                className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] h-fit py-2 border-[1px] border-[green] bg-[green] hover:bg-[#008000c7] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+                onClick={async () => {
+                  setLoading(true);
+                  try {
+                    const response = await ApprovedCompany({
+                      companyId: State._id,
+                    });
+                    if (response.data.success) {
+                      SuccessToast("Succeessfully Approved!");
+                      dispatch(fetchAllCompany({ enterprise: true }));
+                      setOpen(false);
+                    } else ErrorToast("Unable to Approved Company");
+                  } catch (err) {
+                    console.log(err);
+                  }
+                  setLoading(false);
+                }}
+              >
+                Accept
+              </button>
+              <button
+                className={`mt-[5px] mb-[30px] w-[197px] max767:w-[110px] border-[1px] border-[red] h-fit py-2 bg-[#fff] hover:bg-[red] rounded-[40px] text-[red] hover:text-[#fff] text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
+                onClick={async () => {
+                  const response = await RejectCompany({
+                    companyId: State._id,
+                  });
+                  setOpen(false);
+                }}
+              >
+                Reject
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </CustomModal>

@@ -11,7 +11,10 @@ import { AiFillEye } from "react-icons/ai";
 import { convertFuel } from "../../utility/utilityFunctions";
 import moment from "moment";
 
-export default function ApprovedOrderTable({ Data }) {
+export default function ApprovedOrderTable({ Data, Filter }) {
+  // if()
+  // console.log(Filter);
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">

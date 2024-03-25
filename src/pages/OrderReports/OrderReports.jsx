@@ -15,9 +15,14 @@ import ApprovedOrderTableTop from "../../components/Tables/ApprovedOrderTableTop
 import { api } from "../../Https";
 import { useSelector } from "react-redux";
 import ErrorToast from "../../components/Toast/ErrorToast";
-import { captureComponent } from "../../utility/utilityFunctions";
+import {
+  captureComponent,
+  convertStatus,
+} from "../../utility/utilityFunctions";
 import PageLoader from "../../components/Loaders/PageLoader";
 import NoDataFound from "../../components/Loaders/Lottie/NoDataFound";
+import { LuFilter } from "react-icons/lu";
+import CustomPoperOverWithShow from "../../components/Popover/CustomPoperOverWithShow";
 
 const OrderReports = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -27,6 +32,10 @@ const OrderReports = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [SendType, setSendType] = useState("");
   const [Loading, setLoading] = useState(true);
+
+  const [Filter, setFilter] = useState("");
+  const [ApplyFilter, setApplyFilter] = useState("All");
+
   let firstTime = 0;
   const [orders, setOrders] = useState([]);
   const previousDate = useRef();
@@ -80,13 +89,13 @@ const OrderReports = () => {
         className="flex flex-col justify-center items-center w-full fade-in"
       >
         {/* Header */}
-        <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 mb-10">
+        <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 mb-10  flex-wrap gap-y-2">
           {/* Left */}
           <div className="font-[Quicksand] font-[700] text-[2rem]">
             Approved Orders
           </div>
           {/* Right */}
-          <div className="flex items-center gap-x-4  max767:w-full max767:justify-end  max767:mt-3">
+          <div className="flex items-center gap-x-4  max767:w-full max767:justify-end  max767:mt-3 flex-wrap gap-y-3">
             <DateInput
               label="Date"
               required={false}
@@ -108,6 +117,44 @@ const OrderReports = () => {
                 onChange={(e) => setSearchText(e.target.value)}
               />
             </div>
+            <div className="font-[Quicksand] font-bold bg-[#465462] text-white py-1 px-4 text-2xl rounded-lg">
+              {
+                orders?.filter((order) => {
+                  if (
+                    convertStatus(order?.status) !== ApplyFilter &&
+                    ApplyFilter !== "All"
+                  )
+                    return order;
+                  if (ApplyFilter === "All") return order;
+                }).length
+              }
+            </div>
+            <LuFilter
+              className="text-[2rem] cursor-pointer"
+              aria-describedby={id}
+              variant="contained"
+              onClick={handleClick}
+            />
+            <CustomPoperOverWithShow
+              Title={"Choose Your Filter"}
+              Content={[
+                // 0 : on-going, 1 : assigned, 2: recieved, 3: delivered, 4 : complete, 5: canceled
+                { Text: "All", FilterText: "All" },
+                { Text: "on-going", FilterText: "on-going" },
+                { Text: "assigned", FilterText: "assigned" },
+                { Text: "recieved", FilterText: "recieved" },
+                { Text: "delivered", FilterText: "delivered" },
+                { Text: "canceled", FilterText: "canceled" },
+              ]}
+              Filter={Filter}
+              setFilter={setFilter}
+              ApplyFilter={ApplyFilter}
+              setApplyFilter={setApplyFilter}
+              popover_open={open}
+              popover_id={id}
+              handleClose={handleClose}
+              popover_anchorEl={anchorEl}
+            />
           </div>
         </div>
         {Loading ? (
@@ -124,13 +171,21 @@ const OrderReports = () => {
               }
             })
             .map((orderData) => {
+              if (
+                convertStatus(orderData?.status) !== ApplyFilter &&
+                ApplyFilter !== "All"
+              )
+                return;
               return (
                 <>
                   <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] border-[1px] border-[#465462] shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] mb-10 relative">
                     <div className="flex justify-between items-center text-white font-[Quicksand] absolute -top-5 left-[-1px] w-[calc(100%+2px)] h-[44px] maxWeb1:h-[60px] maxWeb2:h-[70px] maxWeb3:h-[80px] maxWeb4:h-[80px] rounded-[15px] bg-[#465462] overflow-hidden">
-                      <ApprovedOrderTableTop Data={orderData} />
+                      <ApprovedOrderTableTop
+                        Data={orderData}
+                        Filter={ApplyFilter}
+                      />
                     </div>
-                    <ApprovedOrderTable Data={orderData} />
+                    <ApprovedOrderTable Data={orderData} Filter={ApplyFilter} />
                   </div>
                 </>
               );

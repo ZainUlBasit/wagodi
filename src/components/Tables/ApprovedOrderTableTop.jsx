@@ -13,8 +13,8 @@ import { Popover, Typography } from "@mui/material";
 import "./styles/AOTop.css";
 import { convertStatus } from "../../utility/utilityFunctions";
 
-export default function ApprovedOrderTableTop({ Data }) {
-  console.log(Data);
+export default function ApprovedOrderTableTop({ Data, Filter }) {
+  // console.log(Filter);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [SendType, setSendType] = React.useState("");
   const [fileUrl, setFileUrl] = React.useState();

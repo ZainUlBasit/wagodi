@@ -6,6 +6,8 @@ import TableWrapper from "../../components/Tables/TableWrapper";
 import PageLoader from "../../components/Loaders/PageLoader";
 import { set } from "lodash";
 import SubcriptionAcceptOrReject from "../../components/Modals/SubcriptionAcceptOrReject";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllCompany } from "../../store/Slices/AllCompanySlice";
 
 const old_data = [
   {
@@ -79,14 +81,11 @@ const SubscriptionRequests = () => {
   const [Loading, setLoading] = useState(false);
   const [OpenModal, setOpenModal] = useState(false);
   const [ID, setID] = useState("");
+  const dispatch = useDispatch();
+  const AllCompanyState = useSelector((state) => state.AllCompany);
+
   useEffect(() => {
-    const fetchSubscriptionRequests = async () => {
-      const response = await api.post("/company/all", { enterprise: true });
-      console.log(response);
-      console.log(response?.data);
-      if (response?.data?.success) setData(response?.data?.data);
-    };
-    fetchSubscriptionRequests();
+    dispatch(fetchAllCompany({ enterprise: true }));
   }, []);
   return (
     <>
@@ -110,14 +109,14 @@ const SubscriptionRequests = () => {
             </div>
           </div>
         </div>
-        {Loading ? (
+        {AllCompanyState.loading ? (
           <div className="flex">
             <PageLoader />
           </div>
         ) : (
           <TableWrapper className="rounded-[30px] overflow-hidden">
             <SubscriptionRequestsTable
-              Data={data}
+              Data={AllCompanyState.data}
               setID={setID}
               setOpenModal={setOpenModal}
             />
@@ -125,13 +124,7 @@ const SubscriptionRequests = () => {
         )}
         {OpenModal && (
           <SubcriptionAcceptOrReject
-            State={
-              data.filter((dt) => {
-                if (dt._id === ID) {
-                  return dt;
-                }
-              })[0]
-            }
+            State={AllCompanyState.data.find((dt) => dt._id === ID)}
             Open={OpenModal}
             setOpen={setOpenModal}
           />

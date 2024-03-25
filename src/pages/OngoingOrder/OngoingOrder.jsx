@@ -22,13 +22,13 @@ const OngoingOrder = () => {
   const [CurrentID, setCurrentID] = useState("");
   const [OpenReservationDetailsModal, setOpenReservationDetailsModal] =
     useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
   const userData = useSelector((state) => state.auth.data);
   const [ordersData, setOrdersData] = useState([]);
   const [SearchText, setSearchText] = useState("");
   const [Filter, setFilter] = useState("");
   const [ApplyFilter, setApplyFilter] = useState("All");
   const [Loading, setLoading] = useState(true);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -37,6 +37,8 @@ const OngoingOrder = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   useEffect(() => {
     (async () => {
@@ -56,8 +58,6 @@ const OngoingOrder = () => {
 
   console.log("APPLY FILTER : ", ApplyFilter);
 
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
   return (
     <>
       <div className="w-full flex flex-col justify-center items-center mb-5 fade-in">
@@ -68,7 +68,7 @@ const OngoingOrder = () => {
             {ApplyFilter} Orders
           </div>
           {/* Right */}
-          <div className="flex items-center gap-x-4">
+          <div className="flex items-center gap-x-4 flex-wrap">
             <button
               className={`relative text-center tracking-[1px] px-4 py-1 rounded-3xl font-[Quicksand] font-[700] bg-[#90898E] text-white no-underline text-#465462 cursor-pointer transition-all ease-in-out duration-500  border-2 border-solid border-[#90898E] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] hover:border-[#465462] active:scale-90 flex items-center gap-x-2 justify-center`}
               onClick={() => setOpenSendReport(!OpenSendReport)}
