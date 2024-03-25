@@ -95,7 +95,7 @@ const StationDetail = ({
         </div>
         {/* Footer (Detail) */}
         <div className="flex flex-col justify-center items-center py-5 pt-2 pl-4 w-[100%]">
-          {_95.length !== 0 && (
+          {/* {_95.length !== 0 && (
             <div className="flex pl-4 items-center w-[100%] gap-x-4">
               <div className="font-[700] font-[Quicksand] text-[1rem] w-[5%] maxWeb1:w-[6%] maxWeb2:w-[7%] maxWeb3:w-[8%] maxWeb4:w-[8%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
                 95
@@ -104,16 +104,23 @@ const StationDetail = ({
                 {_95.max_value} / <span>{_95.value}</span>
               </div>
             </div>
-          )}
-          {_91.length !== 0 && (
-            <div className="flex pl-4 items-center w-[100%] gap-x-4">
-              <div className="font-[700] font-[Quicksand] text-[1rem] w-[5%] maxWeb1:w-[6%] maxWeb2:w-[7%] maxWeb3:w-[8%] maxWeb4:w-[8%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
-                91
-              </div>
-              <div className="font-[500] font-[Quicksand] text-[1rem] w-[95%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]  maxWeb1:w-[94%] maxWeb2:w-[93%] maxWeb3:w-[92%] maxWeb4:w-[92%]">
-                {_91.max_value} / <span>{_91.value}</span>
-              </div>
-            </div>
+          )} */}
+          {StationDetailData.populatedFuels
+            .slice() // Create a shallow copy of the array
+            .sort((a, b) => a.type - b.type)
+            .map((fuel) => {
+              return (
+                <div className="flex pl-4 items-center w-[100%] gap-x-4">
+                  <div className="font-[700] font-[Quicksand] text-[1rem] w-[5%] maxWeb1:w-[6%] maxWeb2:w-[7%] maxWeb3:w-[8%] maxWeb4:w-[8%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
+                    {fuel.type === 0 ? "91" : fuel.type === 1 ? "95" : "D"}
+                  </div>
+                  <div className="font-[500] font-[Quicksand] text-[1rem] w-[95%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]  maxWeb1:w-[94%] maxWeb2:w-[93%] maxWeb3:w-[92%] maxWeb4:w-[92%]">
+                    {fuel.max_value} / <span>{fuel.value}</span>
+                  </div>
+                </div>
+              );
+            })}
+          {/* {_91.length !== 0 && (
           )}
           {_D.length !== 0 && (
             <div className="flex pl-4 items-center w-[100%] gap-x-4">
@@ -124,7 +131,7 @@ const StationDetail = ({
                 {_D.max_value} / <span>{_D.value}</span>
               </div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
       <div

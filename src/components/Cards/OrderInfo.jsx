@@ -14,12 +14,14 @@ const OrderInfo = () => {
     : "not specified";
   const GasType = convertFuel(order.fuel_type);
   const UOM = "Liters";
-  const BalanceVolume = order.fuel_receieved || "not specified";
+  const BalanceVolume = order.station.value || "not specified";
   const RequiredVolume = order.station.required_volume || "not specified";
   const IssuedVolume = order.station.fuel_value || "not specified";
   const RecievedVolume = order.station.fuel_recieved || "not specified";
   const DeliveredDateTime = order.station.deliveryTime
-    ? new Date(order.station.deliveryTime).toLocaleDateString()
+    ? moment(new Date(order.station.deliveryTime * 1000)).format(
+        "DD/MM/YYYY h:mm A"
+      )
     : "not specified";
 
   return (
@@ -29,7 +31,10 @@ const OrderInfo = () => {
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex flex-col justify-between mt-6">
           <div className="font-[Quicksand] font-[600] text-[2rem] flex justify-center gap-x-2 select-none">
-            Receipt No: <span className="font-[400] select-text">{order.reciept_number}</span>
+            Receipt No:{" "}
+            <span className="font-[400] select-text">
+              {order.reciept_number}
+            </span>
           </div>
         </div>
         <div className="w-auto flex  flex-col justify-center items-center mt-10 shadow-[rgba(0,0,0,0.24)_0px_3px_8px] rounded-[20px] p-10">
