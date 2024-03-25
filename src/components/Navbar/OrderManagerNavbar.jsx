@@ -30,16 +30,16 @@ const OrderManagerNavbar = () => {
 
   const pathname = location.pathname;
   useEffect(() => {
-    if ("/order-manager-home" === pathname) handleNavItemClick("HOME");
+    if ("/home" === pathname) handleNavItemClick("HOME");
     else if ("/order-manager-orders-report" === pathname)
-      handleNavItemClick("Order Report");
+      handleNavItemClick("ORDER REPORTS");
     else if ("/ongoing-orders" === pathname)
       handleNavItemClick("ONGOING ORDERS");
     else if ("/add-reservation" === pathname) handleNavItemClick("HOME");
     else if ("/orders-report-info" === pathname)
       handleNavItemClick("ORDER REPORTS");
-    else if ("/order-manager-orders-report" === pathname)
-      handleNavItemClick("ORDER REPORTS");
+    // else if ("/order-manager-orders-report" === pathname)
+    //   handleNavItemClick("ORDER REPORTS");
     else if ("/users" === pathname) handleNavItemClick("USERS");
     else if ("/notification" === pathname) handleNavItemClick("Notification");
     else if ("/setting" === pathname) handleNavItemClick("Setting");
@@ -51,10 +51,7 @@ const OrderManagerNavbar = () => {
       <div className="w-full flex justify-center items-center">
         <div className="w-[90%] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between items-center">
           {/* Left side Logo */}
-          <Link
-            to={"/order-manager-home"}
-            onClick={() => handleNavItemClick("HOME")}
-          >
+          <Link to={"/home"} onClick={() => handleNavItemClick("HOME")}>
             <img
               src={NavbarLogo}
               className="h-[76px] maxWeb1:h-[120px]  maxWeb2:h-[200px] maxWeb3:h-[250px] maxWeb4:h-[220px] w-fit mt-3"

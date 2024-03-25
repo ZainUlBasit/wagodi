@@ -120,12 +120,9 @@ const OrderReports = () => {
             <div className="font-[Quicksand] font-bold bg-[#465462] text-white py-1 px-4 text-2xl rounded-lg">
               {
                 orders?.filter((order) => {
-                  if (
-                    convertStatus(order?.status) !== ApplyFilter &&
-                    ApplyFilter !== "All"
-                  )
-                    return order;
-                  if (ApplyFilter === "All") return order;
+                  if (ApplyFilter !== "All")
+                    return convertStatus(order?.status) === ApplyFilter;
+                  else return order;
                 }).length
               }
             </div>
