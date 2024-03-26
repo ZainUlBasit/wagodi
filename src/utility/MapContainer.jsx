@@ -6,6 +6,7 @@ const DefaultZoom = 10;
 const LocationPicker = ({ recieve_addreess }) => {
   const [location, setLocation] = useState(null);
   const [zoom, setZoom] = useState(DefaultZoom);
+
   const [address, setAddress] = useState("");
 
   useEffect(() => {
