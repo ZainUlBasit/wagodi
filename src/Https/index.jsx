@@ -107,12 +107,14 @@ export const GetAllOrderApi = (data) => api.post("/order/company", data);
 // *********************************************
 // Notification Request
 // *********************************************
+
 export const GetCompanyNotificationApi = (data) =>
   api.post("/notification/company", data);
 export const GetAdminNotificationApi = (data) =>
   api.post("/notification/admin", data);
 export const GetOrderManagerNotificationApi = (data) =>
   api.post("/notification/order-manager", data);
+
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 // Notification Request
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

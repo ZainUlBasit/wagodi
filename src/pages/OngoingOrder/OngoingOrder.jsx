@@ -16,6 +16,7 @@ import ErrorToast from "../../components/Toast/ErrorToast";
 import PageLoader from "../../components/Loaders/PageLoader";
 import TableWrapper from "../../components/Tables/TableWrapper";
 import NoDataFound from "../../components/Loaders/Lottie/NoDataFound";
+import { convertStatus } from "../../utility/utilityFunctions";
 
 const OngoingOrder = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -95,11 +96,12 @@ const OngoingOrder = () => {
               Content={[
                 // 0 : on-going, 1 : assigned, 2: recieved, 3: delivered, 4 : complete, 5: canceled
                 { Text: "All", FilterText: "All" },
-                { Text: "on-going", FilterText: "on-going" },
-                { Text: "assigned", FilterText: "assigned" },
-                { Text: "recieved", FilterText: "recieved" },
-                { Text: "delivered", FilterText: "delivered" },
-                { Text: "canceled", FilterText: "canceled" },
+                { Text: convertStatus(0), FilterText: convertStatus(0) },
+                { Text: convertStatus(1), FilterText: convertStatus(1) },
+                { Text: convertStatus(2), FilterText: convertStatus(2) },
+                { Text: convertStatus(3), FilterText: convertStatus(3) },
+                { Text: convertStatus(4), FilterText: convertStatus(4) },
+                { Text: convertStatus(5), FilterText: convertStatus(5) },
               ]}
               Filter={Filter}
               setFilter={setFilter}

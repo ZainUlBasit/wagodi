@@ -8,7 +8,7 @@ export const fetchEmployeeData = createAsyncThunk(
     console.log(CurrentUser);
     try {
       const response = await GetEmployeeData({ companyId: CurrentUser._id });
-      console.log(response);
+      console.log(response.data.data);
       return response.data.data;
     } catch (error) {
       console.log(error);

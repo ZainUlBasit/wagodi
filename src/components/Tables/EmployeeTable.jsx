@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TablePagination from "@mui/material/TablePagination";
 import CustomPagination from "../TablePagination/TablePagination";
+import { convertFuel } from "../../utility/utilityFunctions";
 
 export default function EmployeeTable({ Data, Search }) {
   console.log(Data);
@@ -154,7 +155,7 @@ export default function EmployeeTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.fuelType ? row.fuelType : "-"}
+                    {row.fuelType ? convertFuel(row.fuelType) : "-"}
                   </TableCell>
                   <TableCell
                     sx={{

@@ -15,6 +15,9 @@ import { fetchStations } from "../../store/Slices/StationSlice";
 import WarningToast from "../Toast/WarningToast";
 import LocationSearchInput from "../../utility/LocationSearchInput";
 import AddingLightLoader from "../Loaders/AddingLightLoader";
+import LocationPicker from "../../utility/MapContainer";
+
+// import { MapContainer } from "../../utility/LocationPicker";
 
 const AddStation = ({ Open, setOpen }) => {
   const [StationNumber, setStationNumber] = useState("");
@@ -120,6 +123,9 @@ const AddStation = ({ Open, setOpen }) => {
             <div>
               <LocationSearchInput onSelect={handleSelect} />
               <div className="mb-3"></div>
+              <div className="mb-4">
+                <LocationPicker />
+              </div>
             </div>
           </div>
           {/* Show data of array of Gasses */}

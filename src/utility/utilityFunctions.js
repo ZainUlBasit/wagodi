@@ -7,15 +7,15 @@ export function convertStatus(status) {
   // 0 : on-going, 1 : assigned, 2: recieved, 3: delivered, 4 : complete, 5: canceled
   switch (status) {
     case 0:
-      return "on-going";
+      return "ordered";
     case 1:
       return "assigned";
     case 2:
-      return "recieved";
+      return "picked up";
     case 3:
       return "delivered";
     case 4:
-      return "complete";
+      return "approved";
     case 5:
       return "canceled";
     default:
