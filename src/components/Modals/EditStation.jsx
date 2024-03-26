@@ -20,8 +20,10 @@ import { fetchStations } from "../../store/Slices/StationSlice";
 import WarningToast from "../Toast/WarningToast";
 import LocationSearchInput from "../../utility/LocationSearchInput";
 import AddingLightLoader from "../Loaders/AddingLightLoader";
+import MapContainer from "../../utility/MapContainer";
 
 const EditStation = ({ Open, setOpen, CurrentStation }) => {
+  console.log(CurrentStation);
   const [StationNumber, setStationNumber] = useState(CurrentStation.phone);
   const [StationName, setStationName] = useState(CurrentStation.name);
   const [Address, setAddress] = useState(CurrentStation.address);
@@ -187,6 +189,20 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
                 onSelect={handleSelect}
               />
               <div className="mb-3"></div>
+              <div className="mb-4">
+                <MapContainer
+                  SearchLat={
+                    Latitude === "" ? CurrentStation.latitude : Latitude
+                  }
+                  SearchLan={
+                    Longitude === "" ? CurrentStation.longitude : Longitude
+                  }
+                  setLongitude={setLongitude}
+                  setLatitude={setLatitude}
+                  setAddress={setAddress}
+                  apiKey={"AIzaSyCn3iFUNjO37dPrLUYkJLxW_Iqxcuojq_A"}
+                />
+              </div>
               {/* <AuthTextArea
                 label={"Address"}
                 placeholder={

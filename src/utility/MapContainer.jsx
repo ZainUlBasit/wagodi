@@ -24,12 +24,12 @@ export default function MapContainer({
   setAddress,
 }) {
   const [center, setCenter] = useState({
-    lat: 10.99835602,
-    lng: 77.01502627,
+    lat: SearchLat,
+    lng: SearchLan,
   });
 
   useEffect(() => {
-    if (navigator.geolocation) {
+    if (navigator.geolocation && !SearchLan && !SearchLat) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
