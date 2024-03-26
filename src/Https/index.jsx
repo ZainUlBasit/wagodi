@@ -44,7 +44,7 @@ export const UpdatePasswordApi = (data) =>
 
 export const GetComapanyDetails = (companyId) =>
   api.get("/company/" + companyId);
-export const GetAllDrivers = () => api.get("/auth/getAllDrivers");
+export const GetAllDrivers = (data) => api.post("/auth/getAllDrivers", data);
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 // Auth Request
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
