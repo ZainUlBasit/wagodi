@@ -82,6 +82,9 @@ export default function MapContainer({
         center={center}
         defaultZoom={11}
         onClick={handleMapClick}
+        options={{
+          fullscreenControl: false,
+        }}
       >
         <Marker lat={center.lat} lng={center.lng} />
       </GoogleMapReact>
