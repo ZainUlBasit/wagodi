@@ -1,71 +1,90 @@
-// import React, { useState, useEffect } from "react";
-// import MapPicker from "react-google-map-picker";
+import React, { useState, useEffect } from "react";
+import GoogleMapReact from "google-map-react";
+import { GOOGLE_API_KEY } from "../assets/config";
+import { MdLocationPin } from "react-icons/md";
 
-// const DefaultZoom = 10;
+const Marker = ({ lat, lng }) => (
+  <div
+    style={{
+      color: "red",
+      fontSize: "35px",
+      marginTop: "-35px",
+      marginLeft: "-14px",
+    }}
+  >
+    <MdLocationPin />
+  </div>
+);
 
-// const LocationPicker = ({ receive_address }) => {
-//   const [location, setLocation] = useState(null);
-//   const [zoom, setZoom] = useState(DefaultZoom);
-//   const [address, setAddress] = useState("");
+export default function MapContainer({
+  SearchLan,
+  SearchLat,
+  setLongitude,
+  setLatitude,
+  setAddress,
+}) {
+  const [center, setCenter] = useState({
+    lat: 10.99835602,
+    lng: 77.01502627,
+  });
 
-//   useEffect(() => {
-//     fetchCurrentLocation();
-//   }, []);
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setCenter({ lat: latitude, lng: longitude });
+        },
+        (error) => {
+          console.error("Error getting user's current location:", error);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  }, []);
 
-//   async function fetchCurrentLocation() {
-//     try {
-//       if (navigator.geolocation) {
-//         navigator.geolocation.getCurrentPosition((pos) => {
-//           const coords = pos.coords;
-//           setLocation({ lat: coords.latitude, lng: coords.longitude });
-//         });
-//       }
-//     } catch (error) {
-//       console.error("Error fetching current location:", error);
-//     }
-//   }
+  useEffect(() => {
+    if (SearchLat && SearchLan) {
+      setCenter({ lat: SearchLat, lng: SearchLan });
+    }
+  }, [SearchLat, SearchLan]);
 
-//   async function fetchAddress(lat, lng) {
-//     try {
-//       const response = await fetch(
-//         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyCn3iFUNjO37dPrLUYkJLxW_Iqxcuojq_A`
-//       );
-//       const data = await response.json();
-//       const formattedAddress = data.results[0].formatted_address;
-//       console.log(data.results[0]);
-//       setAddress(formattedAddress);
-//     } catch (error) {
-//       console.error("Error fetching address:", error);
-//     }
-//   }
+  const handleMapClick = ({ lat, lng }) => {
+    setLatitude(lat);
+    setLongitude(lng);
+    fetchAddress(lat, lng);
+  };
 
-//   function handleChangeLocation(lat, lng) {
-//     setLocation({ lat: lat, lng: lng });
-//     fetchAddress(lat, lng);
-//   }
+  const fetchAddress = async (lat, lng) => {
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_API_KEY}`
+      );
+      const data = await response.json();
+      if (data.status === "OK" && data.results.length > 0) {
+        // const formattedAddress = data.results[0].formatted_address;
+        // console.log(data.results[0].formatted_address);
+        setAddress(data.results[0].formatted_address);
+      } else {
+        setAddress("Address not found");
+      }
+    } catch (error) {
+      console.error("Error fetching address:", error);
+      setAddress("Error fetching address");
+    }
+  };
 
-//   function handleChangeZoom(newZoom) {
-//     setZoom(newZoom);
-//   }
-
-//   return (
-//     <div>
-//       {location && (
-//         <>
-//           <MapPicker
-//             defaultLocation={location}
-//             zoom={zoom}
-//             mapTypeId="roadmap"
-//             style={{ height: "200px" }}
-//             onChangeLocation={handleChangeLocation}
-//             onChangeZoom={handleChangeZoom}
-//             apiKey="AIzaSyCn3iFUNjO37dPrLUYkJLxW_Iqxcuojq_A"
-//           />
-//           <p>Selected Address: {address}</p>
-//         </>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default LocationPicker;
+  return (
+    <div style={{ height: "200px", width: "297px" }}>
+      <GoogleMapReact
+        bootstrapURLKeys={{ key: GOOGLE_API_KEY }}
+        center={center}
+        defaultZoom={11}
+        onClick={handleMapClick}
+      >
+        <Marker lat={center.lat} lng={center.lng} />
+      </GoogleMapReact>
+    </div>
+  );
+}
