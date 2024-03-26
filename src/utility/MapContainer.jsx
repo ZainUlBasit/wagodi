@@ -1,77 +1,77 @@
-// import React, { useState, useEffect } from "react";
-// import MapPicker from "react-google-map-picker";
+import React, { useState, useEffect } from "react";
+import MapPicker from "react-google-map-picker";
 
-// const DefaultZoom = 10;
+const DefaultZoom = 10;
 
-// const LocationPicker = ({ recieve_addreess }) => {
-//   const [location, setLocation] = useState(null);
-//   const [zoom, setZoom] = useState(DefaultZoom);
-//   // checks
-//   const [address, setAddress] = useState("");
+const LocationPicker = ({ recieve_addreess }) => {
+  const [location, setLocation] = useState(null);
+  const [zoom, setZoom] = useState(DefaultZoom);
 
-//   useEffect(() => {
-//     fetchCurrentLocation();
-//   }, []);
+  const [address, setAddress] = useState("");
 
-//   async function fetchCurrentLocation() {
-//     try {
-//       if (navigator.geolocation) {
-//         navigator.geolocation.getCurrentPosition((pos) => {
-//           const coords = pos.coords;
-//           setLocation({ lat: coords.latitude, lng: coords.longitude });
-//         });
-//       }
-//     } catch (error) {
-//       console.error("Error fetching current location:", error);
-//     }
-//   }
+  useEffect(() => {
+    fetchCurrentLocation();
+  }, []);
 
-//   useEffect(() => {
-//     if (location) {
-//       fetchAddress();
-//     }
-//   }, [location]);
+  async function fetchCurrentLocation() {
+    try {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((pos) => {
+          const coords = pos.coords;
+          setLocation({ lat: coords.latitude, lng: coords.longitude });
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching current location:", error);
+    }
+  }
 
-//   async function fetchAddress() {
-//     try {
-//       const response = await fetch(
-//         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=AIzaSyCn3iFUNjO37dPrLUYkJLxW_Iqxcuojq_A`
-//       );
-//       const data = await response.json();
-//       const formattedAddress = data.results[0].formatted_address;
-//       setAddress(formattedAddress);
-//     } catch (error) {
-//       console.error("Error fetching address:", error);
-//     }
-//   }
+  useEffect(() => {
+    if (location) {
+      fetchAddress();
+    }
+  }, [location]);
 
-//   function handleChangeLocation(lat, lng) {
-//     setLocation({ lat: lat, lng: lng });
-//   }
+  async function fetchAddress() {
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=AIzaSyCn3iFUNjO37dPrLUYkJLxW_Iqxcuojq_A`
+      );
+      const data = await response.json();
+      const formattedAddress = data.results[0].formatted_address;
+      setAddress(formattedAddress);
+    } catch (error) {
+      console.error("Error fetching address:", error);
+    }
+  }
 
-//   function handleChangeZoom(newZoom) {
-//     setZoom(newZoom);
-//   }
+  function handleChangeLocation(lat, lng) {
+    setLocation({ lat: lat, lng: lng });
+  }
 
-//   return (
-//     <div>
-//       {location && (
-//         <MapPicker
-//           defaultLocation={location}
-//           zoom={zoom}
-//           mapTypeId="roadmap"
-//           style={{ height: "200px" }}
-//           onChangeLocation={handleChangeLocation}
-//           onChangeZoom={handleChangeZoom}
-//           apiKey="AIzaSyCn3iFUNjO37dPrLUYkJLxW_Iqxcuojq_A"
-//         />
-//       )}
-//       {/* <p>Selected Location:</p>
-//       <p>Latitude: {location ? location.lat : ""}</p>
-//       <p>Longitude: {location ? location.lng : ""}</p>
-//       <p>Address: {address}</p> */}
-//     </div>
-//   );
-// };
+  function handleChangeZoom(newZoom) {
+    setZoom(newZoom);
+  }
 
-// export default LocationPicker;
+  return (
+    <div>
+      {location && (
+        <MapPicker
+          defaultLocation={location}
+          zoom={zoom}
+          mapTypeId="roadmap"
+          style={{ height: "200px" }}
+          onChangeLocation={handleChangeLocation}
+          onChangeZoom={handleChangeZoom}
+          apiKey="AIzaSyCn3iFUNjO37dPrLUYkJLxW_Iqxcuojq_A"
+        />
+      )}
+      {/* <p>Selected Location:</p>
+      <p>Latitude: {location ? location.lat : ""}</p>
+      <p>Longitude: {location ? location.lng : ""}</p>
+      <p>Address: {address}</p> */}
+    </div>
+  );
+};
+
+export default LocationPicker;
