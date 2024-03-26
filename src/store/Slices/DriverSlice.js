@@ -2,16 +2,19 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import ErrorToast from "../../components/Toast/ErrorToast";
 import { GetAllDrivers, GetComapanyDetails } from "../../Https";
 
-export const fetchDrivers = createAsyncThunk("fetch/Drivers", async () => {
-  try {
-    const response = await GetAllDrivers();
-    console.log(response);
-    if (response.data?.success) return response?.data?.data;
-  } catch (error) {
-    console.log(error);
+export const fetchDrivers = createAsyncThunk(
+  "fetch/Drivers",
+  async (CurrentUser) => {
+    try {
+      const response = await GetAllDrivers({ companyId: CurrentUser._id });
+      console.log(response);
+      if (response.data?.success) return response?.data?.data;
+    } catch (error) {
+      console.log(error);
+    }
+    return [];
   }
-  return [];
-});
+);
 
 const DriverSlice = createSlice({
   name: "drivers",

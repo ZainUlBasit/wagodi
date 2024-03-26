@@ -223,8 +223,10 @@ const AddReservation = () => {
     }
   };
 
+  const Auth = useSelector((state) => state.auth);
+
   useEffect(() => {
-    dispatch(fetchDrivers());
+    dispatch(fetchDrivers(Auth.data.companyId));
   }, []);
 
   return (
