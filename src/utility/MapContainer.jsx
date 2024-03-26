@@ -3,10 +3,9 @@ import MapPicker from "react-google-map-picker";
 
 const DefaultZoom = 10;
 
-const LocationPicker = ({ recieve_addreess }) => {
+const LocationPicker = ({ receive_address }) => {
   const [location, setLocation] = useState(null);
   const [zoom, setZoom] = useState(DefaultZoom);
-
   const [address, setAddress] = useState("");
 
   useEffect(() => {
@@ -26,19 +25,14 @@ const LocationPicker = ({ recieve_addreess }) => {
     }
   }
 
-  useEffect(() => {
-    if (location) {
-      fetchAddress();
-    }
-  }, [location]);
-
-  async function fetchAddress() {
+  async function fetchAddress(lat, lng) {
     try {
       const response = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=AIzaSyCn3iFUNjO37dPrLUYkJLxW_Iqxcuojq_A`
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyCn3iFUNjO37dPrLUYkJLxW_Iqxcuojq_A`
       );
       const data = await response.json();
       const formattedAddress = data.results[0].formatted_address;
+      console.log(data.results[0]);
       setAddress(formattedAddress);
     } catch (error) {
       console.error("Error fetching address:", error);
@@ -47,6 +41,7 @@ const LocationPicker = ({ recieve_addreess }) => {
 
   function handleChangeLocation(lat, lng) {
     setLocation({ lat: lat, lng: lng });
+    fetchAddress(lat, lng);
   }
 
   function handleChangeZoom(newZoom) {
@@ -56,20 +51,19 @@ const LocationPicker = ({ recieve_addreess }) => {
   return (
     <div>
       {location && (
-        <MapPicker
-          defaultLocation={location}
-          zoom={zoom}
-          mapTypeId="roadmap"
-          style={{ height: "200px" }}
-          onChangeLocation={handleChangeLocation}
-          onChangeZoom={handleChangeZoom}
-          apiKey="AIzaSyCn3iFUNjO37dPrLUYkJLxW_Iqxcuojq_A"
-        />
+        <>
+          <MapPicker
+            defaultLocation={location}
+            zoom={zoom}
+            mapTypeId="roadmap"
+            style={{ height: "200px" }}
+            onChangeLocation={handleChangeLocation}
+            onChangeZoom={handleChangeZoom}
+            apiKey="AIzaSyCn3iFUNjO37dPrLUYkJLxW_Iqxcuojq_A"
+          />
+          <p>Selected Address: {address}</p>
+        </>
       )}
-      {/* <p>Selected Location:</p>
-      <p>Latitude: {location ? location.lat : ""}</p>
-      <p>Longitude: {location ? location.lng : ""}</p>
-      <p>Address: {address}</p> */}
     </div>
   );
 };
