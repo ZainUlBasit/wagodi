@@ -11,12 +11,13 @@ import "../../assets/Style/style.css";
 import MobNavbar from "../../components/Navbar/MobNavbar";
 import CustomPoperOverWithShow from "../../components/Popover/CustomPoperOverWithShow";
 import { api } from "../../Https";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ErrorToast from "../../components/Toast/ErrorToast";
 import PageLoader from "../../components/Loaders/PageLoader";
 import TableWrapper from "../../components/Tables/TableWrapper";
 import NoDataFound from "../../components/Loaders/Lottie/NoDataFound";
 import { convertStatus } from "../../utility/utilityFunctions";
+import { fetchOrders } from "../../store/Slices/OrderSlice";
 
 const OngoingOrder = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -24,11 +25,10 @@ const OngoingOrder = () => {
   const [OpenReservationDetailsModal, setOpenReservationDetailsModal] =
     useState(false);
   const userData = useSelector((state) => state.auth.data);
-  const [ordersData, setOrdersData] = useState([]);
+  // const [ordersData, setOrdersData] = useState([]);
   const [SearchText, setSearchText] = useState("");
   const [Filter, setFilter] = useState("");
   const [ApplyFilter, setApplyFilter] = useState("All");
-  const [Loading, setLoading] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -40,21 +40,24 @@ const OngoingOrder = () => {
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-
+  const dispatch = useDispatch();
+  const ordersData = useSelector((state) => state.Orders.data);
+  const Loading = useSelector((state) => state.Orders.loading);
   useEffect(() => {
-    (async () => {
-      const data = await api.post("/order/company", {
-        companyId: userData.companyId._id,
-      });
-      const apiSuccess = data?.data?.success;
-      if (!apiSuccess) {
-        ErrorToast("Failed fetching data for on-going orders!");
-        return;
-      }
-      console.log(data.data.data);
-      setOrdersData(data.data.data);
-      setLoading(false);
-    })();
+    dispatch(fetchOrders({ companyId: userData.companyId._id }));
+    // dispatch()(async () => {
+    //   const data = await api.post("/order/company", {
+    //     companyId: userData.companyId._id,
+    //   });
+    //   const apiSuccess = data?.data?.success;
+    //   if (!apiSuccess) {
+    //     ErrorToast("Failed fetching data for on-going orders!");
+    //     return;
+    //   }
+    //   console.log(data.data.data);
+    //   setOrdersData(data.data.data);
+    //   setLoading(false);
+    // })();
   }, []);
 
   console.log("APPLY FILTER : ", ApplyFilter);

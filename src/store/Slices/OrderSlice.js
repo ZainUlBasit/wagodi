@@ -3,12 +3,9 @@ import { GetAllOrderApi } from "../../Https";
 
 export const fetchOrders = createAsyncThunk(
   "fetchOrders",
-  async (query = {}) => {
+  async (companyId) => {
     try {
-      let response = await GetAllOrderApi({
-        companyId: "6524f10fa6019b64a812b09c",
-        query: { status: 0 },
-      });
+      let response = await GetAllOrderApi(companyId);
       console.log(response.data.data);
       return response.data.data;
     } catch (error) {

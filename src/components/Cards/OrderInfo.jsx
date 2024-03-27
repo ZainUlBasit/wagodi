@@ -38,7 +38,7 @@ const OrderInfo = () => {
           </div>
         </div>
         <div className="w-auto flex  flex-col justify-center items-center mt-10 shadow-[rgba(0,0,0,0.24)_0px_3px_8px] rounded-[20px] p-10">
-          <div className="w-auto flex flex-wrap gap-x-5">
+          <div className="w-auto flex flex-wrap gap-x-5 justify-center">
             {/* left side */}
             <div className="flex flex-col gap-y-3">
               <AuthInput
@@ -102,7 +102,7 @@ const OrderInfo = () => {
               />
             </div>
           </div>
-          <div className="w-auto flex justify-center items-center">
+          <div className="w-auto flex flex-wrap gap-x-3 gap-y-2 justify-center items-center">
             {order?.attachments.map((attachment) => (
               <a
                 href={attachment.url}

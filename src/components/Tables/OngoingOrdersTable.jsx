@@ -59,8 +59,6 @@ export default function OngoingOrdersTable({
           <TableBody>
             {Data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .filter((dt) => {
-                console.log(Filter);
-                console.log(dt.status);
                 const searchLowerCase = Search.toLowerCase();
                 if (Filter === "All") {
                   if (Search === "") return dt;
@@ -74,7 +72,7 @@ export default function OngoingOrdersTable({
                     }
                   }
                 }
-                if (convertStatus(dt.status) === Filter) {
+                if (convertStatus(dt.station.status) == Filter) {
                   if (Search === "") return dt;
                   else {
                     if (dt?.station?.id?.name.startsWith(searchLowerCase)) {
@@ -210,7 +208,7 @@ export default function OngoingOrdersTable({
                             : "bg-[#2EB100]"
                         } py-1 px-2 rounded-full text-white font-bold cursor-pointer`}
                       >
-                        {`${convertStatus(row.status)} ${row.status}` || "none"}
+                        {convertStatus(row.status) || "none"}
                       </div>
                     </div>
                   </TableCell>
