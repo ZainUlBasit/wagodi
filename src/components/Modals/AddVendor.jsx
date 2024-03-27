@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import WarningToast from "../Toast/WarningToast";
 import LocationSearchInput from "../../utility/LocationSearchInput";
 import AddingLightLoader from "../Loaders/AddingLightLoader";
+import MapContainer from "../../utility/MapContainer";
 
 const AddVendor = ({ Open, setOpen }) => {
   const [VendorName, setVendorName] = useState("");
@@ -89,8 +90,21 @@ const AddVendor = ({ Open, setOpen }) => {
                 Value={VendorName}
                 setValue={setVendorName}
               />
-              <LocationSearchInput onSelect={handleSelect} />
+              <LocationSearchInput
+                CurrentValue={Location}
+                onSelect={handleSelect}
+              />
               <div className="mb-3"></div>
+              <div className="mb-4">
+                <MapContainer
+                  SearchLat={Latitude}
+                  SearchLan={Longitude}
+                  setLongitude={setLongitude}
+                  setLatitude={setLatitude}
+                  setAddress={setLocation}
+                  apiKey={"AIzaSyCn3iFUNjO37dPrLUYkJLxW_Iqxcuojq_A"}
+                />
+              </div>
             </div>
             {/* right */}
             <div className="flex flex-col">

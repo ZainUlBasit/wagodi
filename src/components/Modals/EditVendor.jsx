@@ -10,6 +10,7 @@ import ErrorToast from "../Toast/ErrorToast";
 import WarningToast from "../Toast/WarningToast";
 import LocationSearchInput from "../../utility/LocationSearchInput";
 import AddingLightLoader from "../Loaders/AddingLightLoader";
+import MapContainer from "../../utility/MapContainer";
 
 const EditVendor = ({ Open, setOpen, Data, companyId }) => {
   const [VendorName, setVendorName] = useState(Data.name);
@@ -17,8 +18,8 @@ const EditVendor = ({ Open, setOpen, Data, companyId }) => {
   const [_95, set_95] = useState(Data.fuels[1]?.price_litre);
   const [_91, set_91] = useState(Data.fuels[0]?.price_litre);
   const [_D, set_D] = useState(Data.fuels[2]?.price_litre);
-  const [Longitude, setLongitude] = useState("");
-  const [Latitude, setLatitude] = useState("");
+  const [Longitude, setLongitude] = useState(Data.longitude);
+  const [Latitude, setLatitude] = useState(Data.latitude);
   const [Loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const onSubmit = async (e) => {
@@ -95,10 +96,20 @@ const EditVendor = ({ Open, setOpen, Data, companyId }) => {
                 setValue={setVendorName}
               />
               <LocationSearchInput
-                CurrentValue={Data.address}
+                CurrentValue={Location}
                 onSelect={handleSelect}
               />
               <div className="mb-3"></div>
+              <div className="mb-4">
+                <MapContainer
+                  SearchLat={Latitude}
+                  SearchLan={Longitude}
+                  setLongitude={setLongitude}
+                  setLatitude={setLatitude}
+                  setAddress={setLocation}
+                  apiKey={"AIzaSyCn3iFUNjO37dPrLUYkJLxW_Iqxcuojq_A"}
+                />
+              </div>
               {/* <AuthTextArea
                 label={"Location"}
                 placeholder={"Write Address"}
