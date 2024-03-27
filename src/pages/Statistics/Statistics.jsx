@@ -30,6 +30,7 @@ import TableWrapper from "../../components/Tables/TableWrapper";
 import "./Statistics.css";
 import { BsSearch } from "react-icons/bs";
 import { fetchCompanyStats } from "../../store/Slices/CompanyStatsSlice";
+import { fetchStationStats } from "../../store/Slices/StationStatsSlice";
 
 const Statistics = () => {
   const userData = useSelector((state) => state.auth.data);
@@ -119,12 +120,14 @@ const Statistics = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
   const dispatch = useDispatch();
   const CompanyStats = useSelector((state) => state.CompanyStats);
+  const StationStatsState = useSelector((state) => state.StationStats);
 
   useEffect(() => {
     const currentYear = new Date().getFullYear();
     setDays(generateDaysArray());
     setYears(generateYears(currentYear - 10, currentYear));
     dispatch(fetchCompanyStats({ companyId: userData.companyId._id }));
+    dispatch(fetchStationStats({ companyId: userData.companyId._id }));
   }, []);
 
   return (
@@ -538,6 +541,7 @@ const Statistics = () => {
             <StatisticsStationTable
               setCurrentID={setCurrentID}
               setOpen={setOpenDetail}
+              Data={StationStatsState.data}
             />
           ) : CurrentTab === "drivers" ? (
             <StatisticsDriverTable
