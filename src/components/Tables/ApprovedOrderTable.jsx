@@ -66,7 +66,7 @@ export default function ApprovedOrderTable({ Data, Filter }) {
               <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
                 {Data?.createdAt
                   ? moment(new Date(Data.createdAt * 1000)).format(
-                      "DD/MM/YYYY h:mm A"
+                      "DD/MM/YYYY h:mm:ss A"
                     )
                   : "not specified"}
               </div>
@@ -153,7 +153,9 @@ export default function ApprovedOrderTable({ Data, Filter }) {
             >
               <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
                 {Data?.station?.deliveryTime
-                  ? new Date(Data.station?.deliveryTime * 1000).toLocaleString()
+                  ? moment(new Date(Data.station?.deliveryTime * 1000)).format(
+                      "DD/MM/YYYY h:mm:ss A"
+                    )
                   : "not specified"}
               </div>
             </TableCell>
@@ -167,13 +169,10 @@ export default function ApprovedOrderTable({ Data, Filter }) {
             >
               <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
                 {Data?.station?.deliveryTime
-                  ? `${moment
-                      .duration(
-                        Data.createdAt - Data.station.deliveryTime,
-                        "milliseconds"
-                      )
-                      .asHours()
-                      .toFixed(2)} hr`
+                  ? `${(
+                      (Data?.station?.deliveryTime - Data.createdAt) /
+                      (1000 * 60 * 60)
+                    ).toFixed(2)} hr`
                   : "not specified"}
               </div>
             </TableCell>

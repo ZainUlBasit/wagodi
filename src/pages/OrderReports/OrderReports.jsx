@@ -162,18 +162,25 @@ const OrderReports = () => {
         ) : (
           orders
             ?.filter((order) => {
-              if (SearchText === "") return order;
-              else {
-                if (order.station.id.name.toLowerCase().includes(SearchText))
-                  return order;
+              if (SearchText === "") {
+                if (
+                  convertStatus(order?.status) !== ApplyFilter &&
+                  ApplyFilter !== "All"
+                )
+                  return false;
+                else return order;
+              } else {
+                if (order.station.id.name.toLowerCase().includes(SearchText)) {
+                  if (
+                    convertStatus(order?.status) !== ApplyFilter &&
+                    ApplyFilter !== "All"
+                  )
+                    return false;
+                  else return order;
+                }
               }
             })
             .map((orderData) => {
-              if (
-                convertStatus(orderData?.status) !== ApplyFilter &&
-                ApplyFilter !== "All"
-              )
-                return;
               return (
                 <>
                   <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] border-[1px] border-[#465462] shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] mb-10 relative">
