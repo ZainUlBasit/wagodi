@@ -152,7 +152,7 @@ export default function ApprovedOrderTable({ Data, Filter }) {
               align="center"
             >
               <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                {Data?.station?.deliveryTime
+                {Data?.station?.deliveryTime && Data.status === 4
                   ? moment(new Date(Data.station?.deliveryTime * 1000)).format(
                       "DD/MM/YYYY h:mm:ss A"
                     )
@@ -168,7 +168,7 @@ export default function ApprovedOrderTable({ Data, Filter }) {
               align="center"
             >
               <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                {Data?.station?.deliveryTime
+                {Data?.station?.deliveryTime && Data.status === 4
                   ? `${(
                       (Data?.station?.deliveryTime - Data.createdAt) /
                       (1000 * 60 * 60)
