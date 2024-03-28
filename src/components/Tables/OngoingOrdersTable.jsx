@@ -57,32 +57,32 @@ export default function OngoingOrdersTable({
             </TableRow>
           </TableHead>
           <TableBody>
-            {Data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .filter((dt) => {
-                const searchLowerCase = Search.toLowerCase();
-                if (Filter === "All") {
-                  if (Search === "") return dt;
-                  else {
-                    if (
-                      dt?.station?.id?.name
-                        ?.toLowerCase()
-                        ?.startsWith(searchLowerCase)
-                    ) {
-                      return dt;
-                    }
+            {Data.filter((dt) => {
+              const searchLowerCase = Search.toLowerCase();
+              if (Filter === "All") {
+                if (Search === "") return dt;
+                else {
+                  if (
+                    dt?.station?.id?.name
+                      ?.toLowerCase()
+                      ?.startsWith(searchLowerCase)
+                  ) {
+                    return dt;
                   }
                 }
-                if (convertStatus(dt.station.status) == Filter) {
-                  if (Search === "") return dt;
-                  else {
-                    if (dt?.station?.id?.name.startsWith(searchLowerCase)) {
-                      return dt;
-                    }
+              }
+              if (convertStatus(dt.station.status) == Filter) {
+                if (Search === "") return dt;
+                else {
+                  if (dt?.station?.id?.name.startsWith(searchLowerCase)) {
+                    return dt;
                   }
                 }
-                return null;
-              })
+              }
+              return null;
+            })
               .filter(Boolean)
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, i) => (
                 <TableRow
                   key={`${row?._id}}`}
