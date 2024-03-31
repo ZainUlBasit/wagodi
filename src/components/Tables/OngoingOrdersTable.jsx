@@ -79,10 +79,8 @@ export default function OngoingOrdersTable({
                   }
                 }
               }
-              return null;
             })
-              .filter(Boolean)
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, i) => (
                 <TableRow
                   key={`${row?._id}}`}
