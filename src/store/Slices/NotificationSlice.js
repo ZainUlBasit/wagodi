@@ -24,7 +24,7 @@ export const fetchNotification = createAsyncThunk(
         });
       } else if (current_user.role === 1) {
         response = await GetCompanyNotificationApi({
-          companyId: current_user._id,
+          companyId: current_user.companyId._id,
         });
       } else {
         response = await GetOrderManagerNotificationApi({
