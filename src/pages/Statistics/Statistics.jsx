@@ -492,7 +492,6 @@ const Statistics = () => {
             <StationStatisticTopTable />
           </div>
           <ApexChart />
-          {/* test */}
         </div>
         <div className="w-[90%] flex justify-start">
           <div className="flex border-[1px] w-[300px] maxWeb1:w-[400px] maxWeb2:w-[450px] maxWeb3:w-[500px] maxWeb4:w-[550px] border-black items-center gap-x-2 px-3 py-[6px] maxWeb1:px-4 maxWeb1:py-[8px] maxWeb2:px-5 maxWeb2:py-[10px] rounded-full overflow-hidden my-[10px] maxWeb1:my-[15px] maxWeb2:my-[20px]">

@@ -120,15 +120,18 @@ const LoginComp = () => {
         dispatch(SetAuth(response.data.data.data));
       } else {
         const current_status = response.response?.status || response.status;
+        alert(current_status);
         if (current_status === 200) {
           ErrorToast(response.data.error.msg);
         } else if (current_status === 401) {
+          alert("yes");
           ErrorToast(response.response?.data?.error?.msg);
         }
       }
     } catch (err) {
       response = err;
       response_type = response.data?.success || false;
+      ErrorToast(response.response?.data?.error?.msg);
     }
     // console.log(response_type);
     setLoading(false);
