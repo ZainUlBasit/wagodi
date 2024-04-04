@@ -1,7 +1,7 @@
 import React from "react";
 import AuthBG from "../../assets/images/AuthBg.png";
 import LogoWhite from "../../assets/images/logoWhite.png";
-import "./LogoDesign.css"
+import "./LogoDesign.css";
 
 const LogoDesign = () => {
   return (
