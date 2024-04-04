@@ -181,11 +181,12 @@ const AddReservation = () => {
         values.arrival_date !== "" &&
         values.from_option !== ""
       ) {
-        if (values.from_option !== 0 && values.paid_amount === "") {
-          ErrorToast("Required Fields is Undefined!");
-          setLoading(false);
-          return;
-        }
+        // console.log(values.from_option, values.paid_amount);
+        // if (values.from_option !== 0) {
+        //   ErrorToast("Required Fields is Undefined!");
+        //   setLoading(false);
+        //   return;
+        // }
         try {
           const response = await OrderCreateApi(formData);
           if (response?.data?.success) {

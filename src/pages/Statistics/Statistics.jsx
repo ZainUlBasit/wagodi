@@ -33,21 +33,6 @@ import { fetchCompanyStats } from "../../store/Slices/CompanyStatsSlice";
 import { fetchStationStats } from "../../store/Slices/StationStatsSlice";
 
 const Statistics = () => {
-  const userData = useSelector((state) => state.auth.data);
-  const [selectedMonth, setSelectedMonth] = useState(new Date());
-  const [CurrentMonth, setCurrentMonth] = useState("");
-  const [statsData, setStatsData] = useState("");
-  const [CurrentMonthIndex, setCurrentMonthIndex] = useState("");
-  const [CurrentMonthChart, setCurrentMonthChart] = useState("January");
-  const [CurrentMonthIndexChart, setCurrentMonthIndexChart] = useState("0");
-  const [CurrentMonthChart1, setCurrentMonthChart1] = useState("Month");
-  const [CurrentMonthIndexChart1, setCurrentMonthIndexChart1] = useState("");
-  const [CurDate, setCurDate] = useState("");
-  const [CurrentTab, setCurrentTab] = useState("stations");
-  const [OpenDetail, setOpenDetail] = useState(false);
-  const [OpenDriverDetail, setOpenDriverDetail] = useState(false);
-  const [CurrentID, setCurrentID] = useState("");
-  const [SearchText, setSearchText] = useState("");
   const months = [
     "January",
     "February",
@@ -62,6 +47,27 @@ const Statistics = () => {
     "November",
     "December",
   ];
+
+  const currentDate = new Date();
+
+  const userData = useSelector((state) => state.auth.data);
+  const [selectedMonth, setSelectedMonth] = useState(new Date());
+  const [CurrentMonth, setCurrentMonth] = useState(
+    months[currentDate.getMonth()]
+  );
+  const [statsData, setStatsData] = useState("");
+  const [CurrentMonthIndex, setCurrentMonthIndex] = useState("");
+  const [CurrentMonthChart, setCurrentMonthChart] = useState("January");
+  const [CurrentMonthIndexChart, setCurrentMonthIndexChart] = useState("0");
+  const [CurrentMonthChart1, setCurrentMonthChart1] = useState("Month");
+  const [CurrentMonthIndexChart1, setCurrentMonthIndexChart1] = useState("");
+  const [CurDate, setCurDate] = useState("");
+  const [CurrentTab, setCurrentTab] = useState("stations");
+  const [OpenDetail, setOpenDetail] = useState(false);
+  const [OpenDriverDetail, setOpenDriverDetail] = useState(false);
+  const [CurrentID, setCurrentID] = useState("");
+  const [SearchText, setSearchText] = useState("");
+
   // for month
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
@@ -122,11 +128,19 @@ const Statistics = () => {
   const CompanyStats = useSelector((state) => state.CompanyStats);
   const StationStatsState = useSelector((state) => state.StationStats);
 
+  // Get month (0-indexed, so January is 0)
+  const currentMonth = currentDate.getMonth() + 1; // Adding 1 to get the month in a human-readable format
+
   useEffect(() => {
     const currentYear = new Date().getFullYear();
     setDays(generateDaysArray());
     setYears(generateYears(currentYear - 10, currentYear));
-    dispatch(fetchCompanyStats({ companyId: userData.companyId._id }));
+    dispatch(
+      fetchCompanyStats({
+        companyId: userData.companyId._id,
+        selectedMonth: currentMonth,
+      })
+    );
     dispatch(fetchStationStats({ companyId: userData.companyId._id }));
   }, []);
 
@@ -134,7 +148,7 @@ const Statistics = () => {
     <>
       <div className="w-full flex flex-col justify-center items-center mb-5 fade-in">
         {/* Header */}
-        <div className="w-[90%] max-w-[1200px] flex justify-between mt-6 mb-3">
+        <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 mb-10">
           {/* Left */}
           <div className="font-[Quicksand] font-[700] text-[2rem] max767:text-[1.3rem]">
             Station Statistics
@@ -153,15 +167,18 @@ const Statistics = () => {
               onClick={handleClick}
             >
               <div className="flex items-center">
-                <input
-                  type="text"
-                  name="date"
-                  id="date"
-                  placeholder="Month"
-                  value={CurrentMonth}
+                <div
+                  // type="text"
+                  // name="date"
+                  // id="date"
+                  // placeholder="Month"
+                  // value={CurrentMonth}
                   className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
-                  disabled
-                />
+                  // disabled
+                  // onClick={handleClick}
+                >
+                  {CurrentMonth === "" ? "Month" : CurrentMonth}
+                </div>
                 <BiSolidChevronDown
                   className="text-[1.5rem] cursor-pointer"
                   aria-describedby={id}
@@ -216,6 +233,12 @@ const Statistics = () => {
                             handleClose();
                             setCurrentMonth(month);
                             setCurrentMonthIndex(i);
+                            dispatch(
+                              fetchCompanyStats({
+                                companyId: userData.companyId._id,
+                                selectedMonth: i + 1,
+                              })
+                            );
                           }}
                         >
                           <input
@@ -252,15 +275,12 @@ const Statistics = () => {
             onClick={handleClickChart}
           >
             <div className="flex items-center">
-              <input
-                type="text"
-                name="date"
+              <div
                 id="date"
-                placeholder="Month"
-                value={CurrentMonthChart}
                 className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
-                disabled
-              />
+              >
+                {CurrentMonthChart === "" ? "Month" : CurrentMonthChart}
+              </div>
               <BiSolidChevronDown
                 className="text-[1.5rem] cursor-pointer"
                 aria-describedby={idChart}
