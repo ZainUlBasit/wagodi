@@ -31,6 +31,7 @@ import "./Statistics.css";
 import { BsSearch } from "react-icons/bs";
 import { fetchCompanyStats } from "../../store/Slices/CompanyStatsSlice";
 import { fetchStationStats } from "../../store/Slices/StationStatsSlice";
+import { fetchTopTenStation } from "../../store/Slices/TopTenStatsSlice";
 
 const Statistics = () => {
   const months = [
@@ -142,6 +143,7 @@ const Statistics = () => {
       })
     );
     dispatch(fetchStationStats({ companyId: userData.companyId._id }));
+    dispatch(fetchTopTenStation({ companyId: userData.companyId._id }));
   }, []);
 
   return (
@@ -295,15 +297,13 @@ const Statistics = () => {
             onClick={handleClickChart2}
           >
             <div className="flex items-center">
-              <input
-                type="text"
-                name="date"
+              <div
                 id="date"
-                placeholder="Month"
                 value={CurrentMonthChart1}
                 className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
-                disabled
-              />
+              >
+                {CurrentMonthChart1 === "" ? "Month" : CurrentMonthChart1}
+              </div>
               <BiSolidChevronDown
                 className="text-[1.5rem] cursor-pointer"
                 aria-describedby={idChart2}

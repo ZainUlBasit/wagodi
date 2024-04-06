@@ -18,6 +18,7 @@ const OrderInfo = () => {
   const RequiredVolume = order.station.required_volume || "not specified";
   const IssuedVolume = order.issued_volume || "not specified";
   const RecievedVolume = order.received_volume || "not specified";
+  const OrderNumber = order.orderNumber || "not specified";
   const DeliveredDateTime = order.station.deliveryTime
     ? moment(new Date(order.station.deliveryTime * 1000)).format(
         "DD/MM/YYYY h:mm A"
@@ -60,6 +61,13 @@ const OrderInfo = () => {
                 placeholder="Liters"
                 required={false}
                 Value={UOM}
+                readonly={true}
+              />
+              <AuthInput
+                label="Order Number"
+                placeholder="Order Number"
+                required={false}
+                Value={OrderNumber}
                 readonly={true}
               />
               <AuthInput

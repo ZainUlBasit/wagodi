@@ -58,15 +58,9 @@ export default function StatisticsDriverTable({ setCurrentID, setOpen }) {
           onClick={handleClick}
         >
           <div className="flex items-center">
-            <input
-              type="text"
-              name="date"
-              id="date"
-              placeholder="All"
-              value={CurrentMonth}
-              className="w-[220px] max767:text-[1rem] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
-              disabled
-            />
+            <div className="w-[220px] max767:text-[1rem] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent">
+              {CurrentMonth === "" ? "All" : CurrentMonth}
+            </div>
             <BiSolidChevronDown
               className="text-[1.5rem] cursor-pointer"
               aria-describedby={id}

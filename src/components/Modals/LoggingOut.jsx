@@ -33,7 +33,7 @@ export default function LoggingOut({ Open, setOpen }) {
     localStorage.removeItem("logged-in");
     localStorage.removeItem("userToken");
     localStorage.removeItem("companyData");
-    navigate("/auth");
+    // navigate("/auth");
     window.location.reload();
   };
   React.useEffect(() => {

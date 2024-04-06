@@ -35,7 +35,7 @@ const OrderDetail = ({ Order, Filter }) => {
         <div className="flex font-[Quicksand] font-[700] text-[1rem] gap-x-1 px-4 pb-[2px]">
           Paid Amount:{" "}
           <span className="font-[Quicksand] font-[400]">
-            {Order.fuel_price}
+            {Order.station.paid_amount}
           </span>
         </div>
         {/* line */}
