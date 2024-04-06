@@ -61,13 +61,13 @@ const Home = () => {
         {/* <LocationSearchInput onSelect={handleSelect} /> */}
         {/* Header */}
 
-        <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 mb-6">
+        <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 mb-6 flex-wrap">
           {/* Left */}
           <div className="font-[Quicksand] font-[700] text-[2rem]">
             Stations
           </div>
           {/* Right */}
-          <div className="flex items-center gap-x-4">
+          <div className="flex items-center gap-x-4 flex-wrap gap-y-3">
             <div className="flex border-[1px] w-[300px] border-black items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden max767:hidden">
               <BsSearch />
               <input
