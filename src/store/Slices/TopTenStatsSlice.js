@@ -9,10 +9,27 @@ import {
 
 export const fetchTopTenStation = createAsyncThunk(
   "fetch/Station/TopTen",
-  async (currentCompanyId) => {
-    console.log(currentCompanyId);
+  async (Payload) => {
+    console.log(Payload);
+    let reqBody;
+    if (Payload.type === 1) {
+      reqBody = {
+        companyId: Payload.companyId,
+        day: Payload.value,
+      };
+    } else if (Payload.type === 2) {
+      reqBody = {
+        companyId: Payload.companyId,
+        month: Payload.value,
+      };
+    } else if (Payload.type === 3) {
+      reqBody = {
+        companyId: Payload.companyId,
+        year: Payload.value,
+      };
+    }
     try {
-      const response = await GetTenStationStat(currentCompanyId);
+      const response = await GetTenStationStat(reqBody);
       console.log(response);
       // return [];
       return response.data.data || [];

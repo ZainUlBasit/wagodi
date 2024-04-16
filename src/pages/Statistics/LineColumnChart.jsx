@@ -1,21 +1,29 @@
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const LineColumnChart = () => {
+const LineColumnChart = ({ Data }) => {
   const series = [
     {
       name: "Sales Volume per L",
       type: "column",
-      data: [440, 505, 414, 671, 227, 413, 201, 352, 752, 320, 257, 160],
+      data: Data.map((dt) => {
+        return dt.salesVolume;
+      }),
       color: "#56636F",
     },
     {
       name: "Sales amount per SR",
       type: "line",
-      data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16],
+      data: Data.map((dt) => {
+        return dt.salesAmount;
+      }),
       color: "#8C9AA6",
     },
   ];
+
+  const Labels = Data.map((dt, index) => {
+    return dt.stationName;
+  });
 
   const options = {
     chart: {
@@ -35,20 +43,7 @@ const LineColumnChart = () => {
       enabled: true,
       enabledOnSeries: [1],
     },
-    labels: [
-      "MCJD-1016",
-      "MCJD-1017",
-      "MCJD-1018",
-      "MCJD-1019",
-      "MCJD-1020",
-      "MCJD-1021",
-      "MCJD-1022",
-      "MCJD-1023",
-      "MCJD-1024",
-      "MCJD-1025",
-      "MCJD-1026",
-      "MCJD-1027",
-    ],
+    labels: Labels,
     xaxis: {
       type: "category",
       //   type: "datetime",

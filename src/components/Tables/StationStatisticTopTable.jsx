@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import { StationStatisticsTopData } from "./DemoData/StationStatisticsTopData";
 import "./StationStatisticTopTable.css";
 
-export default function StationStatisticTopTable() {
+export default function StationStatisticTopTable({ Data }) {
   return (
     <TableContainer
       component={Paper}
@@ -62,7 +62,7 @@ export default function StationStatisticTopTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {StationStatisticsTopData.map((row, i) => (
+          {Data.map((row, i) => (
             <TableRow key={i}>
               <TableCell
                 sx={{
@@ -90,7 +90,7 @@ export default function StationStatisticTopTable() {
                 align="center"
               >
                 <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                  {row.StationName}
+                  {row.stationName}
                 </div>
               </TableCell>
               <TableCell
@@ -104,7 +104,7 @@ export default function StationStatisticTopTable() {
                 align="center"
               >
                 <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                  {row.SalesVolume}
+                  {row.salesVolume}
                 </div>
               </TableCell>
               <TableCell
@@ -117,7 +117,7 @@ export default function StationStatisticTopTable() {
                 align="center"
               >
                 <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                  {row.SalesAmount}
+                  {row.salesAmount}
                 </div>
               </TableCell>
             </TableRow>

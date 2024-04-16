@@ -32,6 +32,7 @@ import { BsSearch } from "react-icons/bs";
 import { fetchCompanyStats } from "../../store/Slices/CompanyStatsSlice";
 import { fetchStationStats } from "../../store/Slices/StationStatsSlice";
 import { fetchTopTenStation } from "../../store/Slices/TopTenStatsSlice";
+import PageLoader from "../../components/Loaders/PageLoader";
 
 const Statistics = () => {
   const months = [
@@ -143,8 +144,28 @@ const Statistics = () => {
       })
     );
     dispatch(fetchStationStats({ companyId: userData.companyId._id }));
-    dispatch(fetchTopTenStation({ companyId: userData.companyId._id }));
   }, []);
+
+  useEffect(() => {
+    if (CurrentMonthChart !== "")
+      dispatch(
+        fetchTopTenStation({
+          companyId: userData.companyId._id,
+          type:
+            CurrentMonthChart1 === "Days"
+              ? 1
+              : CurrentMonthChart1 === "Month"
+              ? 2
+              : CurrentMonthChart1 === "Year" && 3,
+          value:
+            CurrentMonthChart1 === "Month"
+              ? Number(CurrentMonthIndexChart) + 1
+              : CurrentMonthChart,
+        })
+      );
+  }, [CurrentMonthChart]);
+
+  const TopTenData = useSelector((state) => state.TopTenStations);
 
   return (
     <>
@@ -507,11 +528,21 @@ const Statistics = () => {
           </Popover>
         </div>
 
-        <div className="gap-x-5 flex-wrap w-[90%] flex justify-between max767:items-center max767:justify-center max1056:items-center max1056:justify-center mt-2">
-          <div className="h-[360px] w-[500px] max767:w-auto overflow-scroll border-[1px] border-[#576370] MaxTableWidth">
-            <StationStatisticTopTable />
-          </div>
-          <ApexChart />
+        <div className="gap-x-5 flex-wrap w-[90%] flex justify-between items-center max767:items-center max767:justify-center max1056:items-center max1056:justify-center mt-2">
+          {TopTenData.loading ? (
+            <PageLoader />
+          ) : TopTenData.data.length === 0 ? (
+            <></>
+          ) : (
+            <>
+              <div className="h-auto w-[500px] max767:w-auto overflow-scroll border-[1px] border-[#576370] MaxTableWidth">
+                <StationStatisticTopTable
+                  Data={TopTenData.loading ? [{}] : TopTenData.data}
+                />
+              </div>
+              <ApexChart Data={TopTenData.loading ? [{}] : TopTenData.data} />
+            </>
+          )}
         </div>
         <div className="w-[90%] flex justify-start">
           <div className="flex border-[1px] w-[300px] maxWeb1:w-[400px] maxWeb2:w-[450px] maxWeb3:w-[500px] maxWeb4:w-[550px] border-black items-center gap-x-2 px-3 py-[6px] maxWeb1:px-4 maxWeb1:py-[8px] maxWeb2:px-5 maxWeb2:py-[10px] rounded-full overflow-hidden my-[10px] maxWeb1:my-[15px] maxWeb2:my-[20px]">
@@ -524,7 +555,13 @@ const Statistics = () => {
             />
           </div>
         </div>
-        <LineColumnChart />
+        {TopTenData.loading ? (
+          <PageLoader />
+        ) : TopTenData.data.length === 0 ? (
+          <></>
+        ) : (
+          <LineColumnChart Data={TopTenData.loading ? [{}] : TopTenData.data} />
+        )}
 
         <div className="w-[90%] flex justify-end">
           <DateInput

@@ -2,23 +2,27 @@ import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import "./ApexChart.css"; // Import custom CSS for styling
 
-const ApexChart = () => {
+const ApexChart = ({ Data }) => {
   const series = [
     {
       name: "Sales Volume per L",
       group: "budget",
-      data: [
-        44000, 55000, 41000, 67000, 22000, 55000, 41000, 44000, 55000, 41000,
-      ],
+      data: Data.map((dt) => {
+        return dt.salesVolume;
+      }),
     },
     {
       name: "Sales amount per SR",
       group: "budget",
-      data: [
-        13000, 36000, 20000, 8000, 13000, 36000, 20000, 8000, 13000, 36000,
-      ],
+      data: Data.map((dt) => {
+        return dt.salesAmount;
+      }),
     },
   ];
+
+  const Cat = Data.map((dt, index) => {
+    return dt.stationName;
+  });
 
   const options = {
     chart: {
@@ -44,18 +48,7 @@ const ApexChart = () => {
       },
     },
     xaxis: {
-      categories: [
-        "MCJD-1016",
-        "MCJD-1016",
-        "MCJD-1016",
-        "MCJD-1016",
-        "MCJD-1016",
-        "MCJD-1016",
-        "MCJD-1016",
-        "MCJD-1016",
-        "MCJD-1016",
-        "MCJD-1016",
-      ],
+      categories: Cat,
     },
     fill: {
       opacity: 1,
