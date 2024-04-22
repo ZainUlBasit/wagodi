@@ -106,7 +106,7 @@ export default function StatisticsStationTable({
                   scope="row"
                   align="center"
                 >
-                  {row?.phone ? row.phone : "-"}
+                  {row?.stationNumber ? row.stationNumber : "-"}
                 </TableCell>
                 <TableCell
                   sx={{
@@ -117,7 +117,7 @@ export default function StatisticsStationTable({
                   align="center"
                 >
                   <div className="flex items-center justify-center gap-x-2">
-                    {row.name ? row.name : "-"}
+                    {row.stationName ? row.stationName : "-"}
                     <AiFillEye
                       className="cursor-pointer text-[#76808B] text-[1.2rem] hover:text-black transition-all duration-500 ease-in-out"
                       onClick={() => {
@@ -156,7 +156,7 @@ export default function StatisticsStationTable({
                   }}
                   align="center"
                 >
-                  {row.address}
+                  {row.stationAddress}
                 </TableCell>
               </TableRow>
             ))}

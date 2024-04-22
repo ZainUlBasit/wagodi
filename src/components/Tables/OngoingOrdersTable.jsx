@@ -10,8 +10,8 @@ import { Data } from "./DemoData/Orders";
 import { AiFillEye } from "react-icons/ai";
 import { OngoingOrdersColumns } from "../../assets/Columns/OngoingOrdersColumns";
 import { convertStatus } from "../../utility/utilityFunctions";
-import CustomPagination from "../TablePagination/TablePagination";
 import moment from "moment";
+import CustomPagination from "../TablePagination/TablePagination";
 
 export default function OngoingOrdersTable({
   Filter,
@@ -80,7 +80,7 @@ export default function OngoingOrdersTable({
                 }
               }
             })
-              // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, i) => (
                 <TableRow
                   key={`${row?._id}}`}
