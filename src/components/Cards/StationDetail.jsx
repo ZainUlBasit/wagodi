@@ -105,7 +105,7 @@ const StationDetail = ({
                     {fuel.type === 0 ? "91" : fuel.type === 1 ? "95" : "D"}
                   </div>
                   <div className="font-[500] font-[Quicksand] text-[1rem] w-[95%] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]  maxWeb1:w-[94%] maxWeb2:w-[93%] maxWeb3:w-[92%] maxWeb4:w-[92%]">
-                    {fuel.max_value} / <span>{fuel.value}</span>
+                    {fuel.value} / <span>{fuel.max_value}</span>
                   </div>
                 </div>
               );

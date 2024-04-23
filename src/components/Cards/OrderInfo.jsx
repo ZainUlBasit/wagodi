@@ -114,7 +114,7 @@ const OrderInfo = () => {
             {order?.attachments.map((attachment) => (
               <a
                 href={attachment.url}
-                download={attachment.name}
+                download={`${attachment.name}.png`}
                 className="text flex items-center w-fit gap-x-2 border-[2px] border-[#96ADC5] hover:bg-[#96ADC5] hover:text-white px-2 py-2 text-[#465462] font-bold rounded-[10px] transition-all duration-500 ease-in-out"
               >
                 <BiDownload className="text-[1.5rem]" /> {attachment.name}

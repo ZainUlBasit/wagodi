@@ -14,7 +14,7 @@ import moment from "moment";
 export default function ApprovedOrderTable({ Data, Filter }) {
   // if()
   // console.log(Filter);
-  console.log(Data);
+  // console.log(Data);
 
   return (
     <TableContainer component={Paper}>

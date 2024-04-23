@@ -13,7 +13,7 @@ import MobNavbar from "../../components/Navbar/MobNavbar";
 import SendReportDate from "../../components/Modals/SendReportDate";
 import ApprovedOrderTableTop from "../../components/Tables/ApprovedOrderTableTop";
 import { api } from "../../Https";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ErrorToast from "../../components/Toast/ErrorToast";
 import {
   captureComponent,
@@ -23,6 +23,10 @@ import PageLoader from "../../components/Loaders/PageLoader";
 import NoDataFound from "../../components/Loaders/Lottie/NoDataFound";
 import { LuFilter } from "react-icons/lu";
 import CustomPoperOverWithShow from "../../components/Popover/CustomPoperOverWithShow";
+import {
+  FilterOrderReport,
+  fetchOrderReports,
+} from "../../store/Slices/OrderReportSlice";
 
 const OrderReports = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -54,32 +58,44 @@ const OrderReports = () => {
     ? Math.floor(new Date(CurDate).getTime() / 1000)
     : Math.floor(new Date().getTime() / 1000);
 
+  // useEffect(() => {
+  //   setLoading(true);
+  //   if (CurDate) {
+  //     requestBody.end_date = currentDate;
+  //     const currentMonth = new Date(CurDate).getMonth();
+  //     const start_date = new Date(currentDate * 1000);
+  //     start_date.setMonth(currentMonth - 1);
+  //     requestBody.start_date = Math.floor(start_date.getTime() / 1000);
+  //     // requestBody.end_date = date - ;
+  //   }
+  //   // console.log(firstTime == 0);
+  //   // console.log(CurDate != previousDate);
+  //   firstTime == 0 || CurDate != previousDate
+  //     ? (async () => {
+  //         const data = await api.post("/order/company", requestBody);
+  //         const apiSuccess = data?.data?.success;
+  //         firstTime++;
+  //         if (!apiSuccess) {
+  //           ErrorToast("Failed fetching data for orders!");
+  //           return;
+  //         }
+  //         previousDate.current = CurDate;
+  //         setOrders(data.data.data);
+  //         setLoading(false);
+  //       })()
+  //     : "";
+  // }, [CurDate]);
+
+  const dispatch = useDispatch();
+  const OrderReportState = useSelector((state) => state.OrderReportState);
+
   useEffect(() => {
-    setLoading(true);
-    if (CurDate) {
-      requestBody.end_date = currentDate;
-      const currentMonth = new Date(CurDate).getMonth();
-      const start_date = new Date(currentDate * 1000);
-      start_date.setMonth(currentMonth - 1);
-      requestBody.start_date = Math.floor(start_date.getTime() / 1000);
-      // requestBody.end_date = date - ;
-    }
-    // console.log(firstTime == 0);
-    // console.log(CurDate != previousDate);
-    firstTime == 0 || CurDate != previousDate
-      ? (async () => {
-          const data = await api.post("/order/company", requestBody);
-          const apiSuccess = data?.data?.success;
-          firstTime++;
-          if (!apiSuccess) {
-            ErrorToast("Failed fetching data for orders!");
-            return;
-          }
-          previousDate.current = CurDate;
-          setOrders(data.data.data);
-          setLoading(false);
-        })()
-      : "";
+    dispatch(fetchOrderReports(userData.companyId._id));
+  }, []);
+
+  useEffect(() => {
+    dispatch(FilterOrderReport(CurDate));
+    console.log(CurDate);
   }, [CurDate]);
 
   return (
@@ -119,7 +135,7 @@ const OrderReports = () => {
             </div>
             <div className="font-[Quicksand] font-bold bg-[#465462] text-white py-1 px-4 text-2xl rounded-lg">
               {
-                orders?.filter((order) => {
+                OrderReportState.data?.filter((order) => {
                   if (ApplyFilter !== "All")
                     return convertStatus(order?.status) === ApplyFilter;
                   else return order;
@@ -155,12 +171,12 @@ const OrderReports = () => {
             />
           </div>
         </div>
-        {Loading ? (
+        {OrderReportState.loading ? (
           <PageLoader />
-        ) : orders.length === 0 ? (
+        ) : OrderReportState.data.length === 0 ? (
           <NoDataFound />
         ) : (
-          orders
+          OrderReportState.data
             ?.filter((order) => {
               if (SearchText === "") {
                 if (
