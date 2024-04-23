@@ -31,6 +31,11 @@ export default function OngoingOrdersTable({
   const handleChangeRowsPerPage = (val) => {
     setRowsPerPage(parseInt(val, 10));
   };
+
+  React.useEffect(() => {
+    setPage(0);
+  }, [Filter, Search]);
+
   return (
     <>
       <TableContainer component={Paper}>
@@ -63,9 +68,7 @@ export default function OngoingOrdersTable({
                 if (Search === "") return dt;
                 else {
                   if (
-                    dt?.station?.id?.name
-                      ?.toLowerCase()
-                      ?.startsWith(searchLowerCase)
+                    dt.station.id.name.toLowerCase().startsWith(searchLowerCase)
                   ) {
                     return dt;
                   }
@@ -74,7 +77,7 @@ export default function OngoingOrdersTable({
               if (convertStatus(dt.station.status) == Filter) {
                 if (Search === "") return dt;
                 else {
-                  if (dt?.station?.id?.name.startsWith(searchLowerCase)) {
+                  if (dt.station.id.name.startsWith(searchLowerCase)) {
                     return dt;
                   }
                 }

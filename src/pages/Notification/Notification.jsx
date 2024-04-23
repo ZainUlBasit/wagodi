@@ -5,25 +5,44 @@ import { BiSolidChevronRight } from "react-icons/bi";
 import "../../assets/Style/style.css";
 import MobNavbar from "../../components/Navbar/MobNavbar";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchNotification } from "../../store/Slices/NotificationSlice";
+import {
+  FilterNotifications,
+  fetchNotification,
+} from "../../store/Slices/NotificationSlice";
 
 const Notification = () => {
-  const [FromDate, setFromDate] = useState("2023-12-11");
-  const [ToDate, setToDate] = useState("2023-12-18");
   const dispatch = useDispatch();
   const Current_User = useSelector((state) => state.auth.data);
   const Current_Notification = useSelector((state) => state.Notifications);
-  console.log("Notifications : ", Current_Notification);
-  console.log("user : ", Current_User);
+  const [FromDate, setFromDate] = useState("");
+  const [ToDate, setToDate] = useState("");
+
   useEffect(() => {
-    dispatch(
-      fetchNotification(
-        Current_User,
-        Current_User?.role,
-        {}
-      )
-    );
-  }, [FromDate, ToDate, Current_User]);
+    // Function to format date in "YYYY-MM-DD" format
+    const formatDate = (date) => {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    };
+
+    // Get current year and today's date
+    const currentDate = new Date();
+    const currentYearStart = new Date(currentDate.getFullYear(), 0, 1); // Start of current year
+
+    // Set FromDate to current year start date and ToDate to today's date
+    setFromDate(formatDate(currentYearStart));
+    setToDate(formatDate(currentDate));
+  }, []);
+
+  useEffect(() => {
+    dispatch(FilterNotifications({ FromDate, ToDate }));
+  }, [FromDate, ToDate]);
+
+  useEffect(() => {
+    dispatch(fetchNotification(Current_User, Current_User?.role, {}));
+  }, [Current_User]);
+
   return (
     <>
       <div className="flex flex-col justify-center items-center w-full fade-in">

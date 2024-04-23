@@ -31,8 +31,13 @@ export const fetchNotification = createAsyncThunk(
           accountId: current_user._id,
         });
       }
+      const sortedNotifications =
+        response?.data?.data?.payload?.notification.sort((a, b) =>
+          a.createdAt < b.createdAt ? 1 : -1
+        );
+      console.log("sortedNotifications", sortedNotifications);
       console.log(response);
-      return response?.data?.data?.payload || response.data.data;
+      return sortedNotifications || [];
     } catch (error) {
       console.log(error);
     }
@@ -62,7 +67,21 @@ const notificationSlice = createSlice({
     data: [],
     isError: false,
   },
-  reducers: {},
+  reducers: {
+    FilterNotifications: (state, action) => {
+      console.log(action);
+      const fromDate = Math.floor(new Date(action.payload.FromDate) / 1000);
+      const toDate = Math.floor(new Date(action.payload.ToDate) / 1000);
+
+      const filteredData = state.data.filter((item) => {
+        console.log(fromDate, toDate, item.createdAt);
+        const createdAtTimestamp = item.createdAt;
+        return createdAtTimestamp >= fromDate && createdAtTimestamp <= toDate;
+      });
+
+      state.data = filteredData;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchNotification.pending, (state, action) => {
       state.loading = true;
@@ -81,5 +100,7 @@ const notificationSlice = createSlice({
     });
   },
 });
+
+export const { FilterNotifications } = notificationSlice.actions;
 
 export default notificationSlice.reducer;

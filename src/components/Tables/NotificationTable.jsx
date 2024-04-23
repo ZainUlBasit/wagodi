@@ -78,7 +78,7 @@ export default function NotificationTable({ Data }) {
               key={row.name}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              {console.log(row)}
+              {/* {console.log(row)} */}
               <TableCell
                 sx={{
                   fontWeight: 400,
