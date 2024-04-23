@@ -23,7 +23,12 @@ const style = {
   outline: "none",
 };
 
-export default function Logout({ Open, setOpen, setOpenLoggingOut }) {
+export default function Logout({
+  Open,
+  setOpen,
+  setOpenLoggingOut,
+  isSetting,
+}) {
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
   const [Loading, setLoading] = useState(false);
@@ -61,7 +66,10 @@ export default function Logout({ Open, setOpen, setOpenLoggingOut }) {
                 </button>
                 <button
                   className={`mt-[20px] w-[297px] h-fit py-2 bg-[#fff] rounded-[40px] text-black text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
-                  onClick={() => setOpen(false)}
+                  onClick={() => {
+                    setOpen(false);
+                    if (isSetting) navigate("/setting");
+                  }}
                 >
                   Cancel
                 </button>

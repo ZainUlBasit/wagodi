@@ -200,7 +200,7 @@ const Users = () => {
         ) : (
           <TableWrapper>
             <Search
-              Placeholder="Search Role"
+              Placeholder="Search User"
               Value={SearchText}
               setValue={setSearchText}
             />

@@ -12,7 +12,7 @@ export const OngoingOrdersColumns = [
     // minWidth: "200px",
   },
   {
-    title: "Station Name",
+    title: "Start Point",
     // minWidth: "200px",
   },
   {

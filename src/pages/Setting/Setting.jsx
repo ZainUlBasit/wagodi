@@ -53,7 +53,7 @@ const Setting = () => {
               Icon={LuShoppingBag}
               onClick={() => {
                 setOpenModal(true);
-                setActiveButton("Logout");
+                setActiveButton("CompanyDetails");
               }}
             />
             {/* <div
