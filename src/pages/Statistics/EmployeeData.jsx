@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchStations } from "../../store/Slices/StationSlice";
 import { fetchEmployeeData } from "../../store/Slices/EmployeeSlice";
 import moment from "moment";
+import PageLoader from "../../components/Loaders/PageLoader";
 
 const EmployeeData = () => {
   const [SearchText, setSearchText] = useState("");
@@ -161,16 +162,28 @@ const EmployeeData = () => {
             </div>
           </div>
         </div>
-        <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px]">
-          <EmployeeTable Data={Employee_Data.data} Search={SearchText} />
-        </div>
-        <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] flex justify-between px-5 py-3 mt-4">
-          <div className="font-bold">Total</div>
-          <div className="font-bold flex gap-x-[100px] pr-10">
-            <div className="font-bold">500 L</div>
-            <div className="font-bold">500</div>
-          </div>
-        </div>
+        {Employee_Data.loading ? (
+          <PageLoader />
+        ) : (
+          <>
+            <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px]">
+              <EmployeeTable
+                Data={Employee_Data.data.filter((dt) => {
+                  if (StationName === "") return dt;
+                  else return dt.stationName === StationName;
+                })}
+                Search={SearchText}
+              />
+            </div>
+            <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] flex justify-between px-5 py-3 mt-4">
+              <div className="font-bold">Total</div>
+              <div className="font-bold flex gap-x-[100px] pr-10">
+                <div className="font-bold">500 L</div>
+                <div className="font-bold">500</div>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </>
   );

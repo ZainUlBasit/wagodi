@@ -8,7 +8,7 @@ export const fetchStations = createAsyncThunk(
       let response = await GetStationApi({
         companyId: companyId._id,
       });
-      let UpdatedReponse = response.data.data.payload.map((data) => {
+      let UpdatedReponse = response.data.data.map((data) => {
         let minAge = 100;
         data.populatedFuels.map(({ value, max_value }) => {
           const currentAge = (value / max_value) * 100;
