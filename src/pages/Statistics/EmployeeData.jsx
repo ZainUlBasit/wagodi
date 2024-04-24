@@ -9,13 +9,14 @@ import { Popover, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchStations } from "../../store/Slices/StationSlice";
 import { fetchEmployeeData } from "../../store/Slices/EmployeeSlice";
+import moment from "moment";
 
 const EmployeeData = () => {
   const [SearchText, setSearchText] = useState("");
   const [SearchPopOver, setSearchPopOver] = useState("");
   const [StationId, setStationId] = useState("");
   const [StationName, setStationName] = useState("");
-  const [CurDate, setCurDate] = useState("");
+  const [CurDate, setCurDate] = useState(moment().format("YYYY-MM-DD"));
 
   const dispatch = useDispatch();
   const StationsData = useSelector((state) => state.StationReducer);
@@ -23,9 +24,12 @@ const EmployeeData = () => {
   const Auth = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(fetchStations(Auth.data.companyId));
-    dispatch(fetchEmployeeData(Auth.data.companyId));
     console.log(EmployeeData);
+    dispatch(fetchEmployeeData({ id: Auth.data.companyId._id, CurDate }));
   }, []);
+  useEffect(() => {
+    dispatch(fetchEmployeeData({ id: Auth.data.companyId._id, CurDate }));
+  }, [CurDate]);
 
   const navigate = useNavigate();
   const handleArrowLeftClick = () => {

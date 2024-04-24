@@ -14,6 +14,7 @@ import NotifySlice from "./Slices/NotifySlice";
 import DriverSlice from "./Slices/DriverSlice";
 import AllCompanySlice from "./Slices/AllCompanySlice";
 import StationStatsSlice from "./Slices/StationStatsSlice";
+import DriverStatsSlice from "./Slices/DriverStatsSlice";
 import TopTenStatsSlice from "./Slices/TopTenStatsSlice";
 import OrderReportSlice from "./Slices/OrderReportSlice";
 
@@ -34,6 +35,7 @@ export const store = configureStore({
     Drivers: DriverSlice,
     AllCompany: AllCompanySlice,
     StationStats: StationStatsSlice,
+    DriverStatsState: DriverStatsSlice,
     TopTenStations: TopTenStatsSlice,
     OrderReportState: OrderReportSlice,
   },

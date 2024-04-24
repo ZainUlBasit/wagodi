@@ -140,5 +140,6 @@ export const GetCompantStats = (data) => api.post("/statistics/company", data);
 export const GetEmployeeData = (data) =>
   api.post("/statistics/sales-manager", data);
 export const GetStationStats = (data) => api.post("/statistics/station", data);
+export const GetDriverStats = (data) => api.post("/statistics/driverAll", data);
 export const GetTenStationStat = (data) =>
   api.post("/statistics/station/topten", data);

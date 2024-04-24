@@ -16,7 +16,7 @@ import { BiSolidChevronDown } from "react-icons/bi";
 import { Popover, Typography } from "@mui/material";
 import SendReport from "../Modals/SendReport";
 
-export default function StatisticsDriverTable({ setCurrentID, setOpen }) {
+export default function StatisticsDriverTable({ setCurrentID, setOpen, Data }) {
   const [CurrentMonth, setCurrentMonth] = useState("All");
   const [CurrentMonthIndex, setCurrentMonthIndex] = useState("");
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -172,6 +172,17 @@ export default function StatisticsDriverTable({ setCurrentID, setOpen }) {
                 }}
                 align="center"
               >
+                User Name
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontWeight: "bold",
+                  fontFamily: "Quicksand",
+                  paddingTop: "12px",
+                  paddingBottom: "12px",
+                }}
+                align="center"
+              >
                 Email
               </TableCell>
               <TableCell
@@ -210,7 +221,7 @@ export default function StatisticsDriverTable({ setCurrentID, setOpen }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {DriverStatisticsData.map((row, i) => (
+            {Data.map((row, i) => (
               <TableRow
                 key={row.name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -244,7 +255,7 @@ export default function StatisticsDriverTable({ setCurrentID, setOpen }) {
                   }}
                   align="center"
                 >
-                  {row.UserNumber}
+                  {row.phone_number}
                 </TableCell>
                 <TableCell
                   sx={{
@@ -254,7 +265,7 @@ export default function StatisticsDriverTable({ setCurrentID, setOpen }) {
                   }}
                   align="center"
                 >
-                  {row.Email}
+                  {row.name}
                 </TableCell>
                 <TableCell
                   sx={{
@@ -264,7 +275,7 @@ export default function StatisticsDriverTable({ setCurrentID, setOpen }) {
                   }}
                   align="center"
                 >
-                  {row.Description}
+                  {row.email}
                 </TableCell>
                 <TableCell
                   sx={{
@@ -274,7 +285,7 @@ export default function StatisticsDriverTable({ setCurrentID, setOpen }) {
                   }}
                   align="center"
                 >
-                  {row.Gender}
+                  {row.description}
                 </TableCell>
                 <TableCell
                   sx={{
@@ -284,7 +295,17 @@ export default function StatisticsDriverTable({ setCurrentID, setOpen }) {
                   }}
                   align="center"
                 >
-                  {row.TripsCompleted}
+                  {row.Gender ? row.Gender : "not specified"}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontWeight: 400,
+                    fontFamily: "Quicksand",
+                    borderBottomWidth: 0,
+                  }}
+                  align="center"
+                >
+                  {row.trips}
                 </TableCell>
               </TableRow>
             ))}

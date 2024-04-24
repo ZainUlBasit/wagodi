@@ -4,10 +4,13 @@ import { GetComapanyDetails, GetEmployeeData } from "../../Https";
 
 export const fetchEmployeeData = createAsyncThunk(
   "fetch/EmployeeData",
-  async (CurrentUser) => {
-    console.log(CurrentUser);
+  async (CurrentData) => {
+    console.log(CurrentData);
     try {
-      const response = await GetEmployeeData({ companyId: CurrentUser._id });
+      const response = await GetEmployeeData({
+        companyId: CurrentData.id,
+        date: CurrentData.CurDate,
+      });
       console.log(response.data.data);
       return response.data.data;
     } catch (error) {

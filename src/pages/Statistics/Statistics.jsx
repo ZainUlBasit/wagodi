@@ -33,6 +33,7 @@ import { fetchCompanyStats } from "../../store/Slices/CompanyStatsSlice";
 import { fetchStationStats } from "../../store/Slices/StationStatsSlice";
 import { fetchTopTenStation } from "../../store/Slices/TopTenStatsSlice";
 import PageLoader from "../../components/Loaders/PageLoader";
+import { fetchDriverStats } from "../../store/Slices/DriverStatsSlice";
 
 const Statistics = () => {
   const months = [
@@ -129,6 +130,7 @@ const Statistics = () => {
   const dispatch = useDispatch();
   const CompanyStats = useSelector((state) => state.CompanyStats);
   const StationStatsState = useSelector((state) => state.StationStats);
+  const DriverStatsState = useSelector((state) => state.DriverStatsState);
 
   // Get month (0-indexed, so January is 0)
   const currentMonth = currentDate.getMonth() + 1; // Adding 1 to get the month in a human-readable format
@@ -144,6 +146,7 @@ const Statistics = () => {
       })
     );
     dispatch(fetchStationStats({ companyId: userData.companyId._id }));
+    dispatch(fetchDriverStats({ companyId: userData.companyId._id }));
   }, []);
 
   useEffect(() => {
@@ -604,6 +607,7 @@ const Statistics = () => {
             <StatisticsDriverTable
               setCurrentID={setCurrentID}
               setOpen={setOpenDriverDetail}
+              Data={DriverStatsState.data}
             />
           ) : (
             <></>
