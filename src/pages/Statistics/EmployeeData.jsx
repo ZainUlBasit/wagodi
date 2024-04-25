@@ -175,11 +175,14 @@ const EmployeeData = () => {
                 Search={SearchText}
               />
             </div>
-            <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] flex justify-between px-5 py-3 mt-4">
-              <div className="font-bold">Total</div>
-              <div className="font-bold flex gap-x-[100px] pr-10">
-                <div className="font-bold">500 L</div>
-                <div className="font-bold">500</div>
+            <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] flex justify-center px-5 py-3 mt-4">
+              <div className="flex flex-col gap-x-[100px] pr-10 font-[Quicksand]">
+                <div>
+                  Total Volume: <span className="font-bold">500 L</span>
+                </div>
+                <div>
+                  Total Amount: <span className="font-bold">500</span>
+                </div>
               </div>
             </div>
           </>

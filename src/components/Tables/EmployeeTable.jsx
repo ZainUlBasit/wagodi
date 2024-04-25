@@ -155,7 +155,9 @@ export default function EmployeeTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.fuelType ? convertFuel(row.fuelType) : "-"}
+                    {convertFuel(row.fuelType)
+                      ? convertFuel(row.fuelType)
+                      : "-"}
                   </TableCell>
                   <TableCell
                     sx={{
