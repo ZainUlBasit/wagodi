@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import DateInput from "../../components/Input/DateInput";
 import { BsSearch } from "react-icons/bs";
 import { FaArrowLeft } from "react-icons/fa";
@@ -46,6 +46,24 @@ const EmployeeData = () => {
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+
+  const totalAmount = useMemo(() => {
+    return Employee_Data?.data
+      .filter((dt) => {
+        if (StationName === "") return dt;
+        else return dt.stationName === StationName;
+      })
+      .reduce((total, sale) => total + sale.amount, 0);
+  }, [Employee_Data, StationName]);
+
+  const totalSale = useMemo(() => {
+    return Employee_Data?.data
+      .filter((dt) => {
+        if (StationName === "") return dt;
+        else return dt.stationName === StationName;
+      })
+      .reduce((total, sale) => total + sale.fuelVolume, 0);
+  }, [Employee_Data, StationName]);
   return (
     <>
       <div className="flex flex-col justify-center items-center">
@@ -109,6 +127,18 @@ const EmployeeData = () => {
               >
                 <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
                   <div className="w-full flex flex-col justify-between gap-y-3 items-start">
+                    <div className="flex border-b-[1px] w-[260px] border-white items-center justify-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden bg-transparent">
+                      <div
+                        className="cursor-pointer"
+                        onClick={() => {
+                          handleClose();
+                          setStationId("");
+                          setStationName("");
+                        }}
+                      >
+                        Clear Filter
+                      </div>
+                    </div>
                     <div className="flex border-[1px] w-[260px] border-black items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden bg-white">
                       <BsSearch className="text-black" />
                       <input
@@ -160,6 +190,14 @@ const EmployeeData = () => {
                 onChange={(e) => setSearchText(e.target.value)}
               />
             </div>
+            <div className="font-[Quicksand] font-bold bg-[#465462] text-white py-1 px-4 text-2xl rounded-lg">
+              {Employee_Data.loading
+                ? "-"
+                : Employee_Data?.data.filter((dt) => {
+                    if (StationName === "") return dt;
+                    else return dt.stationName === StationName;
+                  }).length}
+            </div>
           </div>
         </div>
         {Employee_Data.loading ? (
@@ -178,10 +216,13 @@ const EmployeeData = () => {
             <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px] flex justify-center px-5 py-3 mt-4">
               <div className="flex flex-col gap-x-[100px] pr-10 font-[Quicksand]">
                 <div>
-                  Total Volume: <span className="font-bold">500 L</span>
+                  Total Volume:{" "}
+                  <span className="font-bold">
+                    {Number(totalSale).toFixed(2)} L
+                  </span>
                 </div>
                 <div>
-                  Total Amount: <span className="font-bold">500</span>
+                  Total Amount: <span className="font-bold">{totalAmount}</span>
                 </div>
               </div>
             </div>
