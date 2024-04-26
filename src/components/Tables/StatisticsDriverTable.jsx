@@ -196,17 +196,7 @@ export default function StatisticsDriverTable({ setCurrentID, setOpen, Data }) {
               >
                 Description
               </TableCell>
-              <TableCell
-                sx={{
-                  fontWeight: "bold",
-                  fontFamily: "Quicksand",
-                  paddingTop: "12px",
-                  paddingBottom: "12px",
-                }}
-                align="center"
-              >
-                Gender
-              </TableCell>
+
               <TableCell
                 sx={{
                   fontWeight: "bold",
@@ -286,16 +276,6 @@ export default function StatisticsDriverTable({ setCurrentID, setOpen, Data }) {
                   align="center"
                 >
                   {row.description}
-                </TableCell>
-                <TableCell
-                  sx={{
-                    fontWeight: 400,
-                    fontFamily: "Quicksand",
-                    borderBottomWidth: 0,
-                  }}
-                  align="center"
-                >
-                  {row.Gender ? row.Gender : "not specified"}
                 </TableCell>
                 <TableCell
                   sx={{

@@ -127,17 +127,15 @@ const EmployeeData = () => {
               >
                 <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
                   <div className="w-full flex flex-col justify-between gap-y-3 items-start">
-                    <div className="flex border-b-[1px] w-[260px] border-white items-center justify-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden bg-transparent">
-                      <div
-                        className="cursor-pointer"
-                        onClick={() => {
-                          handleClose();
-                          setStationId("");
-                          setStationName("");
-                        }}
-                      >
-                        Clear Filter
-                      </div>
+                    <div
+                      className="flex border-[1px] w-[260px] border-white items-center justify-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden bg-white text-[#465462] hover:bg-[#465462] hover:text-white transition-all duration-500 ease-in-out cursor-pointer font-bold"
+                      onClick={() => {
+                        handleClose();
+                        setStationId("");
+                        setStationName("");
+                      }}
+                    >
+                      Clear Filter
                     </div>
                     <div className="flex border-[1px] w-[260px] border-black items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden bg-white">
                       <BsSearch className="text-black" />
