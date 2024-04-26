@@ -12,7 +12,9 @@ import { UserData } from "./DemoData/UserData";
 import { BiEdit } from "react-icons/bi";
 import { StationData } from "./DemoData/StationData";
 import "./DriverDetailTable.css";
+import moment from "moment";
 export default function DriverDetailTable({ DriverData }) {
+  console.log(DriverData);
   return (
     <TableContainer component={Paper} className="custom-table-container">
       <Table aria-label="simple table">
@@ -108,10 +110,10 @@ export default function DriverDetailTable({ DriverData }) {
                 >
                   <div className="flex flex-col font-[Quicksand]">
                     <div className="text-[1.8rem] max767:text-[1.2rem]">
-                      {dd.date.split(" ")[0]}
+                      {moment(new Date(dd.date)).format("DD")}
                     </div>
                     <div className="text-[1rem] max767:text-[1rem]">
-                      {dd.date.split(" ")[1]}
+                      {moment(new Date(dd.date)).format("MMM")}
                     </div>
                   </div>
                 </TableCell>
@@ -127,7 +129,9 @@ export default function DriverDetailTable({ DriverData }) {
                   }}
                   align="center"
                 >
-                  <div className="text-[1.6rem] max767:text-[1.2rem]">{dd.StartPoint}</div>
+                  <div className="text-[1.6rem] max767:text-[1.2rem]">
+                    {dd.from.name}
+                  </div>
                 </TableCell>
                 <TableCell
                   sx={{
@@ -141,7 +145,9 @@ export default function DriverDetailTable({ DriverData }) {
                   }}
                   align="center"
                 >
-                  <div className="text-[1.6rem] max767:text-[1.2rem]">{dd.StationName}</div>
+                  <div className="text-[1.6rem] max767:text-[1.2rem]">
+                    {dd.stations[0].name}
+                  </div>
                 </TableCell>
                 <TableCell
                   sx={{
@@ -154,7 +160,9 @@ export default function DriverDetailTable({ DriverData }) {
                   }}
                   align="center"
                 >
-                  <div className="text-[1.6rem] max767:text-[1.2rem]">{dd.FuelDelivered}</div>
+                  <div className="text-[1.6rem] max767:text-[1.2rem]">
+                    {dd.fuelDelivered}
+                  </div>
                 </TableCell>
               </TableRow>
             );

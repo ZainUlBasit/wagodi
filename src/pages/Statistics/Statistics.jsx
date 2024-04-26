@@ -614,15 +614,19 @@ const Statistics = () => {
           )}
         </TableWrapper>
       </div>
-      {OpenDetail && (
+      {/* {OpenDetail && (
         <StationReport
           StationName={StationStatisticsData[CurrentID].StationName}
           Open={OpenDetail}
           setOpen={setOpenDetail}
         />
-      )}
+      )} */}
       {OpenDriverDetail && (
-        <DriverReport Open={OpenDriverDetail} setOpen={setOpenDriverDetail} />
+        <DriverReport
+          Open={OpenDriverDetail}
+          setOpen={setOpenDriverDetail}
+          Data={DriverStatsState?.data[CurrentID].viewDriverOrder}
+        />
       )}
       {OpenSendReport && (
         <SendReport Open={OpenSendReport} setOpen={setOpenSendReport} />

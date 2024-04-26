@@ -118,14 +118,14 @@ export default function StatisticsStationTable({
                 >
                   <div className="flex items-center justify-center gap-x-2">
                     {row.stationName ? row.stationName : "-"}
-                    <AiFillEye
+                    {/* <AiFillEye
                       className="cursor-pointer text-[#76808B] text-[1.2rem] hover:text-black transition-all duration-500 ease-in-out"
                       onClick={() => {
                         console.log(i);
                         setOpen(true);
                         setCurrentID(i);
                       }}
-                    />
+                    /> */}
                   </div>
                 </TableCell>
                 <TableCell

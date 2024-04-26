@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomModal from "./CustomModal";
 import DriverDetailTable from "../Tables/DriverDetailTable";
 import { Popover, Typography } from "@mui/material";
 import { BiSolidChevronDown } from "react-icons/bi";
 
-const DriverReport = ({ Open, setOpen }) => {
-  const [CurrentMonth, setCurrentMonth] = useState("");
-  const [CurrentMonthIndex, setCurrentMonthIndex] = useState("");
+const DriverReport = ({ Open, setOpen, Data }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [Loading, setLoading] = useState(false);
   const months = [
     "January",
     "February",
@@ -32,6 +31,26 @@ const DriverReport = ({ Open, setOpen }) => {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth(); // Adding 1 because getMonth() returns zero-based index (0 for January)
+  const [CurrentMonth, setCurrentMonth] = useState(months[currentMonth]);
+  const [CurrentMonthIndex, setCurrentMonthIndex] = useState(currentMonth);
+  const [CurrentData, setCurrentData] = useState(Data);
+
+  console.log("Current month:", currentMonth);
+
+  useEffect(() => {
+    setCurrentData(
+      Data.filter((dt) => {
+        const parsedDate = new Date(dt.date);
+        // Get the month from the parsed date
+        const userMonth = parsedDate.getMonth();
+        return userMonth === CurrentMonthIndex;
+      })
+    );
+  }, [CurrentMonth]);
+
   return (
     <CustomModal open={Open} setOpen={setOpen}>
       <div className="w-[900px] max767:w-auto">
@@ -118,46 +137,7 @@ const DriverReport = ({ Open, setOpen }) => {
             </Typography>
           </Popover>
         </div>
-        <DriverDetailTable
-          DriverData={[
-            {
-              date: "12 Sept",
-              StartPoint: "Riyadh",
-              StationName: "Station 123",
-              FuelDelivered: "20,000",
-            },
-            {
-              date: "12 Sept",
-              StartPoint: "Riyadh",
-              StationName: "Station 123",
-              FuelDelivered: "20,000",
-            },
-            {
-              date: "12 Sept",
-              StartPoint: "Riyadh",
-              StationName: "Station 123",
-              FuelDelivered: "20,000",
-            },
-            {
-              date: "12 Sept",
-              StartPoint: "Riyadh",
-              StationName: "Station 123",
-              FuelDelivered: "20,000",
-            },
-            {
-              date: "12 Sept",
-              StartPoint: "Riyadh",
-              StationName: "Station 123",
-              FuelDelivered: "20,000",
-            },
-            {
-              date: "12 Sept",
-              StartPoint: "Riyadh",
-              StationName: "Station 123",
-              FuelDelivered: "20,000",
-            },
-          ]}
-        />
+        <DriverDetailTable DriverData={CurrentData} />
       </div>
     </CustomModal>
   );

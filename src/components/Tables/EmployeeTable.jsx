@@ -167,7 +167,7 @@ export default function EmployeeTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.fuelVolume ? row.fuelVolume : "-"}
+                    {row.fuelVolume ? Number(row.fuelVolume).toFixed(2) : "-"}
                   </TableCell>
                   <TableCell
                     sx={{

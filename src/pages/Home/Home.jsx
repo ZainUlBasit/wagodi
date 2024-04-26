@@ -172,13 +172,13 @@ const Home = () => {
           </div>
         )}
       </div>
-      {Open && (Auth.data.role === 1 || Auth.data.role === 0) && (
+      {/* {Open && (Auth.data.role === 1 || Auth.data.role === 0) && (
         <StationReport
           StationName={CurrentStationName}
           Open={Open}
           setOpen={setOpen}
         />
-      )}
+      )} */}
       {OpenSelectModal && (
         <SelectModal Open={OpenSelectModal} setOpen={setOpenSelectModal} />
       )}
