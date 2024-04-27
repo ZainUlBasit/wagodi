@@ -177,7 +177,7 @@ export default function EmployeeTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.amount ? row.amount : "-"}
+                    {row.amount ? Number(row.amount).toFixed(2) : "-"}
                   </TableCell>
                 </TableRow>
               ))}
