@@ -220,7 +220,10 @@ const EmployeeData = () => {
                   </span>
                 </div>
                 <div>
-                  Total Amount: <span className="font-bold">{totalAmount}</span>
+                  Total Amount:{" "}
+                  <span className="font-bold">
+                    {Number(totalAmount).toFixed(2)}
+                  </span>
                 </div>
               </div>
             </div>
