@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import TablePagination from "@mui/material/TablePagination";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import SwitchButton from "../buttons/SwitchButton";
 import { Popover, Switch, Typography } from "@mui/material";
@@ -17,6 +17,7 @@ import { StationsColumns } from "../../assets/Columns/StationsColumns";
 import CustomPagination from "../TablePagination/TablePagination";
 import { BsEye, BsEyeFill } from "react-icons/bs";
 import StationManagersList from "../Modals/StationManagersList";
+import { IoMdArrowDropdownCircle, IoMdArrowDropupCircle } from "react-icons/io";
 
 export default function StationTable({
   setStationID,
@@ -27,11 +28,11 @@ export default function StationTable({
   ActiveStationSelection,
   setActiveStationSelection,
 }) {
-  // console.log(StationsData.data);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5); // You can adjust the number of rows per page as needed
-
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [OpenModal, setOpenModal] = useState(false);
+  const [CurrentIndex, setCurrentIndex] = useState("");
+  const modalRef = useRef(null);
 
   const handleChangePage = (newPage) => {
     setPage(newPage);
@@ -46,13 +47,11 @@ export default function StationTable({
     const newDataId = Data._id;
     const newDataStatus = Data.active;
     if (ActiveStationSelection.includes(newDataId)) {
-      // If already in the selection, remove it
       const updatedSelection = ActiveStationSelection.filter(
         (st_id) => st_id.id !== newDataId
       );
       setActiveStationSelection(updatedSelection);
     } else {
-      // If not in the selection, add it
       setActiveStationSelection([
         ...ActiveStationSelection,
         {
@@ -64,7 +63,20 @@ export default function StationTable({
   };
 
   const Auth = useSelector((state) => state.auth);
-  const [CurrentIndex, setCurrentIndex] = useState("");
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setOpenModal(false);
+        setCurrentIndex("");
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [modalRef]);
 
   return (
     <div>
@@ -166,19 +178,63 @@ export default function StationTable({
                       }}
                       align="center"
                     >
-                      <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                      <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center relative">
                         {Data?.stationManagers.length === 0 ? (
                           "-"
                         ) : (
                           <div className="flex items-center justify-center gap-x-2">
                             <div>{Data?.stationManagers[0].name}</div>
-                            <BsEyeFill
-                              className="cursor-pointer hover:text-[#465462]"
-                              onClick={() => {
-                                setOpenModal(true);
-                                setCurrentIndex(index);
-                              }}
-                            />
+                            <div className="relative" ref={modalRef}>
+                              {/* <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6 cursor-pointer hover:text-[#465462]"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                onClick={() => {
+                                  setOpenModal(!OpenModal);
+                                  setCurrentIndex(index);
+                                }}
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M19 9l-7 7-7-7"
+                                />
+                              </svg> */}
+                              {!OpenModal ? (
+                                <IoMdArrowDropdownCircle
+                                  onClick={() => {
+                                    setOpenModal(!OpenModal);
+                                    setCurrentIndex(index);
+                                  }}
+                                  className="text-2xl cursor-pointer ease-in-out duration-500 fade-in"
+                                />
+                              ) : (
+                                <IoMdArrowDropupCircle
+                                  onClick={() => {
+                                    setOpenModal(!OpenModal);
+                                    setCurrentIndex(index);
+                                  }}
+                                  className="text-2xl cursor-pointer ease-in-out duration-500 fade-in"
+                                />
+                              )}
+                              {OpenModal && CurrentIndex === index && (
+                                <div className="absolute mt-2 w-fit bg-[#465462] text-white shadow-lg rounded-md z-10">
+                                  <ul>
+                                    {Data.stationManagers.map((std, idx) => (
+                                      <li
+                                        key={idx}
+                                        className="py-2 px-4 cursor-pointer"
+                                      >
+                                        {std.name}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+                            </div>
                           </div>
                         )}
                       </div>
@@ -196,32 +252,6 @@ export default function StationTable({
                         {Data.address}
                       </div>
                     </TableCell>
-                    {/* <TableCell
-                      sx={{
-                        fontWeight: 400,
-                        fontFamily: "Quicksand",
-                        borderBottomWidth: 0,
-                      }}
-                    >
-                      <div className="!flex justify-center items-center m-[auto]">
-                        <Switch
-                          defaultChecked
-                          checked={Data.active}
-                          size="large"
-                          style={{ color: switchColor }}
-                          onClick={() => handleSwitchClick(Data)}
-                        />
-                      </div>
-                    </TableCell> */}
-                    {OpenModal && (
-                      <StationManagersList
-                        Open={OpenModal}
-                        setOpen={setOpenModal}
-                        StationManagers={
-                          StationsData[CurrentIndex]?.stationManagers
-                        }
-                      />
-                    )}
                   </TableRow>
                 );
               })}
