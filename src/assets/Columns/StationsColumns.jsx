@@ -14,14 +14,14 @@ export const StationsColumns = [
     web4: "35px",
   },
   {
-    title: "Company Name",
+    title: "Station Name",
     web1: "20px",
     web2: "25px",
     web3: "30px",
     web4: "35px",
   },
   {
-    title: "Station Name",
+    title: "Station Managers",
     web1: "20px",
     web2: "25px",
     web3: "30px",

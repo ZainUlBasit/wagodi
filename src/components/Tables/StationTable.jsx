@@ -12,9 +12,11 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import SwitchButton from "../buttons/SwitchButton";
-import { Switch } from "@mui/material";
+import { Popover, Switch, Typography } from "@mui/material";
 import { StationsColumns } from "../../assets/Columns/StationsColumns";
 import CustomPagination from "../TablePagination/TablePagination";
+import { BsEye, BsEyeFill } from "react-icons/bs";
+import StationManagersList from "../Modals/StationManagersList";
 
 export default function StationTable({
   setStationID,
@@ -28,6 +30,8 @@ export default function StationTable({
   // console.log(StationsData.data);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5); // You can adjust the number of rows per page as needed
+
+  const [OpenModal, setOpenModal] = useState(false);
 
   const handleChangePage = (newPage) => {
     setPage(newPage);
@@ -60,6 +64,7 @@ export default function StationTable({
   };
 
   const Auth = useSelector((state) => state.auth);
+  const [CurrentIndex, setCurrentIndex] = useState("");
 
   return (
     <div>
@@ -67,7 +72,7 @@ export default function StationTable({
         <Table aria-label="simple table">
           <TableHead style={{ borderBottomWidth: 2, borderColor: "#465462" }}>
             <TableRow>
-              {StationsColumns.map((dt,i) => {
+              {StationsColumns.map((dt, i) => {
                 return (
                   <TableCell
                     sx={{
@@ -95,7 +100,7 @@ export default function StationTable({
               }
             })
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((Data) => {
+              .map((Data, index) => {
                 return (
                   <TableRow
                     key={Data._id}
@@ -140,6 +145,7 @@ export default function StationTable({
                         {Data.phone}
                       </div>
                     </TableCell>
+
                     <TableCell
                       sx={{
                         fontWeight: 400,
@@ -149,7 +155,7 @@ export default function StationTable({
                       align="center"
                     >
                       <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                        {Auth.data.name}
+                        {Data.name}
                       </div>
                     </TableCell>
                     <TableCell
@@ -161,7 +167,20 @@ export default function StationTable({
                       align="center"
                     >
                       <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                        {Data.name}
+                        {Data?.stationManagers.length === 0 ? (
+                          "-"
+                        ) : (
+                          <div className="flex items-center justify-center gap-x-2">
+                            <div>{Data?.stationManagers[0].name}</div>
+                            <BsEyeFill
+                              className="cursor-pointer hover:text-[#465462]"
+                              onClick={() => {
+                                setOpenModal(true);
+                                setCurrentIndex(index);
+                              }}
+                            />
+                          </div>
+                        )}
                       </div>
                     </TableCell>
                     <TableCell
@@ -194,6 +213,15 @@ export default function StationTable({
                         />
                       </div>
                     </TableCell> */}
+                    {OpenModal && (
+                      <StationManagersList
+                        Open={OpenModal}
+                        setOpen={setOpenModal}
+                        StationManagers={
+                          StationsData[CurrentIndex]?.stationManagers
+                        }
+                      />
+                    )}
                   </TableRow>
                 );
               })}
