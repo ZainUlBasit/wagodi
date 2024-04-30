@@ -167,16 +167,16 @@ const AddGasInputsPrefilled = ({
                       return {
                         _id: ag._id,
                         type: FuelType,
-                        max_value: FuelCapacity,
-                        value: FuelVolume,
-                        price_litre: SellingPrice,
+                        max_value: Number(FuelCapacity).toFixed(2),
+                        value: Number(FuelVolume).toFixed(2),
+                        price_litre: Number(SellingPrice).toFixed(2),
                       };
                     else
                       return {
                         type: FuelType,
-                        max_value: FuelCapacity,
-                        value: FuelVolume,
-                        price_litre: SellingPrice,
+                        max_value: Number(FuelCapacity).toFixed(2),
+                        value: Number(FuelVolume).toFixed(2),
+                        price_litre: Number(SellingPrice).toFixed(2),
                       };
                   } else return ag;
                 })

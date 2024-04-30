@@ -147,9 +147,9 @@ const AddGasInputs = ({ AllGases, setAllGases, setShowAddGassInputs }) => {
                     ...AllGases,
                     {
                       type: FuelType,
-                      max_value: Number(FuelCapacity),
-                      value: Number(FuelVolume),
-                      price_litre: Number(SellingPrice),
+                      max_value: Number(FuelCapacity).toFixed(2),
+                      value: Number(FuelVolume).toFixed(2),
+                      price_litre: Number(SellingPrice).toFixed(2),
                     },
                   ]);
                   setShowAddGassInputs(false);
