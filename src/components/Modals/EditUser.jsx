@@ -58,7 +58,6 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
         ? "Driver"
         : ""
     );
-    dispatch(fetchStations(Auth.data.companyId));
     if (CurrentUser.role === 3) {
       setAuthority(CurrentUser.privilage === 0 ? "Sales" : "Order");
       setPhoneNumber(CurrentUser.PhoneNumber);

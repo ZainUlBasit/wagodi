@@ -5,9 +5,12 @@ import { BiDownload } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { convertFuel } from "../../utility/utilityFunctions";
 import moment from "moment";
+import { FaArrowLeft } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const OrderInfo = () => {
   const order = useSelector((state) => state.selectedOrder?.data);
+  const navigate = useNavigate();
   console.log(order);
   const ReqDateTime = order.createdAt
     ? moment(new Date(order.createdAt * 1000)).format("DD/MM/YYYY h:mm a")
@@ -31,7 +34,13 @@ const OrderInfo = () => {
       <div className="w-full flex flex-col items-center justify-center fade-in">
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] flex flex-col justify-between mt-6">
-          <div className="font-[Quicksand] font-[600] text-[2rem] flex justify-center gap-x-2 select-none">
+          <div className="font-[Quicksand] font-[600] text-[2rem] flex justify-center items-center gap-x-3 select-none">
+            <FaArrowLeft
+              className="text-[1.6rem] cursor-pointer"
+              onClick={() => {
+                navigate("/order-manager-orders-report");
+              }}
+            />
             Receipt No:{" "}
             <span className="font-[400] select-text">
               {order.reciept_number}

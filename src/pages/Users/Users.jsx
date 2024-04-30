@@ -15,6 +15,7 @@ import PageLoader from "../../components/Loaders/PageLoader";
 import DeleteModal from "../../components/Modals/DeleteModal";
 import TableWrapper from "../../components/Tables/TableWrapper";
 import Search from "../../components/Search/Search";
+import { fetchStations } from "../../store/Slices/StationSlice";
 
 const Users = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -38,6 +39,7 @@ const Users = () => {
         },
       })
     );
+    dispatch(fetchStations(Current_User.data.companyId));
   }, []);
 
   const handleClick = (event) => {

@@ -184,8 +184,9 @@ export default function StationTable({
                         ) : (
                           <div className="flex items-center justify-center gap-x-2">
                             <div>{Data?.stationManagers[0].name}</div>
-                            <div className="relative" ref={modalRef}>
-                              {/* <svg
+                            {Data?.stationManagers.length > 1 && (
+                              <div className="relative" ref={modalRef}>
+                                {/* <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-6 w-6 cursor-pointer hover:text-[#465462]"
                                 fill="none"
@@ -203,38 +204,39 @@ export default function StationTable({
                                   d="M19 9l-7 7-7-7"
                                 />
                               </svg> */}
-                              {!OpenModal ? (
-                                <IoMdArrowDropdownCircle
-                                  onClick={() => {
-                                    setOpenModal(!OpenModal);
-                                    setCurrentIndex(index);
-                                  }}
-                                  className="text-2xl cursor-pointer ease-in-out duration-500 fade-in"
-                                />
-                              ) : (
-                                <IoMdArrowDropupCircle
-                                  onClick={() => {
-                                    setOpenModal(!OpenModal);
-                                    setCurrentIndex(index);
-                                  }}
-                                  className="text-2xl cursor-pointer ease-in-out duration-500 fade-in"
-                                />
-                              )}
-                              {OpenModal && CurrentIndex === index && (
-                                <div className="absolute mt-2 w-fit bg-[#465462] text-white shadow-lg rounded-md z-10">
-                                  <ul>
-                                    {Data.stationManagers.map((std, idx) => (
-                                      <li
-                                        key={idx}
-                                        className="py-2 px-4 cursor-pointer"
-                                      >
-                                        {std.name}
-                                      </li>
-                                    ))}
-                                  </ul>
-                                </div>
-                              )}
-                            </div>
+                                {!OpenModal ? (
+                                  <IoMdArrowDropdownCircle
+                                    onClick={() => {
+                                      setOpenModal(!OpenModal);
+                                      setCurrentIndex(index);
+                                    }}
+                                    className="text-2xl cursor-pointer ease-in-out duration-500 fade-in"
+                                  />
+                                ) : (
+                                  <IoMdArrowDropupCircle
+                                    onClick={() => {
+                                      setOpenModal(!OpenModal);
+                                      setCurrentIndex(index);
+                                    }}
+                                    className="text-2xl cursor-pointer ease-in-out duration-500 fade-in"
+                                  />
+                                )}
+                                {OpenModal && CurrentIndex === index && (
+                                  <div className="absolute mt-2 w-fit bg-[#465462] text-white shadow-lg rounded-md z-10">
+                                    <ul>
+                                      {Data.stationManagers.map((std, idx) => (
+                                        <li
+                                          key={idx}
+                                          className="py-2 px-4 cursor-pointer"
+                                        >
+                                          {std.name}
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                )}
+                              </div>
+                            )}
                           </div>
                         )}
                       </div>
