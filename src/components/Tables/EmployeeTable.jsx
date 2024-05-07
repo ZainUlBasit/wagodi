@@ -9,6 +9,7 @@ import Paper from "@mui/material/Paper";
 import TablePagination from "@mui/material/TablePagination";
 import CustomPagination from "../TablePagination/TablePagination";
 import { convertFuel } from "../../utility/utilityFunctions";
+import moment from "moment";
 
 export default function EmployeeTable({ Data, Search }) {
   console.log(Data);
@@ -61,7 +62,7 @@ export default function EmployeeTable({ Data, Search }) {
                   textAlign: "center",
                 }}
               >
-                Phone Number
+                Time of sale
               </TableCell>
               <TableCell
                 sx={{
@@ -145,7 +146,9 @@ export default function EmployeeTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.phoneNumber ? row.phoneNumber : "-"}
+                    {row.date
+                      ? moment(new Date(row.date)).format("hh:mm:ss A")
+                      : "-"}
                   </TableCell>
                   <TableCell
                     sx={{
