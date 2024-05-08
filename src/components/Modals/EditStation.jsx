@@ -72,10 +72,10 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
             updateData: [
               {
                 fuelId: data._id,
-                updatedValue: data.value,
-                updatePriceLitre: data.price_litre,
+                updatedValue: parseFloat(data.value),
+                updatePriceLitre: parseFloat(data.price_litre),
                 updateType: data.type,
-                updateMaxValue: data.max_value,
+                updateMaxValue: parseFloat(data.max_value),
               },
             ],
           });
@@ -88,9 +88,9 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
         if (!data?._id) {
           const response = await AddFuel({
             payload: {
-              price_litre: data.price_litre,
-              max_value: data.max_value,
-              value: data.value,
+              price_litre: parseFloat(data.price_litre),
+              max_value: parseFloat(data.max_value),
+              value: parseFloat(data.value),
               type: data.type,
             },
           });
