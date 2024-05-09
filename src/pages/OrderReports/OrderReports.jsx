@@ -94,8 +94,8 @@ const OrderReports = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(FilterOrderReport(CurDate));
-    console.log(CurDate);
+    if (CurDate) dispatch(FilterOrderReport(CurDate));
+    else dispatch(fetchOrderReports(userData.companyId._id));
   }, [CurDate]);
 
   return (
@@ -107,8 +107,8 @@ const OrderReports = () => {
         {/* Header */}
         <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 mb-10  flex-wrap gap-y-2">
           {/* Left */}
-          <div className="font-[Quicksand] font-[700] text-[2rem]">
-            Approved Orders
+          <div className="font-[Quicksand] font-[700] text-[2rem] capitalize">
+            {ApplyFilter} Orders
           </div>
           {/* Right */}
           <div className="flex items-center gap-x-4  max767:w-full max767:justify-end  max767:mt-3 flex-wrap gap-y-3">

@@ -30,9 +30,15 @@ export const fetchTopTenStation = createAsyncThunk(
     }
     try {
       const response = await GetTenStationStat(reqBody);
-      console.log(response);
+      const updatedResponse = response.data.data.map((dt) => {
+        return {
+          ...dt,
+          salesVolume: parseFloat(dt.salesVolume).toFixed(2),
+          salesAmount: parseFloat(dt.salesAmount).toFixed(2),
+        };
+      });
       // return [];
-      return response.data.data || [];
+      return updatedResponse || [];
     } catch (error) {
       console.log(error);
     }
