@@ -93,11 +93,6 @@ const OrderReports = () => {
     dispatch(fetchOrderReports(userData.companyId._id));
   }, []);
 
-  useEffect(() => {
-    if (CurDate) dispatch(FilterOrderReport(CurDate));
-    else dispatch(fetchOrderReports(userData.companyId._id));
-  }, [CurDate]);
-
   return (
     <>
       <div
@@ -178,21 +173,39 @@ const OrderReports = () => {
         ) : (
           OrderReportState.data
             ?.filter((order) => {
+              // Date filter
+              const currentDate = new Date(CurDate);
+              currentDate.setHours(0); // Set hours to 00:00 AM
+              currentDate.setMinutes(0); // Set minutes to 00
+              currentDate.setSeconds(0); // Set seconds to 00
+              currentDate.setMilliseconds(0); // Set milliseconds to 00
+              const timestamp = Math.floor(currentDate.getTime() / 1000);
+
+              const inDate = new Date(order.createdAt * 1000);
+              inDate.setHours(0); // Set hours to 00:00 AM
+              inDate.setMinutes(0); // Set minutes to 00
+              inDate.setSeconds(0); // Set seconds to 00
+              inDate.setMilliseconds(0); // Set milliseconds to 00
+              const iTimestamp = Math.floor(inDate.getTime() / 1000);
+
+              console.log(iTimestamp === timestamp);
+
+              // Status and search filters
               if (SearchText === "") {
                 if (
                   convertStatus(order?.status) !== ApplyFilter &&
                   ApplyFilter !== "All"
                 )
-                  return false;
-                else return order;
+                  return CurDate ? iTimestamp === timestamp : false;
+                else return CurDate ? iTimestamp === timestamp : true;
               } else {
                 if (order.station.id.name.toLowerCase().includes(SearchText)) {
                   if (
                     convertStatus(order?.status) !== ApplyFilter &&
                     ApplyFilter !== "All"
                   )
-                    return false;
-                  else return order;
+                    return CurDate ? iTimestamp === timestamp : false;
+                  else return CurDate ? iTimestamp === timestamp : true;
                 }
               }
             })

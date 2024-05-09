@@ -38,6 +38,7 @@ const orderReportSlice = createSlice({
         CreatedDate.setMilliseconds(0); // Set milliseconds to 00
 
         console.log(Math.floor(CreatedDate.getTime() / 1000) === timestamp);
+        console.log(Math.floor(CreatedDate.getTime() / 1000), timestamp);
         return Math.floor(CreatedDate.getTime() / 1000) === timestamp;
       });
     },
