@@ -169,10 +169,7 @@ export default function ApprovedOrderTable({ Data, Filter }) {
             >
               <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
                 {Data?.station?.deliveryTime && Data.status === 4
-                  ? `${(
-                      (Data?.station?.deliveryTime - Data.createdAt) /
-                      (1000 * 60 * 60)
-                    ).toFixed(2)} hr`
+                  ? `${Data?.deliveryTimeInHr.toFixed(2)} hr`
                   : "not specified"}
               </div>
             </TableCell>

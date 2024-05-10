@@ -7,7 +7,24 @@ export const fetchOrderReports = createAsyncThunk(
     try {
       let response = await GetOrderReports({ companyId: CurrentCompanyId });
       console.log(response.data.data);
-      return response.data.data;
+      return response.data.data.map((dt) => {
+        const differenceInMs =
+          dt?.station?.deliveryTime * 1000 - dt?.createdAt * 1000;
+
+        // Convert milliseconds to hours
+        const differenceInHours = differenceInMs / (1000 * 60 * 60);
+
+        console.log(
+          dt?.station?.deliveryTime * 1000,
+          dt?.createdAt * 1000,
+          differenceInHours
+        );
+
+        return {
+          ...dt,
+          deliveryTimeInHr: differenceInHours,
+        };
+      });
     } catch (error) {
       console.log(error);
     }
