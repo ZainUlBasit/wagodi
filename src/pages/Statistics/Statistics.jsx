@@ -71,6 +71,18 @@ const Statistics = () => {
   const [CurrentID, setCurrentID] = useState("");
   const [SearchText, setSearchText] = useState("");
 
+  const [CurrentFuel, setCurrentFuel] = useState("");
+  // for fuel type select
+  const [anchorElFuel, setAnchorElFuel] = React.useState(null);
+  const handleClickFuel = (event) => {
+    setAnchorElFuel(event.currentTarget);
+  };
+  const handleCloseFuel = () => {
+    setAnchorElFuel(null);
+  };
+  const openFuel = Boolean(anchorElFuel);
+  const idFuel = openFuel ? "select-fuel" : undefined;
+
   // for month
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
@@ -288,6 +300,94 @@ const Statistics = () => {
         </TableWrapper>
 
         <div className="flex justify-end w-[90%] mb-4 gap-x-3 gap-y-1 max767:flex-col max767:items-start">
+          {/* <div
+            className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
+            // className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white"
+            onClick={handleClickFuel}
+          >
+            <div className="flex items-center">
+              <div
+                id="date"
+                className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
+              >
+                {CurrentFuel === ""
+                  ? "Fuel Type"
+                  : CurrentFuel === 0
+                  ? "91"
+                  : CurrentFuel === 1
+                  ? "95"
+                  : "D"}
+              </div>
+              <BiSolidChevronDown
+                className="text-[1.5rem] cursor-pointer"
+                aria-describedby={idFuel}
+                variant="contained"
+              />
+            </div>
+          </div> */}
+
+          <Popover
+            id={idFuel}
+            open={openFuel}
+            anchorEl={anchorElFuel}
+            onClose={handleCloseFuel}
+            PaperProps={{
+              sx: {
+                borderRadius: "25px",
+                backgroundColor: "white",
+                width: "fit",
+                overflowY: "auto", // Enable vertical scrollbar when content overflows
+                maxHeight: "60vh", // Set maximum height to 60% of the viewport height
+                marginTop: "10px",
+                boxShadow: "none",
+              },
+            }}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+          >
+            <Typography
+              sx={{
+                pt: 2,
+                pl: 4,
+                pr: 5,
+                pb: 5,
+                borderColor: "#465462",
+                backgroundColor: "#465462",
+                // width: "400px",
+                overflow: "hidden",
+                borderRadius: "20px",
+              }}
+            >
+              <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
+                <div className="w-full flex flex-col justify-between gap-y-3 items-start">
+                  {["91", "95", "D"].map((fuel_type, i) => {
+                    return (
+                      <div
+                        className="flex gap-x-3 items-center cursor-pointer"
+                        onClick={() => {
+                          handleCloseFuel();
+                          setCurrentFuel(i);
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                          checked={CurrentFuel === i}
+                        />
+                        <span>{fuel_type}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </Typography>
+          </Popover>
           <button
             className={`relative text-center tracking-[1px] px-4 py-1 rounded-3xl font-[Quicksand] font-[700] bg-[#90898E] text-white no-underline text-#465462 cursor-pointer transition-all ease-in-out duration-500  border-2 border-solid border-[#90898E] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] hover:border-[#465462] active:scale-90 flex items-center gap-x-2 justify-center`}
             onClick={() => setOpenSendReport(!OpenSendReport)}

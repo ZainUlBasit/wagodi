@@ -50,20 +50,43 @@ const EmployeeData = () => {
   const totalAmount = useMemo(() => {
     return Employee_Data?.data
       .filter((dt) => {
-        if (StationName === "") return dt;
-        else return dt.stationName === StationName;
+        const searchLowerCase = SearchText.toLowerCase();
+        const employeeLowerCase = dt.employeeName.toLowerCase();
+
+        // Check if StationName is provided and matches
+        const stationNameMatch =
+          StationName === "" || dt.stationName === StationName;
+
+        // Check if SearchText is provided and matches
+        const searchTextMatch =
+          SearchText === "" || employeeLowerCase.startsWith(searchLowerCase);
+
+        // Return true if both conditions are met, otherwise false
+        return stationNameMatch && searchTextMatch;
       })
+
       .reduce((total, sale) => total + sale.amount, 0);
-  }, [Employee_Data, StationName]);
+  }, [Employee_Data, StationName, SearchText]);
 
   const totalSale = useMemo(() => {
     return Employee_Data?.data
       .filter((dt) => {
-        if (StationName === "") return dt;
-        else return dt.stationName === StationName;
+        const searchLowerCase = SearchText.toLowerCase();
+        const employeeLowerCase = dt.employeeName.toLowerCase();
+
+        // Check if StationName is provided and matches
+        const stationNameMatch =
+          StationName === "" || dt.stationName === StationName;
+
+        // Check if SearchText is provided and matches
+        const searchTextMatch =
+          SearchText === "" || employeeLowerCase.startsWith(searchLowerCase);
+
+        // Return true if both conditions are met, otherwise false
+        return stationNameMatch && searchTextMatch;
       })
       .reduce((total, sale) => total + sale.fuelVolume, 0);
-  }, [Employee_Data, StationName]);
+  }, [Employee_Data, StationName, SearchText]);
   return (
     <>
       <div className="flex flex-col justify-center items-center">
