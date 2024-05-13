@@ -6,11 +6,19 @@ export const fetchEmployeeData = createAsyncThunk(
   "fetch/EmployeeData",
   async (CurrentData) => {
     console.log(CurrentData);
-    try {
-      const response = await GetEmployeeData({
+    let reqBody;
+    if (CurrentData === "")
+      reqBody = {
+        companyId: CurrentData.id,
+      };
+    else
+      reqBody = {
         companyId: CurrentData.id,
         date: CurrentData.CurDate,
-      });
+      };
+
+    try {
+      const response = await GetEmployeeData(reqBody);
       console.log(response.data.data);
       return response.data.data;
     } catch (error) {
