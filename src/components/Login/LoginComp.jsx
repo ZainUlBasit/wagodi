@@ -95,7 +95,10 @@ const LoginComp = () => {
     let response;
     let response_type;
     try {
-      response = await SignInApi({ email: Email, password: Password });
+      response = await SignInApi({
+        email: Email.toLowerCase(),
+        password: Password,
+      });
       console.log(response.data.success);
       response_type = response.data.success;
       if (response.data.success) {

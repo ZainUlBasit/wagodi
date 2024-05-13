@@ -100,90 +100,83 @@ export default function EmployeeTable({ Data, Search }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Data.filter((dt) => {
-              const searchLowerCase = Search.toLowerCase();
-              const employeeLowerCase = dt.employeeName.toLowerCase();
-              if (Search !== "") {
-                return employeeLowerCase.startsWith(searchLowerCase);
-              } else return dt;
-            })
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row, i) => (
-                <TableRow
-                  key={row._id}
+            {Data.slice(
+              page * rowsPerPage,
+              page * rowsPerPage + rowsPerPage
+            ).map((row, i) => (
+              <TableRow
+                key={row._id}
+                sx={{
+                  "&:last-child td, &:last-child th": { border: 0 },
+                }}
+              >
+                {console.log(row)}
+                <TableCell
                   sx={{
-                    "&:last-child td, &:last-child th": { border: 0 },
+                    fontWeight: 400,
+                    fontFamily: "Quicksand",
+                    borderBlockWidth: 0,
                   }}
+                  component="th"
+                  scope="row"
+                  align="center"
                 >
-                  {console.log(row)}
-                  <TableCell
-                    sx={{
-                      fontWeight: 400,
-                      fontFamily: "Quicksand",
-                      borderBlockWidth: 0,
-                    }}
-                    component="th"
-                    scope="row"
-                    align="center"
-                  >
-                    {row.employeeName}
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: 400,
-                      fontFamily: "Quicksand",
-                      borderBottomWidth: 0,
-                    }}
-                    align="center"
-                  >
-                    {row.stationName ? row.stationName : "-"}
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: 400,
-                      fontFamily: "Quicksand",
-                      borderBottomWidth: 0,
-                    }}
-                    align="center"
-                  >
-                    {row.date
-                      ? moment(new Date(row.date)).format("hh:mm:ss A")
-                      : "-"}
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: 400,
-                      fontFamily: "Quicksand",
-                      borderBottomWidth: 0,
-                    }}
-                    align="center"
-                  >
-                    {convertFuel(row.fuelType)
-                      ? convertFuel(row.fuelType)
-                      : "-"}
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: 400,
-                      fontFamily: "Quicksand",
-                      borderBottomWidth: 0,
-                    }}
-                    align="center"
-                  >
-                    {row.fuelVolume ? Number(row.fuelVolume) : "-"}
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: 400,
-                      fontFamily: "Quicksand",
-                      borderBottomWidth: 0,
-                    }}
-                    align="center"
-                  >
-                    {row.amount ? Number(row.amount) : "-"}
-                  </TableCell>
-                </TableRow>
-              ))}
+                  {row.employeeName}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontWeight: 400,
+                    fontFamily: "Quicksand",
+                    borderBottomWidth: 0,
+                  }}
+                  align="center"
+                >
+                  {row.stationName ? row.stationName : "-"}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontWeight: 400,
+                    fontFamily: "Quicksand",
+                    borderBottomWidth: 0,
+                  }}
+                  align="center"
+                >
+                  {row.date
+                    ? moment(new Date(row.date)).format("hh:mm:ss A")
+                    : "-"}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontWeight: 400,
+                    fontFamily: "Quicksand",
+                    borderBottomWidth: 0,
+                  }}
+                  align="center"
+                >
+                  {convertFuel(row.fuelType) ? convertFuel(row.fuelType) : "-"}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontWeight: 400,
+                    fontFamily: "Quicksand",
+                    borderBottomWidth: 0,
+                  }}
+                  align="center"
+                >
+                  {row.fuelVolume ? Number(row.fuelVolume) : "-"}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontWeight: 400,
+                    fontFamily: "Quicksand",
+                    borderBottomWidth: 0,
+                  }}
+                  align="center"
+                >
+                  {row.amount ? Number(row.amount) : "-"}
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
