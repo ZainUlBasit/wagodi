@@ -270,10 +270,7 @@ export default function ApprovedOrderTableTop({ Data, Filter }) {
                             <button
                               className={`mt-[20px] w-[197px] h-fit py-2 bg-[#90898E] hover:text-[#465462] hover:bg-white rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
                               onClick={() => {
-                                window.location.href = fileUrl.replace(
-                                  ".octet-stream",
-                                  ".png"
-                                );
+                                window.location.href = fileUrl;
                                 setFileUrl("");
                               }}
                             >
