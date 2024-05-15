@@ -157,9 +157,18 @@ const Statistics = () => {
         selectedMonth: currentMonth,
       })
     );
-    dispatch(fetchStationStats({ companyId: userData.companyId._id }));
-    dispatch(fetchDriverStats({ companyId: userData.companyId._id }));
+    // dispatch(fetchStationStats({ companyId: userData.companyId._id }));
+    // dispatch(fetchDriverStats({ companyId: userData.companyId._id }));
   }, []);
+
+  useEffect(() => {
+    dispatch(
+      fetchStationStats({ companyId: userData.companyId._id, date: CurDate })
+    );
+    dispatch(
+      fetchDriverStats({ companyId: userData.companyId._id, date: CurDate })
+    );
+  }, [CurDate]);
 
   useEffect(() => {
     if (CurrentMonthChart !== "")
