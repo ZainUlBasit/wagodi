@@ -38,7 +38,7 @@ const OrderReports = () => {
   const [Loading, setLoading] = useState(true);
 
   const [Filter, setFilter] = useState("");
-  const [ApplyFilter, setApplyFilter] = useState("All");
+  const [ApplyFilter, setApplyFilter] = useState(convertStatus(4));
 
   let firstTime = 0;
   const [orders, setOrders] = useState([]);
@@ -103,7 +103,7 @@ const OrderReports = () => {
         <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 mb-10  flex-wrap gap-y-2">
           {/* Left */}
           <div className="font-[Quicksand] font-[700] text-[2rem] capitalize">
-            {ApplyFilter} Orders
+            Approved Orders
           </div>
           {/* Right */}
           <div className="flex items-center gap-x-4  max767:w-full max767:justify-end  max767:mt-3 flex-wrap gap-y-3">
@@ -131,13 +131,36 @@ const OrderReports = () => {
             <div className="font-[Quicksand] font-bold bg-[#465462] text-white py-1 px-4 text-2xl rounded-lg">
               {
                 OrderReportState.data?.filter((order) => {
-                  if (ApplyFilter !== "All")
-                    return convertStatus(order?.status) === ApplyFilter;
-                  else return order;
+                  const currentDate = new Date(CurDate);
+                  currentDate.setHours(0); // Set hours to 00:00 AM
+                  currentDate.setMinutes(0); // Set minutes to 00
+                  currentDate.setSeconds(0); // Set seconds to 00
+                  currentDate.setMilliseconds(0); // Set milliseconds to 00
+                  const timestamp = Math.floor(currentDate.getTime() / 1000);
+
+                  const inDate = new Date(order.createdAt * 1000);
+                  inDate.setHours(0); // Set hours to 00:00 AM
+                  inDate.setMinutes(0); // Set minutes to 00
+                  inDate.setSeconds(0); // Set seconds to 00
+                  inDate.setMilliseconds(0); // Set milliseconds to 00
+                  const iTimestamp = Math.floor(inDate.getTime() / 1000);
+
+                  console.log(iTimestamp === timestamp);
+
+                  const searchTextFilter =
+                    SearchText === "" ||
+                    order.station.id.name.toLowerCase().includes(SearchText);
+
+                  const statusFilter =
+                    convertStatus(order?.status) === ApplyFilter;
+
+                  const dateFilter = CurDate === "" || iTimestamp === timestamp;
+
+                  return searchTextFilter && statusFilter && dateFilter;
                 }).length
               }
             </div>
-            <LuFilter
+            {/* <LuFilter
               className="text-[2rem] cursor-pointer"
               aria-describedby={id}
               variant="contained"
@@ -163,7 +186,7 @@ const OrderReports = () => {
               popover_id={id}
               handleClose={handleClose}
               popover_anchorEl={anchorEl}
-            />
+            /> */}
           </div>
         </div>
         {OrderReportState.loading ? (
@@ -190,24 +213,15 @@ const OrderReports = () => {
 
               console.log(iTimestamp === timestamp);
 
-              // Status and search filters
-              if (SearchText === "") {
-                if (
-                  convertStatus(order?.status) !== ApplyFilter &&
-                  ApplyFilter !== "All"
-                )
-                  return CurDate ? iTimestamp === timestamp : false;
-                else return CurDate ? iTimestamp === timestamp : true;
-              } else {
-                if (order.station.id.name.toLowerCase().includes(SearchText)) {
-                  if (
-                    convertStatus(order?.status) !== ApplyFilter &&
-                    ApplyFilter !== "All"
-                  )
-                    return CurDate ? iTimestamp === timestamp : false;
-                  else return CurDate ? iTimestamp === timestamp : true;
-                }
-              }
+              const searchTextFilter =
+                SearchText === "" ||
+                order.station.id.name.toLowerCase().includes(SearchText);
+
+              const statusFilter = convertStatus(order?.status) === ApplyFilter;
+
+              const dateFilter = CurDate === "" || iTimestamp === timestamp;
+
+              return searchTextFilter && statusFilter && dateFilter;
             })
             .map((orderData) => {
               return (

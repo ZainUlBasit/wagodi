@@ -83,7 +83,7 @@ const Navbar = () => {
                 className={`text-[18px] font-[700] maxWeb1:text-[25px] maxWeb2:text-[30px] maxWeb3:text-[35px] maxWeb4:text-[40px]`}
                 onClick={() => handleNavItemClick("ORDER REPORTS")}
               >
-                ORDER REPORTS
+                APPROVED REPORTS
               </Link>
               {activeNavItem === "ORDER REPORTS" && (
                 <div className="box-below-link active"></div>

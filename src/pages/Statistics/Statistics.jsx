@@ -63,7 +63,9 @@ const Statistics = () => {
   const [CurrentMonthChart, setCurrentMonthChart] = useState(
     months[currentDate.getMonth()]
   );
-  const [CurrentMonthIndexChart, setCurrentMonthIndexChart] = useState("0");
+  const [CurrentMonthIndexChart, setCurrentMonthIndexChart] = useState(
+    currentDate.getMonth()
+  );
   const [CurrentMonthChart1, setCurrentMonthChart1] = useState("Month");
   const [CurrentMonthIndexChart1, setCurrentMonthIndexChart1] = useState("");
   const [CurDate, setCurDate] = useState("");
@@ -311,7 +313,7 @@ const Statistics = () => {
         </TableWrapper>
 
         <div className="flex justify-end w-[90%] mb-4 gap-x-3 gap-y-1 max767:flex-col max767:items-start">
-          {/* <div
+          <div
             className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
             // className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white"
             onClick={handleClickFuel}
@@ -335,7 +337,7 @@ const Statistics = () => {
                 variant="contained"
               />
             </div>
-          </div> */}
+          </div>
 
           <Popover
             id={idFuel}
