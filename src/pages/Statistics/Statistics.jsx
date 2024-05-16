@@ -60,7 +60,9 @@ const Statistics = () => {
   );
   const [statsData, setStatsData] = useState("");
   const [CurrentMonthIndex, setCurrentMonthIndex] = useState("");
-  const [CurrentMonthChart, setCurrentMonthChart] = useState("January");
+  const [CurrentMonthChart, setCurrentMonthChart] = useState(
+    months[currentDate.getMonth()]
+  );
   const [CurrentMonthIndexChart, setCurrentMonthIndexChart] = useState("0");
   const [CurrentMonthChart1, setCurrentMonthChart1] = useState("Month");
   const [CurrentMonthIndexChart1, setCurrentMonthIndexChart1] = useState("");

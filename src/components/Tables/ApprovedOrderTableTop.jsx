@@ -18,6 +18,7 @@ export default function ApprovedOrderTableTop({ Data, Filter }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [SendType, setSendType] = React.useState("");
   const [fileUrl, setFileUrl] = React.useState();
+  const fileUrlRef = React.useRef();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -153,14 +154,8 @@ export default function ApprovedOrderTableTop({ Data, Filter }) {
               </div>
             </TableCell>
 
-            <TableCell
-              sx={{
-                fontWeight: "bold",
-                fontFamily: "Quicksand",
-                padding: 1,
-                fontSize: "13px",
-              }}
-            >
+            <TableCell>
+              {/* Download button */}
               <div className="font-[700] text-[1.5rem] cursor-pointer text-white">
                 <FiDownload
                   className="text-[1.2rem] maxWeb1:text-[2rem] maxWeb2:text-[2.5rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem] cursor-pointer transition-all duration-500"
@@ -175,10 +170,10 @@ export default function ApprovedOrderTableTop({ Data, Filter }) {
                   onClose={handleClose}
                   PaperProps={{
                     sx: {
-                      borderRadius: "25px", // Add rounded corners
-                      backgroundColor: "white", // Set background color to white
-                      width: "400px", // Set the width as needed
-                      overflow: "hidden", // Hide overflowing content
+                      borderRadius: "25px",
+                      backgroundColor: "white",
+                      width: "400px",
+                      overflow: "hidden",
                       marginTop: "10px",
                       boxShadow: "none",
                     },
@@ -211,20 +206,26 @@ export default function ApprovedOrderTableTop({ Data, Filter }) {
                       </div>
                       <p className="h-[2px] w-full bg-[#FFFFFF5C] mb-3 rounded-full"></p>
                       <div className="w-full flex flex-col justify-between gap-y-3 items-start">
+                        {/* Map attachments */}
                         {Data.attachments?.map(
                           (attachment) =>
                             (!attachment.stationId ||
                               attachment.stationId ==
                                 Data?.station?.id?._id) && (
                               <div
+                                key={attachment.name}
                                 className="flex gap-x-3 items-center cursor-pointer"
                                 onClick={() => {
                                   setSendType(
                                     attachment.name || "not specified"
                                   );
-                                  setFileUrl(attachment.url);
+                                  fileUrlRef.current = attachment.url; // Set ref value
                                 }}
                               >
+                                {console.log(
+                                  Data?.reciept_number,
+                                  attachment.url
+                                )}
                                 <input
                                   type="checkbox"
                                   className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
@@ -236,42 +237,14 @@ export default function ApprovedOrderTableTop({ Data, Filter }) {
                               </div>
                             )
                         )}
-
-                        {/* <div
-                          className="flex gap-x-3 items-center cursor-pointer"
-                          onClick={() =>
-                            setSendType("Receiving Receipt (Driver)")
-                          }
-                        >
-                          <input
-                            type="checkbox"
-                            className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                            checked={SendType === "Receiving Receipt (Driver)"}
-                          />
-                          <span>Receiving Receipt (Driver)</span>
-                        </div>
-                        <div
-                          className="flex gap-x-3 items-center cursor-pointer"
-                          onClick={() =>
-                            setSendType("Receiving Receipt (Station Manager)")
-                          }
-                        >
-                          <input
-                            type="checkbox"
-                            className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                            checked={
-                              SendType === "Receiving Receipt (Station Manager)"
-                            }
-                          />
-                          <span>Receiving Receipt (Station Manager)</span>
-                        </div> */}
                         <div className="flex justify-center items-center w-full my-4">
-                          {fileUrl && (
+                          {/* Download button */}
+                          {fileUrlRef.current && (
                             <button
                               className={`mt-[20px] w-[197px] h-fit py-2 bg-[#90898E] hover:text-[#465462] hover:bg-white rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
                               onClick={() => {
-                                window.location.href = fileUrl;
-                                setFileUrl("");
+                                window.location.href = fileUrlRef.current;
+                                fileUrlRef.current = ""; // Clear ref value
                               }}
                             >
                               Download
