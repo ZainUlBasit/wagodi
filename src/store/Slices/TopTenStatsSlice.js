@@ -29,7 +29,10 @@ export const fetchTopTenStation = createAsyncThunk(
       };
     }
     try {
-      const response = await GetTenStationStat(reqBody);
+      const response = await GetTenStationStat({
+        ...reqBody,
+        fuelType: Payload.fuelType,
+      });
       const updatedResponse = response.data.data.map((dt) => {
         return {
           ...dt,

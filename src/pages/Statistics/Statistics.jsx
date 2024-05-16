@@ -167,7 +167,10 @@ const Statistics = () => {
 
   useEffect(() => {
     dispatch(
-      fetchStationStats({ companyId: userData.companyId._id, date: CurDate })
+      fetchStationStats({
+        companyId: userData.companyId._id,
+        date: CurDate,
+      })
     );
     dispatch(
       fetchDriverStats({ companyId: userData.companyId._id, date: CurDate })
@@ -189,9 +192,11 @@ const Statistics = () => {
             CurrentMonthChart1 === "Month"
               ? Number(CurrentMonthIndexChart) + 1
               : CurrentMonthChart,
+
+          fuelType: CurrentFuel,
         })
       );
-  }, [CurrentMonthChart]);
+  }, [CurrentMonthChart, CurrentFuel]);
 
   const TopTenData = useSelector((state) => state.TopTenStations);
 
