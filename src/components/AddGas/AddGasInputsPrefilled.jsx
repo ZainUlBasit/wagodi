@@ -23,6 +23,9 @@ const AddGasInputsPrefilled = ({
   const [FuelCapacity, setFuelCapacity] = useState(CurrentGas.max_value);
   const [FuelVolume, setFuelVolume] = useState(CurrentGas.value);
   const [SellingPrice, setSellingPrice] = useState(CurrentGas.price_litre);
+  const [NoOfDispenser, setNoOfDispenser] = useState(
+    CurrentGas?.dispenserCount ? CurrentGas?.dispenserCount[0]?.count : 0
+  );
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -144,6 +147,15 @@ const AddGasInputsPrefilled = ({
             setValue={setSellingPrice}
             last={true}
             type={"number"}
+          />
+          <GasInput
+            type={"number"}
+            label={"No. Dispenser"}
+            placeholder={"10,000"}
+            required={false}
+            Value={NoOfDispenser}
+            setValue={setNoOfDispenser}
+            last={false}
           />
         </div>
         <button

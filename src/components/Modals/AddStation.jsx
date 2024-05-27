@@ -54,6 +54,7 @@ const AddStation = ({ Open, setOpen }) => {
           price_litre: Number(ag.price_litre),
           value: Number(ag.value),
           max_value: Number(ag.max_value),
+          dispenserCount: ag.dispenserCount ? ag.dispenserCount : [],
         };
       }),
       name: StationName,
@@ -151,10 +152,14 @@ const AddStation = ({ Open, setOpen }) => {
                     {ag.max_value}
                   </div>
                   <div className="w-[80px] max767:w-[70px] border-r-[1px] border-r-[#606060] text-center">
-                    {ag.value}
+                    {Number(ag.value).toFixed(2)}
+                  </div>
+                  <div className="w-[80px] max767:w-[70px] border-r-[1px] border-r-[#606060] text-center">
+                    {Number(ag.price_litre).toFixed(2)}
                   </div>
                   <div className="w-[80px] max767:w-[45px] text-right">
-                    {ag.price_litre}
+                    {/* <div className="w-[80px] max767:w-[70px] border-r-[1px] border-r-[#606060] text-center"> */}
+                    {ag.dispenserCount ? ag.dispenserCount[0].count : 0}
                   </div>
                   <RiDeleteBin6Line
                     onClick={() => deleteGas(index)}

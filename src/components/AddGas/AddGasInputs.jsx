@@ -10,6 +10,7 @@ const AddGasInputs = ({ AllGases, setAllGases, setShowAddGassInputs }) => {
   const [FuelCapacity, setFuelCapacity] = useState("");
   const [FuelVolume, setFuelVolume] = useState("");
   const [SellingPrice, setSellingPrice] = useState("");
+  const [NoOfDispenser, setNoOfDispenser] = useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -127,6 +128,15 @@ const AddGasInputs = ({ AllGases, setAllGases, setShowAddGassInputs }) => {
             setValue={setSellingPrice}
             last={true}
           />
+          <GasInput
+            type={"number"}
+            label={"No. Dispenser"}
+            placeholder={"10,000"}
+            required={false}
+            Value={NoOfDispenser}
+            setValue={setNoOfDispenser}
+            last={false}
+          />
         </div>
         <button
           className={`mb-[13px] w-[120px] h-fit py-1 bg-[#90898E] hover:bg-[#465462] rounded-[30px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
@@ -150,6 +160,7 @@ const AddGasInputs = ({ AllGases, setAllGases, setShowAddGassInputs }) => {
                       max_value: Number(FuelCapacity).toFixed(2),
                       value: Number(FuelVolume).toFixed(2),
                       price_litre: Number(SellingPrice).toFixed(2),
+                      dispenserCount: [{ count: Number(NoOfDispenser) }],
                     },
                   ]);
                   setShowAddGassInputs(false);
