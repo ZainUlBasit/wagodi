@@ -76,7 +76,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
                 updatePriceLitre: parseFloat(data.price_litre),
                 updateType: data.type,
                 updateMaxValue: parseFloat(data.max_value),
-                dispenserCount: data.dispenserCount ? data.dispenserCount : [],
+                // dispenserCount: data.dispenserCount ? data.dispenserCount : [],
               },
             ],
           });
@@ -93,7 +93,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
               max_value: parseFloat(data.max_value),
               value: parseFloat(data.value),
               type: data.type,
-              dispenserCount: data.dispenserCount ? data.dispenserCount : [],
+              // dispenserCount: data.dispenserCount ? data.dispenserCount : [],
             },
           });
           console.log(response);
@@ -261,7 +261,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
                   </div>
                   <div className="w-[80px] max767:w-[45px] text-right">
                     {/* <div className="w-[80px] max767:w-[70px] border-r-[1px] border-r-[#606060] text-center"> */}
-                    {ag.dispenserCount ? ag.dispenserCount[0].count : 0}
+                    {ag?.dispenserCount[0]?.count || 0}
                   </div>
                   <RiDeleteBin6Line
                     onClick={() => deleteGas(index)}

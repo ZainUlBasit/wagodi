@@ -4,6 +4,7 @@ import GasInput from "../Input/GasInput";
 import { BsChevronDown } from "react-icons/bs";
 import { Popover, Typography } from "@mui/material";
 import WarningToast from "../Toast/WarningToast";
+import { v4 as uuidv4 } from "uuid";
 
 const AddGasInputs = ({ AllGases, setAllGases, setShowAddGassInputs }) => {
   const [FuelType, setFuelType] = useState("");
@@ -153,6 +154,12 @@ const AddGasInputs = ({ AllGases, setAllGases, setShowAddGassInputs }) => {
                 if (Number(FuelVolume) > Number(FuelCapacity)) {
                   WarningToast("Fuel Volume must Less than Capacity!");
                 } else {
+                  let ids = [];
+                  if (NoOfDispenser) {
+                    ids = Array.from({ length: Number(NoOfDispenser) }, () => {
+                      return `${uuidv4()}-${FuelType}`;
+                    });
+                  }
                   setAllGases([
                     ...AllGases,
                     {
@@ -160,7 +167,7 @@ const AddGasInputs = ({ AllGases, setAllGases, setShowAddGassInputs }) => {
                       max_value: Number(FuelCapacity).toFixed(2),
                       value: Number(FuelVolume).toFixed(2),
                       price_litre: Number(SellingPrice).toFixed(2),
-                      dispenserCount: [{ count: Number(NoOfDispenser) }],
+                      dispensers: ids,
                     },
                   ]);
                   setShowAddGassInputs(false);

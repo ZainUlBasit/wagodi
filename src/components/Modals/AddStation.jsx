@@ -16,7 +16,7 @@ import WarningToast from "../Toast/WarningToast";
 import LocationSearchInput from "../../utility/LocationSearchInput";
 import AddingLightLoader from "../Loaders/AddingLightLoader";
 import MapContainer from "../../utility/MapContainer";
-
+import QrCodesModal from "./QrCodes";
 // import { MapContainer } from "../../utility/LocationPicker";
 
 const AddStation = ({ Open, setOpen }) => {
@@ -28,9 +28,11 @@ const AddStation = ({ Open, setOpen }) => {
   const [Latitude, setLatitude] = useState("");
   const Auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-
+  const [OpenQrCodesModal, setOpenQrCodesModal] = useState(false);
+  const [SelFuelType, setSelFuelType] = useState("");
   const [AllGases, setAllGases] = useState([]);
   const [ShowAddGassInputs, setShowAddGassInputs] = useState(false);
+  const StationsData = useSelector((state) => state.StationReducer);
 
   useEffect(() => {
     console.log(AllGases);
@@ -54,7 +56,8 @@ const AddStation = ({ Open, setOpen }) => {
           price_litre: Number(ag.price_litre),
           value: Number(ag.value),
           max_value: Number(ag.max_value),
-          dispenserCount: ag.dispenserCount ? ag.dispenserCount : [],
+          // dispenser: ids,
+          // dispenserCount: ag.dispenserCount ? ag.dispenserCount : [],
         };
       }),
       name: StationName,
@@ -63,6 +66,11 @@ const AddStation = ({ Open, setOpen }) => {
       longitude: Longitude,
       latitude: Latitude,
     };
+
+    console.log(BodyData);
+    setLoading(false);
+
+    return;
 
     if (StationNumber === "") {
       WarningToast("Enter Valid Station Number");
@@ -159,12 +167,21 @@ const AddStation = ({ Open, setOpen }) => {
                   </div>
                   <div className="w-[80px] max767:w-[45px] text-right">
                     {/* <div className="w-[80px] max767:w-[70px] border-r-[1px] border-r-[#606060] text-center"> */}
-                    {ag.dispenserCount ? ag.dispenserCount[0].count : 0}
+                    {ag.dispensers ? ag.dispensers.length : 0}
                   </div>
                   <RiDeleteBin6Line
                     onClick={() => deleteGas(index)}
-                    className="ml-4 text-[1.3rem] cursor-pointer hover:text-[red] transition-all duration-500"
+                    className="mx-4 text-[1.3rem] cursor-pointer hover:text-[red] transition-all duration-500"
                   />
+                  <button
+                    className={`w-fit h-fit py-1 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1rem] font-[700] transition-all duration-500 ease-in-out px-2`}
+                    onClick={() => {
+                      setOpenQrCodesModal(true);
+                      setSelFuelType(ag.type);
+                    }}
+                  >
+                    Qr Codes
+                  </button>
                 </div>
               </div>
             );
@@ -211,6 +228,17 @@ const AddStation = ({ Open, setOpen }) => {
           )}
         </div>
       </div>
+      {OpenQrCodesModal && (
+        <QrCodesModal
+          open={OpenQrCodesModal}
+          setOpen={setOpenQrCodesModal}
+          StationNo={StationNumber}
+          FuelType={SelFuelType}
+          CurrentDispenser={
+            AllGases.find((ft) => ft.type === SelFuelType).dispensers || ""
+          }
+        />
+      )}
     </CustomModal>
   );
 };
