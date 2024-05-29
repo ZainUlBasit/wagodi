@@ -129,36 +129,34 @@ const OrderReports = () => {
               />
             </div>
             <div className="font-[Quicksand] font-bold bg-[#465462] text-white py-1 px-4 text-2xl rounded-lg">
-              {
-                OrderReportState.data?.filter((order) => {
-                  const currentDate = new Date(CurDate);
-                  currentDate.setHours(0); // Set hours to 00:00 AM
-                  currentDate.setMinutes(0); // Set minutes to 00
-                  currentDate.setSeconds(0); // Set seconds to 00
-                  currentDate.setMilliseconds(0); // Set milliseconds to 00
-                  const timestamp = Math.floor(currentDate.getTime() / 1000);
+              {OrderReportState.data?.filter((order) => {
+                const currentDate = new Date(CurDate);
+                currentDate.setHours(0); // Set hours to 00:00 AM
+                currentDate.setMinutes(0); // Set minutes to 00
+                currentDate.setSeconds(0); // Set seconds to 00
+                currentDate.setMilliseconds(0); // Set milliseconds to 00
+                const timestamp = Math.floor(currentDate.getTime() / 1000);
 
-                  const inDate = new Date(order.createdAt * 1000);
-                  inDate.setHours(0); // Set hours to 00:00 AM
-                  inDate.setMinutes(0); // Set minutes to 00
-                  inDate.setSeconds(0); // Set seconds to 00
-                  inDate.setMilliseconds(0); // Set milliseconds to 00
-                  const iTimestamp = Math.floor(inDate.getTime() / 1000);
+                const inDate = new Date(order.createdAt * 1000);
+                inDate.setHours(0); // Set hours to 00:00 AM
+                inDate.setMinutes(0); // Set minutes to 00
+                inDate.setSeconds(0); // Set seconds to 00
+                inDate.setMilliseconds(0); // Set milliseconds to 00
+                const iTimestamp = Math.floor(inDate.getTime() / 1000);
 
-                  console.log(iTimestamp === timestamp);
+                console.log(iTimestamp === timestamp);
 
-                  const searchTextFilter =
-                    SearchText === "" ||
-                    order.station.id.name.toLowerCase().includes(SearchText);
+                const searchTextFilter =
+                  SearchText === "" ||
+                  order.station.id.name.toLowerCase().includes(SearchText);
 
-                  const statusFilter =
-                    convertStatus(order?.status) === ApplyFilter;
+                const statusFilter =
+                  convertStatus(order?.status) === ApplyFilter;
 
-                  const dateFilter = CurDate === "" || iTimestamp === timestamp;
+                const dateFilter = CurDate === "" || iTimestamp === timestamp;
 
-                  return searchTextFilter && statusFilter && dateFilter;
-                }).length
-              }
+                return searchTextFilter && statusFilter && dateFilter;
+              }).length || "-"}
             </div>
             {/* <LuFilter
               className="text-[2rem] cursor-pointer"
@@ -191,7 +189,7 @@ const OrderReports = () => {
         </div>
         {OrderReportState.loading ? (
           <PageLoader />
-        ) : OrderReportState.data.length === 0 ? (
+        ) : OrderReportState?.data?.length === 0 || !OrderReportState.data ? (
           <NoDataFound />
         ) : (
           OrderReportState.data

@@ -62,184 +62,188 @@ export default function OngoingOrdersTable({
             </TableRow>
           </TableHead>
           <TableBody>
-            {Data.filter((dt) => {
-              const searchLowerCase = Search.toLowerCase();
-              if (Filter === "All") {
-                if (Search === "") return dt;
-                else {
-                  if (
-                    dt.station.id.name.toLowerCase().startsWith(searchLowerCase)
-                  ) {
-                    return dt;
+            {Data &&
+              Data.filter((dt) => {
+                const searchLowerCase = Search.toLowerCase();
+                if (Filter === "All") {
+                  if (Search === "") return dt;
+                  else {
+                    if (
+                      dt.station.id.name
+                        .toLowerCase()
+                        .startsWith(searchLowerCase)
+                    ) {
+                      return dt;
+                    }
                   }
                 }
-              }
-              if (convertStatus(dt.station.status) == Filter) {
-                if (Search === "") return dt;
-                else {
-                  if (dt.station.id.name.startsWith(searchLowerCase)) {
-                    return dt;
+                if (convertStatus(dt.station.status) == Filter) {
+                  if (Search === "") return dt;
+                  else {
+                    if (dt.station.name.startsWith(searchLowerCase)) {
+                      return dt;
+                    }
                   }
                 }
-              }
-            })
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row, i) => (
-                <TableRow
-                  key={`${row?._id}}`}
-                  sx={{
-                    "&:last-child td, &:last-child th": { border: 0 },
-                  }}
-                >
-                  <TableCell
+              })
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, i) => (
+                  <TableRow
+                    key={`${row?._id}}`}
                     sx={{
-                      fontWeight: 400,
-                      fontFamily: "Quicksand",
-                      borderBlockWidth: 0,
+                      "&:last-child td, &:last-child th": { border: 0 },
                     }}
-                    component="th"
-                    scope="row"
-                    align="center"
                   >
-                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {row.orderNumber ? row.orderNumber : "none"}
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: 400,
-                      fontFamily: "Quicksand",
-                      borderBottomWidth: 0,
-                    }}
-                    align="center"
-                  >
-                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {moment(new Date(row.createdAt * 1000)).format(
-                        "DD/MM/YYYY h:mm A"
-                      )}
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: 400,
-                      fontFamily: "Quicksand",
-                      borderBottomWidth: 0,
-                    }}
-                    align="center"
-                  >
-                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {row.reciept_number ? row.reciept_number : "none"}
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: 400,
-                      fontFamily: "Quicksand",
-                      borderBottomWidth: 0,
-                    }}
-                    align="center"
-                  >
-                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {row?.station?.id?.name}
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: 400,
-                      fontFamily: "Quicksand",
-                      borderBottomWidth: 0,
-                    }}
-                    align="center"
-                  >
-                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {row.station.paid_amount}
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: 400,
-                      fontFamily: "Quicksand",
-                      borderBottomWidth: 0,
-                    }}
-                    align="center"
-                  >
-                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {row.driverId?.name}
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: 400,
-                      fontFamily: "Quicksand",
-                      borderBottomWidth: 0,
-                    }}
-                    align="center"
-                  >
-                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      {row?.station?.deliveryTime
-                        ? moment(
-                            new Date(row?.station?.deliveryTime * 1000)
-                          ).format("DD/MM/YYYY h:mm A")
-                        : row.arrival_date
-                        ? moment(new Date(row.arrival_date * 1000)).format(
-                            "DD/MM/YYYY h:mm A"
-                          )
-                        : row.expected_arrival
-                        ? moment(new Date(row.expected_arrival * 1000)).format(
-                            "DD/MM/YYYY h:mm A"
-                          )
-                        : "Not specified"}
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: 400,
-                      fontFamily: "Quicksand",
-                      borderBottomWidth: 0,
-                    }}
-                    align="center"
-                  >
-                    <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                      <div
-                        className={`${
-                          row.station.status == 0
-                            ? "bg-[#5CD2E6]"
-                            : row.station.status == 1
-                            ? "bg-[#F4E869]"
-                            : "bg-[#2EB100]"
-                        } py-1 px-2 rounded-full text-white font-bold cursor-pointer`}
-                      >
-                        {convertStatus(row.status) || "none"}
+                    <TableCell
+                      sx={{
+                        fontWeight: 400,
+                        fontFamily: "Quicksand",
+                        borderBlockWidth: 0,
+                      }}
+                      component="th"
+                      scope="row"
+                      align="center"
+                    >
+                      <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                        {row.orderNumber ? row.orderNumber : "none"}
                       </div>
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      fontWeight: 400,
-                      fontFamily: "Quicksand",
-                      borderBottomWidth: 0,
-                      fontSize: "20px",
-                    }}
-                    align="center"
-                  >
-                    <span className="flex justify-center items-center">
-                      <AiFillEye
-                        className="text-[1.2rem] maxWeb1:text-[2rem] maxWeb2:text-[2.5rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem] cursor-pointer hover:text-[green] transition-all duration-500"
-                        // className="cursor-pointer text-[#76808B] hover:text-black transition-all duration-500 ease-in-out"
-                        onClick={() => {
-                          setOpen(true);
-                          setCurrentID(i);
-                        }}
-                      />
-                    </span>
-                  </TableCell>
-                </TableRow>
-              ))}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        fontWeight: 400,
+                        fontFamily: "Quicksand",
+                        borderBottomWidth: 0,
+                      }}
+                      align="center"
+                    >
+                      <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                        {moment(new Date(row.createdAt * 1000)).format(
+                          "DD/MM/YYYY h:mm A"
+                        )}
+                      </div>
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        fontWeight: 400,
+                        fontFamily: "Quicksand",
+                        borderBottomWidth: 0,
+                      }}
+                      align="center"
+                    >
+                      <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                        {row.reciept_number ? row.reciept_number : "none"}
+                      </div>
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        fontWeight: 400,
+                        fontFamily: "Quicksand",
+                        borderBottomWidth: 0,
+                      }}
+                      align="center"
+                    >
+                      <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                        {row?.station?.name}
+                      </div>
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        fontWeight: 400,
+                        fontFamily: "Quicksand",
+                        borderBottomWidth: 0,
+                      }}
+                      align="center"
+                    >
+                      <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                        {row.station.paid_amount}
+                      </div>
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        fontWeight: 400,
+                        fontFamily: "Quicksand",
+                        borderBottomWidth: 0,
+                      }}
+                      align="center"
+                    >
+                      <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                        {row.driverId?.name}
+                      </div>
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        fontWeight: 400,
+                        fontFamily: "Quicksand",
+                        borderBottomWidth: 0,
+                      }}
+                      align="center"
+                    >
+                      <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                        {row?.station?.deliveryTime
+                          ? moment(
+                              new Date(row?.station?.deliveryTime * 1000)
+                            ).format("DD/MM/YYYY h:mm A")
+                          : row.arrival_date
+                          ? moment(new Date(row.arrival_date * 1000)).format(
+                              "DD/MM/YYYY h:mm A"
+                            )
+                          : row.expected_arrival
+                          ? moment(
+                              new Date(row.expected_arrival * 1000)
+                            ).format("DD/MM/YYYY h:mm A")
+                          : "Not specified"}
+                      </div>
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        fontWeight: 400,
+                        fontFamily: "Quicksand",
+                        borderBottomWidth: 0,
+                      }}
+                      align="center"
+                    >
+                      <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
+                        <div
+                          className={`${
+                            row.station.status == 0
+                              ? "bg-[#5CD2E6]"
+                              : row.station.status == 1
+                              ? "bg-[#F4E869]"
+                              : "bg-[#2EB100]"
+                          } py-1 px-2 rounded-full text-white font-bold cursor-pointer`}
+                        >
+                          {convertStatus(row.status) || "none"}
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        fontWeight: 400,
+                        fontFamily: "Quicksand",
+                        borderBottomWidth: 0,
+                        fontSize: "20px",
+                      }}
+                      align="center"
+                    >
+                      <span className="flex justify-center items-center">
+                        <AiFillEye
+                          className="text-[1.2rem] maxWeb1:text-[2rem] maxWeb2:text-[2.5rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem] cursor-pointer hover:text-[green] transition-all duration-500"
+                          // className="cursor-pointer text-[#76808B] hover:text-black transition-all duration-500 ease-in-out"
+                          onClick={() => {
+                            setOpen(true);
+                            setCurrentID(i);
+                          }}
+                        />
+                      </span>
+                    </TableCell>
+                  </TableRow>
+                ))}
           </TableBody>
         </Table>
       </TableContainer>
       <CustomPagination
         count={
+          Data &&
           Data.filter((dt) => {
             const searchLowerCase = Search.toLowerCase();
             if (Filter === "All") {

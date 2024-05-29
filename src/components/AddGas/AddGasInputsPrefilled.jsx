@@ -4,6 +4,7 @@ import GasInput from "../Input/GasInput";
 import { BsChevronDown } from "react-icons/bs";
 import { Popover, Typography } from "@mui/material";
 import { api } from "../../Https";
+import { v4 as uuidv4 } from "uuid";
 
 const AddGasInputsPrefilled = ({
   AllGases,
@@ -24,7 +25,7 @@ const AddGasInputsPrefilled = ({
   const [FuelVolume, setFuelVolume] = useState(CurrentGas.value);
   const [SellingPrice, setSellingPrice] = useState(CurrentGas.price_litre);
   const [NoOfDispenser, setNoOfDispenser] = useState(
-    CurrentGas?.dispenserCount ? CurrentGas?.dispenserCount[0]?.count : 0
+    CurrentGas?.dispensers ? CurrentGas?.dispensers.length : 0
   );
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -172,6 +173,11 @@ const AddGasInputsPrefilled = ({
               // value: FuelVolume,
               // price_litre: SellingPrice,
               // })
+              let ids = [];
+              ids = Array.from({ length: Number(NoOfDispenser) }, () => {
+                return `${uuidv4()}-${FuelType}`;
+              });
+              console.log(ids);
               setAllGases(
                 AllGases.map((ag, i) => {
                   if (i === index) {
@@ -182,6 +188,7 @@ const AddGasInputsPrefilled = ({
                         max_value: Number(FuelCapacity).toFixed(2),
                         value: Number(FuelVolume).toFixed(2),
                         price_litre: Number(SellingPrice).toFixed(2),
+                        dispensers: ids,
                       };
                     else
                       return {
@@ -189,6 +196,7 @@ const AddGasInputsPrefilled = ({
                         max_value: Number(FuelCapacity).toFixed(2),
                         value: Number(FuelVolume).toFixed(2),
                         price_litre: Number(SellingPrice).toFixed(2),
+                        dispensers: ids,
                       };
                   } else return ag;
                 })

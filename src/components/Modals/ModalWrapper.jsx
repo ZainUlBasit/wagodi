@@ -12,13 +12,14 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  // width: "auto",
+  width: "auto",
+  // minWidth: "90%",
   bgcolor: "background.paper",
   boxShadow: 24,
   border: "0px solid #fff !important",
   borderRadius: 2,
   outline: "none",
-  overflow: "hidden",
+  overflow: "scroll",
   height: "auto",
 };
 

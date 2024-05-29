@@ -21,6 +21,7 @@ import WarningToast from "../Toast/WarningToast";
 import LocationSearchInput from "../../utility/LocationSearchInput";
 import AddingLightLoader from "../Loaders/AddingLightLoader";
 import MapContainer from "../../utility/MapContainer";
+import QrCodesModal from "./QrCodes";
 
 const EditStation = ({ Open, setOpen, CurrentStation }) => {
   console.log(CurrentStation);
@@ -34,6 +35,8 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
   const [Status, setStatus] = useState(CurrentStation.active);
   const dispatch = useDispatch();
   const Current_User = useSelector((state) => state.auth);
+  const [OpenQrCodesModal, setOpenQrCodesModal] = useState(false);
+  const [SelFuelType, setSelFuelType] = useState("");
 
   const handleSelect = ({ address, latLng }) => {
     setAddress(address);
@@ -76,6 +79,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
                 updatePriceLitre: parseFloat(data.price_litre),
                 updateType: data.type,
                 updateMaxValue: parseFloat(data.max_value),
+                dispensers: data.dispensers,
                 // dispenserCount: data.dispenserCount ? data.dispenserCount : [],
               },
             ],
@@ -93,6 +97,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
               max_value: parseFloat(data.max_value),
               value: parseFloat(data.value),
               type: data.type,
+              dispensers: data.dispensers,
               // dispenserCount: data.dispenserCount ? data.dispenserCount : [],
             },
           });
@@ -261,7 +266,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
                   </div>
                   <div className="w-[80px] max767:w-[45px] text-right">
                     {/* <div className="w-[80px] max767:w-[70px] border-r-[1px] border-r-[#606060] text-center"> */}
-                    {ag?.dispenserCount[0]?.count || 0}
+                    {ag.dispensers ? ag.dispensers.length : 0}
                   </div>
                   <RiDeleteBin6Line
                     onClick={() => deleteGas(index)}
@@ -272,8 +277,17 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
                       setShowAddGassInputsPrefilled(true);
                       setEditIndex(index);
                     }}
-                    className="ml-1 text-[1.2rem] cursor-pointer hover:text-[green] transition-all duration-500"
+                    className="mx-1 text-[1.2rem] cursor-pointer hover:text-[green] transition-all duration-500"
                   />
+                  <button
+                    className={`w-fit h-fit py-1 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1rem] font-[700] transition-all duration-500 ease-in-out px-2`}
+                    onClick={() => {
+                      setOpenQrCodesModal(true);
+                      setSelFuelType(ag.type);
+                    }}
+                  >
+                    Qr Codes
+                  </button>
                 </div>
               </div>
             );
@@ -321,6 +335,17 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
           )}
         </div>
       </div>
+      {OpenQrCodesModal && (
+        <QrCodesModal
+          open={OpenQrCodesModal}
+          setOpen={setOpenQrCodesModal}
+          StationNo={StationNumber}
+          FuelType={SelFuelType}
+          CurrentDispenser={
+            AllGases.find((ft) => ft.type === SelFuelType).dispensers || ""
+          }
+        />
+      )}
     </CustomModal>
   );
 };

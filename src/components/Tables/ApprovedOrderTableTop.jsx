@@ -74,7 +74,7 @@ export default function ApprovedOrderTableTop({ Data, Filter }) {
                 <div className="maxWeb1:text-[1.1rem] maxWeb2:text-[1.3rem] maxWeb3:text-[1.5rem] maxWeb4:text-[1.5em] text-[.9rem] text-center">
                   <span className="font-bold">StationName:</span>
                   <span className="font-[400] ml-1">
-                    {Data?.station?.id.name || "not specified"}
+                    {Data?.station?.name || "not specified"}
                   </span>
                 </div>
               </div>

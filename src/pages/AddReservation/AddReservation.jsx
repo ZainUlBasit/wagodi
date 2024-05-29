@@ -116,7 +116,7 @@ const AddReservation = () => {
       let fuelQuantity = 0; // Initialize fuel quantity sum
 
       values.stations.forEach((station, index) => {
-        formData.append(`stations[${index}][id]`, station._id);
+        formData.append(`stations[${index}][_id]`, station._id);
         formData.append(`stations[${index}][address]`, station.address);
         formData.append(`stations[${index}][name]`, station.name);
         formData.append(`stations[${index}][latitude]`, station.latitude);

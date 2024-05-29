@@ -56,7 +56,7 @@ const AddStation = ({ Open, setOpen }) => {
           price_litre: Number(ag.price_litre),
           value: Number(ag.value),
           max_value: Number(ag.max_value),
-          // dispenser: ids,
+          dispensers: ag.dispensers,
           // dispenserCount: ag.dispenserCount ? ag.dispenserCount : [],
         };
       }),
@@ -68,9 +68,10 @@ const AddStation = ({ Open, setOpen }) => {
     };
 
     console.log(BodyData);
-    setLoading(false);
+    console.log(AllGases);
+    // setLoading(false);
 
-    return;
+    // return;
 
     if (StationNumber === "") {
       WarningToast("Enter Valid Station Number");

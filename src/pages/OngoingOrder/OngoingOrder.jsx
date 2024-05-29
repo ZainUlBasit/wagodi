@@ -119,18 +119,20 @@ const OngoingOrder = () => {
         </div>
         {Loading ? (
           <PageLoader />
-        ) : ordersData.length === 0 ? (
+        ) : ordersData?.length === 0 || !ordersData ? (
           <NoDataFound />
         ) : (
-          <TableWrapper className="rounded-[30px] overflow-hidden">
-            <OngoingOrdersTable
-              Filter={ApplyFilter}
-              Search={SearchText}
-              setCurrentID={setCurrentID}
-              setOpen={setOpenReservationDetailsModal}
-              data={ordersData}
-            />
-          </TableWrapper>
+          ordersData && (
+            <TableWrapper className="rounded-[30px] overflow-hidden">
+              <OngoingOrdersTable
+                Filter={ApplyFilter}
+                Search={SearchText}
+                setCurrentID={setCurrentID}
+                setOpen={setOpenReservationDetailsModal}
+                data={ordersData}
+              />
+            </TableWrapper>
+          )
         )}
       </div>
       {OpenSendReport && (
