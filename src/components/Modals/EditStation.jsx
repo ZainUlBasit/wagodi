@@ -279,15 +279,17 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
                     }}
                     className="mx-1 text-[1.2rem] cursor-pointer hover:text-[green] transition-all duration-500"
                   />
-                  <button
-                    className={`w-fit h-fit py-1 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1rem] font-[700] transition-all duration-500 ease-in-out px-2`}
-                    onClick={() => {
-                      setOpenQrCodesModal(true);
-                      setSelFuelType(ag.type);
-                    }}
-                  >
-                    Qr Codes
-                  </button>
+                  {ag.dispensers && ag.dispensers.length && (
+                    <button
+                      className={`w-fit h-fit py-1 bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1rem] font-[700] transition-all duration-500 ease-in-out px-2`}
+                      onClick={() => {
+                        setOpenQrCodesModal(true);
+                        setSelFuelType(ag.type);
+                      }}
+                    >
+                      Qr Codes
+                    </button>
+                  )}
                 </div>
               </div>
             );
@@ -340,7 +342,15 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
           open={OpenQrCodesModal}
           setOpen={setOpenQrCodesModal}
           StationNo={StationNumber}
-          FuelType={SelFuelType}
+          FuelType={
+            SelFuelType === 0
+              ? "91"
+              : SelFuelType === 1
+              ? "95"
+              : SelFuelType === 2
+              ? "D"
+              : SelFuelType
+          }
           CurrentDispenser={
             AllGases.find((ft) => ft.type === SelFuelType).dispensers || ""
           }
