@@ -41,17 +41,23 @@ const QrCodesModal = ({
         console.log(err);
       });
   };
+
   return (
     <ModalWrapper open={open} setOpen={setOpen}>
       <div ref={pdfRef}>
         <div className="flex justify-center items-center font-bold text-3xl border-b-black border-b-[3px] text-black py-5">
           {`Station Number: ${StationNo} -  Fuel Type: ${FuelType}`}
         </div>
-        <div className="flex flex-col px-5 pt-5 w-[750px] h-fit overflow-scroll">
+        <div className="flex flex-col px-5 pt- h-fit overflow-scroll">
           <div className="rounded-lg flex gap-x-4 flex-wrap justify-center items-center gap-y-4 py-4">
-            {CurrentDispenser.map((cd) => {
-              return <QRCode value={cd} renderAs="canvas" />;
-            })}
+            {CurrentDispenser.map((cd, index) => (
+              <div key={index} className="flex flex-col items-center">
+                <div className="font-bold text-lg mb-2">{`Dispenser ${
+                  index + 1
+                }`}</div>
+                <QRCode value={cd} renderAs="canvas" />
+              </div>
+            ))}
           </div>
         </div>
       </div>
