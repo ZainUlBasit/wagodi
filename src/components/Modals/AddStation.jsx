@@ -115,6 +115,7 @@ const AddStation = ({ Open, setOpen }) => {
             {/* left */}
             <div>
               <AuthInput
+                Type={"number"}
                 label="Station Number"
                 placeholder="123"
                 required={false}
