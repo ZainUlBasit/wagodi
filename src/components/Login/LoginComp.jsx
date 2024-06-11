@@ -96,9 +96,10 @@ const LoginComp = () => {
     let response_type;
     try {
       response = await SignInApi({
-        email: Email.toLowerCase(),
+        mobile: Number(Email),
         password: Password,
       });
+      console.log(response.data);
       console.log(response.data.success);
       response_type = response.data.success;
       if (response.data.success) {
@@ -106,6 +107,8 @@ const LoginComp = () => {
           ErrorToast(
             "Only Admin, Company and Order Manager can access Web App!"
           );
+          setLoading(false);
+
           return;
         }
         SuccessToast(response.data?.data?.msg);
@@ -123,11 +126,9 @@ const LoginComp = () => {
         dispatch(SetAuth(response.data.data.data));
       } else {
         const current_status = response.response?.status || response.status;
-        alert(current_status);
         if (current_status === 200) {
           ErrorToast(response.data.error.msg);
         } else if (current_status === 401) {
-          alert("yes");
           ErrorToast(response.response?.data?.error?.msg);
         }
       }
@@ -159,11 +160,12 @@ const LoginComp = () => {
 
         <form onKeyDown={handleKeyDown} className="flex flex-col gap-y-[2px]">
           <AuthInput
-            label={"E-mail"}
+            label={"Mobile-Number"}
             placeholder={"user123@gmail.com"}
             Value={Email}
             setValue={setEmail}
             required={false}
+            Type={"text"}
           />
           <div className="mb-1 LoginBet"></div>
           <AuthInputPassword

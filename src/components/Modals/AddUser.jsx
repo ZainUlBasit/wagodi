@@ -32,9 +32,9 @@ const AddUser = ({ Open, setOpen }) => {
   const [Lat, setLat] = useState("");
   const [SearchPopOver, setSearchPopOver] = useState("");
 
-  const [anchorEl, setAnchorEl] = useState(null);
   const [anchorElRole, setAnchorElRole] = useState(null);
   const [anchorElStationName, setAnchorElStationName] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };

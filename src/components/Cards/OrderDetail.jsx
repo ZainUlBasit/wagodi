@@ -27,7 +27,7 @@ const OrderDetail = ({ Order, Filter }) => {
           <div className="font-[Quicksand] font-[700] text-[1rem]">
             Station Name:{" "}
             <span className="font-[Quicksand] font-[400]">
-              {Order.station.id.name || "not specified"}
+              {Order.station.name || "not specified"}
             </span>
           </div>
         </div>

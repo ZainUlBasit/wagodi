@@ -140,7 +140,7 @@ const OrderManagerOrderReports = () => {
                 return (
                   <OrderDetail
                     Filter={ApplyFilter}
-                    key={`${order._id}-${order.station.id._id}`}
+                    key={`${order._id}-${order.station._id}`}
                     Order={order}
                   />
                 );
