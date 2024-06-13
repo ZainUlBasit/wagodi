@@ -161,7 +161,7 @@ const LoginComp = () => {
         <form onKeyDown={handleKeyDown} className="flex flex-col gap-y-[2px]">
           <AuthInput
             label={"Mobile-Number"}
-            placeholder={"user123@gmail.com"}
+            placeholder={"1234567890"}
             Value={Email}
             setValue={setEmail}
             required={false}
