@@ -125,11 +125,31 @@ const OngoingOrder = () => {
           ordersData && (
             <TableWrapper className="rounded-[30px] overflow-hidden">
               <OngoingOrdersTable
-                Filter={ApplyFilter}
-                Search={SearchText}
                 setCurrentID={setCurrentID}
                 setOpen={setOpenReservationDetailsModal}
-                data={ordersData}
+                data={ordersData.filter((dt) => {
+                  const searchLowerCase = SearchText.toLowerCase();
+                  if (ApplyFilter === "All") {
+                    if (SearchText === "") return dt;
+                    else {
+                      if (
+                        dt.station.name
+                          .toLowerCase()
+                          .startsWith(searchLowerCase)
+                      ) {
+                        return dt;
+                      }
+                    }
+                  }
+                  if (convertStatus(dt.station.status) == ApplyFilter) {
+                    if (SearchText === "") return dt;
+                    else {
+                      if (dt.station.name.startsWith(searchLowerCase)) {
+                        return dt;
+                      }
+                    }
+                  }
+                })}
               />
             </TableWrapper>
           )

@@ -22,7 +22,11 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
   const [Email, setEmail] = useState("");
   const [Authority, setAuthority] = useState("");
   const [Address, setAddress] = useState("");
-  const [PhoneNumber, setPhoneNumber] = useState(CurrentUser.phone_number);
+  const [PhoneNumber, setPhoneNumber] = useState(
+    CurrentUser.phone_number.toString().length > 10
+      ? CurrentUser.phone_number.toString().slice(0, 10)
+      : CurrentUser.phone_number
+  );
   const [Password, setPassword] = useState("");
   const [Role, setRole] = useState("");
   const [StationName, setStationName] = useState(
@@ -133,7 +137,7 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
     // else if (Password === "") {
     //   WarningToast("Please enter password...");
     // }
-    else if (phoneNumberString.length !== 11) {
+    else if (phoneNumberString.length !== 10) {
       ErrorToast(
         PhoneNumber === ""
           ? "Please Enter valid phone number..."

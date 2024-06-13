@@ -91,7 +91,7 @@ const AddUser = ({ Open, setOpen }) => {
           };
     // console.log(req_data);
     // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^\d{11}$/;
+    const phoneRegex = /^\d{10}$/;
     if (Username === "") {
       WarningToast("Please Enter Username...");
     } else if (!emailRegex.test(Email) || Email === "") {
