@@ -180,6 +180,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
                 required={false}
                 Value={StationNumber}
                 setValue={setStationNumber}
+                Type={"number"}
               />
               <AuthInput
                 label="Station Name"

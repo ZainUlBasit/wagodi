@@ -217,12 +217,9 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
                 label="Phone Number"
                 placeholder="1234567890"
                 required={false}
-                Value={
-                  PhoneNumber === "" || PhoneNumber === undefined
-                    ? CurrentUser.phone_number
-                    : PhoneNumber
-                }
+                Value={PhoneNumber}
                 setValue={setPhoneNumber}
+                Type={"number"}
               />
               {/* Authority Popover */}
               <Popover

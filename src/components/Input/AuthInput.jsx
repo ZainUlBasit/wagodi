@@ -26,7 +26,10 @@ const AuthInput = ({
         className="px-3 py-2 border border-gray-300 rounded-[7.94px] w-full outline-none InputText"
         value={Value}
         readOnly={readonly ? true : false}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => {
+          const value = e.target.value;
+          setValue(value.length ? value : "");
+        }}
         disabled={disabled ? disabled : false}
       />
     </div>
