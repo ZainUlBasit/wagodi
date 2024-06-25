@@ -71,7 +71,7 @@ const CompanyDetails = () => {
     formData.append("payload[crn_number]", payload.crn_number);
     formData.append("payload[tax_number]", payload.tax_number);
     formData.append("payload[address]", payload.address);
-    formData.append("payload[phone]", payload.address);
+    formData.append("payload[phone]", payload.phone);
     selectedFile ? formData.append("image", selectedFile) : "";
 
     try {

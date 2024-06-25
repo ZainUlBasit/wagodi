@@ -77,6 +77,7 @@ const ControlSubscribers = () => {
         ErrorToast("Error fetching Control Subscription Data!");
         setIsError(true);
       }
+      console.log(data);
       setLoading(false);
     };
     fetchSubscriptionData();
@@ -140,7 +141,13 @@ const ControlSubscribers = () => {
           </div>
         ) : (
           <TableWrapper className="rounded-[30px] overflow-hidden">
-            <ControlSubscribersTable Data={data} />
+            <ControlSubscribersTable
+              Data={data.filter(
+                (dt) =>
+                  SearchText === "" ||
+                  dt.name.toLowerCase().includes(SearchText.toLowerCase())
+              )}
+            />
           </TableWrapper>
         )}
       </div>

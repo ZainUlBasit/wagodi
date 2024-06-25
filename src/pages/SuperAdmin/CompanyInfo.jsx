@@ -97,6 +97,7 @@ const CompanyInfo = () => {
         console.log(error);
         ErrorToast("Error fetching companies info!");
       }
+      console.log(data);
     };
     fetchCompaniesData();
   }, [CurrentMonth]);
@@ -286,7 +287,13 @@ const CompanyInfo = () => {
         </div>
         {/* Table */}
         <TableWrapper className="rounded-[30px] overflow-hidden">
-          <CompaniesInfoTable Data={data} />
+          <CompaniesInfoTable
+            Data={data.filter(
+              (dt) =>
+                SearchText === "" ||
+                dt.company_name.toLowerCase().includes(SearchText.toLowerCase())
+            )}
+          />
         </TableWrapper>
       </div>
     </>

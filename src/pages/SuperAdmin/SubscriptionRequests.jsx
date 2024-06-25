@@ -116,7 +116,11 @@ const SubscriptionRequests = () => {
         ) : (
           <TableWrapper className="rounded-[30px] overflow-hidden">
             <SubscriptionRequestsTable
-              Data={AllCompanyState.data}
+              Data={AllCompanyState.data.filter(
+                (dt) =>
+                  SearchText === "" ||
+                  dt.name.toLowerCase().includes(SearchText.toLowerCase())
+              )}
               setID={setID}
               setOpenModal={setOpenModal}
             />

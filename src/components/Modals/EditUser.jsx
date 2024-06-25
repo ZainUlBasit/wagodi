@@ -16,17 +16,14 @@ import { fetchUsers } from "../../store/Slices/UserSlice";
 import AddingLightLoader from "../Loaders/AddingLightLoader";
 
 const EditUser = ({ Open, setOpen, CurrentUser }) => {
+  console.log(CurrentUser);
   const Auth = useSelector((state) => state.auth);
   const StationsData = useSelector((state) => state.StationReducer);
   const [Username, setUsername] = useState("");
   const [Email, setEmail] = useState("");
   const [Authority, setAuthority] = useState("");
   const [Address, setAddress] = useState("");
-  const [PhoneNumber, setPhoneNumber] = useState(
-    CurrentUser.phone_number.toString().length > 10
-      ? CurrentUser.phone_number.toString().slice(0, 10)
-      : CurrentUser.phone_number
-  );
+  const [PhoneNumber, setPhoneNumber] = useState(CurrentUser.phone_number);
   const [Password, setPassword] = useState("");
   const [Role, setRole] = useState("");
   const [StationName, setStationName] = useState(
@@ -64,7 +61,7 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
     );
     if (CurrentUser.role === 3) {
       setAuthority(CurrentUser.privilage === 0 ? "Sales" : "Order");
-      setPhoneNumber(CurrentUser.PhoneNumber);
+      // setPhoneNumber();
       // setStationNumber(CurrentUser.stationId)
     }
   }, []);
