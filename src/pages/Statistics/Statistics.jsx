@@ -197,6 +197,21 @@ const Statistics = () => {
         })
       );
   }, [CurrentMonthChart, CurrentFuel]);
+  useEffect(() => {
+    const currentDate = new Date();
+
+    const currentDay = currentDate.getDate(); // Returns the day of the month (1-31)
+    const currentMonth = currentDate.getMonth() + 1; // Returns the month (0-11), adding 1 to make it human-readable (1-12)
+    const currentYear = currentDate.getFullYear(); // Returns the full year (e.g., 2024)
+
+    if (CurrentMonthChart1 === "Days") {
+      setCurrentMonthChart(currentDay);
+    } else if (CurrentMonthChart1 === "Month") {
+      setCurrentMonthChart(months[currentMonth - 1]);
+    } else if (CurrentMonthChart1 === "Year") {
+      setCurrentMonthChart(currentYear);
+    }
+  }, [CurrentMonthChart1]);
 
   const TopTenData = useSelector((state) => state.TopTenStations);
 
