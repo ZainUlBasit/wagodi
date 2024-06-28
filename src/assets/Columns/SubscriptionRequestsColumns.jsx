@@ -25,7 +25,6 @@ export const SubscriptionRequestsColumns = [
   },
 ];
 
-
 export const ControlSubscribersColumns = [
   {
     title: "Company Name",
@@ -36,13 +35,11 @@ export const ControlSubscribersColumns = [
     // minWidth: "200px",
   },
   {
-    title: "Subscription Type",
-    // minWidth: "200px",
-  },
-  {
     title: "Duration",
     // minWidth: "200px",
   },
-  
+  {
+    title: "Station Limit",
+    // minWidth: "200px",
+  },
 ];
-

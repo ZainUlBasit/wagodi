@@ -40,7 +40,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
                       paddingBottom: "12px",
                       textAlign: "center",
                     }}
-                    key= {`${i}`}
+                    key={`${i}`}
                   >
                     <div className="text-[14px] pt-[8px] pb-[5px]  maxWeb1:pb-[6px] maxWeb1:pt-[20px] maxWeb1:text-[23px] maxWeb2:text-[28px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pb-[12px] maxWeb3:pb-[18px] maxWeb4:pb-[25px]">
                       {ci.title}
@@ -80,7 +80,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
                     scope="row"
                     align="center"
                   >
-                    {row.company_name||"-"}
+                    {row.company_name || "-"}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -130,7 +130,10 @@ export default function CompaniesInfoTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    <GreenRedSwitch checked={row.company_approved} />
+                    <GreenRedSwitch
+                      CompanyId={row.company._id}
+                      checked={row.company.is_active}
+                    />
                   </TableCell>
                 </TableRow>
               ))}

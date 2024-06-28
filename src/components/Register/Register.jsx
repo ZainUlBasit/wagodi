@@ -24,9 +24,10 @@ const Register = () => {
   const [ConfirmPassword, setConfirmPassword] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [Loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const [Longitude, setLongitude] = useState("");
   const [Latitude, setLatitude] = useState("");
+  const [NoOfStations, setNoOfStations] = useState(""); // New state for number of stations
+  const navigate = useNavigate();
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -46,12 +47,14 @@ const Register = () => {
       tax_number: TaxationNumber,
       password: Password,
       role: 0,
+      no_station: Number(NoOfStations), // Include no_of_stations in the request body
     };
-    // console.log(BodyData);
+
     try {
       response = await SignUpApi(BodyData);
       if (response.data.success) {
         SuccessToast(response.data.data.msg);
+        // Reset all state variables upon successful signup
         setEmail("");
         setCompanyName("");
         setPhoneNumber("");
@@ -64,10 +67,14 @@ const Register = () => {
         setLoading(false);
         setLongitude("");
         setLatitude("");
+        setNoOfStations(""); // Reset no_of_stations state
         navigate("/auth");
-      } else toast.error(response.data.error.msg);
+      } else {
+        toast.error(response.data.error.msg);
+      }
     } catch (err) {
       console.log(err);
+      toast.error("An error occurred during sign-up.");
     }
     setLoading(false);
   };
@@ -77,6 +84,7 @@ const Register = () => {
     setLongitude(latLng.lng);
     setLatitude(latLng.lat);
   };
+
   return (
     <>
       <div className="w-fit font-[Quicksand] flex flex-col justify-center items-center shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] px-5 py-8 rounded-md sm:h-fit fade-in sm:w-[90%] max767:mb-4 RegisterWrapper">
@@ -142,6 +150,14 @@ const Register = () => {
               placeholder={"*************"}
               Value={ConfirmPassword}
               setValue={setConfirmPassword}
+              required={false}
+            />
+            <AuthInput
+              label={"Number of Stations"}
+              placeholder={"5"}
+              Value={NoOfStations}
+              setValue={setNoOfStations}
+              Type={"number"}
               required={false}
             />
             <div className="flex flex-col">

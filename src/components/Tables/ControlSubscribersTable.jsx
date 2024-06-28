@@ -14,6 +14,9 @@ import {
   SubscriptionRequestsColumns,
 } from "../../assets/Columns/SubscriptionRequestsColumns";
 import CustomPagination from "../TablePagination/TablePagination";
+import { IoIosArrowDropdownCircle } from "react-icons/io";
+import EditDuration from "../Modals/EditDuration";
+import EditStationLimit from "../Modals/EditStationLimit";
 
 export default function ControlSubscribersTable({ Data, Search }) {
   const [page, setPage] = useState(0);
@@ -27,6 +30,10 @@ export default function ControlSubscribersTable({ Data, Search }) {
     setRowsPerPage(parseInt(val, 10));
     setPage(0);
   };
+
+  const [OpenDurationModal, setOpenDurationModal] = useState(false);
+  const [OpenStationLimitModal, setOpenStationLimitModal] = useState(false);
+  const [CurrentCompanyId, setCurrentCompanyId] = useState("");
 
   return (
     <>
@@ -108,11 +115,15 @@ export default function ControlSubscribersTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.subscriptionId?.subscriptionType == 1
-                      ? "Enterprise"
-                      : row.subscriptionId?.subscriptionType == 0
-                      ? "Basic"
-                      : "not subscribed"}
+                    <div className="flex gap-x-2 items-center justify-center">
+                      {row.duration || 0}
+                      <IoIosArrowDropdownCircle
+                        className="text-xl hover:text-gray-600 cursor-pointer transition-all ease-in-out duration-500"
+                        onClick={() => {
+                          setOpenDurationModal(true);
+                        }}
+                      />
+                    </div>
                   </TableCell>
                   <TableCell
                     sx={{
@@ -122,13 +133,15 @@ export default function ControlSubscribersTable({ Data, Search }) {
                     }}
                     align="center"
                   >
-                    {row.subscriptionId?.valid_until
-                      ? new Date(
-                          Math.floor(row.subscriptionId?.valid_until * 1000)
-                        )
-                      : row.subscriptionId?.start_date
-                      ? row.subscriptionId?.start_date
-                      : "not specified"}
+                    <div className="flex gap-x-2 items-center justify-center">
+                      {row.no_station || 0}
+                      <IoIosArrowDropdownCircle
+                        className="text-xl hover:text-gray-600 cursor-pointer transition-all ease-in-out duration-500"
+                        onClick={() => {
+                          setOpenStationLimitModal(true);
+                        }}
+                      />
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
@@ -143,6 +156,15 @@ export default function ControlSubscribersTable({ Data, Search }) {
         RowsPerPage={rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      {OpenDurationModal && (
+        <EditDuration Open={OpenDurationModal} setOpen={setOpenDurationModal} />
+      )}
+      {OpenStationLimitModal && (
+        <EditStationLimit
+          Open={OpenStationLimitModal}
+          setOpen={setOpenStationLimitModal}
+        />
+      )}
     </>
   );
 }

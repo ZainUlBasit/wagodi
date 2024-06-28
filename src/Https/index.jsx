@@ -10,7 +10,7 @@ export const api = axios.create({
     Accept: "application/json",
     app_secret:
       "10ef42363582fd212242bf8da6598e6d15111a9a509c36242411d444e8c03728",
-    userToken,
+    usertoken: userToken,
   },
 });
 
@@ -132,6 +132,9 @@ export const RejectCompany = (data) =>
   api.patch("/company/company-reject", data);
 export const UpdateFuelCompany = (data) =>
   api.patch("/company/fuel/update", data);
+
+export const ChangeCompanyStatusApi = (payload) =>
+  api.patch("/company/change-status", payload);
 
 // **************************************************************
 // Statistics Requests
