@@ -17,6 +17,7 @@ import CustomPagination from "../TablePagination/TablePagination";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 import EditDuration from "../Modals/EditDuration";
 import EditStationLimit from "../Modals/EditStationLimit";
+import { TiEdit } from "react-icons/ti";
 
 export default function ControlSubscribersTable({ Data, Search }) {
   const [page, setPage] = useState(0);
@@ -117,10 +118,11 @@ export default function ControlSubscribersTable({ Data, Search }) {
                   >
                     <div className="flex gap-x-2 items-center justify-center">
                       {row.duration || 0}
-                      <IoIosArrowDropdownCircle
-                        className="text-xl hover:text-gray-600 cursor-pointer transition-all ease-in-out duration-500"
+                      <TiEdit
+                        className="text-xl hover:text-green-600 cursor-pointer transition-all ease-in-out duration-500"
                         onClick={() => {
                           setOpenDurationModal(true);
+                          setCurrentCompanyId(row._id);
                         }}
                       />
                     </div>
@@ -135,10 +137,11 @@ export default function ControlSubscribersTable({ Data, Search }) {
                   >
                     <div className="flex gap-x-2 items-center justify-center">
                       {row.no_station || 0}
-                      <IoIosArrowDropdownCircle
-                        className="text-xl hover:text-gray-600 cursor-pointer transition-all ease-in-out duration-500"
+                      <TiEdit
+                        className="text-xl hover:text-green-600 cursor-pointer transition-all ease-in-out duration-500"
                         onClick={() => {
                           setOpenStationLimitModal(true);
+                          setCurrentCompanyId(row._id);
                         }}
                       />
                     </div>
@@ -157,10 +160,15 @@ export default function ControlSubscribersTable({ Data, Search }) {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
       {OpenDurationModal && (
-        <EditDuration Open={OpenDurationModal} setOpen={setOpenDurationModal} />
+        <EditDuration
+          CompanyId={CurrentCompanyId}
+          Open={OpenDurationModal}
+          setOpen={setOpenDurationModal}
+        />
       )}
       {OpenStationLimitModal && (
         <EditStationLimit
+          CompanyId={CurrentCompanyId}
           Open={OpenStationLimitModal}
           setOpen={setOpenStationLimitModal}
         />

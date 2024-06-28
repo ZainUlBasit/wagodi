@@ -19,7 +19,8 @@ import MapContainer from "../../utility/MapContainer";
 import QrCodesModal from "./QrCodes";
 // import { MapContainer } from "../../utility/LocationPicker";
 
-const EditStationLimit = ({ Open, setOpen }) => {
+const EditStationLimit = ({ Open, setOpen, CompanyId }) => {
+  console.log(CompanyId);
   const [StationLimit, setStationLimit] = useState("");
   const [Loading, setLoading] = useState(false);
 

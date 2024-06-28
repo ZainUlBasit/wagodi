@@ -19,7 +19,8 @@ import MapContainer from "../../utility/MapContainer";
 import QrCodesModal from "./QrCodes";
 // import { MapContainer } from "../../utility/LocationPicker";
 
-const EditDuration = ({ Open, setOpen }) => {
+const EditDuration = ({ Open, setOpen, CompanyId }) => {
+  console.log(CompanyId);
   const [Duration, setDuration] = useState("");
   const [Loading, setLoading] = useState(false);
 
