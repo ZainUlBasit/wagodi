@@ -50,7 +50,7 @@ const App = () => {
   const auth = useSelector((state) => state.auth);
   const userToken = localStorage.getItem("userToken");
 
-  const socket = io("https://15.204.204.148:3000", {
+  const socket = io("https://15.204.204.148:3000/", {
     extraHeaders: {
       token: userToken,
       secretkey: "wWXYF6QeeF",
