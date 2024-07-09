@@ -69,6 +69,7 @@ const Statistics = () => {
   const [CurrentMonthChart1, setCurrentMonthChart1] = useState("Month");
   const [CurrentMonthIndexChart1, setCurrentMonthIndexChart1] = useState("");
   const [CurDate, setCurDate] = useState("");
+  const [CurDateNew, setCurDateNew] = useState("");
   const [CurrentTab, setCurrentTab] = useState("stations");
   const [OpenDetail, setOpenDetail] = useState(false);
   const [OpenDriverDetail, setOpenDriverDetail] = useState(false);
@@ -332,7 +333,12 @@ const Statistics = () => {
           <StatisticsTopTable StationInfo={CompanyStats.data} />
         </TableWrapper>
         <div className="flex justify-between w-[90%] mb-4 gap-x-3 gap-y-1 max767:flex-col max767:items-start">
-          <div className="flex gap-x-3">Hike</div>
+          <DateInput
+            label="Date"
+            required={false}
+            Value={CurDateNew}
+            setValue={setCurDateNew}
+          />
           <div className="flex gap-x-3">
             <div
               className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}

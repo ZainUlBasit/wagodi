@@ -1,8 +1,8 @@
 @media (min-width: 1920px) and (max-width: 2560px) {
-    .AuthBtn{
-        font-size: 1.6rem;
-        margin-top: 10px;
-    }
+  .AuthBtn {
+    font-size: 1.6rem;
+    margin-top: 10px;
+  }
 }
 @media (min-width: 2560px) and (max-width: 3440px) {
 }
