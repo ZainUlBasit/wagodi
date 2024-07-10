@@ -6,18 +6,15 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { StationStatisticsTopData } from "./DemoData/StationStatisticsTopData";
-import "./StationStatisticTopTable.css";
 import moment from "moment";
+import "./StationStatisticTopTable.css";
 
 export default function StationStatisticTopTable({ Data }) {
   return (
     <TableContainer
       component={Paper}
       className="hike"
-      sx={{
-        borderWidth: 0,
-      }}
+      sx={{ borderWidth: 0 }}
       style={{ position: "relative", zIndex: 1 }}
     >
       <Table aria-label="simple table">
@@ -26,8 +23,9 @@ export default function StationStatisticTopTable({ Data }) {
             borderWidth: 0,
             backgroundColor: "#576370",
             position: "sticky",
-            right: 0,
+            left: 0,
             top: 0,
+            zIndex: 2,
           }}
         >
           <TableRow>
@@ -36,30 +34,29 @@ export default function StationStatisticTopTable({ Data }) {
               { title: "Start" },
               { title: "End" },
               { title: "Sales Amount" },
-            ].map((dt, i) => {
-              return (
-                <TableCell
-                  sx={{
-                    fontWeight: "bold",
-                    fontFamily: "Quicksand",
-                    position: "sticky",
-                    top: 0,
-                    backgroundColor: "#576370",
-                    zIndex: 2,
-                    borderBottom: 0,
-                    ...(i === 0 && { borderBottomLeftRadius: 10 }),
-                    ...(i === 3 && { borderBottomRightRadius: 10 }),
-                  }}
-                  align="center"
+            ].map((dt, i) => (
+              <TableCell
+                key={i}
+                sx={{
+                  fontWeight: "bold",
+                  fontFamily: "Quicksand",
+                  position: "sticky",
+                  top: 0,
+                  backgroundColor: "#576370",
+                  zIndex: 2,
+                  borderBottom: 0,
+                  ...(i === 0 && { borderBottomLeftRadius: 10 }),
+                  ...(i === 3 && { borderBottomRightRadius: 10 }),
+                }}
+                align="center"
+              >
+                <div
+                  className={`text-[14px] pt-[2px] pb-[2px] maxWeb1:pt-[2px] maxWeb1:pb-[6px] maxWeb1:text-[18px] maxWeb2:text-[20px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pt-[6px] maxWeb3:pt-[6px] maxWeb4:pt-[6px] maxWeb2:pb-[6px] maxWeb3:pb-[6px] maxWeb4:pb-[6px] text-white`}
                 >
-                  <div
-                    className={`text-[14px] pt-[2px] pb-[2px] maxWeb1:pt-[2px] maxWeb1:pb-[6px] maxWeb1:text-[18px] maxWeb2:text-[20px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pt-[6px] maxWeb3:pt-[6px] maxWeb4:pt-[6px] maxWeb2:pb-[6px] maxWeb3:pb-[6px] maxWeb4:pb-[6px] text-white`}
-                  >
-                    {dt.title}
-                  </div>
-                </TableCell>
-              );
-            })}
+                  {dt.title}
+                </div>
+              </TableCell>
+            ))}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -76,7 +73,7 @@ export default function StationStatisticTopTable({ Data }) {
                 align="center"
               >
                 <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                  {"Test Station"}
+                  {row.stationName || "Test Station"}
                 </div>
               </TableCell>
               <TableCell
@@ -90,7 +87,7 @@ export default function StationStatisticTopTable({ Data }) {
                 align="center"
               >
                 <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                  {moment(new Date()).format("DD/MM/YY hh:mm A")}
+                  {moment(row.start).format("DD/MM/YY hh:mm A")}
                 </div>
               </TableCell>
               <TableCell
@@ -104,7 +101,7 @@ export default function StationStatisticTopTable({ Data }) {
                 align="center"
               >
                 <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                  {moment(new Date()).format("DD/MM/YY hh:mm A")}
+                  {moment(row.end).format("DD/MM/YY hh:mm A")}
                 </div>
               </TableCell>
               <TableCell
@@ -117,7 +114,7 @@ export default function StationStatisticTopTable({ Data }) {
                 align="center"
               >
                 <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                  2000
+                  {row.salesAmount || 2000}
                 </div>
               </TableCell>
             </TableRow>

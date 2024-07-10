@@ -34,6 +34,7 @@ import { fetchStationStats } from "../../store/Slices/StationStatsSlice";
 import { fetchTopTenStation } from "../../store/Slices/TopTenStatsSlice";
 import PageLoader from "../../components/Loaders/PageLoader";
 import { fetchDriverStats } from "../../store/Slices/DriverStatsSlice";
+import StationSaleDetailsTable from "../../components/Tables/StationSaleDetailsTable";
 
 const Statistics = () => {
   const months = [
@@ -339,7 +340,7 @@ const Statistics = () => {
             Value={CurDateNew}
             setValue={setCurDateNew}
           />
-          <div className="flex gap-x-3">
+          <div className="flex gap-x-3 mb-4">
             <div
               className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
               // className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white"
@@ -672,17 +673,18 @@ const Statistics = () => {
           </div>
         </div>
 
-        <div className="gap-x-5 flex-wrap w-[90%] flex justify-between items-center max767:items-center max767:justify-center max1056:items-center max1056:justify-center mt-2">
+        <div className="gap-x-5 flex-wrap w-[98%] flex justify-between items-center max767:items-center max767:justify-center max1056:items-center max1056:justify-center mt-2">
           {TopTenData.loading ? (
             <PageLoader />
           ) : TopTenData.data.length === 0 ? (
             <></>
           ) : (
             <>
-              <div className="h-[400px] w-[500px] max767:w-auto overflow-scroll border-[1px] border-[#576370] MaxTableWidth">
-                <StationStatisticTopTable
-                  Data={TopTenData.loading ? [{}] : TopTenData.data}
-                />
+              <div className="h-[400px] w-[570px] max767:w-auto overflow-scroll border-[1px] border-[#576370] MaxTableWidth rounded-lg">
+                <StationSaleDetailsTable />
+                {/* <StationStatisticTopTable */}
+                {/* Data={TopTenData.loading ? [{}] : TopTenData.data} */}
+                {/* /> */}
               </div>
               <ApexChart Data={TopTenData.loading ? [{}] : TopTenData.data} />
             </>
