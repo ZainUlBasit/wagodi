@@ -679,7 +679,7 @@ const Statistics = () => {
             <></>
           ) : (
             <>
-              <div className="h-auto w-[500px] max767:w-auto overflow-scroll border-[1px] border-[#576370] MaxTableWidth">
+              <div className="h-[400px] w-[500px] max767:w-auto overflow-scroll border-[1px] border-[#576370] MaxTableWidth">
                 <StationStatisticTopTable
                   Data={TopTenData.loading ? [{}] : TopTenData.data}
                 />

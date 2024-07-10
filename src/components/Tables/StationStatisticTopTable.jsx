@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { StationStatisticsTopData } from "./DemoData/StationStatisticsTopData";
 import "./StationStatisticTopTable.css";
+import moment from "moment";
 
 export default function StationStatisticTopTable({ Data }) {
   return (
@@ -31,9 +32,9 @@ export default function StationStatisticTopTable({ Data }) {
         >
           <TableRow>
             {[
-              { title: "No" },
               { title: "Station Name" },
-              { title: "Sales Volume" },
+              { title: "Start" },
+              { title: "End" },
               { title: "Sales Amount" },
             ].map((dt, i) => {
               return (
@@ -69,14 +70,13 @@ export default function StationStatisticTopTable({ Data }) {
                   fontWeight: 400,
                   padding: 1,
                   fontFamily: "Quicksand",
-                  borderBlockWidth: 0,
+                  borderBottomWidth: 0,
                   borderRight: 1,
                 }}
-                scope="row"
                 align="center"
               >
                 <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                  {i + 1}
+                  {"Test Station"}
                 </div>
               </TableCell>
               <TableCell
@@ -90,7 +90,7 @@ export default function StationStatisticTopTable({ Data }) {
                 align="center"
               >
                 <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                  {row.stationName}
+                  {moment(new Date()).format("DD/MM/YY hh:mm A")}
                 </div>
               </TableCell>
               <TableCell
@@ -104,7 +104,7 @@ export default function StationStatisticTopTable({ Data }) {
                 align="center"
               >
                 <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                  {row.salesVolume}
+                  {moment(new Date()).format("DD/MM/YY hh:mm A")}
                 </div>
               </TableCell>
               <TableCell
@@ -117,7 +117,7 @@ export default function StationStatisticTopTable({ Data }) {
                 align="center"
               >
                 <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
-                  {row.salesAmount}
+                  2000
                 </div>
               </TableCell>
             </TableRow>
