@@ -35,6 +35,8 @@ import { fetchTopTenStation } from "../../store/Slices/TopTenStatsSlice";
 import PageLoader from "../../components/Loaders/PageLoader";
 import { fetchDriverStats } from "../../store/Slices/DriverStatsSlice";
 import StationSaleDetailsTable from "../../components/Tables/StationSaleDetailsTable";
+import moment from "moment";
+import { fetchStationSalesStats } from "../../store/Slices/StationSaleStatsSlice";
 
 const Statistics = () => {
   const months = [
@@ -70,7 +72,9 @@ const Statistics = () => {
   const [CurrentMonthChart1, setCurrentMonthChart1] = useState("Month");
   const [CurrentMonthIndexChart1, setCurrentMonthIndexChart1] = useState("");
   const [CurDate, setCurDate] = useState("");
-  const [CurDateNew, setCurDateNew] = useState("");
+  const [CurDateNew, setCurDateNew] = useState(
+    moment(new Date()).format("YYYY-MM-DD")
+  );
   const [CurrentTab, setCurrentTab] = useState("stations");
   const [OpenDetail, setOpenDetail] = useState(false);
   const [OpenDriverDetail, setOpenDriverDetail] = useState(false);
@@ -149,6 +153,9 @@ const Statistics = () => {
   const CompanyStats = useSelector((state) => state.CompanyStats);
   const StationStatsState = useSelector((state) => state.StationStats);
   const DriverStatsState = useSelector((state) => state.DriverStatsState);
+  const StationSaleStatsState = useSelector(
+    (state) => state.StationSaleStatsState
+  );
 
   // Get month (0-indexed, so January is 0)
   const currentMonth = currentDate.getMonth() + 1; // Adding 1 to get the month in a human-readable format
@@ -178,6 +185,14 @@ const Statistics = () => {
       fetchDriverStats({ companyId: userData.companyId._id, date: CurDate })
     );
   }, [CurDate]);
+  useEffect(() => {
+    dispatch(
+      fetchStationSalesStats({
+        companyId: userData.companyId._id,
+        date: CurDateNew,
+      })
+    );
+  }, [CurDateNew]);
 
   useEffect(() => {
     if (CurrentMonthChart !== "")
@@ -673,20 +688,20 @@ const Statistics = () => {
           </div>
         </div>
 
-        <div className="gap-x-5 flex-wrap w-[98%] flex justify-between items-center max767:items-center max767:justify-center max1056:items-center max1056:justify-center mt-2">
-          {TopTenData.loading ? (
+        <div className="gap-x-5 flex-wrap w-[98%] flex justify-between items-center max767:items-center max767:justify-center max1056:items-center max1056:justify-center mt-2 gap-y-10">
+          {TopTenData.loading || StationSaleStatsState.loading ? (
             <PageLoader />
-          ) : TopTenData.data.length === 0 ? (
+          ) : TopTenData.data.length === 0 &&
+            StationSaleStatsState.data.length === 0 ? (
             <></>
           ) : (
             <>
               <div className="h-[400px] w-[570px] max767:w-auto overflow-scroll border-[1px] border-[#576370] MaxTableWidth rounded-lg">
-                <StationSaleDetailsTable />
-                {/* <StationStatisticTopTable */}
-                {/* Data={TopTenData.loading ? [{}] : TopTenData.data} */}
-                {/* /> */}
+                <StationSaleDetailsTable Rows={StationSaleStatsState.data} />
               </div>
-              <ApexChart Data={TopTenData.loading ? [{}] : TopTenData.data} />
+              {TopTenData.data.length !== 0 && (
+                <ApexChart Data={TopTenData.loading ? [{}] : TopTenData.data} />
+              )}
             </>
           )}
         </div>
@@ -709,7 +724,7 @@ const Statistics = () => {
           <LineColumnChart Data={TopTenData.loading ? [{}] : TopTenData.data} />
         )}
 
-        <div className="w-[90%] flex justify-end">
+        <div className="w-[90%] flex justify-end items-center">
           <DateInput
             label="Date"
             required={false}

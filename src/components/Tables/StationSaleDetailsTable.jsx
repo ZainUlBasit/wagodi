@@ -4,119 +4,8 @@ import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 import moment from "moment";
 
-function createData(name, start, end, amount, protein) {
-  return { name, start, end, amount, protein };
-}
-const rows = [
-  createData(
-    "abc",
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    2000
-  ),
-  createData(
-    "abc",
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    2000
-  ),
-  createData(
-    "abc",
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    2000
-  ),
-  createData(
-    "abc",
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    2000
-  ),
-  createData(
-    "abc",
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    2000
-  ),
-  createData(
-    "abc",
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    2000
-  ),
-  createData(
-    "abc",
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    2000
-  ),
-  createData(
-    "abc",
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    2000
-  ),
-  createData(
-    "abc",
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    2000
-  ),
-  createData(
-    "abc",
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    2000
-  ),
-  createData(
-    "abc",
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    2000
-  ),
-  createData(
-    "abc",
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    2000
-  ),
-  createData(
-    "abc",
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    2000
-  ),
-  createData(
-    "abc",
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    2000
-  ),
-  createData(
-    "abc",
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    2000
-  ),
-  createData(
-    "abc",
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    2000
-  ),
-  createData(
-    "abc",
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    moment(new Date()).format("DD/MM/YY hh:mm A"),
-    2000
-  ),
-];
-
-function sum(column) {
-  return rows.reduce((acc, row) => acc + row[column], 0);
-}
-
-export default function StationSaleDetailsTable() {
+export default function StationSaleDetailsTable({ Rows }) {
+  console.log(Rows);
   return (
     <div>
       <Sheet sx={{ height: 400, overflow: "auto" }}>
@@ -172,16 +61,16 @@ export default function StationSaleDetailsTable() {
             </tr>
           </thead>
           <tbody>
-            {rows.map((row) => (
-              <tr key={row.name}>
-                <td style={{ textAlign: "center" }}>{row.name}</td>
+            {Rows.map((row) => (
+              <tr>
+                <td style={{ textAlign: "center" }}>{row.stationName}</td>
                 <td style={{ textAlign: "center", whiteSpace: "nowrap" }}>
                   {row.start}
                 </td>
                 <td style={{ textAlign: "center", whiteSpace: "nowrap" }}>
                   {row.end}
                 </td>
-                <td style={{ textAlign: "center" }}>{row.amount}</td>
+                <td style={{ textAlign: "center" }}>{row.salesAmount}</td>
               </tr>
             ))}
           </tbody>
