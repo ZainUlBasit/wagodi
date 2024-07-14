@@ -214,7 +214,7 @@ const AddUser = ({ Open, setOpen }) => {
                 required={false}
                 Value={PhoneNumber}
                 setValue={(data) => setPhoneNumber(data)}
-                Type={"number"}
+                Type={"text"}
               />
               <AuthInputPopOver
                 label={"Role"}

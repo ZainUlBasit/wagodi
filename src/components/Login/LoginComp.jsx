@@ -96,7 +96,7 @@ const LoginComp = () => {
     let response_type;
     try {
       response = await SignInApi({
-        mobile: Number(Email),
+        mobile: Email,
         password: Password,
       });
       console.log(response.data);

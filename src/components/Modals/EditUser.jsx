@@ -216,7 +216,7 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
                 required={false}
                 Value={PhoneNumber}
                 setValue={setPhoneNumber}
-                Type={"number"}
+                Type={"text"}
               />
               {/* Authority Popover */}
               <Popover
