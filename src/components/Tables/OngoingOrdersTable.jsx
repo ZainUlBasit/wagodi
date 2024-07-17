@@ -184,11 +184,15 @@ export default function OngoingOrdersTable({
                     <div className="maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem] text-[1rem] text-center">
                       <div
                         className={`${
-                          row.station.status == 0
+                          row.status === 0
+                            ? "bg-gray-500"
+                            : row.status === 1
                             ? "bg-[#5CD2E6]"
-                            : row.station.status == 1
+                            : row.status === 2
                             ? "bg-[#F4E869]"
-                            : "bg-[#2EB100]"
+                            : row.status === 3
+                            ? "bg-[#2EB100]"
+                            : "bg-red-600"
                         } py-1 px-2 rounded-full text-white font-bold cursor-pointer`}
                       >
                         {convertStatus(row.status) || "none"}
