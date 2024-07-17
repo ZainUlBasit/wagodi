@@ -10,7 +10,7 @@ export const fetchUsers = createAsyncThunk(
         return a.name.localeCompare(b.name);
       });
       console.log(sortedData);
-      return sortedData;
+      return sortedData.filter((dt) => dt.role !== 0);
     } catch (err) {
       console.error(err);
       throw err; // Re-throw the error to propagate it
