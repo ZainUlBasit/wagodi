@@ -98,7 +98,7 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
       name: Username,
       email: Email,
       companyId: Auth.data.companyId,
-      // password: Password,
+      password: Password,
       role:
         Role === "Administrator"
           ? 1
