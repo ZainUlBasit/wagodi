@@ -31,10 +31,17 @@ export const fetchNotification = createAsyncThunk(
           accountId: current_user._id,
         });
       }
-      const sortedNotifications =
-        response?.data?.data?.payload?.notification.sort((a, b) =>
+
+      let sortedNotifications;
+      if (current_user.role !== 0 && current_user.role !== 1) {
+        sortedNotifications = response?.data?.data.sort((a, b) =>
           a.createdAt < b.createdAt ? 1 : -1
         );
+      } else {
+        sortedNotifications = response?.data?.data?.payload?.notification.sort(
+          (a, b) => (a.createdAt < b.createdAt ? 1 : -1)
+        );
+      }
       console.log("sortedNotifications", sortedNotifications);
       console.log(response);
       return sortedNotifications || [];

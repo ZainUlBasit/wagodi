@@ -185,14 +185,16 @@ export default function OngoingOrdersTable({
                       <div
                         className={`${
                           row.status === 0
-                            ? "bg-gray-500"
+                            ? "bg-[#007BFF]"
                             : row.status === 1
-                            ? "bg-[#5CD2E6]"
+                            ? "bg-[#FFA500]"
                             : row.status === 2
-                            ? "bg-[#F4E869]"
+                            ? "bg-[#800080]"
                             : row.status === 3
-                            ? "bg-[#2EB100]"
-                            : "bg-red-600"
+                            ? "bg-[#28A745]"
+                            : row.status === 4
+                            ? "bg-[#006400]"
+                            : row.status === 4 && "bg-red-600"
                         } py-1 px-2 rounded-full text-white font-bold cursor-pointer`}
                       >
                         {convertStatus(row.status) || "none"}

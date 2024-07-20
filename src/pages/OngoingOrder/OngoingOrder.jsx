@@ -141,7 +141,7 @@ const OngoingOrder = () => {
                       }
                     }
                   }
-                  if (convertStatus(dt.station.status) == ApplyFilter) {
+                  if (convertStatus(dt.status) == ApplyFilter) {
                     if (SearchText === "") return dt;
                     else {
                       if (dt.station.name.startsWith(searchLowerCase)) {
