@@ -63,14 +63,18 @@ const Register = () => {
       !NoOfStations
     ) {
       ErrorToast("Required fields are undefined!");
+      setLoading(false);
       return;
     }
     if (PhoneNumber.length !== 10) {
       ErrorToast("Invalid Mobile #!");
+      setLoading(false);
+
       return;
     }
     if (!validateEmail(Email.toLowerCase())) {
       ErrorToast("Invalid email #!");
+      setLoading(false);
       return;
     }
 

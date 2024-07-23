@@ -96,6 +96,7 @@ const LoginComp = () => {
     let response_type;
     if (Email.length !== 10) {
       ErrorToast("Invalid Mobile #!");
+      setLoading(false);
       return;
     }
     try {

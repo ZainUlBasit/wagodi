@@ -109,6 +109,7 @@ const AddReservation = () => {
         formData.append("from[fuelId]", values.fuel_id);
       }
       formData.append("from[fuel_value]", values.fuel_value);
+      formData.append("from[name]", values.from_name);
       // to stations
       //
       // console.log(f);
