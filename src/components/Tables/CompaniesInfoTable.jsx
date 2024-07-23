@@ -9,6 +9,10 @@ import Paper from "@mui/material/Paper";
 import { CompaniesInfoColumns } from "../../assets/Columns/CompaniesInfoColumns";
 import GreenRedSwitch from "../Switch/GreenRedSwitch";
 import CustomPagination from "../TablePagination/TablePagination";
+import { FaEye } from "react-icons/fa";
+import SubcriptionAcceptOrReject from "../Modals/SubcriptionAcceptOrReject";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllCompany } from "../../store/Slices/AllCompanySlice";
 
 export default function CompaniesInfoTable({ Data, Search }) {
   const [page, setPage] = useState(0);
@@ -23,6 +27,18 @@ export default function CompaniesInfoTable({ Data, Search }) {
     setRowsPerPage(parseInt(val, 10));
     setPage(0);
   };
+
+  const [OpenViewModal, setOpenViewModal] = useState(false);
+
+  const [CurrentCompanyId, setCurrentCompanyId] = useState("");
+
+  const dispatch = useDispatch();
+
+  const AllCompanyState = useSelector((state) => state.AllCompany);
+
+  useEffect(() => {
+    dispatch(fetchAllCompany({ enterprise: true }));
+  }, []);
 
   return (
     <>
@@ -70,6 +86,25 @@ export default function CompaniesInfoTable({ Data, Search }) {
                     "&:last-child td, &:last-child th": { border: 0 },
                   }}
                 >
+                  <TableCell
+                    sx={{
+                      fontWeight: 400,
+                      fontFamily: "Quicksand",
+                      borderBlockWidth: 0,
+                    }}
+                    component="th"
+                    scope="row"
+                    align="center"
+                  >
+                    <FaEye
+                      className="text-[#465462] flex items-center justify-center mx-auto cursor-pointer text-xl hover:text-[#768A9E]  transition-all ease-in-out duration-500"
+                      onClick={() => {
+                        console.log(row.company);
+                        setCurrentCompanyId(row.company);
+                        setOpenViewModal(true);
+                      }}
+                    />
+                  </TableCell>
                   <TableCell
                     sx={{
                       fontWeight: 400,
@@ -148,6 +183,14 @@ export default function CompaniesInfoTable({ Data, Search }) {
         RowsPerPage={rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      {OpenViewModal && (
+        <SubcriptionAcceptOrReject
+          State={CurrentCompanyId}
+          Open={OpenViewModal}
+          setOpen={setOpenViewModal}
+          ViewOnly={true}
+        />
+      )}
     </>
   );
 }

@@ -185,6 +185,7 @@ const Statistics = () => {
       fetchDriverStats({ companyId: userData.companyId._id, date: CurDate })
     );
   }, [CurDate]);
+
   useEffect(() => {
     dispatch(
       fetchStationSalesStats({
@@ -363,7 +364,7 @@ const Statistics = () => {
             >
               <div className="flex items-center">
                 <div
-                  id="date"
+                  id="fuel"
                   className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
                 >
                   {CurrentFuel === ""
@@ -422,13 +423,13 @@ const Statistics = () => {
               >
                 <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
                   <div className="w-full flex flex-col justify-between gap-y-3 items-start">
-                    {["91", "95", "D"].map((fuel_type, i) => {
+                    {["All", "91", "95", "D"].map((fuel_type, i) => {
                       return (
                         <div
                           className="flex gap-x-3 items-center cursor-pointer"
                           onClick={() => {
                             handleCloseFuel();
-                            setCurrentFuel(i);
+                            setCurrentFuel(fuel_type === "All" ? "" : i);
                           }}
                         >
                           <input
@@ -689,7 +690,7 @@ const Statistics = () => {
         </div>
 
         <div className="gap-x-5 flex-wrap w-[98%] flex justify-between items-center max767:items-center max767:justify-center max1056:items-center max1056:justify-center mt-2 gap-y-10">
-          {TopTenData.loading || StationSaleStatsState.loading ? (
+          {TopTenData.loading ? (
             <PageLoader />
           ) : TopTenData.data.length === 0 &&
             StationSaleStatsState.data.length === 0 ? (

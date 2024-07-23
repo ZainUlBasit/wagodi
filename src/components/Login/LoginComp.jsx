@@ -94,9 +94,13 @@ const LoginComp = () => {
     setLoading(true);
     let response;
     let response_type;
+    if (Email.length !== 10) {
+      ErrorToast("Invalid Mobile #!");
+      return;
+    }
     try {
       response = await SignInApi({
-        mobile: Email,
+        mobile: Email.toLowerCase(),
         password: Password,
       });
       console.log(response.data);

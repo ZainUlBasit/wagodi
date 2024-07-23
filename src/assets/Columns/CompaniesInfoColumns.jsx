@@ -1,5 +1,10 @@
 export const CompaniesInfoColumns = [
   {
+    title: "View",
+    field_name: "view",
+    // minWidth: "200px",
+  },
+  {
     title: "Company Name",
     field_name: "name",
     // minWidth: "200px",

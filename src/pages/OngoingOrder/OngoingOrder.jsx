@@ -103,7 +103,6 @@ const OngoingOrder = () => {
                 { Text: convertStatus(1), FilterText: convertStatus(1) },
                 { Text: convertStatus(2), FilterText: convertStatus(2) },
                 { Text: convertStatus(3), FilterText: convertStatus(3) },
-                { Text: convertStatus(4), FilterText: convertStatus(4) },
                 { Text: convertStatus(5), FilterText: convertStatus(5) },
               ]}
               Filter={Filter}
@@ -129,26 +128,18 @@ const OngoingOrder = () => {
                 setOpen={setOpenReservationDetailsModal}
                 data={ordersData.filter((dt) => {
                   const searchLowerCase = SearchText.toLowerCase();
-                  if (ApplyFilter === "All") {
-                    if (SearchText === "") return dt;
-                    else {
-                      if (
-                        dt.station.name
-                          .toLowerCase()
-                          .startsWith(searchLowerCase)
-                      ) {
-                        return dt;
-                      }
-                    }
-                  }
-                  if (convertStatus(dt.status) == ApplyFilter) {
-                    if (SearchText === "") return dt;
-                    else {
-                      if (dt.station.name.startsWith(searchLowerCase)) {
-                        return dt;
-                      }
-                    }
-                  }
+                  const matchesSearch = dt.station.name
+                    .toLowerCase()
+                    .startsWith(searchLowerCase);
+                  const matchesFilter =
+                    ApplyFilter === "All" ||
+                    convertStatus(dt.status) === ApplyFilter;
+
+                  return (
+                    matchesFilter &&
+                    (SearchText === "" || matchesSearch) &&
+                    dt.status !== 4
+                  );
                 })}
               />
             </TableWrapper>

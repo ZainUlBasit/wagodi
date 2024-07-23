@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import AddingLoader from "../Loaders/AddingLoader";
 import LocationSearchInput from "../../utility/LocationSearchInput";
 import SuccessToast from "../Toast/SuccessToast";
+import ErrorToast from "../Toast/ErrorToast";
+import { validateEmail } from "../../utility/ValidateEmail";
 
 const Register = () => {
   const [Email, setEmail] = useState("");
@@ -42,13 +44,35 @@ const Register = () => {
       name: CompanyName,
       address: Address,
       phone: PhoneNumber,
-      email: Email,
+      email: Email.toLowerCase(),
       crn_number: Number(CommercialRegistration),
       tax_number: TaxationNumber,
       password: Password,
       role: 0,
       no_station: Number(NoOfStations), // Include no_of_stations in the request body
     };
+
+    if (
+      !CompanyName ||
+      !Address ||
+      !PhoneNumber ||
+      !Email ||
+      !CommercialRegistration ||
+      !TaxationNumber ||
+      !Password ||
+      !NoOfStations
+    ) {
+      ErrorToast("Required fields are undefined!");
+      return;
+    }
+    if (PhoneNumber.length !== 10) {
+      ErrorToast("Invalid Mobile #!");
+      return;
+    }
+    if (!validateEmail(Email.toLowerCase())) {
+      ErrorToast("Invalid email #!");
+      return;
+    }
 
     try {
       response = await SignUpApi(BodyData);

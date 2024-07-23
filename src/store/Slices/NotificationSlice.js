@@ -20,7 +20,7 @@ export const fetchNotification = createAsyncThunk(
         return [];
       } else if (current_user.role === 0) {
         response = await GetAdminNotificationApi({
-          companyId: current_user.companyId._id,
+          accountId: current_user._id,
         });
       } else if (current_user.role === 1) {
         response = await GetCompanyNotificationApi({
