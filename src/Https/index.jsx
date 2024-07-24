@@ -50,6 +50,8 @@ export const UpdateCompanyDuration = (payload) =>
   api.post("/company/duration/update", payload);
 export const UpdateCompanyNoOfStationsAPI = (payload) =>
   api.post("/company/no_station/update", payload);
+export const GetCompanyInfoAPI = (payload) =>
+  api.get("/company/getinfo/" + payload);
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 // Auth Request
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

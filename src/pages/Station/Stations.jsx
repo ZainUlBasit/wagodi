@@ -20,6 +20,8 @@ import TableWrapper from "../../components/Tables/TableWrapper";
 import Search from "../../components/Search/Search";
 import HeaderWrapper from "../../components/Header/HeaderWrapper";
 import NoDataFound from "../../components/Loaders/Lottie/NoDataFound";
+import { GetCompanyInfoAPI } from "../../Https";
+import ShowMessageModal from "../../components/Modals/ShowMessageModal";
 
 const Stations = () => {
   const [Filter, setFilter] = useState("");
@@ -32,12 +34,20 @@ const Stations = () => {
   const [ActiveStationSelection, setActiveStationSelection] = useState([]);
   const [ActiveCount, setActiveCount] = useState(0);
   const [InactiveCount, setInactiveCount] = useState(0);
+  const [CompanyData, setCompanyData] = useState("");
   // react-redux methods
   const dispatch = useDispatch();
   const StationsData = useSelector((state) => state.StationReducer);
   const Auth = useSelector((state) => state.auth);
+
+  const fetchCompanyData = async () => {
+    const response = await GetCompanyInfoAPI(Auth.data.companyId._id);
+    setCompanyData(response.data.data);
+  };
+
   useEffect(() => {
     dispatch(fetchStations(Auth.data.companyId));
+    fetchCompanyData();
   }, []);
 
   return (
@@ -116,8 +126,20 @@ const Stations = () => {
         )}
       </div>
       {/* Create Modal and Implement */}
-      {OpenAddModal && (
+      {/* {OpenAddModal && (
         <AddStation Open={OpenAddModal} setOpen={setOpenAddModal} />
+      )} */}
+      {OpenAddModal && StationsData.data.length < CompanyData[0] && (
+        <AddStation Open={OpenAddModal} setOpen={setOpenAddModal} />
+      )}
+      {OpenAddModal && StationsData.data.length === CompanyData[0] && (
+        <ShowMessageModal
+          Open={OpenAddModal}
+          setOpen={setOpenAddModal}
+          msg={
+            "The company has reached the maximum number of allowed stations!"
+          }
+        />
       )}
 
       {OpenEditModal && (
