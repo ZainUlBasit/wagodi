@@ -136,7 +136,7 @@ export default function StatisticsStationTable({
                   }}
                   align="center"
                 >
-                  {row.moneyEarned}
+                  {row.totalEarnings}
                 </TableCell>
                 <TableCell
                   sx={{
@@ -146,7 +146,7 @@ export default function StatisticsStationTable({
                   }}
                   align="center"
                 >
-                  {row.moneySpent}
+                  {row.totalSpent}
                 </TableCell>
                 <TableCell
                   sx={{
@@ -156,7 +156,7 @@ export default function StatisticsStationTable({
                   }}
                   align="center"
                 >
-                  {row.stationAddress}
+                  {row.stationAddress || "not specified"}
                 </TableCell>
               </TableRow>
             ))}

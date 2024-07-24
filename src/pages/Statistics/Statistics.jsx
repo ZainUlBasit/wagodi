@@ -215,6 +215,7 @@ const Statistics = () => {
         })
       );
   }, [CurrentMonthChart, CurrentFuel]);
+
   useEffect(() => {
     const currentDate = new Date();
 
@@ -350,13 +351,22 @@ const Statistics = () => {
           <StatisticsTopTable StationInfo={CompanyStats.data} />
         </TableWrapper>
         <div className="flex justify-between w-[90%] mb-4 gap-x-3 gap-y-1 max767:flex-col max767:items-start">
-          <DateInput
-            label="Date"
-            required={false}
-            Value={CurDateNew}
-            setValue={setCurDateNew}
-          />
-          <div className="flex gap-x-3 mb-4">
+          <div className="flex gap-x-2 items-center flex-wrap">
+            <DateInput
+              label="Date"
+              required={false}
+              Value={CurDateNew}
+              setValue={setCurDateNew}
+            />
+            <div className="flex border-[1px] w-[300px] maxWeb1:w-[400px] maxWeb2:w-[450px] maxWeb3:w-[500px] maxWeb4:w-[550px] border-black items-center gap-x-2 px-3 py-[6px] maxWeb1:px-4 maxWeb1:py-[8px] maxWeb2:px-5 maxWeb2:py-[10px] rounded-full overflow-hidden my-[10px] maxWeb1:my-[15px] maxWeb2:my-[20px]">
+              <BsSearch />
+              <input
+                className="outline-none w-full"
+                placeholder="Search Company name"
+                value={SearchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
+            </div>
             <div
               className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
               // className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white"
@@ -369,9 +379,37 @@ const Statistics = () => {
                 >
                   {CurrentFuel === ""
                     ? "Fuel Type"
-                    : CurrentFuel === 0
-                    ? "91"
                     : CurrentFuel === 1
+                    ? "91"
+                    : CurrentFuel === 2
+                    ? "95"
+                    : "D"}
+                </div>
+                <BiSolidChevronDown
+                  className="text-[1.5rem] cursor-pointer"
+                  aria-describedby={idFuel}
+                  variant="contained"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="flex gap-x-3 mb-4 items-center">
+            <div
+              className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
+              // className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white"
+              onClick={handleClickFuel}
+            >
+              <div className="flex items-center">
+                <div
+                  id="fuel"
+                  className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
+                >
+                  {CurrentFuel === ""
+                    ? "Fuel Type"
+                    : CurrentFuel === 1
+                    ? "91"
+                    : CurrentFuel === 2
                     ? "95"
                     : "D"}
                 </div>
@@ -446,7 +484,7 @@ const Statistics = () => {
               </Typography>
             </Popover>
             <button
-              className={`relative text-center tracking-[1px] px-4 py-1 rounded-3xl font-[Quicksand] font-[700] bg-[#90898E] text-white no-underline text-#465462 cursor-pointer transition-all ease-in-out duration-500  border-2 border-solid border-[#90898E] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] hover:border-[#465462] active:scale-90 flex items-center gap-x-2 justify-center`}
+              className={`relative text-center tracking-[1px] px-4 py-1 rounded-3xl font-[Quicksand] font-[700] bg-[#90898E] text-white no-underline text-#465462 cursor-pointer transition-all ease-in-out duration-500  border-2 border-solid border-[#90898E] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] hover:border-[#465462] active:scale-90 flex items-center gap-x-2 justify-center text-nowrap`}
               onClick={() => setOpenSendReport(!OpenSendReport)}
             >
               Send Report
@@ -706,17 +744,7 @@ const Statistics = () => {
             </>
           )}
         </div>
-        <div className="w-[90%] flex justify-start">
-          <div className="flex border-[1px] w-[300px] maxWeb1:w-[400px] maxWeb2:w-[450px] maxWeb3:w-[500px] maxWeb4:w-[550px] border-black items-center gap-x-2 px-3 py-[6px] maxWeb1:px-4 maxWeb1:py-[8px] maxWeb2:px-5 maxWeb2:py-[10px] rounded-full overflow-hidden my-[10px] maxWeb1:my-[15px] maxWeb2:my-[20px]">
-            <BsSearch />
-            <input
-              className="outline-none w-full"
-              placeholder="Search Company name"
-              value={SearchText}
-              onChange={(e) => setSearchText(e.target.value)}
-            />
-          </div>
-        </div>
+        <div className="w-[90%] flex justify-start"></div>
         {TopTenData.loading ? (
           <PageLoader />
         ) : TopTenData.data.length === 0 ? (

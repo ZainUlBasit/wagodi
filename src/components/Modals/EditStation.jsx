@@ -142,6 +142,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
           toast.error(response.data?.error?.msg);
         }
       } catch (err) {
+        console.log(err);
         toast.error(err.response?.data?.error?.msg);
         console.log(err);
       }

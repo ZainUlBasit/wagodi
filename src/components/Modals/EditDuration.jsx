@@ -9,7 +9,7 @@ import { FaPlus } from "react-icons/fa";
 import AddGasInputs from "../AddGas/AddGasInputs";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
-import { CreateStationApi } from "../../Https";
+import { CreateStationApi, UpdateCompanyDuration } from "../../Https";
 import toast from "react-hot-toast";
 import { fetchStations } from "../../store/Slices/StationSlice";
 import WarningToast from "../Toast/WarningToast";
@@ -17,16 +17,34 @@ import LocationSearchInput from "../../utility/LocationSearchInput";
 import AddingLightLoader from "../Loaders/AddingLightLoader";
 import MapContainer from "../../utility/MapContainer";
 import QrCodesModal from "./QrCodes";
+import ErrorToast from "../Toast/ErrorToast";
+import moment from "moment";
+import SuccessToast from "../Toast/SuccessToast";
 // import { MapContainer } from "../../utility/LocationPicker";
 
-const EditDuration = ({ Open, setOpen, CompanyId }) => {
+const EditDuration = ({ Open, setOpen, CompanyId, CurrentDuration }) => {
   console.log(CompanyId);
-  const [Duration, setDuration] = useState("");
+  const [Duration, setDuration] = useState(
+    moment(new Date(CurrentDuration * 1000)).format("YYYY-MM-DD")
+  );
   const [Loading, setLoading] = useState(false);
 
   const onSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
+    try {
+      const response = await UpdateCompanyDuration({
+        companyId: CompanyId,
+        duration: Math.floor(new Date(Duration) / 1000),
+      });
+      if (response.data.success) {
+        SuccessToast(response.data.data.msg);
+        setOpen(false);
+      }
+    } catch (err) {
+      ErrorToast("Error Occured While Updating Duration of Company!");
+      console.log(err);
+    }
     setLoading(false);
   };
 
@@ -41,7 +59,7 @@ const EditDuration = ({ Open, setOpen, CompanyId }) => {
             {/* left */}
             <div>
               <AuthInput
-                Type={"number"}
+                Type={"date"}
                 label="Duration"
                 placeholder="2"
                 required={false}

@@ -102,7 +102,14 @@ const Register = () => {
       }
     } catch (err) {
       console.log(err);
-      toast.error("An error occurred during sign-up.");
+      if (
+        `E11000 duplicate key error collection: test.companies index: name_1 dup key: { name: "Test" }` ===
+        err?.response?.data?.error
+      ) {
+        ErrorToast("Mobile Number Already Registered!");
+      } else {
+        ErrorToast(err?.response?.data?.error?.msg);
+      }
     }
     setLoading(false);
   };

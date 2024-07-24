@@ -18,8 +18,9 @@ import { IoIosArrowDropdownCircle } from "react-icons/io";
 import EditDuration from "../Modals/EditDuration";
 import EditStationLimit from "../Modals/EditStationLimit";
 import { TiEdit } from "react-icons/ti";
+import moment from "moment";
 
-export default function ControlSubscribersTable({ Data, Search }) {
+export default function ControlSubscribersTable({ Data, Search, UpdateData }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -35,6 +36,8 @@ export default function ControlSubscribersTable({ Data, Search }) {
   const [OpenDurationModal, setOpenDurationModal] = useState(false);
   const [OpenStationLimitModal, setOpenStationLimitModal] = useState(false);
   const [CurrentCompanyId, setCurrentCompanyId] = useState("");
+  const [CurrerntDuration, setCurrerntDuration] = useState("");
+  const [CurrentLimit, setCurrentLimit] = useState("");
 
   return (
     <>
@@ -117,12 +120,15 @@ export default function ControlSubscribersTable({ Data, Search }) {
                     align="center"
                   >
                     <div className="flex gap-x-2 items-center justify-center">
-                      {row.duration || 0}
+                      {moment(new Date(row.duration * 1000)).format(
+                        "DD/MM/YYYY"
+                      ) || 0}
                       <TiEdit
                         className="text-xl hover:text-green-600 cursor-pointer transition-all ease-in-out duration-500"
                         onClick={() => {
                           setOpenDurationModal(true);
                           setCurrentCompanyId(row._id);
+                          setCurrerntDuration(row.duration);
                         }}
                       />
                     </div>
@@ -142,6 +148,7 @@ export default function ControlSubscribersTable({ Data, Search }) {
                         onClick={() => {
                           setOpenStationLimitModal(true);
                           setCurrentCompanyId(row._id);
+                          setCurrentLimit(row.no_station);
                         }}
                       />
                     </div>
@@ -161,9 +168,11 @@ export default function ControlSubscribersTable({ Data, Search }) {
       />
       {OpenDurationModal && (
         <EditDuration
+          UpdateData={UpdateData}
           CompanyId={CurrentCompanyId}
           Open={OpenDurationModal}
           setOpen={setOpenDurationModal}
+          CurrentDuration={CurrerntDuration}
         />
       )}
       {OpenStationLimitModal && (
@@ -171,6 +180,7 @@ export default function ControlSubscribersTable({ Data, Search }) {
           CompanyId={CurrentCompanyId}
           Open={OpenStationLimitModal}
           setOpen={setOpenStationLimitModal}
+          CurrentLimit={CurrentLimit}
         />
       )}
     </>

@@ -9,7 +9,11 @@ import { FaPlus } from "react-icons/fa";
 import AddGasInputs from "../AddGas/AddGasInputs";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
-import { CreateStationApi } from "../../Https";
+import {
+  CreateStationApi,
+  UpdateCompanyDuration,
+  UpdateCompanyNoOfStationsAPI,
+} from "../../Https";
 import toast from "react-hot-toast";
 import { fetchStations } from "../../store/Slices/StationSlice";
 import WarningToast from "../Toast/WarningToast";
@@ -17,16 +21,30 @@ import LocationSearchInput from "../../utility/LocationSearchInput";
 import AddingLightLoader from "../Loaders/AddingLightLoader";
 import MapContainer from "../../utility/MapContainer";
 import QrCodesModal from "./QrCodes";
+import SuccessToast from "../Toast/SuccessToast";
+import ErrorToast from "../Toast/ErrorToast";
 // import { MapContainer } from "../../utility/LocationPicker";
 
-const EditStationLimit = ({ Open, setOpen, CompanyId }) => {
-  console.log(CompanyId);
-  const [StationLimit, setStationLimit] = useState("");
+const EditStationLimit = ({ Open, setOpen, CompanyId, CurrentLimit }) => {
+  const [StationLimit, setStationLimit] = useState(CurrentLimit);
   const [Loading, setLoading] = useState(false);
 
   const onSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
+    try {
+      const response = await UpdateCompanyNoOfStationsAPI({
+        companyId: CompanyId,
+        no_station: Number(StationLimit),
+      });
+      if (response.data.success) {
+        SuccessToast(response.data.data.msg);
+        setOpen(false);
+      }
+    } catch (err) {
+      ErrorToast("Error Occured While Updating Duration of Company!");
+      console.log(err);
+    }
     setLoading(false);
   };
 

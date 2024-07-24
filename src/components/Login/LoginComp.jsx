@@ -140,6 +140,7 @@ const LoginComp = () => {
     } catch (err) {
       response = err;
       response_type = response.data?.success || false;
+      console.log(err);
       ErrorToast(response.response?.data?.error?.msg);
     }
     // console.log(response_type);

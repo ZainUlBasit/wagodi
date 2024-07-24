@@ -56,6 +56,16 @@ export default function StationSaleDetailsTable({ Rows }) {
                   textAlign: "center",
                 }}
               >
+                Liters
+              </th>
+              <th
+                style={{
+                  color: "white",
+                  backgroundColor: "#576370",
+                  paddingBottom: "20px",
+                  textAlign: "center",
+                }}
+              >
                 Sales Amount
               </th>
             </tr>
@@ -69,6 +79,9 @@ export default function StationSaleDetailsTable({ Rows }) {
                 </td>
                 <td style={{ textAlign: "center", whiteSpace: "nowrap" }}>
                   {row.end}
+                </td>
+                <td style={{ textAlign: "center", whiteSpace: "nowrap" }}>
+                  {row.fuel_value}
                 </td>
                 <td style={{ textAlign: "center" }}>{row.salesAmount}</td>
               </tr>

@@ -8,7 +8,7 @@ import {
 } from "../../Https";
 
 export const fetchStationSalesStats = createAsyncThunk(
-  "fetch/StationStats",
+  "fetch/StationStats-Sales",
   async (payload) => {
     console.log(payload);
     try {

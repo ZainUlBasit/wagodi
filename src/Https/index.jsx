@@ -45,6 +45,11 @@ export const UpdatePasswordApi = (data) =>
 export const GetComapanyDetails = (companyId) =>
   api.get("/company/" + companyId);
 export const GetAllDrivers = (data) => api.post("/auth/getAllDrivers", data);
+
+export const UpdateCompanyDuration = (payload) =>
+  api.post("/company/duration/update", payload);
+export const UpdateCompanyNoOfStationsAPI = (payload) =>
+  api.post("/company/no_station/update", payload);
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 // Auth Request
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

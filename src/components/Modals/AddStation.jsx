@@ -17,6 +17,7 @@ import LocationSearchInput from "../../utility/LocationSearchInput";
 import AddingLightLoader from "../Loaders/AddingLightLoader";
 import MapContainer from "../../utility/MapContainer";
 import QrCodesModal from "./QrCodes";
+import ShowMessageModal from "./ShowMessageModal";
 // import { MapContainer } from "../../utility/LocationPicker";
 
 const AddStation = ({ Open, setOpen }) => {
@@ -33,6 +34,8 @@ const AddStation = ({ Open, setOpen }) => {
   const [AllGases, setAllGases] = useState([]);
   const [ShowAddGassInputs, setShowAddGassInputs] = useState(false);
   const StationsData = useSelector((state) => state.StationReducer);
+  const [StationExceed, setStationExceed] = useState(false);
+  const [StationExceedMsg, setStationExceedMsg] = useState("");
 
   useEffect(() => {
     console.log(AllGases);
@@ -89,7 +92,13 @@ const AddStation = ({ Open, setOpen }) => {
           toast.success(response.data.data?.msg);
           dispatch(fetchStations(Auth.data.companyId));
         } else {
-          toast.success(response.data.error?.msg);
+          if (
+            "The company has reached the maximum number of allowed stations!" ===
+            response.data.error?.msg
+          ) {
+            setStationExceed(true);
+            setStationExceedMsg(response.data.error?.msg);
+          } else toast.error(response.data.error?.msg);
         }
       } catch (err) {
         console.log(err);
@@ -239,6 +248,13 @@ const AddStation = ({ Open, setOpen }) => {
           CurrentDispenser={
             AllGases.find((ft) => ft.type === SelFuelType).dispensers || ""
           }
+        />
+      )}
+      {StationExceed && (
+        <ShowMessageModal
+          Open={StationExceed}
+          setOpen={setStationExceed}
+          msg={StationExceedMsg}
         />
       )}
     </CustomModal>
