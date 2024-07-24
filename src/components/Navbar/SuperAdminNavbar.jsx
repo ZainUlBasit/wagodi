@@ -6,6 +6,8 @@ import "./Navbar.css";
 import { TbLogout } from "react-icons/tb";
 import Logout from "../Modals/Logout";
 import LoggingOut from "../Modals/LoggingOut";
+import { BiUserPin } from "react-icons/bi";
+import AddInfoModal from "../Modals/AddInfo";
 
 const SuperAdminNavbar = () => {
   const [activeNavItem, setActiveNavItem] = useState(""); // State to track the active navigation item
@@ -13,6 +15,7 @@ const SuperAdminNavbar = () => {
   const [showNotificationDot, setShowNotificationDot] = useState(true);
   const [OpenModal, setOpenModal] = useState(false);
   const [OpenLoggingOut, setOpenLoggingOut] = useState(false);
+  const [OpenDataModal, setOpenDataModal] = useState("");
   const navigate = useNavigate();
 
   // Function to handle click on navigation items and set the active item
@@ -110,6 +113,20 @@ const SuperAdminNavbar = () => {
                   : "border-[#fff]"
               }`}
               onClick={() => {
+                // handleNavItemClick("Setting");
+                // navigate("/setting");
+                setOpenDataModal(true);
+              }}
+            >
+              <BiUserPin className="cursor-pointer maxWeb1:text-[3rem] maxWeb2:text-[3.3rem] maxWeb3:text-[3.9rem] maxWeb4:text-[3.6rem]" />
+            </div>
+            <div
+              className={`cursor-pointer py-[6px] px-[6px] border-2 rounded-full ${
+                activeNavItem === "Setting"
+                  ? "border-[#475562]"
+                  : "border-[#fff]"
+              }`}
+              onClick={() => {
                 handleNavItemClick("Setting");
                 // navigate("/setting");
                 setOpenModal(true);
@@ -126,6 +143,9 @@ const SuperAdminNavbar = () => {
           setOpen={setOpenModal}
           setOpenLoggingOut={setOpenLoggingOut}
         />
+      )}
+      {OpenDataModal && (
+        <AddInfoModal Open={OpenDataModal} setOpen={setOpenDataModal} />
       )}
       {OpenLoggingOut && (
         <div className="rounded-[20px] overflow-hidden">

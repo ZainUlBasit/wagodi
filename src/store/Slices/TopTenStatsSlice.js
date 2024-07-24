@@ -36,8 +36,8 @@ export const fetchTopTenStation = createAsyncThunk(
       const updatedResponse = response.data.data.map((dt) => {
         return {
           ...dt,
-          salesVolume: parseFloat(dt.salesVolume).toFixed(2),
-          salesAmount: parseFloat(dt.salesAmount).toFixed(2),
+          salesVolume: parseFloat(dt.volume).toFixed(2),
+          salesAmount: parseFloat(dt.amount).toFixed(2),
         };
       });
       // return [];

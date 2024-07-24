@@ -66,6 +66,16 @@ export default function StationSaleDetailsTable({ Rows }) {
                   textAlign: "center",
                 }}
               >
+                Fuel Type
+              </th>
+              <th
+                style={{
+                  color: "white",
+                  backgroundColor: "#576370",
+                  paddingBottom: "20px",
+                  textAlign: "center",
+                }}
+              >
                 Sales Amount
               </th>
             </tr>
@@ -75,15 +85,26 @@ export default function StationSaleDetailsTable({ Rows }) {
               <tr>
                 <td style={{ textAlign: "center" }}>{row.stationName}</td>
                 <td style={{ textAlign: "center", whiteSpace: "nowrap" }}>
-                  {row.start}
+                  {moment(new Date(row.start)).format("DD/MM/YYYY")}
                 </td>
                 <td style={{ textAlign: "center", whiteSpace: "nowrap" }}>
-                  {row.end}
+                  {moment(new Date(row.end)).format("DD/MM/YYYY")}
                 </td>
                 <td style={{ textAlign: "center", whiteSpace: "nowrap" }}>
                   {row.fuel_value}
                 </td>
-                <td style={{ textAlign: "center" }}>{row.salesAmount}</td>
+                <td style={{ textAlign: "center", whiteSpace: "nowrap" }}>
+                  {row.fuel_type === 0
+                    ? "91"
+                    : row.fuel_type === 1
+                    ? "95"
+                    : row.fuel_type === 2
+                    ? "D"
+                    : "-"}
+                </td>
+                <td style={{ textAlign: "center" }}>
+                  {Number(row.salesAmount).toFixed(2)}
+                </td>
               </tr>
             ))}
           </tbody>

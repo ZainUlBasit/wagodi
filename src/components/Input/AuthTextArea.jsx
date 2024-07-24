@@ -1,7 +1,7 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
 import { v4 } from "uuid";
-import "./AuthTextArea.css"
+import "./AuthTextArea.css";
 
 const AuthTextArea = ({ label, placeholder, required, Value, setValue }) => {
   return (
