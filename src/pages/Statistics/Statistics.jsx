@@ -82,6 +82,7 @@ const Statistics = () => {
   const [SearchText, setSearchText] = useState("");
 
   const [CurrentFuel, setCurrentFuel] = useState("");
+  const [CurrentFuelSales, setCurrentFuelSales] = useState("");
   // for fuel type select
   const [anchorElFuel, setAnchorElFuel] = React.useState(null);
   const handleClickFuel = (event) => {
@@ -92,6 +93,17 @@ const Statistics = () => {
   };
   const openFuel = Boolean(anchorElFuel);
   const idFuel = openFuel ? "select-fuel" : undefined;
+
+  // fuel type sales
+  const [anchorElFuelSales, setAnchorElFuelSales] = React.useState(null);
+  const handleClickFuelSales = (event) => {
+    setAnchorElFuelSales(event.currentTarget);
+  };
+  const handleCloseFuelSales = () => {
+    setAnchorElFuelSales(null);
+  };
+  const openFuelSales = Boolean(anchorElFuelSales);
+  const idFuelSales = openFuelSales ? "select-fuel" : undefined;
 
   // for month
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -370,24 +382,24 @@ const Statistics = () => {
             <div
               className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
               // className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white"
-              onClick={handleClickFuel}
+              onClick={handleClickFuelSales}
             >
               <div className="flex items-center">
                 <div
                   id="fuel"
                   className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
                 >
-                  {CurrentFuel === ""
+                  {CurrentFuelSales === ""
                     ? "Fuel Type"
-                    : CurrentFuel === 1
+                    : CurrentFuelSales === 1
                     ? "91"
-                    : CurrentFuel === 2
+                    : CurrentFuelSales === 2
                     ? "95"
                     : "D"}
                 </div>
                 <BiSolidChevronDown
                   className="text-[1.5rem] cursor-pointer"
-                  aria-describedby={idFuel}
+                  aria-describedby={idFuelSales}
                   variant="contained"
                 />
               </div>
@@ -421,6 +433,68 @@ const Statistics = () => {
               </div>
             </div>
 
+            <Popover
+              id={idFuelSales}
+              open={openFuelSales}
+              anchorEl={anchorElFuelSales}
+              onClose={handleCloseFuelSales}
+              PaperProps={{
+                sx: {
+                  borderRadius: "25px",
+                  backgroundColor: "white",
+                  width: "fit",
+                  overflowY: "auto", // Enable vertical scrollbar when content overflows
+                  maxHeight: "60vh", // Set maximum height to 60% of the viewport height
+                  marginTop: "10px",
+                  boxShadow: "none",
+                },
+              }}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+            >
+              <Typography
+                sx={{
+                  pt: 2,
+                  pl: 4,
+                  pr: 5,
+                  pb: 5,
+                  borderColor: "#465462",
+                  backgroundColor: "#465462",
+                  // width: "400px",
+                  overflow: "hidden",
+                  borderRadius: "20px",
+                }}
+              >
+                <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
+                  <div className="w-full flex flex-col justify-between gap-y-3 items-start">
+                    {["All", "91", "95", "D"].map((fuel_type, i) => {
+                      return (
+                        <div
+                          className="flex gap-x-3 items-center cursor-pointer"
+                          onClick={() => {
+                            handleCloseFuelSales();
+                            setCurrentFuelSales(fuel_type === "All" ? "" : i);
+                          }}
+                        >
+                          <input
+                            type="checkbox"
+                            className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                            checked={CurrentFuelSales === i}
+                          />
+                          <span>{fuel_type}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </Typography>
+            </Popover>
             <Popover
               id={idFuel}
               open={openFuel}
@@ -728,27 +802,41 @@ const Statistics = () => {
         </div>
 
         <div className="gap-x-5 flex-wrap w-[98%] flex justify-between items-center max767:items-center max767:justify-center max1056:items-center max1056:justify-center mt-2 gap-y-10">
-          {TopTenData.loading ? (
+          {false ? (
             <PageLoader />
           ) : TopTenData.data.length === 0 &&
             StationSaleStatsState.data.length === 0 ? (
-            <></>
+            <div>no data found</div>
           ) : (
             <>
-              <div className="h-[400px] w-[570px] max767:w-auto overflow-scroll border-[1px] border-[#576370] MaxTableWidth rounded-lg">
-                <StationSaleDetailsTable
-                  Rows={StationSaleStatsState.data.filter((dt) => {
-                    const searchLowerCase = SearchText.toLowerCase();
-                    const matchesSearch = dt.stationName
-                      .toLowerCase()
-                      .startsWith(searchLowerCase);
+              {StationSaleStatsState.loading ? (
+                <div className="h-[400px] w-[570px] max767:w-auto overflow-scroll flex justify-center items-center MaxTableWidth rounded-lg">
+                  <PageLoader />
+                </div>
+              ) : (
+                <div className="h-[400px] w-[570px] max767:w-auto overflow-scroll border-[1px] border-[#576370] MaxTableWidth rounded-lg">
+                  <StationSaleDetailsTable
+                    Rows={StationSaleStatsState.data.filter((dt) => {
+                      const searchLowerCase = SearchText.toLowerCase();
+                      const matchesSearch = dt.stationName
+                        .toLowerCase()
+                        .startsWith(searchLowerCase);
 
-                    return SearchText === "" || matchesSearch;
-                  })}
-                />
-              </div>
-              {TopTenData.data.length !== 0 && (
-                <ApexChart Data={TopTenData.loading ? [{}] : TopTenData.data} />
+                      return SearchText === "" || matchesSearch;
+                    })}
+                  />
+                </div>
+              )}
+              {TopTenData.loading ? (
+                <div className="flex justify-center items-center flex-1">
+                  <PageLoader />
+                </div>
+              ) : (
+                TopTenData.data.length !== 0 && (
+                  <ApexChart
+                    Data={TopTenData.loading ? [{}] : TopTenData.data}
+                  />
+                )
               )}
             </>
           )}
