@@ -24,6 +24,7 @@ export default function StationSaleDetailsTable({ Rows }) {
                   backgroundColor: "#576370",
                   paddingBottom: "20px",
                   textAlign: "center",
+                  width: "120px",
                 }}
               >
                 Station Name
@@ -34,6 +35,7 @@ export default function StationSaleDetailsTable({ Rows }) {
                   backgroundColor: "#576370",
                   paddingBottom: "20px",
                   textAlign: "center",
+                  width: "90px",
                 }}
               >
                 Start
@@ -44,6 +46,7 @@ export default function StationSaleDetailsTable({ Rows }) {
                   backgroundColor: "#576370",
                   paddingBottom: "20px",
                   textAlign: "center",
+                  width: "90px",
                 }}
               >
                 End
@@ -54,6 +57,7 @@ export default function StationSaleDetailsTable({ Rows }) {
                   backgroundColor: "#576370",
                   paddingBottom: "20px",
                   textAlign: "center",
+                  width: "80px",
                 }}
               >
                 Liters
@@ -64,6 +68,7 @@ export default function StationSaleDetailsTable({ Rows }) {
                   backgroundColor: "#576370",
                   paddingBottom: "20px",
                   textAlign: "center",
+                  width: "90px",
                 }}
               >
                 Fuel Type
@@ -74,6 +79,7 @@ export default function StationSaleDetailsTable({ Rows }) {
                   backgroundColor: "#576370",
                   paddingBottom: "20px",
                   textAlign: "center",
+                  width: "120px",
                 }}
               >
                 Sales Amount
@@ -85,10 +91,14 @@ export default function StationSaleDetailsTable({ Rows }) {
               <tr>
                 <td style={{ textAlign: "center" }}>{row.stationName}</td>
                 <td style={{ textAlign: "center", whiteSpace: "nowrap" }}>
-                  {moment(new Date(row.start)).format("DD/MM/YYYY")}
+                  {row.start
+                    ? moment(new Date(row.start)).format("DD/MM/YYYY")
+                    : "--/--/----"}
                 </td>
                 <td style={{ textAlign: "center", whiteSpace: "nowrap" }}>
-                  {moment(new Date(row.end)).format("DD/MM/YYYY")}
+                  {row.end
+                    ? moment(new Date(row.end)).format("DD/MM/YYYY")
+                    : "--/--/----"}
                 </td>
                 <td style={{ textAlign: "center", whiteSpace: "nowrap" }}>
                   {row.fuel_value}

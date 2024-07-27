@@ -362,7 +362,7 @@ const Statistics = () => {
               <BsSearch />
               <input
                 className="outline-none w-full"
-                placeholder="Search Company name"
+                placeholder="Search Staion name"
                 value={SearchText}
                 onChange={(e) => setSearchText(e.target.value)}
               />
@@ -736,7 +736,16 @@ const Statistics = () => {
           ) : (
             <>
               <div className="h-[400px] w-[570px] max767:w-auto overflow-scroll border-[1px] border-[#576370] MaxTableWidth rounded-lg">
-                <StationSaleDetailsTable Rows={StationSaleStatsState.data} />
+                <StationSaleDetailsTable
+                  Rows={StationSaleStatsState.data.filter((dt) => {
+                    const searchLowerCase = SearchText.toLowerCase();
+                    const matchesSearch = dt.stationName
+                      .toLowerCase()
+                      .startsWith(searchLowerCase);
+
+                    return SearchText === "" || matchesSearch;
+                  })}
+                />
               </div>
               {TopTenData.data.length !== 0 && (
                 <ApexChart Data={TopTenData.loading ? [{}] : TopTenData.data} />
