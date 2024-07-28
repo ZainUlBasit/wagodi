@@ -35,6 +35,17 @@ export default function StationSaleDetailsTable({ Rows }) {
                   backgroundColor: "#576370",
                   paddingBottom: "20px",
                   textAlign: "center",
+                  width: "150px",
+                }}
+              >
+                Station Manager
+              </th>
+              <th
+                style={{
+                  color: "white",
+                  backgroundColor: "#576370",
+                  paddingBottom: "20px",
+                  textAlign: "center",
                   width: "90px",
                 }}
               >
@@ -90,14 +101,15 @@ export default function StationSaleDetailsTable({ Rows }) {
             {Rows.map((row) => (
               <tr>
                 <td style={{ textAlign: "center" }}>{row.stationName}</td>
+                <td style={{ textAlign: "center" }}>{row.managerName}</td>
                 <td style={{ textAlign: "center", whiteSpace: "nowrap" }}>
                   {row.start
-                    ? moment(new Date(row.start)).format("DD/MM/YYYY")
+                    ? moment(new Date(row.start * 1000)).format("DD/MM/YYYY")
                     : "--/--/----"}
                 </td>
                 <td style={{ textAlign: "center", whiteSpace: "nowrap" }}>
                   {row.end
-                    ? moment(new Date(row.end)).format("DD/MM/YYYY")
+                    ? moment(new Date(row.end * 1000)).format("DD/MM/YYYY")
                     : "--/--/----"}
                 </td>
                 <td style={{ textAlign: "center", whiteSpace: "nowrap" }}>

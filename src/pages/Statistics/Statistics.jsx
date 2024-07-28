@@ -390,7 +390,7 @@ const Statistics = () => {
                   className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
                 >
                   {CurrentFuelSales === ""
-                    ? "Fuel Type"
+                    ? "All"
                     : CurrentFuelSales === 1
                     ? "91"
                     : CurrentFuelSales === 2
@@ -418,7 +418,7 @@ const Statistics = () => {
                   className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
                 >
                   {CurrentFuel === ""
-                    ? "Fuel Type"
+                    ? "All"
                     : CurrentFuel === 1
                     ? "91"
                     : CurrentFuel === 2
@@ -822,7 +822,13 @@ const Statistics = () => {
                         .toLowerCase()
                         .startsWith(searchLowerCase);
 
-                      return SearchText === "" || matchesSearch;
+                      const filterFuelType =
+                        CurrentFuelSales === "" ||
+                        CurrentFuelSales === dt.fuel_type;
+
+                      return (
+                        (SearchText === "" || matchesSearch) && filterFuelType
+                      );
                     })}
                   />
                 </div>
