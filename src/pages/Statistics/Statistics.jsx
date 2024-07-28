@@ -405,400 +405,6 @@ const Statistics = () => {
               </div>
             </div>
           </div>
-
-          <div className="flex gap-x-3 mb-4 items-center">
-            <div
-              className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
-              // className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white"
-              onClick={handleClickFuel}
-            >
-              <div className="flex items-center">
-                <div
-                  id="fuel"
-                  className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
-                >
-                  {CurrentFuel === ""
-                    ? "All"
-                    : CurrentFuel === 1
-                    ? "91"
-                    : CurrentFuel === 2
-                    ? "95"
-                    : "D"}
-                </div>
-                <BiSolidChevronDown
-                  className="text-[1.5rem] cursor-pointer"
-                  aria-describedby={idFuel}
-                  variant="contained"
-                />
-              </div>
-            </div>
-
-            <Popover
-              id={idFuelSales}
-              open={openFuelSales}
-              anchorEl={anchorElFuelSales}
-              onClose={handleCloseFuelSales}
-              PaperProps={{
-                sx: {
-                  borderRadius: "25px",
-                  backgroundColor: "white",
-                  width: "fit",
-                  overflowY: "auto", // Enable vertical scrollbar when content overflows
-                  maxHeight: "60vh", // Set maximum height to 60% of the viewport height
-                  marginTop: "10px",
-                  boxShadow: "none",
-                },
-              }}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-            >
-              <Typography
-                sx={{
-                  pt: 2,
-                  pl: 4,
-                  pr: 5,
-                  pb: 5,
-                  borderColor: "#465462",
-                  backgroundColor: "#465462",
-                  // width: "400px",
-                  overflow: "hidden",
-                  borderRadius: "20px",
-                }}
-              >
-                <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
-                  <div className="w-full flex flex-col justify-between gap-y-3 items-start">
-                    {["All", "91", "95", "D"].map((fuel_type, i) => {
-                      return (
-                        <div
-                          className="flex gap-x-3 items-center cursor-pointer"
-                          onClick={() => {
-                            handleCloseFuelSales();
-                            setCurrentFuelSales(fuel_type === "All" ? "" : i);
-                          }}
-                        >
-                          <input
-                            type="checkbox"
-                            className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                            checked={CurrentFuelSales === i}
-                          />
-                          <span>{fuel_type}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </Typography>
-            </Popover>
-            <Popover
-              id={idFuel}
-              open={openFuel}
-              anchorEl={anchorElFuel}
-              onClose={handleCloseFuel}
-              PaperProps={{
-                sx: {
-                  borderRadius: "25px",
-                  backgroundColor: "white",
-                  width: "fit",
-                  overflowY: "auto", // Enable vertical scrollbar when content overflows
-                  maxHeight: "60vh", // Set maximum height to 60% of the viewport height
-                  marginTop: "10px",
-                  boxShadow: "none",
-                },
-              }}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-            >
-              <Typography
-                sx={{
-                  pt: 2,
-                  pl: 4,
-                  pr: 5,
-                  pb: 5,
-                  borderColor: "#465462",
-                  backgroundColor: "#465462",
-                  // width: "400px",
-                  overflow: "hidden",
-                  borderRadius: "20px",
-                }}
-              >
-                <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
-                  <div className="w-full flex flex-col justify-between gap-y-3 items-start">
-                    {["All", "91", "95", "D"].map((fuel_type, i) => {
-                      return (
-                        <div
-                          className="flex gap-x-3 items-center cursor-pointer"
-                          onClick={() => {
-                            handleCloseFuel();
-                            setCurrentFuel(fuel_type === "All" ? "" : i);
-                          }}
-                        >
-                          <input
-                            type="checkbox"
-                            className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                            checked={CurrentFuel === i}
-                          />
-                          <span>{fuel_type}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </Typography>
-            </Popover>
-            <button
-              className={`relative text-center tracking-[1px] px-4 py-1 rounded-3xl font-[Quicksand] font-[700] bg-[#90898E] text-white no-underline text-#465462 cursor-pointer transition-all ease-in-out duration-500  border-2 border-solid border-[#90898E] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] hover:border-[#465462] active:scale-90 flex items-center gap-x-2 justify-center text-nowrap`}
-              onClick={() => setOpenSendReport(!OpenSendReport)}
-            >
-              Send Report
-            </button>
-            {/* show days, month and year as filter selected */}
-            <div
-              className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
-              // className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white"
-              onClick={handleClickChart}
-            >
-              <div className="flex items-center">
-                <div
-                  id="date"
-                  className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
-                >
-                  {CurrentMonthChart === "" ? "Month" : CurrentMonthChart}
-                </div>
-                <BiSolidChevronDown
-                  className="text-[1.5rem] cursor-pointer"
-                  aria-describedby={idChart}
-                  variant="contained"
-                />
-              </div>
-            </div>
-            {/* Select Month Year Days */}
-            <div
-              className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
-              // className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white"
-              onClick={handleClickChart2}
-            >
-              <div className="flex items-center">
-                <div
-                  id="date"
-                  value={CurrentMonthChart1}
-                  className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
-                >
-                  {CurrentMonthChart1 === "" ? "Month" : CurrentMonthChart1}
-                </div>
-                <BiSolidChevronDown
-                  className="text-[1.5rem] cursor-pointer"
-                  aria-describedby={idChart2}
-                  variant="contained"
-                />
-              </div>
-            </div>
-            {/* show days, month and year as filter selected */}
-            <Popover
-              id={id}
-              open={openChart}
-              anchorEl={anchorElChart}
-              onClose={handleCloseChart}
-              PaperProps={{
-                sx: {
-                  borderRadius: "25px",
-                  backgroundColor: "white",
-                  width: "fit",
-                  overflowY: "auto", // Enable vertical scrollbar when content overflows
-                  maxHeight: "60vh", // Set maximum height to 60% of the viewport height
-                  marginTop: "10px",
-                  boxShadow: "none",
-                },
-              }}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-            >
-              <Typography
-                sx={{
-                  pt: 2,
-                  pl: 4,
-                  pr: 5,
-                  pb: 5,
-                  borderColor: "#465462",
-                  backgroundColor: "#465462",
-                  // width: "400px",
-                  overflow: "hidden",
-                  borderRadius: "20px",
-                }}
-              >
-                <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
-                  <div className="w-full flex flex-col justify-between gap-y-3 items-start">
-                    {CurrentMonthChart1 === "Month" &&
-                      months.map((month, i) => {
-                        return (
-                          <div
-                            className="flex gap-x-3 items-center cursor-pointer"
-                            onClick={() => {
-                              handleCloseChart();
-                              setCurrentMonthChart(month);
-                              setCurrentMonthIndexChart(i);
-                            }}
-                          >
-                            <input
-                              type="checkbox"
-                              className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                              checked={CurrentMonthChart === month}
-                            />
-                            <span>{month}</span>
-                          </div>
-                        );
-                      })}
-                    {CurrentMonthChart1 === "Year" &&
-                      Years.map((month, i) => {
-                        return (
-                          <div
-                            className="flex gap-x-3 items-center cursor-pointer"
-                            onClick={() => {
-                              handleCloseChart();
-                              setCurrentMonthChart(month);
-                              setCurrentMonthIndexChart(i);
-                            }}
-                          >
-                            <input
-                              type="checkbox"
-                              className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                              checked={CurrentMonthChart === month}
-                            />
-                            <span>{month}</span>
-                          </div>
-                        );
-                      })}
-                    {CurrentMonthChart1 === "Days" &&
-                      Days.map((month, i) => {
-                        return (
-                          <div
-                            className="flex gap-x-3 items-center cursor-pointer"
-                            onClick={() => {
-                              handleCloseChart();
-                              setCurrentMonthChart(month);
-                              setCurrentMonthIndexChart(i);
-                            }}
-                          >
-                            <input
-                              type="checkbox"
-                              className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                              checked={CurrentMonthChart === month}
-                            />
-                            <span>{month}</span>
-                          </div>
-                        );
-                      })}
-                  </div>
-                </div>
-              </Typography>
-            </Popover>
-            {/* Select Month, Year or Days */}
-            <Popover
-              id={idChart2}
-              open={openChart2}
-              anchorEl={anchorElChart2}
-              onClose={handleCloseChart2}
-              PaperProps={{
-                sx: {
-                  borderRadius: "25px", // Add rounded corners
-                  backgroundColor: "white", // Set background color to white
-                  width: "fit", // Set the width as needed
-                  overflow: "hidden", // Hide overflowing content
-                  marginTop: "10px",
-                  boxShadow: "none",
-                },
-              }}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-            >
-              <Typography
-                sx={{
-                  pt: 2,
-                  pl: 4,
-                  pr: 5,
-                  pb: 5,
-                  borderColor: "#465462",
-                  backgroundColor: "#465462",
-                  // width: "400px",
-                  overflow: "hidden",
-                  borderRadius: "20px",
-                }}
-              >
-                <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
-                  <div className="w-full flex flex-col justify-between gap-y-3 items-start">
-                    <div
-                      className="flex gap-x-3 items-center cursor-pointer"
-                      onClick={() => {
-                        handleCloseChart2();
-                        setCurrentMonthChart1("Days");
-                        setCurrentMonthIndexChart1(i);
-                      }}
-                    >
-                      <input
-                        type="checkbox"
-                        className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                        checked={CurrentMonthChart1 === "Days"}
-                      />
-                      <span>Days</span>
-                    </div>
-                    <div
-                      className="flex gap-x-3 items-center cursor-pointer"
-                      onClick={() => {
-                        handleCloseChart2();
-                        setCurrentMonthChart1("Month");
-                        setCurrentMonthIndexChart1(i);
-                      }}
-                    >
-                      <input
-                        type="checkbox"
-                        className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                        checked={CurrentMonthChart1 === "Month"}
-                      />
-                      <span>Month</span>
-                    </div>
-                    <div
-                      className="flex gap-x-3 items-center cursor-pointer"
-                      onClick={() => {
-                        handleCloseChart2();
-                        setCurrentMonthChart1("Year");
-                        setCurrentMonthIndexChart1(i);
-                      }}
-                    >
-                      <input
-                        type="checkbox"
-                        className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                        checked={CurrentMonthChart1 === "Year"}
-                      />
-                      <span>Year</span>
-                    </div>
-                  </div>
-                </div>
-              </Typography>
-            </Popover>
-          </div>
         </div>
 
         <div className="gap-x-5 flex-wrap w-[98%] flex justify-between items-center max767:items-center max767:justify-center max1056:items-center max1056:justify-center mt-2 gap-y-10">
@@ -810,40 +416,441 @@ const Statistics = () => {
           ) : (
             <>
               {StationSaleStatsState.loading ? (
-                <div className="h-[400px] w-[570px] max767:w-auto overflow-scroll flex justify-center items-center MaxTableWidth rounded-lg">
+                <div className="h-[400px] w-full max767:w-auto overflow-scroll flex justify-center items-center MaxTableWidth rounded-lg">
                   <PageLoader />
                 </div>
               ) : (
-                <div className="h-[400px] w-[570px] max767:w-auto overflow-scroll border-[1px] border-[#576370] MaxTableWidth rounded-lg">
-                  <StationSaleDetailsTable
-                    Rows={StationSaleStatsState.data.filter((dt) => {
-                      const searchLowerCase = SearchText.toLowerCase();
-                      const matchesSearch = dt.stationName
-                        .toLowerCase()
-                        .startsWith(searchLowerCase);
+                <div className="w-full flex justify-center items-center">
+                  <div className="h-[400px] w-[900px] max767:w-auto overflow-scroll border-[1px] border-[#576370] MaxTableWidth rounded-lg">
+                    <StationSaleDetailsTable
+                      Rows={StationSaleStatsState.data.filter((dt) => {
+                        const searchLowerCase = SearchText.toLowerCase();
+                        const matchesSearch = dt.stationName
+                          .toLowerCase()
+                          .startsWith(searchLowerCase);
 
-                      const filterFuelType =
-                        CurrentFuelSales === "" ||
-                        CurrentFuelSales === dt.fuel_type;
+                        const filterFuelType =
+                          CurrentFuelSales === "" ||
+                          CurrentFuelSales === dt.fuel_type;
 
-                      return (
-                        (SearchText === "" || matchesSearch) && filterFuelType
-                      );
-                    })}
-                  />
+                        return (
+                          (SearchText === "" || matchesSearch) && filterFuelType
+                        );
+                      })}
+                    />
+                  </div>
                 </div>
               )}
-              {TopTenData.loading ? (
-                <div className="flex justify-center items-center flex-1">
-                  <PageLoader />
+              <div className="flex flex-col w-full items-center justify-center">
+                <div className="flex gap-x-3 mb-4 items-center">
+                  <div
+                    className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
+                    // className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white"
+                    onClick={handleClickFuel}
+                  >
+                    <div className="flex items-center">
+                      <div
+                        id="fuel"
+                        className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
+                      >
+                        {CurrentFuel === ""
+                          ? "All"
+                          : CurrentFuel === 1
+                          ? "91"
+                          : CurrentFuel === 2
+                          ? "95"
+                          : "D"}
+                      </div>
+                      <BiSolidChevronDown
+                        className="text-[1.5rem] cursor-pointer"
+                        aria-describedby={idFuel}
+                        variant="contained"
+                      />
+                    </div>
+                  </div>
+
+                  <Popover
+                    id={idFuelSales}
+                    open={openFuelSales}
+                    anchorEl={anchorElFuelSales}
+                    onClose={handleCloseFuelSales}
+                    PaperProps={{
+                      sx: {
+                        borderRadius: "25px",
+                        backgroundColor: "white",
+                        width: "fit",
+                        overflowY: "auto", // Enable vertical scrollbar when content overflows
+                        maxHeight: "60vh", // Set maximum height to 60% of the viewport height
+                        marginTop: "10px",
+                        boxShadow: "none",
+                      },
+                    }}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "right",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        pt: 2,
+                        pl: 4,
+                        pr: 5,
+                        pb: 5,
+                        borderColor: "#465462",
+                        backgroundColor: "#465462",
+                        // width: "400px",
+                        overflow: "hidden",
+                        borderRadius: "20px",
+                      }}
+                    >
+                      <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
+                        <div className="w-full flex flex-col justify-between gap-y-3 items-start">
+                          {["All", "91", "95", "D"].map((fuel_type, i) => {
+                            return (
+                              <div
+                                className="flex gap-x-3 items-center cursor-pointer"
+                                onClick={() => {
+                                  handleCloseFuelSales();
+                                  setCurrentFuelSales(
+                                    fuel_type === "All" ? "" : i
+                                  );
+                                }}
+                              >
+                                <input
+                                  type="checkbox"
+                                  className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                                  checked={CurrentFuelSales === i}
+                                />
+                                <span>{fuel_type}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </Typography>
+                  </Popover>
+                  <Popover
+                    id={idFuel}
+                    open={openFuel}
+                    anchorEl={anchorElFuel}
+                    onClose={handleCloseFuel}
+                    PaperProps={{
+                      sx: {
+                        borderRadius: "25px",
+                        backgroundColor: "white",
+                        width: "fit",
+                        overflowY: "auto", // Enable vertical scrollbar when content overflows
+                        maxHeight: "60vh", // Set maximum height to 60% of the viewport height
+                        marginTop: "10px",
+                        boxShadow: "none",
+                      },
+                    }}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "right",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        pt: 2,
+                        pl: 4,
+                        pr: 5,
+                        pb: 5,
+                        borderColor: "#465462",
+                        backgroundColor: "#465462",
+                        // width: "400px",
+                        overflow: "hidden",
+                        borderRadius: "20px",
+                      }}
+                    >
+                      <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
+                        <div className="w-full flex flex-col justify-between gap-y-3 items-start">
+                          {["All", "91", "95", "D"].map((fuel_type, i) => {
+                            return (
+                              <div
+                                className="flex gap-x-3 items-center cursor-pointer"
+                                onClick={() => {
+                                  handleCloseFuel();
+                                  setCurrentFuel(fuel_type === "All" ? "" : i);
+                                }}
+                              >
+                                <input
+                                  type="checkbox"
+                                  className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                                  checked={CurrentFuel === i}
+                                />
+                                <span>{fuel_type}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </Typography>
+                  </Popover>
+                  <button
+                    className={`relative text-center tracking-[1px] px-4 py-1 rounded-3xl font-[Quicksand] font-[700] bg-[#90898E] text-white no-underline text-#465462 cursor-pointer transition-all ease-in-out duration-500  border-2 border-solid border-[#90898E] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] hover:border-[#465462] active:scale-90 flex items-center gap-x-2 justify-center text-nowrap`}
+                    onClick={() => setOpenSendReport(!OpenSendReport)}
+                  >
+                    Send Report
+                  </button>
+                  {/* show days, month and year as filter selected */}
+                  <div
+                    className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
+                    // className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white"
+                    onClick={handleClickChart}
+                  >
+                    <div className="flex items-center">
+                      <div
+                        id="date"
+                        className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
+                      >
+                        {CurrentMonthChart === "" ? "Month" : CurrentMonthChart}
+                      </div>
+                      <BiSolidChevronDown
+                        className="text-[1.5rem] cursor-pointer"
+                        aria-describedby={idChart}
+                        variant="contained"
+                      />
+                    </div>
+                  </div>
+                  {/* Select Month Year Days */}
+                  <div
+                    className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
+                    // className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white"
+                    onClick={handleClickChart2}
+                  >
+                    <div className="flex items-center">
+                      <div
+                        id="date"
+                        value={CurrentMonthChart1}
+                        className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
+                      >
+                        {CurrentMonthChart1 === ""
+                          ? "Month"
+                          : CurrentMonthChart1}
+                      </div>
+                      <BiSolidChevronDown
+                        className="text-[1.5rem] cursor-pointer"
+                        aria-describedby={idChart2}
+                        variant="contained"
+                      />
+                    </div>
+                  </div>
+                  {/* show days, month and year as filter selected */}
+                  <Popover
+                    id={id}
+                    open={openChart}
+                    anchorEl={anchorElChart}
+                    onClose={handleCloseChart}
+                    PaperProps={{
+                      sx: {
+                        borderRadius: "25px",
+                        backgroundColor: "white",
+                        width: "fit",
+                        overflowY: "auto", // Enable vertical scrollbar when content overflows
+                        maxHeight: "60vh", // Set maximum height to 60% of the viewport height
+                        marginTop: "10px",
+                        boxShadow: "none",
+                      },
+                    }}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "right",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        pt: 2,
+                        pl: 4,
+                        pr: 5,
+                        pb: 5,
+                        borderColor: "#465462",
+                        backgroundColor: "#465462",
+                        // width: "400px",
+                        overflow: "hidden",
+                        borderRadius: "20px",
+                      }}
+                    >
+                      <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
+                        <div className="w-full flex flex-col justify-between gap-y-3 items-start">
+                          {CurrentMonthChart1 === "Month" &&
+                            months.map((month, i) => {
+                              return (
+                                <div
+                                  className="flex gap-x-3 items-center cursor-pointer"
+                                  onClick={() => {
+                                    handleCloseChart();
+                                    setCurrentMonthChart(month);
+                                    setCurrentMonthIndexChart(i);
+                                  }}
+                                >
+                                  <input
+                                    type="checkbox"
+                                    className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                                    checked={CurrentMonthChart === month}
+                                  />
+                                  <span>{month}</span>
+                                </div>
+                              );
+                            })}
+                          {CurrentMonthChart1 === "Year" &&
+                            Years.map((month, i) => {
+                              return (
+                                <div
+                                  className="flex gap-x-3 items-center cursor-pointer"
+                                  onClick={() => {
+                                    handleCloseChart();
+                                    setCurrentMonthChart(month);
+                                    setCurrentMonthIndexChart(i);
+                                  }}
+                                >
+                                  <input
+                                    type="checkbox"
+                                    className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                                    checked={CurrentMonthChart === month}
+                                  />
+                                  <span>{month}</span>
+                                </div>
+                              );
+                            })}
+                          {CurrentMonthChart1 === "Days" &&
+                            Days.map((month, i) => {
+                              return (
+                                <div
+                                  className="flex gap-x-3 items-center cursor-pointer"
+                                  onClick={() => {
+                                    handleCloseChart();
+                                    setCurrentMonthChart(month);
+                                    setCurrentMonthIndexChart(i);
+                                  }}
+                                >
+                                  <input
+                                    type="checkbox"
+                                    className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                                    checked={CurrentMonthChart === month}
+                                  />
+                                  <span>{month}</span>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    </Typography>
+                  </Popover>
+                  {/* Select Month, Year or Days */}
+                  <Popover
+                    id={idChart2}
+                    open={openChart2}
+                    anchorEl={anchorElChart2}
+                    onClose={handleCloseChart2}
+                    PaperProps={{
+                      sx: {
+                        borderRadius: "25px", // Add rounded corners
+                        backgroundColor: "white", // Set background color to white
+                        width: "fit", // Set the width as needed
+                        overflow: "hidden", // Hide overflowing content
+                        marginTop: "10px",
+                        boxShadow: "none",
+                      },
+                    }}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "right",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        pt: 2,
+                        pl: 4,
+                        pr: 5,
+                        pb: 5,
+                        borderColor: "#465462",
+                        backgroundColor: "#465462",
+                        // width: "400px",
+                        overflow: "hidden",
+                        borderRadius: "20px",
+                      }}
+                    >
+                      <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
+                        <div className="w-full flex flex-col justify-between gap-y-3 items-start">
+                          <div
+                            className="flex gap-x-3 items-center cursor-pointer"
+                            onClick={() => {
+                              handleCloseChart2();
+                              setCurrentMonthChart1("Days");
+                              setCurrentMonthIndexChart1(i);
+                            }}
+                          >
+                            <input
+                              type="checkbox"
+                              className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                              checked={CurrentMonthChart1 === "Days"}
+                            />
+                            <span>Days</span>
+                          </div>
+                          <div
+                            className="flex gap-x-3 items-center cursor-pointer"
+                            onClick={() => {
+                              handleCloseChart2();
+                              setCurrentMonthChart1("Month");
+                              setCurrentMonthIndexChart1(i);
+                            }}
+                          >
+                            <input
+                              type="checkbox"
+                              className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                              checked={CurrentMonthChart1 === "Month"}
+                            />
+                            <span>Month</span>
+                          </div>
+                          <div
+                            className="flex gap-x-3 items-center cursor-pointer"
+                            onClick={() => {
+                              handleCloseChart2();
+                              setCurrentMonthChart1("Year");
+                              setCurrentMonthIndexChart1(i);
+                            }}
+                          >
+                            <input
+                              type="checkbox"
+                              className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                              checked={CurrentMonthChart1 === "Year"}
+                            />
+                            <span>Year</span>
+                          </div>
+                        </div>
+                      </div>
+                    </Typography>
+                  </Popover>
                 </div>
-              ) : (
-                TopTenData.data.length !== 0 && (
-                  <ApexChart
-                    Data={TopTenData.loading ? [{}] : TopTenData.data}
-                  />
-                )
-              )}
+                {TopTenData.loading ? (
+                  <div className="flex justify-center items-center flex-1">
+                    <PageLoader />
+                  </div>
+                ) : (
+                  TopTenData.data.length !== 0 && (
+                    <ApexChart
+                      Data={TopTenData.loading ? [{}] : TopTenData.data}
+                    />
+                  )
+                )}
+              </div>
             </>
           )}
         </div>
