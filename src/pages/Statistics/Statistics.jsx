@@ -428,10 +428,11 @@ const Statistics = () => {
                         const matchesSearch = dt.stationName
                           .toLowerCase()
                           .startsWith(searchLowerCase);
+                        console.log(CurrentFuelSales, "---", dt.fuel_type);
 
                         const filterFuelType =
                           CurrentFuelSales === "" ||
-                          CurrentFuelSales === dt.fuel_type;
+                          CurrentFuelSales - 1 === dt.fuel_type;
 
                         return (
                           (SearchText === "" || matchesSearch) && filterFuelType
