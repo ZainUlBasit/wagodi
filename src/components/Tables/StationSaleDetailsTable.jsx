@@ -104,13 +104,13 @@ export default function StationSaleDetailsTable({ Rows }) {
                 <td style={{ textAlign: "center" }}>{row.managerName}</td>
                 <td style={{ textAlign: "center", whiteSpace: "nowrap" }}>
                   {row.start
-                    ? moment(new Date(row.start * 1000)).format("DD/MM/YYYY")
-                    : "--/--/----"}
+                    ? moment(new Date(row.start * 1000)).format("hh:mm A")
+                    : "--:-- --"}
                 </td>
                 <td style={{ textAlign: "center", whiteSpace: "nowrap" }}>
                   {row.end
-                    ? moment(new Date(row.end * 1000)).format("DD/MM/YYYY")
-                    : "--/--/----"}
+                    ? moment(new Date(row.end * 1000)).format("hh:mm A")
+                    : "--:-- --"}
                 </td>
                 <td style={{ textAlign: "center", whiteSpace: "nowrap" }}>
                   {row.fuel_value}
