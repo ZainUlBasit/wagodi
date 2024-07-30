@@ -18,6 +18,7 @@ import DriverStatsSlice from "./Slices/DriverStatsSlice";
 import TopTenStatsSlice from "./Slices/TopTenStatsSlice";
 import OrderReportSlice from "./Slices/OrderReportSlice";
 import StationSaleStatsSlice from "./Slices/StationSaleStatsSlice";
+import ErrorMessageSlice from "./Slices/ErrorMessageSlice";
 
 export const store = configureStore({
   reducer: {
@@ -40,5 +41,6 @@ export const store = configureStore({
     TopTenStations: TopTenStatsSlice,
     OrderReportState: OrderReportSlice,
     StationSaleStatsState: StationSaleStatsSlice,
+    ErrorMessageState: ErrorMessageSlice,
   },
 });

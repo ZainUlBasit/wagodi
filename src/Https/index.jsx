@@ -155,3 +155,8 @@ export const GetStationSaleStats = (payload) =>
 export const GetDriverStats = (data) => api.post("/statistics/driverAll", data);
 export const GetTenStationStat = (data) =>
   api.post("/statistics/station/topten", data);
+
+//  Error message requests
+export const UpdateMessageErrorApi = (data) =>
+  api.post("/contact/update", data);
+export const GetMessageErrorApi = () => api.get("/contact/get");

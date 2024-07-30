@@ -108,9 +108,7 @@ const SuperAdminNavbar = () => {
             </div>
             <div
               className={`cursor-pointer py-[6px] px-[6px] border-2 rounded-full ${
-                activeNavItem === "Setting"
-                  ? "border-[#475562]"
-                  : "border-[#fff]"
+                activeNavItem === "uaer" ? "border-[#475562]" : "border-[#fff]"
               }`}
               onClick={() => {
                 // handleNavItemClick("Setting");

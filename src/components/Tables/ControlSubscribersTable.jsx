@@ -107,9 +107,7 @@ export default function ControlSubscribersTable({ Data, Search, UpdateData }) {
                     }}
                     align="center"
                   >
-                    {row?.allowedStations == undefined
-                      ? "none"
-                      : row?.allowedStations}
+                    {row?.stations.length}
                   </TableCell>
                   <TableCell
                     sx={{

@@ -21,13 +21,31 @@ import QrCodesModal from "./QrCodes";
 
 const ShowMessageModal = ({ Open, setOpen, msg }) => {
   const [Test, setTest] = useState(false);
+  const ErrorMessageState = useSelector(
+    (state) => state.ErrorMessageState.data
+  );
+
   return (
     <CustomModal open={Open} setOpen={setTest}>
       <div className="px-5 p-4 flex flex-col gap-y-5 items-center max-w-[400px]">
         <div className="text-red-600 text-xl font-bold">
-          Station Limit Exceeded!
+          Station Limit Reached!
         </div>
-        <div className="text-center">{msg}</div>
+        <div className="text-center flex flex-col ">
+          <div className="">{msg}</div>
+          <div className="">{ErrorMessageState.description}</div>
+        </div>
+        <div className="text-center flex justify-between w-full">
+          <div className="">
+            <div className="font-bold">Phone:</div>
+            <div className="">{ErrorMessageState.phone}</div>
+          </div>
+          <div className="">
+            <div className="font-bold">Email:</div>
+            <div className="">{ErrorMessageState.email}</div>
+          </div>
+        </div>
+
         <button
           onClick={() => setOpen(false)}
           className="bg-slate-500 hover:bg-slate-600 text-white px-4 py-2 rounded-lg transition-all ease-in-out duration-500"

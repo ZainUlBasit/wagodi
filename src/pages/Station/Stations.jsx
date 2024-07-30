@@ -22,6 +22,7 @@ import HeaderWrapper from "../../components/Header/HeaderWrapper";
 import NoDataFound from "../../components/Loaders/Lottie/NoDataFound";
 import { GetCompanyInfoAPI } from "../../Https";
 import ShowMessageModal from "../../components/Modals/ShowMessageModal";
+import { fecthMessageError } from "../../store/Slices/ErrorMessageSlice";
 
 const Stations = () => {
   const [Filter, setFilter] = useState("");
@@ -48,6 +49,10 @@ const Stations = () => {
   useEffect(() => {
     dispatch(fetchStations(Auth.data.companyId));
     fetchCompanyData();
+  }, []);
+
+  useEffect(() => {
+    dispatch(fecthMessageError());
   }, []);
 
   return (

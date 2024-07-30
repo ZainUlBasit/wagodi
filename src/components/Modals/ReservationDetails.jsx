@@ -69,7 +69,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
               label="Station Name"
               placeholder="Station Name"
               required={false}
-              Value={orderData.station?.id?.name}
+              Value={orderData.station?.name}
               // setValue={setStationName}
               readonly={true}
             />
@@ -128,7 +128,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
               label="Start Points"
               placeholder="Select Start Point..."
               required={false}
-              Value={orderData.from.address}
+              Value={orderData.from.name || "not specified"}
               // setValue={setStartPoints}
               readonly={true}
             />

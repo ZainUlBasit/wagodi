@@ -9,7 +9,7 @@ import { FaPlus } from "react-icons/fa";
 import AddGasInputs from "../AddGas/AddGasInputs";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
-import { CreateStationApi } from "../../Https";
+import { CreateStationApi, UpdateMessageErrorApi } from "../../Https";
 import toast from "react-hot-toast";
 import { fetchStations } from "../../store/Slices/StationSlice";
 import WarningToast from "../Toast/WarningToast";
@@ -19,12 +19,14 @@ import MapContainer from "../../utility/MapContainer";
 import QrCodesModal from "./QrCodes";
 import ShowMessageModal from "./ShowMessageModal";
 import { validateEmail } from "../../utility/ValidateEmail";
+import { fecthMessageError } from "../../store/Slices/ErrorMessageSlice";
+import SuccessToast from "../Toast/SuccessToast";
 // import { MapContainer } from "../../utility/LocationPicker";
 
 const AddInfoModal = ({ Open, setOpen }) => {
-  const [StationNumber, setStationNumber] = useState("");
-  const [StationName, setStationName] = useState("");
-  const [Address, setAddress] = useState("");
+  const [MobileNumber, setMobileNumber] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Description, setDescription] = useState("");
   const [Loading, setLoading] = useState(false);
   const [Longitude, setLongitude] = useState("");
   const [Latitude, setLatitude] = useState("");
@@ -51,53 +53,25 @@ const AddInfoModal = ({ Open, setOpen }) => {
   const onSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
-    const BodyData = {
-      companyId: Auth.data.companyId,
-      fuels: AllGases.map((ag) => {
-        return {
-          type:
-            ag.type === "91" ? 0 : ag.type === "95" ? 1 : ag.type === "D" && 2,
-          price_litre: Number(ag.price_litre),
-          value: Number(ag.value),
-          max_value: Number(ag.max_value),
-          dispensers: ag.dispensers,
-          // dispenserCount: ag.dispenserCount ? ag.dispenserCount : [],
-        };
-      }),
-      name: StationName,
-      address: Address,
-      phone: StationNumber,
-      longitude: Longitude,
-      latitude: Latitude,
-    };
 
-    console.log(BodyData);
-    console.log(AllGases);
-    // setLoading(false);
-
-    // return;
-
-    if (StationNumber.length !== 10) {
+    if (MobileNumber.length !== 10) {
       WarningToast("Enter Valid Mobile Number");
-    } else if (!validateEmail(StationName)) {
+    } else if (!validateEmail(Email)) {
       WarningToast("Enter Valid Email!");
-    } else if (Address === "") {
+    } else if (Description === "") {
       WarningToast("Description is required!");
     } else {
       try {
-        const response = await CreateStationApi(BodyData);
+        const response = await UpdateMessageErrorApi({
+          email: Email,
+          phone: MobileNumber,
+          description: Description,
+        });
+        console.log(response.data);
         if (response.data.success) {
           setOpen(false);
-          toast.success(response.data.data?.msg);
-          dispatch(fetchStations(Auth.data.companyId));
-        } else {
-          if (
-            "The company has reached the maximum number of allowed stations!" ===
-            response.data.error?.msg
-          ) {
-            setStationExceed(true);
-            setStationExceedMsg(response.data.error?.msg);
-          } else toast.error(response.data.error?.msg);
+          SuccessToast(response.data.message);
+          dispatch(fecthMessageError());
         }
       } catch (err) {
         console.log(err);
@@ -106,11 +80,27 @@ const AddInfoModal = ({ Open, setOpen }) => {
     setLoading(false);
   };
 
-  const handleSelect = ({ address, latLng }) => {
-    setAddress(address);
+  const handleSelect = ({ Description, latLng }) => {
+    setDescription(Description);
     setLongitude(latLng.lng);
     setLatitude(latLng.lat);
   };
+
+  const ErrorMessageState = useSelector(
+    (state) => state.ErrorMessageState.data
+  );
+
+  useEffect(() => {
+    dispatch(fecthMessageError());
+  }, []);
+
+  useEffect(() => {
+    if (ErrorMessageState) {
+      setMobileNumber(ErrorMessageState.phone);
+      setEmail(ErrorMessageState.email);
+      setDescription(ErrorMessageState.description);
+    }
+  }, [ErrorMessageState]);
 
   return (
     <CustomModal open={Open} setOpen={setOpen}>
@@ -125,24 +115,24 @@ const AddInfoModal = ({ Open, setOpen }) => {
             label="Mobile Number"
             placeholder="1234567890"
             required={false}
-            Value={StationNumber}
-            setValue={setStationNumber}
+            Value={MobileNumber}
+            setValue={setMobileNumber}
           />
           <AuthInput
             type={"email"}
             label="Email"
             placeholder="abc@gmail.com"
             required={false}
-            Value={StationName}
-            setValue={setStationName}
+            Value={Email}
+            setValue={setEmail}
           />
           <AuthTextArea
             type={"text"}
             label="Description"
             placeholder="Enter Description"
             required={false}
-            Value={Address}
-            setValue={setAddress}
+            Value={Description}
+            setValue={setDescription}
           />
           {/* right */}
           {Loading ? (

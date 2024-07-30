@@ -108,9 +108,7 @@ export default function SubscriptionRequestsTable({
                     }}
                     align="center"
                   >
-                    {row?.allowedStations == undefined
-                      ? "none"
-                      : row?.allowedStations}
+                    {row?.stations.length}
                   </TableCell>
                   <TableCell
                     sx={{
