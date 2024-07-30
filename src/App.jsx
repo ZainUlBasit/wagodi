@@ -103,15 +103,15 @@ const App = () => {
       // Handle the event data
       SuccessToast(data.description);
     });
-    socket.on("subscriptionLimitReached", () => {
-      // ErrorToast("")
-      localStorage.removeItem("user-data");
-      localStorage.removeItem("logged-in");
-      localStorage.removeItem("userToken");
-      localStorage.removeItem("companyData");
-      // navigate("/auth");
-      window.location.reload();
-    });
+    // socket.on("subscriptionLimitReached", () => {
+    //   // ErrorToast("")
+    //   localStorage.removeItem("user-data");
+    //   localStorage.removeItem("logged-in");
+    //   localStorage.removeItem("userToken");
+    //   localStorage.removeItem("companyData");
+    //   // navigate("/auth");
+    //   window.location.reload();
+    // });
 
     // Clean up the socket connection on component unmount
     return () => {
@@ -119,7 +119,7 @@ const App = () => {
         console.log("disconnected");
       });
     };
-  }, []);
+  }, [socket]);
 
   return Loading ? (
     <div className="flex h-screen w-full items-center justify-center">
