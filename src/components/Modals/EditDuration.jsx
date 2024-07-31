@@ -20,10 +20,12 @@ import QrCodesModal from "./QrCodes";
 import ErrorToast from "../Toast/ErrorToast";
 import moment from "moment";
 import SuccessToast from "../Toast/SuccessToast";
+import { fetchControlSubscibers } from "../../store/Slices/ControlSubscribersSlice";
 // import { MapContainer } from "../../utility/LocationPicker";
 
 const EditDuration = ({ Open, setOpen, CompanyId, CurrentDuration }) => {
   console.log(CompanyId);
+  const dispatch = useDispatch();
   const [Duration, setDuration] = useState(
     moment(new Date(CurrentDuration * 1000)).format("YYYY-MM-DD")
   );
@@ -39,6 +41,8 @@ const EditDuration = ({ Open, setOpen, CompanyId, CurrentDuration }) => {
       });
       if (response.data.success) {
         SuccessToast(response.data.data.msg);
+        dispatch(fetchControlSubscibers());
+
         setOpen(false);
       }
     } catch (err) {

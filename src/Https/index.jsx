@@ -160,3 +160,7 @@ export const GetTenStationStat = (data) =>
 export const UpdateMessageErrorApi = (data) =>
   api.post("/contact/update", data);
 export const GetMessageErrorApi = () => api.get("/contact/get");
+
+// Control Subscriber Requests
+export const GetAllControlSubscriberAPI = (requestBody) =>
+  api.post("/company/all", requestBody);

@@ -23,11 +23,13 @@ import MapContainer from "../../utility/MapContainer";
 import QrCodesModal from "./QrCodes";
 import SuccessToast from "../Toast/SuccessToast";
 import ErrorToast from "../Toast/ErrorToast";
+import { fetchControlSubscibers } from "../../store/Slices/ControlSubscribersSlice";
 // import { MapContainer } from "../../utility/LocationPicker";
 
 const EditStationLimit = ({ Open, setOpen, CompanyId, CurrentLimit }) => {
   const [StationLimit, setStationLimit] = useState(CurrentLimit);
   const [Loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const onSubmit = async (e) => {
     setLoading(true);
@@ -38,6 +40,8 @@ const EditStationLimit = ({ Open, setOpen, CompanyId, CurrentLimit }) => {
         no_station: Number(StationLimit),
       });
       if (response.data.success) {
+        dispatch(fetchControlSubscibers());
+
         SuccessToast(response.data.data.msg);
         setOpen(false);
       }

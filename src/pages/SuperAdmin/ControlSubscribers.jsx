@@ -6,8 +6,9 @@ import { GetMessageErrorApi, api } from "../../Https";
 import ErrorToast from "../../components/Toast/ErrorToast";
 import TableWrapper from "../../components/Tables/TableWrapper";
 import PageLoader from "../../components/Loaders/PageLoader";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fecthMessageError } from "../../store/Slices/ErrorMessageSlice";
+import { fetchControlSubscibers } from "../../store/Slices/ControlSubscribersSlice";
 
 const old_data = [
   {
@@ -64,26 +65,12 @@ const ControlSubscribers = () => {
   const [Loading, setLoading] = useState(false);
   const [IsError, setIsError] = useState(true);
   const dispatch = useDispatch();
+  const ControlSubscribersState = useSelector(
+    (state) => state.ControlSubscribersState
+  );
 
   useEffect(() => {
-    const requestBody = {};
-    // const start_date = (new Date(ToDate).getTime() / 1000)
-    // const end_date = (new Date(FromDate).getTime() / 1000)
-    const fetchSubscriptionData = async () => {
-      setLoading(true);
-      try {
-        const responseData = await api.post("/company/all", requestBody);
-        console.log(responseData);
-        if (responseData?.data?.success) setData(responseData?.data?.data);
-      } catch (error) {
-        console.log(error);
-        ErrorToast("Error fetching Control Subscription Data!");
-        setIsError(true);
-      }
-      console.log(data);
-      setLoading(false);
-    };
-    fetchSubscriptionData();
+    dispatch(fetchControlSubscibers());
   }, []);
 
   return (
@@ -139,14 +126,14 @@ const ControlSubscribers = () => {
             </div>
           </div>
         </div>
-        {Loading ? (
+        {ControlSubscribersState.loading ? (
           <div className="flex">
             <PageLoader />
           </div>
         ) : (
           <TableWrapper className="rounded-[30px] overflow-hidden">
             <ControlSubscribersTable
-              Data={data.filter(
+              Data={ControlSubscribersState.data.filter(
                 (dt) =>
                   SearchText === "" ||
                   dt.name.toLowerCase().includes(SearchText.toLowerCase())
