@@ -3,7 +3,7 @@ import MobLogoDesign from "../../components/LogoDesign/MobLogoDesign";
 import LogoDesign from "../../components/LogoDesign/LogoDesign";
 import SetNewPasswordComp from "../../components/SetNewPasswordComp/SetNewPasswordComp";
 import "../../assets/Style/style.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SetNewPassword = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -11,6 +11,7 @@ const SetNewPassword = () => {
   const location = useLocation();
   const userId = location.state?.userId || null;
   const otpId = location.state?.otpId || null;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (userId === null || otpId === null) {

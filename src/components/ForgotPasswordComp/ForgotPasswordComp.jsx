@@ -13,11 +13,11 @@ const ForgotPasswordComp = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await ForgetPasswordApi({ email: Email });
+      const response = await ForgetPasswordApi({ mobile: Email });
       console.log(response);
       toast.success(response.data.data.msg);
       navigate("/otp-verification", {
-        state: { userId: response.data.data.userId },
+        state: { userId: response.data.data.id },
       });
     } catch (err) {
       toast.error(err.response.data.error.msg);
@@ -37,8 +37,8 @@ const ForgotPasswordComp = () => {
             </p>
 
             <AuthInput
-              label={"E-mail"}
-              placeholder={"user123@gmail.com"}
+              label={"Mobile Number"}
+              placeholder={"1234567890"}
               Value={Email}
               setValue={setEmail}
               required={false}

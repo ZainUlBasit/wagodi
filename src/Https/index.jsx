@@ -38,7 +38,9 @@ export const SignInApi = (data) => api.post("/auth/sign-in", data);
 export const SignUpApi = (data) => api.post("/auth/company/sign-up", data);
 export const ForgetPasswordApi = (data) =>
   api.post("/auth/forget-password", data);
-export const VerifyOtpApi = (data) => api.post("/auth/verify-otp", data);
+export const VerifyOtpApi = (data) => api.post("/auth/verify-forget-otp", data);
+export const VerifySinginOtpApi = (data) =>
+  api.post("/auth/verify-signin-otp", data);
 export const UpdatePasswordApi = (data) =>
   api.patch("/auth/update-password", data);
 
