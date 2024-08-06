@@ -203,6 +203,7 @@ const LoginComp = () => {
           otp: enteredOtp,
         });
         console.log(response);
+        onSubmit(e);
       } catch (err) {
         console.log(err);
       }
