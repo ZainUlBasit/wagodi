@@ -404,6 +404,68 @@ const Statistics = () => {
                 />
               </div>
             </div>
+            <Popover
+              id={idFuelSales}
+              open={openFuelSales}
+              anchorEl={anchorElFuelSales}
+              onClose={handleCloseFuelSales}
+              PaperProps={{
+                sx: {
+                  borderRadius: "25px",
+                  backgroundColor: "white",
+                  width: "fit",
+                  overflowY: "auto", // Enable vertical scrollbar when content overflows
+                  maxHeight: "60vh", // Set maximum height to 60% of the viewport height
+                  marginTop: "10px",
+                  boxShadow: "none",
+                },
+              }}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+            >
+              <Typography
+                sx={{
+                  pt: 2,
+                  pl: 4,
+                  pr: 5,
+                  pb: 5,
+                  borderColor: "#465462",
+                  backgroundColor: "#465462",
+                  // width: "400px",
+                  overflow: "hidden",
+                  borderRadius: "20px",
+                }}
+              >
+                <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
+                  <div className="w-full flex flex-col justify-between gap-y-3 items-start">
+                    {["All", "91", "95", "D"].map((fuel_type, i) => {
+                      return (
+                        <div
+                          className="flex gap-x-3 items-center cursor-pointer"
+                          onClick={() => {
+                            handleCloseFuelSales();
+                            setCurrentFuelSales(fuel_type === "All" ? "" : i);
+                          }}
+                        >
+                          <input
+                            type="checkbox"
+                            className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
+                            checked={CurrentFuelSales === i}
+                          />
+                          <span>{fuel_type}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </Typography>
+            </Popover>
           </div>
         </div>
 
@@ -469,70 +531,6 @@ const Statistics = () => {
                     </div>
                   </div>
 
-                  <Popover
-                    id={idFuelSales}
-                    open={openFuelSales}
-                    anchorEl={anchorElFuelSales}
-                    onClose={handleCloseFuelSales}
-                    PaperProps={{
-                      sx: {
-                        borderRadius: "25px",
-                        backgroundColor: "white",
-                        width: "fit",
-                        overflowY: "auto", // Enable vertical scrollbar when content overflows
-                        maxHeight: "60vh", // Set maximum height to 60% of the viewport height
-                        marginTop: "10px",
-                        boxShadow: "none",
-                      },
-                    }}
-                    anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "right",
-                    }}
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        pt: 2,
-                        pl: 4,
-                        pr: 5,
-                        pb: 5,
-                        borderColor: "#465462",
-                        backgroundColor: "#465462",
-                        // width: "400px",
-                        overflow: "hidden",
-                        borderRadius: "20px",
-                      }}
-                    >
-                      <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
-                        <div className="w-full flex flex-col justify-between gap-y-3 items-start">
-                          {["All", "91", "95", "D"].map((fuel_type, i) => {
-                            return (
-                              <div
-                                className="flex gap-x-3 items-center cursor-pointer"
-                                onClick={() => {
-                                  handleCloseFuelSales();
-                                  setCurrentFuelSales(
-                                    fuel_type === "All" ? "" : i
-                                  );
-                                }}
-                              >
-                                <input
-                                  type="checkbox"
-                                  className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                                  checked={CurrentFuelSales === i}
-                                />
-                                <span>{fuel_type}</span>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </Typography>
-                  </Popover>
                   <Popover
                     id={idFuel}
                     open={openFuel}
@@ -855,13 +853,13 @@ const Statistics = () => {
           )}
         </div>
         <div className="w-[90%] flex justify-start"></div>
-        {TopTenData.loading ? (
+        {/* {TopTenData.loading ? (
           <PageLoader />
         ) : TopTenData.data.length === 0 ? (
           <></>
         ) : (
           <LineColumnChart Data={TopTenData.loading ? [{}] : TopTenData.data} />
-        )}
+        )} */}
 
         <div className="w-[90%] flex justify-end items-center">
           <DateInput
