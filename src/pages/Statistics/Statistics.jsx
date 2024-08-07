@@ -223,7 +223,7 @@ const Statistics = () => {
               ? Number(CurrentMonthIndexChart) + 1
               : CurrentMonthChart,
 
-          fuelType: CurrentFuel,
+          fuelType: CurrentFuel === 0 ? "" : CurrentFuel - 1,
         })
       );
   }, [CurrentMonthChart, CurrentFuel]);

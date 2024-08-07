@@ -31,7 +31,7 @@ export const fetchTopTenStation = createAsyncThunk(
     try {
       const response = await GetTenStationStat({
         ...reqBody,
-        fuelType: Payload.fuelType,
+        fuelType: Payload.fuelType === -1 ? "" : Payload.fuelType,
       });
       console.log(response.data.data);
       const updatedResponse = response.data.data;
