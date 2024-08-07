@@ -7,16 +7,12 @@ const ApexChart = ({ Data }) => {
     {
       name: "Sales Volume per L",
       group: "budget",
-      data: Data.map((dt) => {
-        return dt.salesVolume;
-      }),
+      data: Data.map((dt) => dt.volume),
     },
     {
       name: "Sales amount per SR",
       group: "budget",
-      data: Data.map((dt) => {
-        return dt.salesAmount;
-      }),
+      data: Data.map((dt) => dt.amount),
     },
   ];
 

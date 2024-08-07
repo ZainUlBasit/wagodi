@@ -843,9 +843,7 @@ const Statistics = () => {
                   </div>
                 ) : (
                   TopTenData.data.length !== 0 && (
-                    <ApexChart
-                      Data={TopTenData.loading ? [{}] : TopTenData.data}
-                    />
+                    <ApexChart Data={TopTenData.data} />
                   )
                 )}
               </div>

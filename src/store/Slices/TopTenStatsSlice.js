@@ -33,13 +33,9 @@ export const fetchTopTenStation = createAsyncThunk(
         ...reqBody,
         fuelType: Payload.fuelType,
       });
-      const updatedResponse = response.data.data.map((dt) => {
-        return {
-          ...dt,
-          salesVolume: parseFloat(dt.volume).toFixed(2),
-          salesAmount: parseFloat(dt.amount).toFixed(2),
-        };
-      });
+      console.log(response.data.data);
+      const updatedResponse = response.data.data;
+      console.log(updatedResponse);
       // return [];
       return updatedResponse || [];
     } catch (error) {
