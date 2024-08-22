@@ -111,7 +111,7 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
       phone_number: PhoneNumber,
       address: Address,
     };
-    if (Role === "Station Manager" && Authority === "Orders") {
+    if (Role === "Station Manager" && Authority === "Order") {
       req_data = { ...req_data, canScan: CanScan };
     }
     req_data =
@@ -193,19 +193,21 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
   return (
     <CustomModal open={Open} setOpen={setOpen}>
       <div className="relative">
-        <div className="absolute right-5 top-5">
-          <input
-            type="checkbox"
-            id="can-scan"
-            name="can-scan"
-            checked={CanScan}
-            onChange={(e) => setCanScan(e.target.checked)}
-          />
-          <label htmlFor="can-scan" className="font-[Quicksand] font-bold">
-            {" "}
-            Can Scan
-          </label>
-        </div>
+        {Role === "Station Manager" && Authority === "Order" && (
+          <div className="absolute right-5 top-5">
+            <input
+              type="checkbox"
+              id="can-scan"
+              name="can-scan"
+              checked={CanScan}
+              onChange={(e) => setCanScan(e.target.checked)}
+            />
+            <label htmlFor="can-scan" className="font-[Quicksand] font-bold">
+              {" "}
+              Can Scan
+            </label>
+          </div>
+        )}
         <h1 className="w-full text-center font-[700] text-3xl py-8 font-[Quicksand]">
           Edit User
         </h1>
