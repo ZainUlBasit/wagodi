@@ -120,7 +120,7 @@ const EditStation = ({ Open, setOpen, CurrentStation }) => {
         fuels: [...UpdationIds, ...AddedIds].filter((id) => id !== undefined),
       },
     };
-
+    // console.log(BodyData);
     // return;
     if (StationNumber === "") {
       WarningToast("Enter Valid Station Number");

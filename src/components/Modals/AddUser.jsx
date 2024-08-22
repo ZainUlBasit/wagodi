@@ -31,6 +31,7 @@ const AddUser = ({ Open, setOpen }) => {
   const [Long, setLong] = useState("");
   const [Lat, setLat] = useState("");
   const [SearchPopOver, setSearchPopOver] = useState("");
+  const [CanScan, setCanScan] = useState(false);
 
   const [anchorElRole, setAnchorElRole] = useState(null);
   const [anchorElStationName, setAnchorElStationName] = useState(null);
@@ -79,6 +80,9 @@ const AddUser = ({ Open, setOpen }) => {
       phone_number: PhoneNumber,
       address: Address,
     };
+    if (Role === "Station Manager" && Authority === "Orders") {
+      req_data = { ...req_data, canScan: CanScan };
+    }
     req_data =
       Role === "Administrator" || Role === "Order Manager" || Role === "Driver"
         ? {
@@ -166,7 +170,22 @@ const AddUser = ({ Open, setOpen }) => {
   }, []);
   return (
     <CustomModal open={Open} setOpen={Loading ? "" : setOpen}>
-      <div>
+      <div className="relative">
+        {Role === "Station Manager" && Authority === "Orders" && (
+          <div className="absolute right-5 top-5">
+            <input
+              type="checkbox"
+              id="can-scan"
+              name="can-scan"
+              checked={CanScan}
+              onChange={(e) => setCanScan(e.target.checked)}
+            />
+            <label htmlFor="can-scan" className="font-[Quicksand] font-bold">
+              {" "}
+              Can Scan
+            </label>
+          </div>
+        )}
         <h1 className="w-full text-center font-[700] text-3xl py-8 font-[Quicksand]">
           Add User
         </h1>
