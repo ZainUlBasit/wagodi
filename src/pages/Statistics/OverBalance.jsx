@@ -13,6 +13,7 @@ import moment from "moment";
 import PageLoader from "../../components/Loaders/PageLoader";
 import { fetchWasteData } from "../../store/Slices/WasteSlice";
 import WasteTable from "../../components/Tables/WasteTable";
+import OverBalanceTable from "../../components/Tables/OverBalanceTable";
 
 const FuelToEnum = (fuel) => {
   switch (fuel) {
@@ -25,7 +26,7 @@ const FuelToEnum = (fuel) => {
   }
 };
 
-const WasteData = () => {
+const OverBalance = () => {
   const [SearchText, setSearchText] = useState("");
   const [SearchPopOver, setSearchPopOver] = useState("");
   const [StationId, setStationId] = useState("");
@@ -128,7 +129,7 @@ const WasteData = () => {
               className="text-[1.4rem] cursor-pointer"
               onClick={handleArrowLeftClick}
             />
-            Waste Data
+            Over Balance
           </div>
           {/* Right */}
           <div className="flex items-center gap-x-4 justify-end  max767:w-full max767:justify-end  max767:mt-3 flex-wrap gap-y-4">
@@ -352,7 +353,7 @@ const WasteData = () => {
         ) : (
           <>
             <div className="w-[90%] max-w-[1200px] border-[1px] border-[#465462] rounded-[30px] overflow-hidden shadow-[rgba(14,30,37,0.12)_0px_2px_4px_0px,rgba(14,30,37,0.32)_0px_2px_16px_0px]">
-              <WasteTable
+              <OverBalanceTable
                 Data={Waste_Data.data.filter((dt) => {
                   const searchLowerCase = SearchText.toLowerCase();
                   const employeeLowerCase = dt.stationName.toLowerCase();
@@ -398,4 +399,4 @@ const WasteData = () => {
   );
 };
 
-export default WasteData;
+export default OverBalance;
