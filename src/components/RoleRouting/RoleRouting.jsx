@@ -24,6 +24,7 @@ import SubscriptionRequests from "../../pages/SuperAdmin/SubscriptionRequests";
 import ControlSubscribers from "../../pages/SuperAdmin/ControlSubscribers";
 import Auth from "../../pages/Auth/Auth";
 import { useSelector } from "react-redux";
+import WasteData from "../../pages/Statistics/WasteData";
 
 const RoleRouting = ({ role }) => {
   const CurrentUser = useSelector((state) => state.auth.data);
@@ -152,6 +153,14 @@ const RoleRouting = ({ role }) => {
         element={
           <ProtectedRoute>
             <EmployeeData />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/waste-data"
+        element={
+          <ProtectedRoute>
+            <WasteData />
           </ProtectedRoute>
         }
       />

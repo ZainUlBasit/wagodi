@@ -10,6 +10,7 @@ import SelectedOrder from "./Slices/SelectedOrder";
 import CompanyReducer from "./Slices/CompanySlice";
 import CompanyStatsSlice from "./Slices/CompanyStatsSlice";
 import EmployeeSlice from "./Slices/EmployeeSlice";
+import WasteSlice from "./Slices/WasteSlice";
 import NotifySlice from "./Slices/NotifySlice";
 import DriverSlice from "./Slices/DriverSlice";
 import AllCompanySlice from "./Slices/AllCompanySlice";
@@ -34,6 +35,7 @@ export const store = configureStore({
     Company: CompanyReducer,
     CompanyStats: CompanyStatsSlice,
     EmployeeData: EmployeeSlice,
+    WasteState: WasteSlice,
     Notify: NotifySlice,
     Drivers: DriverSlice,
     AllCompany: AllCompanySlice,
