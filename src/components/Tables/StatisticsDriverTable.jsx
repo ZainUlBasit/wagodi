@@ -15,8 +15,11 @@ import { useState } from "react";
 import { BiSolidChevronDown } from "react-icons/bi";
 import { Popover, Typography } from "@mui/material";
 import SendReport from "../Modals/SendReport";
+import { useTranslation } from "react-i18next";
 
 export default function StatisticsDriverTable({ setCurrentID, setOpen, Data }) {
+  const [t, i18n] = useTranslation("global");
+
   const [CurrentMonth, setCurrentMonth] = useState("All");
   const [CurrentMonthIndex, setCurrentMonthIndex] = useState("");
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -150,7 +153,7 @@ export default function StatisticsDriverTable({ setCurrentID, setOpen, Data }) {
                 }}
                 align="center"
               >
-                View
+                {t("DriversColumns.View")}
               </TableCell>
               <TableCell
                 sx={{
@@ -161,7 +164,7 @@ export default function StatisticsDriverTable({ setCurrentID, setOpen, Data }) {
                 }}
                 align="center"
               >
-                User Number
+                {t("DriversColumns.UserNumber")}
               </TableCell>
               <TableCell
                 sx={{
@@ -172,7 +175,7 @@ export default function StatisticsDriverTable({ setCurrentID, setOpen, Data }) {
                 }}
                 align="center"
               >
-                User Name
+                {t("DriversColumns.UserName")}
               </TableCell>
               <TableCell
                 sx={{
@@ -183,7 +186,7 @@ export default function StatisticsDriverTable({ setCurrentID, setOpen, Data }) {
                 }}
                 align="center"
               >
-                Email
+                {t("DriversColumns.Email")}
               </TableCell>
               <TableCell
                 sx={{
@@ -194,7 +197,7 @@ export default function StatisticsDriverTable({ setCurrentID, setOpen, Data }) {
                 }}
                 align="center"
               >
-                Description
+                {t("DriversColumns.Description")}
               </TableCell>
 
               <TableCell
@@ -206,7 +209,7 @@ export default function StatisticsDriverTable({ setCurrentID, setOpen, Data }) {
                 }}
                 align="center"
               >
-                Trips Completed
+                {t("DriversColumns.TripsCompleted")}
               </TableCell>
             </TableRow>
           </TableHead>

@@ -1,0 +1,146 @@
+{
+  "stations": "محطات",
+  "Drivers": "السائقين",
+  "station_name": "اسم المحطة",
+  "last_ordered": "آخر طلب",
+  "adminnav": {
+    "home": "الرئيسية",
+    "ongoing_orders": "الطلبات الجارية",
+    "approved_reports": "التقارير المعتمدة",
+    "users": "المستخدمون",
+    "station": "المحطة",
+    "statistics": "الإحصائيات",
+    "vendor": "البائع"
+  },
+  "status": {
+    "Healthy": "صحي",
+    "BeReady": "كن جاهزا",
+    "MakeOrder": "قم بالطلب"
+  },
+  "ClearFilter": "مسح التصفية",
+  "ChooseYourFilter": "اختر التصفية",
+  "Favorites": "المفضلات",
+  "orderstatus": {
+    "All": "الكل",
+    "ordered": "مطلوب",
+    "assigned": "مخصص",
+    "picked up": "تم الاستلام",
+    "delivered": "تم التوصيل",
+    "approved": "معتمد",
+    "canceled": "ملغى",
+    "unknown": "غير معروف"
+  },
+  "Orders": "الطلبات",
+  "OngoingOrdersColumns": {
+    "orderNumber": "رقم الطلب",
+    "reservationDate": "تاريخ الحجز",
+    "receiptNumber": "رقم الإيصال",
+    "startPoint": "نقطة الانطلاق",
+    "paidAmount": "المبلغ المدفوع",
+    "driverName": "اسم السائق",
+    "deliveryDateTime": "تاريخ ووقت التسليم",
+    "status": "الحالة",
+    "view": "عرض"
+  },
+  "approvedOrders": "الطلبات الموافق عليها",
+  "orderReportsColumns": {
+    "ReceiptNumber": "رقم الإيصال",
+    "StationName": "اسم المحطة",
+    "PaidAmount": "المبلغ المدفوع",
+    "DriverName": "اسم السائق",
+    "PhoneNo": "رقم الهاتف",
+    "Status": "الحالة",
+    "RequiredDateTime": "التاريخ والوقت المطلوب",
+    "GasType": "نوع الغاز",
+    "UOM": "وحدة القياس",
+    "BalanceVolume": "حجم الرصيد",
+    "RequiredVolume": "الحجم المطلوب",
+    "IssuedVolume": "الحجم الصادر",
+    "ReceivedVolume": "الحجم المستلم",
+    "DeliveredDateTime": "تاريخ ووقت التسليم",
+    "DeliverTime": "وقت التسليم"
+  },
+  "Role": "دور",
+  "UsersColumns": {
+    "Action": "إجراء",
+    "Username": "اسم المستخدم",
+    "Email": "البريد الإلكتروني",
+    "AuthorityAndPrivileges": "السلطة والامتيازات",
+    "PhoneNumber": "رقم الهاتف",
+    "Role": "دور"
+  },
+  "StationsColumns": {
+    "Action": "إجراء",
+    "StationNumber": "رقم المحطة",
+    "StationName": "اسم المحطة",
+    "StationManagers": "مدراء المحطة",
+    "Address": "العنوان",
+    "MoneyEarned": "الأموال المكتسبة",
+    "MoneySpent": "الأموال المنفقة"
+  },
+  "StationStatistics": "إحصائيات المحطة",
+  "EmployeeData": "بيانات الموظف",
+  "WasteData": "بيانات النفايات",
+  "OverBalance": "زيادة الرصيد",
+  "Months": {
+    "January": "يناير",
+    "February": "فبراير",
+    "March": "مارس",
+    "April": "أبريل",
+    "May": "مايو",
+    "June": "يونيو",
+    "July": "يوليو",
+    "August": "أغسطس",
+    "September": "سبتمبر",
+    "October": "أكتوبر",
+    "November": "نوفمبر",
+    "December": "ديسمبر"
+  },
+  "StatsTopTableColumns": {
+    "NumberOfStation": "عدد المحطات",
+    "NumberOfDrivers": "عدد السائقين",
+    "MonthlySales": "المبيعات الشهرية (لتر)",
+    "MonthlyOrders": "الطلبات الشهرية (لتر)"
+  },
+  "StationSalesColumns": {
+    "StationName": "اسم المحطة",
+    "StationManager": "مدراء المحطة",
+    "Start": "البداية",
+    "End": "النهاية",
+    "Liters": "لترات",
+    "FuelType": "نوع الوقود",
+    "SalesAmount": "مبلغ المبيعات"
+  },
+  "DriversColumns": {
+    "View": "عرض",
+    "UserNumber": "رقم المستخدم",
+    "UserName": "اسم المستخدم",
+    "Email": "البريد الإلكتروني",
+    "Description": "الوصف",
+    "TripsCompleted": "الرحلات المكتملة"
+  },
+  "VendorTableColumns": {
+    "Action": "الإجراء",
+    "VendorName": "اسم المورد",
+    "FuelType": "نوع الوقود",
+    "Location": "الموقع"
+  },
+  "Month": "شهر",
+  "Days": "أيام",
+  "Year": "سنوات",
+  "SendReport": "إرسال التقرير",
+  "Create": "إنشاء",
+  "AllStations": "جميع المحطات",
+  "InactiveStations": "المحطات غير النشطة",
+  "ActiveStations": "المحطات النشطة",
+  "AddStation": "إضافة محطة",
+  "AddVendor": "إضافة مورد",
+  "UserRole": {
+    "All": "الكل",
+    "Administrator": "مدير النظام",
+    "OrderManager": "مدير الطلبات",
+    "Driver": "سائق",
+    "StationManager": "مدير المحطة"
+  },
+  "SelectRole": "اختر الدور"
+}

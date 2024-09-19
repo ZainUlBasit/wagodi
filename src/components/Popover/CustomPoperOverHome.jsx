@@ -1,5 +1,6 @@
 import { Popover, Typography } from "@mui/material";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
 const CustomPoperOverHome = ({
@@ -10,6 +11,8 @@ const CustomPoperOverHome = ({
   setContent,
   CurrentStatus,
 }) => {
+  const [t, i18n] = useTranslation("global");
+
   const StationsData = useSelector((state) => state.StationReducer);
 
   const Content = [
@@ -70,7 +73,7 @@ const CustomPoperOverHome = ({
           <p className="h-[2px] w-full bg-[#FFFFFF5C] mt-7 mb-3 rounded-full"></p>
 
           <div className="font-[Quicksand] font-[700] text-[1.8rem] mb-6">
-            Choose Your Filter
+            {t(`ChooseYourFilter`)}
           </div>
 
           <div className="w-[260px] flex flex-col justify-between">
@@ -84,11 +87,23 @@ const CustomPoperOverHome = ({
                       setContent(content_data.FilterText);
                     }}
                   >
-                    {content_data.Text}
+                    {content_data.Text === "Healthy"
+                      ? t(`status.Healthy`)
+                      : content_data.Text === "Be Ready"
+                      ? t(`status.BeReady`)
+                      : content_data.Text === "Make an Order"
+                      ? t(`status.MakeOrder`)
+                      : content_data.Text}
                   </div>
                   <div
-                    className={`h-full border-2 ${content_data.FilterText === CurrentStatus ? "border-white":content_data.BorderColor} ${
-                      content_data.FilterText === CurrentStatus ? content_data.Color : ""
+                    className={`h-full border-2 ${
+                      content_data.FilterText === CurrentStatus
+                        ? "border-white"
+                        : content_data.BorderColor
+                    } ${
+                      content_data.FilterText === CurrentStatus
+                        ? content_data.Color
+                        : ""
                     } px-1 py-2 text-[20px] font-[600] rounded-[10px] w-[60px] flex justify-center items-center`}
                   >
                     {
@@ -108,7 +123,7 @@ const CustomPoperOverHome = ({
               handleClose();
             }}
           >
-            Clear Filter
+            {t("ClearFilter")}
           </div>
         </div>
       </Typography>

@@ -18,6 +18,7 @@ import CustomPagination from "../TablePagination/TablePagination";
 import { BsEye, BsEyeFill } from "react-icons/bs";
 import StationManagersList from "../Modals/StationManagersList";
 import { IoMdArrowDropdownCircle, IoMdArrowDropupCircle } from "react-icons/io";
+import { useTranslation } from "react-i18next";
 
 export default function StationTable({
   setStationID,
@@ -28,6 +29,8 @@ export default function StationTable({
   ActiveStationSelection,
   setActiveStationSelection,
 }) {
+  const [t, i18n] = useTranslation("global");
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [OpenModal, setOpenModal] = useState(false);
@@ -95,7 +98,7 @@ export default function StationTable({
                     key={i}
                   >
                     <div className="text-[14px] pt-[20px] pb-[5px] maxWeb1:pt-[45px] maxWeb1:pb-[6px] maxWeb1:text-[23px] maxWeb2:text-[28px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pt-[70px] maxWeb3:pt-[90px] maxWeb4:pt-[90px] maxWeb2:pb-[12px] maxWeb3:pb-[18px] maxWeb4:pb-[25px]">
-                      {dt.title}
+                      {t(`StationsColumns.${dt.title}`)}
                     </div>
                   </TableCell>
                 );

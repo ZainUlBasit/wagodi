@@ -12,12 +12,14 @@ import { StationStatisticsData } from "./DemoData/StationStatisticsData";
 import "../../assets/Style/style.css";
 import SendReport from "../Modals/SendReport";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function StatisticsStationTable({
   setCurrentID,
   setOpen,
   Data,
 }) {
+  const [t, i18n] = useTranslation("global");
   const [OpenSendReport, setOpenSendReport] = useState(false);
   return (
     <div>
@@ -42,7 +44,7 @@ export default function StatisticsStationTable({
                 }}
                 align="center"
               >
-                Station Number
+                {t("StationsColumns.StationNumber")}
               </TableCell>
               <TableCell
                 sx={{
@@ -53,7 +55,7 @@ export default function StatisticsStationTable({
                 }}
                 align="center"
               >
-                Station Name
+                {t("StationsColumns.StationName")}
               </TableCell>
               <TableCell
                 sx={{
@@ -64,7 +66,7 @@ export default function StatisticsStationTable({
                 }}
                 align="center"
               >
-                Money Earned
+                {t("StationsColumns.MoneyEarned")}
               </TableCell>
               <TableCell
                 sx={{
@@ -75,7 +77,7 @@ export default function StatisticsStationTable({
                 }}
                 align="center"
               >
-                Money Spent
+                {t("StationsColumns.MoneySpent")}
               </TableCell>
               <TableCell
                 sx={{
@@ -86,7 +88,7 @@ export default function StatisticsStationTable({
                 }}
                 align="center"
               >
-                Address
+                {t("StationsColumns.Address")}
               </TableCell>
             </TableRow>
           </TableHead>

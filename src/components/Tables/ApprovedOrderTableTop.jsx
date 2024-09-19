@@ -12,8 +12,11 @@ import { FiDownload } from "react-icons/fi";
 import { Popover, Typography } from "@mui/material";
 import "./styles/AOTop.css";
 import { convertStatus } from "../../utility/utilityFunctions";
+import { useTranslation } from "react-i18next";
 
 export default function ApprovedOrderTableTop({ Data, Filter }) {
+  const [t, i18n] = useTranslation("global");
+
   // console.log(Filter);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [SendType, setSendType] = React.useState("");
@@ -54,7 +57,9 @@ export default function ApprovedOrderTableTop({ Data, Filter }) {
             >
               <div className="font-[700] text-[13.9px] text-white whitespace-nowrap">
                 <div className="maxWeb1:text-[1.1rem] maxWeb2:text-[1.3rem] maxWeb3:text-[1.5rem] maxWeb4:text-[1.5em] text-[.9rem] text-center">
-                  <span className="font-bold">RecieptNumber:</span>
+                  <span className="font-bold">
+                    {t("orderReportsColumns.ReceiptNumber")}:
+                  </span>
                   <span className="font-[400] ml-1">
                     {Data?.reciept_number || "not specified"}
                   </span>
@@ -72,7 +77,9 @@ export default function ApprovedOrderTableTop({ Data, Filter }) {
             >
               <div className="font-[700] text-[13.9px] text-white bg-[#465462] whitespace-nowrap">
                 <div className="maxWeb1:text-[1.1rem] maxWeb2:text-[1.3rem] maxWeb3:text-[1.5rem] maxWeb4:text-[1.5em] text-[.9rem] text-center">
-                  <span className="font-bold">StationName:</span>
+                  <span className="font-bold">
+                    {t("orderReportsColumns.StationName")}:
+                  </span>
                   <span className="font-[400] ml-1">
                     {Data?.station?.name || "not specified"}
                   </span>
@@ -90,7 +97,9 @@ export default function ApprovedOrderTableTop({ Data, Filter }) {
             >
               <div className="font-[700] text-[13.9px] text-white bg-[#465462] whitespace-nowrap">
                 <div className="maxWeb1:text-[1.1rem] maxWeb2:text-[1.3rem] maxWeb3:text-[1.5rem] maxWeb4:text-[1.5em] text-[.9rem] text-center">
-                  <span className="font-bold">PaidAmount:</span>
+                  <span className="font-bold">
+                    {t("orderReportsColumns.PaidAmount")}:
+                  </span>
                   <span className="font-[400] ml-1">
                     {Data?.station?.paid_amount || "not specified"}
                   </span>
@@ -108,7 +117,9 @@ export default function ApprovedOrderTableTop({ Data, Filter }) {
             >
               <div className="font-[700] text-[13.9px] text-white bg-[#465462] whitespace-nowrap">
                 <div className="maxWeb1:text-[1.1rem] maxWeb2:text-[1.3rem] maxWeb3:text-[1.5rem] maxWeb4:text-[1.5em] text-[.9rem] text-center">
-                  <span className="font-bold">DriverName:</span>
+                  <span className="font-bold">
+                    {t("orderReportsColumns.DriverName")}:
+                  </span>
                   <span className="font-[400] ml-1">
                     {Data?.driverId?.name || "not specified"}
                   </span>
@@ -126,7 +137,9 @@ export default function ApprovedOrderTableTop({ Data, Filter }) {
             >
               <div className="font-[700] text-[13.9px] text-white bg-[#465462] whitespace-nowrap">
                 <div className="maxWeb1:text-[1.1rem] maxWeb2:text-[1.3rem] maxWeb3:text-[1.5rem] maxWeb4:text-[1.5em] text-[.9rem] text-center">
-                  <span className="font-bold">PhoneNo:</span>
+                  <span className="font-bold">
+                    {t("orderReportsColumns.PhoneNo")}:
+                  </span>
                   <span className="font-[400] ml-1">
                     {Data?.driverId?.phone_number || "not specified"}
                   </span>
@@ -144,7 +157,9 @@ export default function ApprovedOrderTableTop({ Data, Filter }) {
             >
               <div className="font-[700] text-[13.9px] text-white bg-[#465462] whitespace-nowrap">
                 <div className="maxWeb1:text-[1.1rem] maxWeb2:text-[1.3rem] maxWeb3:text-[1.5rem] maxWeb4:text-[1.5em] text-[.9rem] text-center">
-                  <span className="font-bold">Status:</span>
+                  <span className="font-bold">
+                    {t("orderReportsColumns.Status")}:
+                  </span>
                   <span className="font-[400] ml-1 bg-[#2EB100] px-3 py-[5px] rounded-full">
                     {Data?.station?.status != undefined
                       ? convertStatus(Data?.status)

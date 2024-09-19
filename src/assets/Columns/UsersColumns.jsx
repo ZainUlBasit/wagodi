@@ -21,14 +21,14 @@ export const UsersColumns = [
     web4: "35px",
   },
   {
-    title: "Authority and Privileges",
+    title: "AuthorityAndPrivileges",
     web1: "20px",
     web2: "25px",
     web3: "30px",
     web4: "35px",
   },
   {
-    title: "Phone Number",
+    title: "PhoneNumber",
     web1: "20px",
     web2: "25px",
     web3: "30px",

@@ -18,8 +18,11 @@ import TableWrapper from "../../components/Tables/TableWrapper";
 import NoDataFound from "../../components/Loaders/Lottie/NoDataFound";
 import { convertStatus } from "../../utility/utilityFunctions";
 import { fetchOrders } from "../../store/Slices/OrderSlice";
+import { useTranslation } from "react-i18next";
 
 const OngoingOrder = () => {
+  const [t, i18n] = useTranslation("global");
+
   const [OpenSendReport, setOpenSendReport] = useState(false);
   const [CurrentID, setCurrentID] = useState("");
   const [OpenReservationDetailsModal, setOpenReservationDetailsModal] =
@@ -69,7 +72,7 @@ const OngoingOrder = () => {
         <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 mb-10">
           {/* Left */}
           <div className="font-[Quicksand] font-[700] text-[2rem] max767:text-[1.5rem] maxWeb1:text-[3rem] maxWeb2:text-[4rem] maxWeb3:text-[5rem] maxWeb4:text-[5rem] capitalize">
-            {ApplyFilter} Orders
+            {t(`orderstatus.${ApplyFilter}`)} {t("Orders")}
           </div>
           {/* Right */}
           <div className="flex items-center gap-x-4 flex-wrap">
@@ -77,7 +80,7 @@ const OngoingOrder = () => {
               className={`relative text-center tracking-[1px] px-4 py-1 rounded-3xl font-[Quicksand] font-[700] bg-[#90898E] text-white no-underline text-#465462 cursor-pointer transition-all ease-in-out duration-500  border-2 border-solid border-[#90898E] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] hover:border-[#465462] active:scale-90 flex items-center gap-x-2 justify-center`}
               onClick={() => setOpenSendReport(!OpenSendReport)}
             >
-              Send Report
+              {t("SendReport")}
             </button>
             <div className="flex border-[1px] w-[300px] border-black items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden max767:hidden">
               <BsSearch />
@@ -95,7 +98,7 @@ const OngoingOrder = () => {
               onClick={handleClick}
             />
             <CustomPoperOverWithShow
-              Title={"Choose Your Filter"}
+              Title={t("ChooseYourFilter")}
               Content={[
                 // 0 : on-going, 1 : assigned, 2: recieved, 3: delivered, 4 : complete, 5: canceled
                 { Text: "All", FilterText: "All" },

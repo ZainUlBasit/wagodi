@@ -1,8 +1,11 @@
 import React from "react";
 import "./FavBtn.css";
 import { FaStar } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const FavBtn = ({ Value, setValue }) => {
+  const [t, i18n] = useTranslation("global");
+
   return (
     <button
       class={Value ? "bookmarkBtnFav" : "bookmarkBtn"}
@@ -18,7 +21,7 @@ const FavBtn = ({ Value, setValue }) => {
             : "text font-[Quicksand] font-[700]"
         }
       >
-        Favorites
+        {t("Favorites")}
       </p>
     </button>
   );

@@ -23,8 +23,11 @@ import NoDataFound from "../../components/Loaders/Lottie/NoDataFound";
 import { GetCompanyInfoAPI } from "../../Https";
 import ShowMessageModal from "../../components/Modals/ShowMessageModal";
 import { fecthMessageError } from "../../store/Slices/ErrorMessageSlice";
+import { useTranslation } from "react-i18next";
 
 const Stations = () => {
+  const [t, i18n] = useTranslation("global");
+
   const [Filter, setFilter] = useState("");
   const [StationID, setStationID] = useState("");
   const [OpenAddModal, setOpenAddModal] = useState(false);
@@ -63,7 +66,7 @@ const Stations = () => {
           {/* Right */}
           <div className="flex items-center gap-x-4 max767:flex-col max767:gap-y-1">
             <FilterButton
-              Title={"All Stations"}
+              Title={t("AllStations")}
               Length={StationsData.data?.length}
               Value={"all"}
               setStationFilter={setStationFilter}
@@ -71,7 +74,7 @@ const Stations = () => {
               Color={"bg-[#FFB764]"}
             />
             <FilterButton
-              Title={"Inactive Stations"}
+              Title={t("InactiveStations")}
               Length={
                 StationsData.data?.filter((sd) => sd.active === false).length
               }
@@ -81,7 +84,7 @@ const Stations = () => {
               StationFilter={StationFilter}
             />
             <FilterButton
-              Title={"Active Stations"}
+              Title={t("ActiveStations")}
               Length={
                 StationsData.data?.filter((sd) => sd.active === true).length
               }
@@ -94,7 +97,7 @@ const Stations = () => {
               className={`relative text-center tracking-[1px] no-underline cursor-pointer border-solid shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 border-2 border-[#465462] px-3 py-[5px] rounded-full font-[Quicksand] font-[700] bg-[#fff] text-[#465462] transition-all duration-500 ease-in-out flex gap-x-6 items-center hover:text-white hover:bg-[#465462] text-[1rem] maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem]  maxWeb4:text-[3rem]`}
               onClick={() => setOpenAddModal(!OpenAddModal)}
             >
-              <span className="px-3">Add Station</span>
+              <span className="px-3">{t("AddStation")}</span>
               <BsPlusCircle />
             </button>
           </div>

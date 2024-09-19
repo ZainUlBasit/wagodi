@@ -8,6 +8,7 @@ import { MakeFav, fetchStations } from "../../store/Slices/StationSlice";
 import SuccessToast from "../Toast/SuccessToast";
 import { useNavigate } from "react-router-dom";
 import { FavouriteStation } from "../../store/Slices/UserSlice";
+import { useTranslation } from "react-i18next";
 
 const StationDetail = ({
   StationDetailData,
@@ -37,6 +38,8 @@ const StationDetail = ({
   useEffect(() => {
     setFuelsData();
   }, []);
+
+  const [t, i18n] = useTranslation("global");
 
   const navigate = useNavigate();
   const navigateToAddReservation = (type) => {
@@ -80,7 +83,7 @@ const StationDetail = ({
         {/* Header (Station Name*/}
         <div className="flex justify-between items-center w-full px-5 pl-[30px] pt-4">
           <div className="font-[Quicksand] font-[700] text-[1rem] maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
-            Station Name:{" "}
+            {t("station_name")}:{" "}
             <span className="font-[Quicksand] font-[400]">
               {StationDetailData.name}
             </span>
@@ -88,7 +91,7 @@ const StationDetail = ({
         </div>
         {/* Middle (Last Order Detail) */}
         <div className="flex font-[Quicksand] font-[700] text-[1rem] gap-x-1 pl-[30px] pt-1 maxWeb1:text-[1.5rem] maxWeb2:text-[1.8rem] maxWeb3:text-[2rem] maxWeb4:text-[2.2rem]">
-          Last Ordered:
+          {t("last_ordered")}:
           <span className="font-[Quicksand] font-[400]">
             {StationDetailData.active}
           </span>

@@ -11,8 +11,11 @@ import { AiFillEye } from "react-icons/ai";
 import { UserData } from "./DemoData/UserData";
 import { BiEdit } from "react-icons/bi";
 import { StationData } from "./DemoData/StationData";
+import { useTranslation } from "react-i18next";
 
 export default function StatisticsTopTable({ StationInfo }) {
+  const [t, i18n] = useTranslation("global");
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -36,7 +39,9 @@ export default function StatisticsTopTable({ StationInfo }) {
               }}
               align="center"
             >
-              <div className="max767:text-[1.1rem]">Number of Station</div>
+              <div className="max767:text-[1.1rem]">
+                {t("StatsTopTableColumns.NumberOfStation")}
+              </div>
             </TableCell>
 
             <TableCell
@@ -51,7 +56,9 @@ export default function StatisticsTopTable({ StationInfo }) {
               }}
               align="center"
             >
-              <div className="max767:text-[1.1rem]">Number of Drivers</div>
+              <div className="max767:text-[1.1rem]">
+                {t("StatsTopTableColumns.NumberOfDrivers")}
+              </div>
             </TableCell>
 
             <TableCell
@@ -66,7 +73,9 @@ export default function StatisticsTopTable({ StationInfo }) {
               }}
               align="center"
             >
-              <div className="max767:text-[1.1rem]">Monthly Sales (L)</div>
+              <div className="max767:text-[1.1rem]">
+                {t("StatsTopTableColumns.MonthlySales")}
+              </div>
             </TableCell>
 
             <TableCell
@@ -82,7 +91,9 @@ export default function StatisticsTopTable({ StationInfo }) {
               }}
               align="center"
             >
-              <div className="max767:text-[1.1rem]">Monthly Orders (L)</div>
+              <div className="max767:text-[1.1rem]">
+                {t("StatsTopTableColumns.MonthlyOrders")}
+              </div>
             </TableCell>
           </TableRow>
         </TableHead>

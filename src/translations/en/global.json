@@ -1,0 +1,146 @@
+{
+  "stations": "Stations",
+  "Drivers": "Drivers",
+  "station_name": "Station Name",
+  "last_ordered": "Last Ordered",
+  "adminnav": {
+    "home": "HOME",
+    "ongoing_orders": "ONGOING ORDERS",
+    "approved_reports": "APPROVED REPORTS",
+    "users": "USERS",
+    "station": "STATION",
+    "statistics": "STATISTICS",
+    "vendor": "VENDOR"
+  },
+  "status": {
+    "Healthy": "Healthy",
+    "BeReady": "Be Ready",
+    "MakeOrder": "Make an Order"
+  },
+  "ClearFilter": "Clear Filter",
+  "ChooseYourFilter": "Choose Your Filter",
+  "Favorites": "Favorites",
+  "orderstatus": {
+    "All": "All",
+    "ordered": "Ordered",
+    "assigned": "Assigned",
+    "picked up": "Picked Up",
+    "delivered": "Delivered",
+    "approved": "Approved",
+    "canceled": "Canceled",
+    "unknown": "Unknown"
+  },
+  "Orders": "Orders",
+  "OngoingOrdersColumns": {
+    "orderNumber": "Order Number",
+    "reservationDate": "Reservation Date",
+    "receiptNumber": "Receipt Number",
+    "startPoint": "Start Point",
+    "paidAmount": "Paid Amount",
+    "driverName": "Driver Name",
+    "deliveryDateTime": "Delivery Date And Time",
+    "status": "Status",
+    "view": "View"
+  },
+  "approvedOrders": "Approved Orders",
+  "orderReportsColumns": {
+    "ReceiptNumber": "Receipt Number",
+    "StationName": "Station Name",
+    "PaidAmount": "Paid Amount",
+    "DriverName": "Driver Name",
+    "PhoneNo": "Phone Number",
+    "Status": "Status",
+    "RequiredDateTime": "Required Date and Time",
+    "GasType": "Gas Type",
+    "UOM": "Unit of Measure",
+    "BalanceVolume": "Balance Volume",
+    "RequiredVolume": "Required Volume",
+    "IssuedVolume": "Issued Volume",
+    "ReceivedVolume": "Received Volume",
+    "DeliveredDateTime": "Delivered Date and Time",
+    "DeliverTime": "Delivery Time"
+  },
+  "Role": "Role",
+  "UsersColumns": {
+    "Action": "Action",
+    "Username": "Username",
+    "Email": "Email",
+    "AuthorityAndPrivileges": "Authority and Privileges",
+    "PhoneNumber": "Phone Number",
+    "Role": "Role"
+  },
+  "StationsColumns": {
+    "Action": "Action",
+    "StationNumber": "Station Number",
+    "StationName": "Station Name",
+    "MoneyEarned": "Money Earned",
+    "MoneySpent": "Money Spent",
+    "StationManagers": "Station Managers",
+    "Address": "Address"
+  },
+  "StationStatistics": "Station Statistics",
+  "EmployeeData": "Employee Data",
+  "WasteData": "Waste Data",
+  "OverBalance": "Over Balance",
+  "Months": {
+    "January": "January",
+    "February": "February",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "August",
+    "September": "September",
+    "October": "October",
+    "November": "November",
+    "December": "December"
+  },
+  "StatsTopTableColumns": {
+    "NumberOfStation": "Number of Station",
+    "NumberOfDrivers": "Number of Drivers",
+    "MonthlySales": "Monthly Sales (L)",
+    "MonthlyOrders": "Monthly Orders (L)"
+  },
+  "DriversColumns": {
+    "View": "View",
+    "UserNumber": "User Number",
+    "UserName": "User Name",
+    "Email": "Email",
+    "Description": "Description",
+    "TripsCompleted": "Trips Completed"
+  },
+  "StationSalesColumns": {
+    "StationName": "Station Name",
+    "StationManager": "Station Manager",
+    "Start": "Start",
+    "End": "End",
+    "Liters": "Liters",
+    "FuelType": "Fuel Type",
+    "SalesAmount": "Sales Amount"
+  },
+  "VendorTableColumns": {
+    "Action": "Action",
+    "VendorName": "Vendor Name",
+    "FuelType": "Fuel Type",
+    "Location": "Location"
+  },
+  "Month": "Month",
+  "Days": "Days",
+  "Year": "Years",
+  "SendReport": "Send Report",
+  "Create": "Create",
+  "AllStations": "All Stations",
+  "InactiveStations": "Inactive Stations",
+  "ActiveStations": "Active Stations",
+  "AddStation": "Add Station",
+  "AddVendor": "Add Vendor",
+  "UserRole": {
+    "All": "All",
+    "Administrator": "Administrator",
+    "OrderManager": "Order Manager",
+    "Driver": "Driver",
+    "StationManager": "Station Manager"
+  },
+  "SelectRole": "Select Role"
+}

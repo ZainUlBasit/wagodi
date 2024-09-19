@@ -3,10 +3,10 @@ export const VendorsColumns = [
     title: "Action",
   },
   {
-    title: "Vendor Name",
+    title: "VendorName",
   },
   {
-    title: "Fuel Type",
+    title: "FuelType",
   },
   {
     title: "Location",

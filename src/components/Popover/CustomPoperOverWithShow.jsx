@@ -1,5 +1,6 @@
 import { Popover, Typography } from "@mui/material";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const CustomPoperOverWithShow = ({
   Title,
@@ -13,6 +14,8 @@ const CustomPoperOverWithShow = ({
   handleClose,
   popover_anchorEl,
 }) => {
+  const [t, i18n] = useTranslation("global");
+
   return (
     <Popover
       id={popover_id}
@@ -67,7 +70,7 @@ const CustomPoperOverWithShow = ({
                     className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
                     checked={Filter === content_data.FilterText}
                   />
-                  <span>{content_data.Text}</span>
+                  <span>{t(`orderstatus.${content_data.Text}`)}</span>
                 </div>
               );
             })}

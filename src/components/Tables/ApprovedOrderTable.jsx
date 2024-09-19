@@ -10,11 +10,13 @@ import Paper from "@mui/material/Paper";
 import { AiFillEye } from "react-icons/ai";
 import { convertFuel } from "../../utility/utilityFunctions";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 export default function ApprovedOrderTable({ Data, Filter }) {
   // if()
   // console.log(Filter);
   // console.log(Data);
+  const [t, i18n] = useTranslation("global");
 
   return (
     <TableContainer component={Paper}>
@@ -22,15 +24,15 @@ export default function ApprovedOrderTable({ Data, Filter }) {
         <TableHead style={{ borderBottomWidth: 2, borderColor: "#465462" }}>
           <TableRow>
             {[
-              "Required Date and Time",
-              "Gas Type",
+              "RequiredDateTime",
+              "GasType",
               "UOM",
-              "Balance Volume",
-              "Require Volume",
-              "Issued Volume",
-              "Received Volume",
-              "Delivered Date and Time",
-              "Deliver Time",
+              "BalanceVolume",
+              "RequiredVolume",
+              "IssuedVolume",
+              "ReceivedVolume",
+              "DeliveredDateTime",
+              "DeliverTime",
             ].map((dt) => {
               return (
                 <TableCell
@@ -41,7 +43,7 @@ export default function ApprovedOrderTable({ Data, Filter }) {
                   }}
                 >
                   <div className="text-[14px] pt-[15px] pb-[0px] maxWeb1:pt-[45px] maxWeb1:pb-[6px] maxWeb1:text-[23px] maxWeb2:text-[28px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pt-[70px] maxWeb3:pt-[90px] maxWeb4:pt-[90px] maxWeb2:pb-[12px] maxWeb3:pb-[18px] maxWeb4:pb-[25px]">
-                    {dt}
+                    {t(`orderReportsColumns.${dt}`)}
                   </div>
                 </TableCell>
               );

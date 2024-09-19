@@ -12,6 +12,7 @@ import { OngoingOrdersColumns } from "../../assets/Columns/OngoingOrdersColumns"
 import { convertStatus } from "../../utility/utilityFunctions";
 import moment from "moment";
 import CustomPagination from "../TablePagination/TablePagination";
+import { useTranslation } from "react-i18next";
 
 export default function OngoingOrdersTable({
   Filter,
@@ -22,6 +23,7 @@ export default function OngoingOrdersTable({
 }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [t, i18n] = useTranslation("global");
 
   const handleChangePage = (newPage) => {
     console.log(newPage);
@@ -54,7 +56,7 @@ export default function OngoingOrdersTable({
                     }}
                   >
                     <div className="text-[13px] pt-[6px] pb-[6px] maxWeb1:pt-[15px] maxWeb1:pb-[15px] maxWeb1:text-[23px] maxWeb2:text-[28px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pt-[20px] maxWeb3:pt-[25px] maxWeb4:pt-[30px] maxWeb2:pb-[20px] maxWeb3:pb-[25px] maxWeb4:pb-[30px]">
-                      {column.title}
+                      {t(`OngoingOrdersColumns.${column.title}`)}
                     </div>
                   </TableCell>
                 );

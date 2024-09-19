@@ -16,8 +16,10 @@ import DeleteModal from "../../components/Modals/DeleteModal";
 import TableWrapper from "../../components/Tables/TableWrapper";
 import Search from "../../components/Search/Search";
 import { fetchStations } from "../../store/Slices/StationSlice";
+import { useTranslation } from "react-i18next";
 
 const Users = () => {
+  const [t, i18n] = useTranslation("global");
   const [anchorEl, setAnchorEl] = useState(null);
   const [Filter, setFilter] = useState("All");
   const [ApplyFilter, setApplyFilter] = useState("All");
@@ -60,14 +62,14 @@ const Users = () => {
           {/* Left */}
           <div className="font-[Quicksand] font-[700] text-[1.3rem] gap-x-3 flex items-center justify-start max767:w-[100%]">
             <div className="text-[30px] font-[600] maxWeb1:text-[3rem] maxWeb2:text-[4rem] maxWeb3:text-[5rem] maxWeb4:text-[5rem]">
-              Role
+              {t("Role")}
             </div>
             <div
               className="flex items-center gap-x-[20px] bg-[#465462] rounded-full px-3 py-1 maxWeb1:px-5 maxWeb2:px-5 maxWeb3:px-5 maxWeb4:px-5 maxWeb1:py-2 maxWeb2:py-2 maxWeb3:py-2 maxWeb4:py-2 h-fit text-white font-[Quicksand] cursor-pointer"
               onClick={handleClick}
             >
               <span className="max767:text-[1rem] maxWeb1:text-[2rem] maxWeb2:text-[3rem] maxWeb3:text-[4rem] maxWeb4:text-[4rem]">
-                {ApplyFilter}
+                {t(`UserRole.${ApplyFilter}`)}
               </span>
               <FaChevronDown aria-describedby={id} variant="contained" />
             </div>
@@ -110,7 +112,7 @@ const Users = () => {
               >
                 <div className="bg-[#465462] text-white font-[Quicksand]  flex flex-col justify-center items-center rounded-[50px]">
                   <div className="font-[Quicksand] font-[700] text-[1.5rem] mb-3">
-                    Select Role
+                    {t("SelectRole")}
                   </div>
                   <p className="h-[2px] w-[90%] bg-[#FFFFFF5C] mb-3 rounded-full"></p>
                   <div className="w-full flex flex-col justify-between gap-y-3 pt-3 items-start">
@@ -123,7 +125,7 @@ const Users = () => {
                         className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
                         checked={Filter === "All"}
                       />
-                      <span>All</span>
+                      <span>{t("UserRole.All")}</span>
                     </div>
                     <div
                       className="flex gap-x-3 items-center cursor-pointer"
@@ -134,18 +136,18 @@ const Users = () => {
                         className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
                         checked={Filter === "Administrator"}
                       />
-                      <span>Administrator</span>
+                      <span>{t("UserRole.Administrator")}</span>
                     </div>
                     <div
                       className="flex gap-x-3 items-center cursor-pointer"
-                      onClick={() => setFilter("Order Manager")}
+                      onClick={() => setFilter("OrderManager")}
                     >
                       <input
                         type="checkbox"
                         className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                        checked={Filter === "Order Manager"}
+                        checked={Filter === "OrderManager"}
                       />
-                      <span>Order Manager</span>
+                      <span>{t("UserRole.OrderManager")}</span>
                     </div>
                     <div
                       className="flex gap-x-3 items-center cursor-pointer"
@@ -156,18 +158,18 @@ const Users = () => {
                         className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
                         checked={Filter === "Driver"}
                       />
-                      <span>Driver</span>
+                      <span>{t("UserRole.Driver")}</span>
                     </div>
                     <div
                       className="flex gap-x-3 items-center cursor-pointer"
-                      onClick={() => setFilter("Station Manager")}
+                      onClick={() => setFilter("StationManager")}
                     >
                       <input
                         type="checkbox"
                         className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                        checked={Filter === "Station Manager"}
+                        checked={Filter === "StationManager"}
                       />
-                      <span>Station Manager</span>
+                      <span>{t("UserRole.StationManager")}</span>
                     </div>
                     <div className="flex w-full justify-center">
                       <button
@@ -192,7 +194,7 @@ const Users = () => {
               className={`relative text-center text-lg tracking-[1px] no-underline text-[#465462] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#fff] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
               onClick={() => setOpenAddModal(!OpenAddModal)}
             >
-              <span className="px-3">Create</span>
+              <span className="px-3">{t("Create")}</span>
               <BsPlusCircle />
             </button>
           </div>

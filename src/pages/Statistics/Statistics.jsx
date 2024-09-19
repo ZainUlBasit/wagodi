@@ -37,8 +37,10 @@ import { fetchDriverStats } from "../../store/Slices/DriverStatsSlice";
 import StationSaleDetailsTable from "../../components/Tables/StationSaleDetailsTable";
 import moment from "moment";
 import { fetchStationSalesStats } from "../../store/Slices/StationSaleStatsSlice";
+import { useTranslation } from "react-i18next";
 
 const Statistics = () => {
+  const [t, i18n] = useTranslation("global");
   const months = [
     "January",
     "February",
@@ -253,7 +255,7 @@ const Statistics = () => {
         <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 mb-10">
           {/* Left */}
           <div className="font-[Quicksand] font-[700] text-[2rem] max767:text-[1.3rem]">
-            Station Statistics
+            {t("StationStatistics")}
           </div>
           {/* Right */}
           <div className="flex items-center gap-x-4">
@@ -261,19 +263,19 @@ const Statistics = () => {
               to={"/employee-data"}
               className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
             >
-              Employee Data
+              {t("EmployeeData")}
             </Link>
             <Link
               to={"/waste-data"}
               className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
             >
-              Waste Data
+              {t("WasteData")}
             </Link>
             <Link
               to={"/over-balance"}
               className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
             >
-              Over Balance
+              {t("OverBalance")}
             </Link>
             <div
               // className="px-4 py-[6px] border-2 border-white rounded-full cursor-pointer bg-[#465462] text-white"
@@ -291,7 +293,7 @@ const Statistics = () => {
                   // disabled
                   // onClick={handleClick}
                 >
-                  {CurrentMonth === "" ? "Month" : CurrentMonth}
+                  {CurrentMonth === "" ? "Month" : t(`Months.${CurrentMonth}`)}
                 </div>
                 <BiSolidChevronDown
                   className="text-[1.5rem] cursor-pointer"
@@ -622,7 +624,12 @@ const Statistics = () => {
                         id="date"
                         className="w-[100px] outline-none font-[700] text-[1.1rem] text-center placeholder:text-white bg-transparent"
                       >
-                        {CurrentMonthChart === "" ? "Month" : CurrentMonthChart}
+                        {CurrentMonthChart === ""
+                          ? "Month"
+                          : CurrentMonthChart !== "" &&
+                            CurrentMonthChart1 === "Month"
+                          ? t(`Months.${CurrentMonthChart}`)
+                          : CurrentMonthChart}
                       </div>
                       <BiSolidChevronDown
                         className="text-[1.5rem] cursor-pointer"
@@ -645,7 +652,7 @@ const Statistics = () => {
                       >
                         {CurrentMonthChart1 === ""
                           ? "Month"
-                          : CurrentMonthChart1}
+                          : t(`${CurrentMonthChart1}`)}
                       </div>
                       <BiSolidChevronDown
                         className="text-[1.5rem] cursor-pointer"
@@ -711,7 +718,7 @@ const Statistics = () => {
                                     className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
                                     checked={CurrentMonthChart === month}
                                   />
-                                  <span>{month}</span>
+                                  <span>{t(`Months.${month}`)}</span>
                                 </div>
                               );
                             })}
@@ -888,7 +895,7 @@ const Statistics = () => {
             } py-3 transition-all ease-in-out duration-700 cursor-pointer max767:py-2`}
             onClick={() => setCurrentTab("stations")}
           >
-            Stations
+            {t("stations")}
           </div>
           <div
             className={`w-[50%] flex justify-center items-center rounded-[40px] ${
@@ -898,7 +905,7 @@ const Statistics = () => {
             } py-3 transition-all ease-in-out duration-700 cursor-pointer max767:py-2`}
             onClick={() => setCurrentTab("drivers")}
           >
-            Drivers
+            {t("Drivers")}
           </div>
         </div>
         <TableWrapper className="rounded-[20px] overflow-hidden">

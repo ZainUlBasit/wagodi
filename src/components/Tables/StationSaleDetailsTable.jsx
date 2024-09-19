@@ -3,8 +3,11 @@ import Table from "@mui/joy/Table";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 export default function StationSaleDetailsTable({ Rows }) {
+  const [t, i18n] = useTranslation("global");
+
   console.log(Rows);
   return (
     <div>
@@ -27,7 +30,7 @@ export default function StationSaleDetailsTable({ Rows }) {
                   width: "120px",
                 }}
               >
-                Station Name
+                {t("StationSalesColumns.StationName")}
               </th>
               <th
                 style={{
@@ -38,7 +41,7 @@ export default function StationSaleDetailsTable({ Rows }) {
                   width: "150px",
                 }}
               >
-                Station Manager
+                {t("StationSalesColumns.StationManager")}
               </th>
               <th
                 style={{
@@ -49,7 +52,7 @@ export default function StationSaleDetailsTable({ Rows }) {
                   width: "90px",
                 }}
               >
-                Start
+                {t("StationSalesColumns.Start")}
               </th>
               <th
                 style={{
@@ -60,7 +63,7 @@ export default function StationSaleDetailsTable({ Rows }) {
                   width: "90px",
                 }}
               >
-                End
+                {t("StationSalesColumns.End")}
               </th>
               <th
                 style={{
@@ -71,7 +74,7 @@ export default function StationSaleDetailsTable({ Rows }) {
                   width: "80px",
                 }}
               >
-                Liters
+                {t("StationSalesColumns.Liters")}
               </th>
               <th
                 style={{
@@ -82,7 +85,7 @@ export default function StationSaleDetailsTable({ Rows }) {
                   width: "90px",
                 }}
               >
-                Fuel Type
+                {t("StationSalesColumns.FuelType")}
               </th>
               <th
                 style={{
@@ -93,7 +96,7 @@ export default function StationSaleDetailsTable({ Rows }) {
                   width: "120px",
                 }}
               >
-                Sales Amount
+                {t("StationSalesColumns.SalesAmount")}
               </th>
             </tr>
           </thead>

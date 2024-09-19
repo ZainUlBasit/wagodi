@@ -19,6 +19,7 @@ import FavBtn from "../../components/buttons/FavBtn";
 import NoDataFound from "../../components/Loaders/Lottie/NoDataFound";
 import { BsPlusCircle, BsSearch } from "react-icons/bs";
 import SelectModal from "../../components/Modals/SelectModal";
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
   const [Favourites, setFavourites] = useState(false);
@@ -26,6 +27,7 @@ const Home = () => {
   const [Open, setOpen] = useState(false);
   const [CurrentStationName, setCurrentStationName] = useState("");
   const [SearchText, setSearchText] = useState("");
+  const [t, i18n] = useTranslation("global");
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
@@ -64,7 +66,7 @@ const Home = () => {
         <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 mb-6 flex-wrap">
           {/* Left */}
           <div className="font-[Quicksand] font-[700] text-[2rem]">
-            Stations
+            {t("stations")}
           </div>
           {/* Right */}
           <div className="flex items-center gap-x-4 flex-wrap gap-y-3">

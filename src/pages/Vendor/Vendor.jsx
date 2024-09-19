@@ -15,8 +15,11 @@ import DeleteModal from "../../components/Modals/DeleteModal";
 import TableWrapper from "../../components/Tables/TableWrapper";
 import Search from "../../components/Search/Search";
 import HeaderWrapper from "../../components/Header/HeaderWrapper";
+import { useTranslation } from "react-i18next";
 
 const Vendor = () => {
+  const [t, i18n] = useTranslation("global");
+
   const [VendorID, setVendorID] = useState("");
   const [OpenEdit, setOpenEdit] = useState(false);
   const [OpenDelete, setOpenDelete] = useState(false);
@@ -43,7 +46,7 @@ const Vendor = () => {
               className={`relative text-center text-lg tracking-[1px] no-underline text-[#465462] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#fff] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
               onClick={() => setOpenAdd(!OpenAdd)}
             >
-              <span className="pl-1">Add Vendor</span>
+              <span className="pl-1">{t("AddVendor")}</span>
               <BsPlusCircle />
             </button>
           </div>

@@ -4,6 +4,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { RiNotification3Fill, RiSettings2Fill } from "react-icons/ri"; // Import eye icons from react-icons
 import "./Navbar.css";
 import { useSelector } from "react-redux";
+import LanguageChangeBtn from "../buttons/LanguageChangeBtn";
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
   const [activeNavItem, setActiveNavItem] = useState(""); // State to track the active navigation item
@@ -11,6 +13,7 @@ const Navbar = () => {
   // const NotifyNew = useSelector((state) => state.Notify.new);
   const NotifyNew = localStorage.getItem("noitfy") || false;
   const navigate = useNavigate();
+  const [t, i18n] = useTranslation("global");
 
   // Function to handle click on navigation items and set the active item
   const handleNavItemClick = (item) => {
@@ -55,7 +58,7 @@ const Navbar = () => {
                 className={`text-[18px] font-[700] maxWeb1:text-[25px] maxWeb2:text-[30px] maxWeb3:text-[35px] maxWeb4:text-[40px]`}
                 onClick={() => handleNavItemClick("HOME")}
               >
-                HOME
+                {t("adminnav.home")}
               </Link>
               {activeNavItem === "HOME" && (
                 <div className="box-below-link active"></div>
@@ -67,7 +70,7 @@ const Navbar = () => {
                 className={`text-[18px] font-[700] maxWeb1:text-[25px] maxWeb2:text-[30px] maxWeb3:text-[35px] maxWeb4:text-[40px]`}
                 onClick={() => handleNavItemClick("ONGOING ORDERS")}
               >
-                ONGOING ORDERS
+                {t("adminnav.ongoing_orders")}
               </Link>
               <div
                 className={
@@ -83,7 +86,7 @@ const Navbar = () => {
                 className={`text-[18px] font-[700] maxWeb1:text-[25px] maxWeb2:text-[30px] maxWeb3:text-[35px] maxWeb4:text-[40px]`}
                 onClick={() => handleNavItemClick("ORDER REPORTS")}
               >
-                APPROVED REPORTS
+                {t("adminnav.approved_reports")}
               </Link>
               {activeNavItem === "ORDER REPORTS" && (
                 <div className="box-below-link active"></div>
@@ -95,7 +98,7 @@ const Navbar = () => {
                 className={`text-[18px] font-[700] maxWeb1:text-[25px] maxWeb2:text-[30px] maxWeb3:text-[35px] maxWeb4:text-[40px]`}
                 onClick={() => handleNavItemClick("USERS")}
               >
-                USERS
+                {t("adminnav.users")}
               </Link>
               <div
                 className={
@@ -111,7 +114,7 @@ const Navbar = () => {
                 className={`text-[18px] font-[700] maxWeb1:text-[25px] maxWeb2:text-[30px] maxWeb3:text-[35px] maxWeb4:text-[40px]`}
                 onClick={() => handleNavItemClick("STATION")}
               >
-                STATION
+                {t("adminnav.station")}
               </Link>
               <div
                 className={
@@ -127,7 +130,7 @@ const Navbar = () => {
                 className={`text-[18px] font-[700] maxWeb1:text-[25px] maxWeb2:text-[30px] maxWeb3:text-[35px] maxWeb4:text-[40px]`}
                 onClick={() => handleNavItemClick("STATISTICS")}
               >
-                STATISTICS
+                {t("adminnav.statistics")}
               </Link>
               <div
                 className={
@@ -143,7 +146,7 @@ const Navbar = () => {
                 className={`text-[18px] font-[700] maxWeb1:text-[25px] maxWeb2:text-[30px] maxWeb3:text-[35px] maxWeb4:text-[40px]`}
                 onClick={() => handleNavItemClick("VENDOR")}
               >
-                VENDOR
+                {t("adminnav.vendor")}
               </Link>
               <div
                 className={
@@ -186,6 +189,7 @@ const Navbar = () => {
             >
               <RiSettings2Fill className="cursor-pointer maxWeb1:text-[2rem] maxWeb2:text-[2.3rem] maxWeb3:text-[2.9rem] maxWeb4:text-[2.6rem]" />
             </div>
+            <LanguageChangeBtn />
           </div>
         </div>
       </div>
