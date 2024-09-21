@@ -215,5 +215,14 @@
     "NumberOfStations": "Number of Stations",
     "Duration": "Duration",
     "StationLimit": "Station Limit"
+  },
+  "CompanyDetailsModal": {
+    "CompanyDetails": "Company Details",
+    "CompanyName": "Company Name",
+    "Email": "Email",
+    "PhoneNumber": "Phone Number",
+    "CommercialRegistrationNumber": "Commercial Registration Number",
+    "TaxationNumber": "Taxation Number",
+    "Address": "Address"
   }
 }

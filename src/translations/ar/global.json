@@ -218,5 +218,14 @@
     "NumberOfStations": "عدد المحطات",
     "Duration": "المدة",
     "StationLimit": "حد المحطات"
+  },
+  "CompanyDetailsModal": {
+    "CompanyDetails": "تفاصيل الشركة",
+    "CompanyName": "اسم الشركة",
+    "Email": "البريد الإلكتروني",
+    "PhoneNumber": "رقم الهاتف",
+    "CommercialRegistrationNumber": "رقم السجل التجاري",
+    "TaxationNumber": "الرقم الضريبي",
+    "Address": "العنوان"
   }
 }

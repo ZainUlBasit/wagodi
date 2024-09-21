@@ -22,8 +22,11 @@ import LocationSearchInput from "../../utility/LocationSearchInput";
 import ErrorToast from "../Toast/ErrorToast";
 import { fetchAllCompany } from "../../store/Slices/AllCompanySlice";
 import AddingLightLoader from "../Loaders/AddingLightLoader";
+import { useTranslation } from "react-i18next";
 
 const SubcriptionAcceptOrReject = ({ Open, setOpen, State, ViewOnly }) => {
+  const [t, i18n] = useTranslation("global");
+
   console.log(State);
   const [CompanyName, setCompanyName] = useState(State?.name);
   const [Email, setEmail] = useState(State?.email);
@@ -37,14 +40,16 @@ const SubcriptionAcceptOrReject = ({ Open, setOpen, State, ViewOnly }) => {
     <CustomModal open={Open} setOpen={setOpen}>
       <div>
         <h1 className="w-full text-center font-[700] text-3xl py-8 font-[Quicksand] mb-4">
-          {ViewOnly ? "Company Details" : "Subscription Request"}
+          {ViewOnly
+            ? t("CompanyDetailsModal.CompanyDetails")
+            : "Subscription Request"}
         </h1>
         <div>
           <div className="flex gap-x-10 px-10 max767:flex-col max767:items-center">
             {/* left */}
             <div className="flex flex-col gap-y-4">
               <AuthInput
-                label="Compnay Name"
+                label={t("CompanyDetailsModal.CompanyName")}
                 placeholder="Company Name..."
                 required={false}
                 Value={CompanyName}
@@ -52,7 +57,7 @@ const SubcriptionAcceptOrReject = ({ Open, setOpen, State, ViewOnly }) => {
                 disabled={true}
               />
               <AuthInput
-                label="Email"
+                label={t("CompanyDetailsModal.Email")}
                 placeholder="123"
                 required={false}
                 Value={Email}
@@ -60,7 +65,7 @@ const SubcriptionAcceptOrReject = ({ Open, setOpen, State, ViewOnly }) => {
                 disabled={true}
               />
               <AuthInput
-                label="Phone Number"
+                label={t("CompanyDetailsModal.PhoneNumber")}
                 placeholder="123"
                 required={false}
                 Value={PhoneNumber}
@@ -70,7 +75,7 @@ const SubcriptionAcceptOrReject = ({ Open, setOpen, State, ViewOnly }) => {
             </div>
             <div className="flex flex-col gap-y-4">
               <AuthInput
-                label="Commercial Registration Number"
+                label={t("CompanyDetailsModal.CommercialRegistrationNumber")}
                 placeholder="123"
                 required={false}
                 Value={CRN}
@@ -78,7 +83,7 @@ const SubcriptionAcceptOrReject = ({ Open, setOpen, State, ViewOnly }) => {
                 disabled={true}
               />
               <AuthInput
-                label="Taxation Number"
+                label={t("CompanyDetailsModal.TaxationNumber")}
                 placeholder="Taxation Number..."
                 required={false}
                 Value={TaxNumber}
@@ -86,7 +91,7 @@ const SubcriptionAcceptOrReject = ({ Open, setOpen, State, ViewOnly }) => {
                 disabled={true}
               />
               <AuthInput
-                label="Address"
+                label={t("CompanyDetailsModal.Address")}
                 placeholder="123"
                 required={false}
                 Value={Address}
