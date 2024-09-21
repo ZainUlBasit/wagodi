@@ -5,17 +5,17 @@ export const CompaniesInfoColumns = [
     // minWidth: "200px",
   },
   {
-    title: "Company Name",
+    title: "CompanyName",
     field_name: "name",
     // minWidth: "200px",
   },
   {
-    title: "Number of Stations",
+    title: "NumberOfStations",
     field_name: "no_of_stations",
     // minWidth: "200px",
   },
   {
-    title: "Completed Orders",
+    title: "CompletedOrders",
     field_name: "completed_orders",
     // minWidth: "200px",
   },
@@ -25,7 +25,7 @@ export const CompaniesInfoColumns = [
     // minWidth: "200px",
   },
   {
-    title: "Top Selling Station",
+    title: "TopSellingStation",
     field_name: "top_selling",
     // minWidth: "200px",
   },

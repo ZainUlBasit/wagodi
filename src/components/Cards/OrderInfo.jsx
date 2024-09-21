@@ -7,8 +7,10 @@ import { convertFuel } from "../../utility/utilityFunctions";
 import moment from "moment";
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const OrderInfo = () => {
+  const [t, i18n] = useTranslation("global");
   const order = useSelector((state) => state.selectedOrder?.data);
   const navigate = useNavigate();
   console.log(order);
@@ -41,7 +43,7 @@ const OrderInfo = () => {
                 navigate("/order-manager-orders-report");
               }}
             />
-            Receipt No:{" "}
+            {t("orderReportsColumns.ReceiptNo")}:{" "}
             <span className="font-[400] select-text">
               {order.reciept_number}
             </span>
@@ -52,35 +54,35 @@ const OrderInfo = () => {
             {/* left side */}
             <div className="flex flex-col gap-y-3">
               <AuthInput
-                label="Required Date and Time"
+                label={t("orderReportsColumns.RequiredDateTime")}
                 placeholder="21-Sep-23    11:30PM"
                 required={false}
                 Value={ReqDateTime}
                 readonly={true}
               />
               <AuthInput
-                label="Gas Type"
+                label={t("orderReportsColumns.GasType")}
                 placeholder="95"
                 required={false}
                 Value={GasType}
                 readonly={true}
               />
               <AuthInput
-                label="UOM"
+                label={t("orderReportsColumns.UOM")}
                 placeholder="Liters"
                 required={false}
                 Value={UOM}
                 readonly={true}
               />
               <AuthInput
-                label="Order Number"
+                label={t("orderReportsColumns.OrderNumber")}
                 placeholder="Order Number"
                 required={false}
                 Value={OrderNumber}
                 readonly={true}
               />
               <AuthInput
-                label="Balance Volume"
+                label={t("orderReportsColumns.BalanceVolume")}
                 placeholder="20,000"
                 required={false}
                 Value={BalanceVolume}
@@ -90,28 +92,28 @@ const OrderInfo = () => {
             {/* right side */}
             <div className="flex flex-col gap-y-3">
               <AuthInput
-                label="Required Volume"
+                label={t("orderReportsColumns.RequiredVolume")}
                 placeholder="36,000"
                 required={false}
                 Value={RequiredVolume}
                 readonly={true}
               />
               <AuthInput
-                label="Issued Volume"
+                label={t("orderReportsColumns.IssuedVolume")}
                 placeholder="36,000"
                 required={false}
                 Value={IssuedVolume}
                 readonly={true}
               />
               <AuthInput
-                label="Recieved Volume"
+                label={t("orderReportsColumns.ReceivedVolume")}
                 placeholder="36,000"
                 required={false}
                 readonly={true}
                 Value={RecievedVolume}
               />
               <AuthInput
-                label="Delivered Date and Time"
+                label={t("orderReportsColumns.DeliveredDateTime")}
                 placeholder="19-Sep-2023      10:43 PM"
                 required={false}
                 readonly={true}

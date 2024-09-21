@@ -8,8 +8,12 @@ import Logout from "../Modals/Logout";
 import LoggingOut from "../Modals/LoggingOut";
 import { BiUserPin } from "react-icons/bi";
 import AddInfoModal from "../Modals/AddInfo";
+import LanguageChangeBtn from "../buttons/LanguageChangeBtn";
+import { useTranslation } from "react-i18next";
 
 const SuperAdminNavbar = () => {
+  const [t, i18n] = useTranslation("global");
+
   const [activeNavItem, setActiveNavItem] = useState(""); // State to track the active navigation item
   const location = useLocation(); // Get the current location from react-router-dom
   const [showNotificationDot, setShowNotificationDot] = useState(true);
@@ -55,7 +59,7 @@ const SuperAdminNavbar = () => {
                 className={`text-[18px] font-[700] maxWeb1:text-[25px] maxWeb2:text-[30px] maxWeb3:text-[35px] maxWeb4:text-[40px]`}
                 onClick={() => handleNavItemClick("HOME")}
               >
-                Companies Information
+                {t("CompanyControls.CompaniesInformation")}
               </Link>
               {activeNavItem === "HOME" && (
                 <div className="box-below-link active"></div>
@@ -68,7 +72,7 @@ const SuperAdminNavbar = () => {
                 className={`text-[18px] font-[700] maxWeb1:text-[25px] maxWeb2:text-[30px] maxWeb3:text-[35px] maxWeb4:text-[40px]`}
                 onClick={() => handleNavItemClick("Subscription Requests")}
               >
-                Subscription Requests
+                {t("CompanyControls.SubscriptionRequests")}
               </Link>
               {activeNavItem === "Subscription Requests" && (
                 <div className="box-below-link active"></div>
@@ -80,7 +84,7 @@ const SuperAdminNavbar = () => {
                 className={`text-[18px] font-[700] maxWeb1:text-[25px] maxWeb2:text-[30px] maxWeb3:text-[35px] maxWeb4:text-[40px]`}
                 onClick={() => handleNavItemClick("Control Subscribers")}
               >
-                Control Subscribers
+                {t("CompanyControls.ControlSubscribers")}
               </Link>
               {activeNavItem === "Control Subscribers" && (
                 <div className="box-below-link active"></div>
@@ -132,6 +136,7 @@ const SuperAdminNavbar = () => {
             >
               <TbLogout className="cursor-pointer maxWeb1:text-[2rem] maxWeb2:text-[2.3rem] maxWeb3:text-[2.9rem] maxWeb4:text-[2.6rem]" />
             </div>
+            <LanguageChangeBtn />
           </div>
         </div>
       </div>

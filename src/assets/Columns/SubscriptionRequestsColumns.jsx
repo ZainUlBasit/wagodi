@@ -1,18 +1,18 @@
 export const SubscriptionRequestsColumns = [
   {
-    title: "Company Name",
+    title: "CompanyName",
     // minWidth: "200px",
   },
   {
-    title: "Subscription Type",
+    title: "SubscriptionType",
     // minWidth: "200px",
   },
   {
-    title: "Number of Stations",
+    title: "NumberOfStations",
     // minWidth: "200px",
   },
   {
-    title: "Request Number",
+    title: "RequestNumber",
     // minWidth: "200px",
   },
   {
@@ -27,11 +27,11 @@ export const SubscriptionRequestsColumns = [
 
 export const ControlSubscribersColumns = [
   {
-    title: "Company Name",
+    title: "CompanyName",
     // minWidth: "200px",
   },
   {
-    title: "Number of Stations",
+    title: "NumberOfStations",
     // minWidth: "200px",
   },
   {
@@ -39,7 +39,7 @@ export const ControlSubscribersColumns = [
     // minWidth: "200px",
   },
   {
-    title: "Station Limit",
+    title: "StationLimit",
     // minWidth: "200px",
   },
 ];

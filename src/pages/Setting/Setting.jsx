@@ -10,8 +10,11 @@ import Navbar from "../../components/Navbar/Navbar";
 import Subscription from "../../components/Setting/Subscription";
 import LoggingOut from "../../components/Modals/LoggingOut";
 import SideBtn from "../../components/buttons/setting/SideBtn";
+import { useTranslation } from "react-i18next";
 
 const Setting = () => {
+  const [t, i18n] = useTranslation("global");
+
   const [ActiveButton, setActiveButton] = useState("CompanyDetails");
   const [OpenModal, setOpenModal] = useState(false);
   const [OpenLoggingOut, setOpenLoggingOut] = useState(false);
@@ -26,14 +29,14 @@ const Setting = () => {
               ActiveButton={ActiveButton}
               setActiveButton={setActiveButton}
               FilterText={"CompanyDetails"}
-              title={"Company Details"}
+              title={t("Setting.CompanyDetails")}
               Icon={BiDetail}
             />
             <SideBtn
               ActiveButton={ActiveButton}
               setActiveButton={setActiveButton}
               FilterText={"ChangePassword"}
-              title={"Change password"}
+              title={t("Setting.ChangePassword")}
               Icon={RiLockPasswordFill}
             />
             {/* <SideBtn
@@ -49,7 +52,7 @@ const Setting = () => {
               ActiveButton={ActiveButton}
               setActiveButton={setActiveButton}
               FilterText={"Logout"}
-              title={"Logout"}
+              title={t("Setting.Logout")}
               Icon={LuShoppingBag}
               onClick={() => {
                 setOpenModal(true);

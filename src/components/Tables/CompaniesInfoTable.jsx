@@ -13,8 +13,11 @@ import { FaEye } from "react-icons/fa";
 import SubcriptionAcceptOrReject from "../Modals/SubcriptionAcceptOrReject";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllCompany } from "../../store/Slices/AllCompanySlice";
+import { useTranslation } from "react-i18next";
 
 export default function CompaniesInfoTable({ Data, Search }) {
+  const [t, i18n] = useTranslation("global");
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -59,7 +62,7 @@ export default function CompaniesInfoTable({ Data, Search }) {
                     key={`${i}`}
                   >
                     <div className="text-[14px] pt-[8px] pb-[5px]  maxWeb1:pb-[6px] maxWeb1:pt-[20px] maxWeb1:text-[23px] maxWeb2:text-[28px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pb-[12px] maxWeb3:pb-[18px] maxWeb4:pb-[25px]">
-                      {ci.title}
+                      {t(`CompanyInfoColumns.${ci.title}`)}
                     </div>
                   </TableCell>
                 );

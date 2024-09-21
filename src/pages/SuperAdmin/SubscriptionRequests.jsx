@@ -8,6 +8,7 @@ import { set } from "lodash";
 import SubcriptionAcceptOrReject from "../../components/Modals/SubcriptionAcceptOrReject";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllCompany } from "../../store/Slices/AllCompanySlice";
+import { useTranslation } from "react-i18next";
 
 const old_data = [
   {
@@ -87,6 +88,7 @@ const SubscriptionRequests = () => {
   useEffect(() => {
     dispatch(fetchAllCompany({ enterprise: true }));
   }, []);
+  const [t, i18n] = useTranslation("global");
   return (
     <>
       <div className="w-full flex flex-col items-center justify-center fade-in">
@@ -94,7 +96,7 @@ const SubscriptionRequests = () => {
         <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 flex-wrap">
           {/* Left */}
           <div className="text-[30px] font-[Quicksand] font-[600] maxWeb1:text-[3rem] maxWeb2:text-[3rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem]">
-            Subscription Requests
+            {t("CompanyControls.SubscriptionRequests")}
           </div>
           {/* Right */}
           <div className="flex items-center gap-x-4">

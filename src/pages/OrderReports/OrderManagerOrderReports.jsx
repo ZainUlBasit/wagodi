@@ -17,6 +17,7 @@ import { api } from "../../Https";
 import PageLoader from "../../components/Loaders/PageLoader";
 import CustomPoperOverWithShow from "../../components/Popover/CustomPoperOverWithShow";
 import { convertStatus } from "../../utility/utilityFunctions";
+import { useTranslation } from "react-i18next";
 
 const OrderManagerOrderReports = () => {
   const [OpenSendReport, setOpenSendReport] = useState(false);
@@ -70,6 +71,8 @@ const OrderManagerOrderReports = () => {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+  const [t, i18n] = useTranslation("global");
+
   return (
     <>
       <div className="flex flex-col justify-center items-center w-full fade-in">
@@ -78,7 +81,7 @@ const OrderManagerOrderReports = () => {
           {/* Left */}
 
           <div className="font-[Quicksand] font-[700] text-[2rem] capitalize">
-            {ApplyFilter} Orders
+            {t("AllOrders")}
           </div>
           <div className="flex items-center gap-x-2">
             <div className="flex border-[1px] w-[300px] border-black items-center gap-x-2 px-3 py-[6px] rounded-full overflow-hidden">

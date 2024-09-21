@@ -9,8 +9,11 @@ import {
   FilterNotifications,
   fetchNotification,
 } from "../../store/Slices/NotificationSlice";
+import { useTranslation } from "react-i18next";
 
 const Notification = () => {
+  const [t, i18n] = useTranslation("global");
+
   const dispatch = useDispatch();
   const Current_User = useSelector((state) => state.auth.data);
   const Current_Notification = useSelector((state) => state.Notifications);
@@ -50,13 +53,13 @@ const Notification = () => {
         <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6">
           {/* Left */}
           <div className="font-[Quicksand] font-[700] text-[2rem] max767:text-[1.8rem]">
-            General Notifications
+            {t("GeneralNotifications")}
           </div>
           {/* Right */}
           <div className="font-[Quicksand] font-[700] flex gap-x-2 items-center max767:hidden">
             <div className="relative w-[200px]">
               <p className="absolute top-[-11px] left-4 px-[4px] w-fit bg-white font-[Quicksand] text-[15px]">
-                From
+                {t("From")}
               </p>
               <input
                 type="date"
@@ -72,7 +75,7 @@ const Notification = () => {
             </div>
             <div className="relative w-[200px]">
               <p className="absolute top-[-11px] left-4 px-[4px] w-fit bg-white font-[Quicksand] text-[15px]">
-                To
+                {t("To")}
               </p>
               <input
                 type="date"

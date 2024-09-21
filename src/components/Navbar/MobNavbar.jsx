@@ -21,8 +21,11 @@ import { TbLogout } from "react-icons/tb";
 import Logout from "../Modals/Logout";
 import { useSelector } from "react-redux";
 import LoggingOut from "../Modals/LoggingOut";
+import { useTranslation } from "react-i18next";
+import LanguageChangeBtn from "../buttons/LanguageChangeBtn";
 
 const MobNavbar = () => {
+  const [t, i18n] = useTranslation("global");
   const [showNotificationDot, setShowNotificationDot] = useState(true);
   const [ActiveNavItem, setActiveNavItem] = useState("");
   const [OpenLogoutModal, setOpenLogoutModal] = useState(false);
@@ -57,17 +60,19 @@ const MobNavbar = () => {
   const location = useLocation(); // Get the current location from react-router-dom
   const pathname = location.pathname;
   useEffect(() => {
-    if ("/home" === pathname) handleNavItemClick("HOME");
+    if ("/home" === pathname) handleNavItemClick("home");
     else if ("/ongoing-orders" === pathname)
-      handleNavItemClick("ONGOING ORDERS");
-    else if ("/orders-report" === pathname) handleNavItemClick("ORDER REPORTS");
-    else if ("/orders-report" === pathname) handleNavItemClick("ORDER REPORTS");
+      handleNavItemClick("ongoing_orders");
+    else if ("/orders-report" === pathname)
+      handleNavItemClick("approved_reports");
+    else if ("/orders-report" === pathname)
+      handleNavItemClick("approved_reports");
     else if ("/users" === pathname) handleNavItemClick("USERS");
     else if ("/notification" === pathname) handleNavItemClick("Notification");
     else if ("/setting" === pathname) handleNavItemClick("Setting");
-    else if ("/stations" === pathname) handleNavItemClick("STATION");
-    else if ("/statistics" === pathname) handleNavItemClick("STATISTICS");
-    else if ("/vendor" === pathname) handleNavItemClick("VENDOR");
+    else if ("/stations" === pathname) handleNavItemClick("station");
+    else if ("/statistics" === pathname) handleNavItemClick("statistics");
+    else if ("/vendor" === pathname) handleNavItemClick("vendor");
     setState({
       left: false,
       menu: false,
@@ -121,7 +126,7 @@ const MobNavbar = () => {
                       className="text-white w-full"
                       sx={{ fontFamily: "Quicksand", fontWeight: "bold" }}
                     >
-                      {text.title}
+                      {t(`adminnav.${text.title}`)}
                     </Typography>
                     <ListItemIcon className="flex justify-end">
                       <KeyboardArrowRightIcon className="text-white" />
@@ -145,7 +150,7 @@ const MobNavbar = () => {
                   disablePadding
                   onClick={() => {
                     navigate("/home");
-                    handleNavItemClick("Home");
+                    handleNavItemClick("CompaniesInformation");
                   }}
                 >
                   <ListItemButton className="w-full flex">
@@ -154,7 +159,7 @@ const MobNavbar = () => {
                       className="text-white w-full"
                       sx={{ fontFamily: "Quicksand", fontWeight: "bold" }}
                     >
-                      Companies Information
+                      {t("CompanyControls.CompaniesInformation")}
                     </Typography>
                     <ListItemIcon className="flex justify-end">
                       <KeyboardArrowRightIcon className="text-white" />
@@ -175,7 +180,7 @@ const MobNavbar = () => {
                   disablePadding
                   onClick={() => {
                     navigate("/subscription-requests");
-                    handleNavItemClick("Subscription Requests");
+                    handleNavItemClick("SubscriptionRequests");
                   }}
                 >
                   <ListItemButton className="w-full flex">
@@ -184,7 +189,7 @@ const MobNavbar = () => {
                       className="text-white w-full"
                       sx={{ fontFamily: "Quicksand", fontWeight: "bold" }}
                     >
-                      Subscription Requests{" "}
+                      {t("CompanyControls.SubscriptionRequests")}
                     </Typography>
                     <ListItemIcon className="flex justify-end">
                       <KeyboardArrowRightIcon className="text-white" />
@@ -205,7 +210,7 @@ const MobNavbar = () => {
                   disablePadding
                   onClick={() => {
                     navigate("/control-subscribers");
-                    handleNavItemClick("Control Subscribers");
+                    handleNavItemClick("ControlSubscribers");
                   }}
                 >
                   <ListItemButton className="w-full flex">
@@ -214,7 +219,7 @@ const MobNavbar = () => {
                       className="text-white w-full"
                       sx={{ fontFamily: "Quicksand", fontWeight: "bold" }}
                     >
-                      Control Subscribers
+                      {t("CompanyControls.ControlSubscribers")}
                     </Typography>
                     <ListItemIcon className="flex justify-end">
                       <KeyboardArrowRightIcon className="text-white" />
@@ -264,6 +269,7 @@ const MobNavbar = () => {
             ))
           )}
         </div>
+
         <div className="flex flex-col w-[90%]">
           <ListItem
             className="w-full flex justify-between py-1"
@@ -279,11 +285,37 @@ const MobNavbar = () => {
                 className="text-white w-full"
                 sx={{ fontFamily: "Quicksand", fontWeight: "bold" }}
               >
-                Logout
+                {t("Setting.Logout")}
               </Typography>
               <ListItemIcon className="flex justify-end">
                 <TbLogout className="text-white text-[1.3rem]" />
               </ListItemIcon>
+            </ListItemButton>
+          </ListItem>
+          <Typography
+            //   variant="div"
+            component="div"
+            className="text-white w-[90%] h-[2px] bg-[#FFFFFFB2]"
+            sx={{ fontFamily: "Quicksand", fontWeight: "bold" }}
+          ></Typography>
+        </div>
+        <div className="flex flex-col w-[90%]">
+          <ListItem
+            className="w-full flex justify-between py-1"
+            key={"logout"}
+            disablePadding
+            onClick={() => {
+              setOpenLogoutModal(!OpenLogoutModal);
+            }}
+          >
+            <ListItemButton className="w-full flex bg-yellow-300">
+              <Typography
+                //   variant="body1"
+                className="text-white w-full"
+                sx={{ fontFamily: "Quicksand", fontWeight: "bold" }}
+              >
+                <LanguageChangeBtn />
+              </Typography>
             </ListItemButton>
           </ListItem>
           <Typography
@@ -313,7 +345,9 @@ const MobNavbar = () => {
             {list("left")}
           </Drawer>
         </div>
-        <div className="font-bold text-[1.2rem]">{ActiveNavItem}</div>
+        <div className="font-bold text-[1.2rem]">
+          {t(`adminnav.${ActiveNavItem}`)}
+        </div>
         <div className="relative">
           {showNotificationDot && (
             <div className="h-[9px] w-[9px] bg-[#FF4423] rounded-full absolute top-[2px] left-[24px]"></div>

@@ -9,6 +9,7 @@ import PageLoader from "../../components/Loaders/PageLoader";
 import { useDispatch, useSelector } from "react-redux";
 import { fecthMessageError } from "../../store/Slices/ErrorMessageSlice";
 import { fetchControlSubscibers } from "../../store/Slices/ControlSubscribersSlice";
+import { useTranslation } from "react-i18next";
 
 const old_data = [
   {
@@ -73,6 +74,8 @@ const ControlSubscribers = () => {
     dispatch(fetchControlSubscibers());
   }, []);
 
+  const [t, i18n] = useTranslation("global");
+
   return (
     <>
       <div className="w-full flex flex-col items-center justify-center fade-in">
@@ -80,14 +83,14 @@ const ControlSubscribers = () => {
         <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 flex-wrap">
           {/* Left */}
           <div className="text-[30px] font-[Quicksand] font-[600] maxWeb1:text-[3rem] maxWeb2:text-[3rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem]">
-            Control Subscribers
+            {t("CompanyControls.ControlSubscribers")}
           </div>
           {/* Right */}
           <div className="flex items-center gap-x-4">
             <div className="font-[Quicksand] font-[700] flex gap-x-2 items-center max767:hidden">
               <div className="relative w-[200px]">
                 <p className="absolute top-[-11px] left-4 px-[4px] w-fit bg-white font-[Quicksand] text-[15px]">
-                  From
+                  {t("From")}
                 </p>
                 <input
                   type="date"
@@ -103,7 +106,7 @@ const ControlSubscribers = () => {
               </div>
               <div className="relative w-[200px]">
                 <p className="absolute top-[-11px] left-4 px-[4px] w-fit bg-white font-[Quicksand] text-[15px]">
-                  To
+                  {t("To")}
                 </p>
                 <input
                   type="date"

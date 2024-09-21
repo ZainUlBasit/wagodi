@@ -11,6 +11,7 @@ import { CompaniesInfoColumns } from "../../assets/Columns/CompaniesInfoColumns"
 import GreenRedSwitch from "../Switch/GreenRedSwitch";
 import { SubscriptionRequestsColumns } from "../../assets/Columns/SubscriptionRequestsColumns";
 import CustomPagination from "../TablePagination/TablePagination";
+import { useTranslation } from "react-i18next";
 
 export default function SubscriptionRequestsTable({
   Data,
@@ -18,6 +19,7 @@ export default function SubscriptionRequestsTable({
   setOpenModal,
   setID,
 }) {
+  const [t, i18n] = useTranslation("global");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -49,7 +51,7 @@ export default function SubscriptionRequestsTable({
                     }}
                   >
                     <div className="text-[14px] pt-[8px] pb-[5px]  maxWeb1:pb-[6px] maxWeb1:pt-[20px] maxWeb1:text-[23px] maxWeb2:text-[28px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pb-[12px] maxWeb3:pb-[18px] maxWeb4:pb-[25px]">
-                      {ci.title}
+                      {t(`SubscriptionDetails.${ci.title}`)}
                     </div>
                   </TableCell>
                 );

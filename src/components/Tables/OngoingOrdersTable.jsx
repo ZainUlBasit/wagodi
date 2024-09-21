@@ -199,7 +199,8 @@ export default function OngoingOrdersTable({
                             : row.status === 4 && "bg-red-600"
                         } py-1 px-2 rounded-full text-white font-bold cursor-pointer`}
                       >
-                        {convertStatus(row.status) || "none"}
+                        {t(`orderstatus.${convertStatus(row.status)}`) ||
+                          "none"}
                       </div>
                     </div>
                   </TableCell>

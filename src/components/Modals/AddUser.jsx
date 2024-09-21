@@ -15,8 +15,11 @@ import { fetchUsers } from "../../store/Slices/UserSlice";
 import AddingLightLoader from "../Loaders/AddingLightLoader";
 import LocationSearchInput from "../../utility/LocationSearchInput";
 import { BsSearch } from "react-icons/bs";
+import { useTranslation } from "react-i18next";
 
 const AddUser = ({ Open, setOpen }) => {
+  const [t, i18n] = useTranslation("global");
+
   const [Username, setUsername] = useState("");
   const [Email, setEmail] = useState("");
   const [Authority, setAuthority] = useState("");
@@ -187,28 +190,28 @@ const AddUser = ({ Open, setOpen }) => {
           </div>
         )}
         <h1 className="w-full text-center font-[700] text-3xl py-8 font-[Quicksand]">
-          Add User
+          {t("AddUser")}
         </h1>
         <div className="">
           <div className="flex gap-x-10 px-10 max767:flex-col">
             {/* left */}
             <div>
               <AuthInput
-                label="User Name"
+                label={t("UsersColumns.Username")}
                 placeholder="Enter username"
                 required={false}
                 Value={Username}
                 setValue={(data) => setUsername(data)}
               />
               <AuthInput
-                label="Email"
+                label={t("UsersColumns.Email")}
                 placeholder="Enter email"
                 required={false}
                 Value={Email}
                 setValue={(data) => setEmail(data)}
               />
               <AuthInputPassword
-                label={"Password"}
+                label={t("Password")}
                 placeholder={"***************"}
                 required={false}
                 Value={Password}
@@ -228,7 +231,7 @@ const AddUser = ({ Open, setOpen }) => {
             {/* right */}
             <div>
               <AuthInput
-                label="Phone Number"
+                label={t("UsersColumns.PhoneNumber")}
                 placeholder="Enter number"
                 required={false}
                 Value={PhoneNumber}
@@ -236,8 +239,8 @@ const AddUser = ({ Open, setOpen }) => {
                 Type={"text"}
               />
               <AuthInputPopOver
-                label={"Role"}
-                placeholder={"Select Role..."}
+                label={t("Role")}
+                placeholder={t("SelectRole")}
                 Value={Role}
                 onClick={(data) => handleClickRole(data)}
               />
@@ -291,7 +294,7 @@ const AddUser = ({ Open, setOpen }) => {
                           className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
                           checked={Role === "Administrator"}
                         />
-                        <span>Administrator</span>
+                        <span>{t("UserRole.Administrator")}</span>
                       </div>
                       <div
                         className="flex gap-x-3 items-center cursor-pointer"
@@ -305,7 +308,7 @@ const AddUser = ({ Open, setOpen }) => {
                           className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
                           checked={Role === "Order Manager"}
                         />
-                        <span>Order Manager</span>
+                        <span>{t("UserRole.OrderManager")}</span>
                       </div>
                       <div
                         className="flex gap-x-3 items-center cursor-pointer"
@@ -319,7 +322,7 @@ const AddUser = ({ Open, setOpen }) => {
                           className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
                           checked={Role === "Driver"}
                         />
-                        <span>Driver</span>
+                        <span>{t("UserRole.Driver")}</span>
                       </div>
                       <div
                         className="flex gap-x-3 items-center cursor-pointer"
@@ -333,7 +336,7 @@ const AddUser = ({ Open, setOpen }) => {
                           className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
                           checked={Role === "Station Manager"}
                         />
-                        <span>Station Manager</span>
+                        <span>{t("UserRole.StationManager")}</span>
                       </div>
                     </div>
                   </div>
@@ -342,8 +345,8 @@ const AddUser = ({ Open, setOpen }) => {
               {Role === "Station Manager" && (
                 <>
                   <AuthInputPopOver
-                    label={"Authority and Privileges"}
-                    placeholder={"Select Authority and Privileges"}
+                    label={t("AuthorityAndPrivileges")}
+                    placeholder={t("SelectAuthorityAndPrivileges")}
                     required={false}
                     Value={Authority}
                     onClick={handleClick}
@@ -351,8 +354,8 @@ const AddUser = ({ Open, setOpen }) => {
                   <div className="mb-4"></div>
                   {/* Station Name */}
                   <AuthInputPopOver
-                    label={"Station Name"}
-                    placeholder={"Select station name"}
+                    label={t("StationSalesColumns.StationName")}
+                    placeholder={t("SelectStationName")}
                     required={false}
                     Value={StationName}
                     onClick={handleClickStationName}
@@ -408,7 +411,7 @@ const AddUser = ({ Open, setOpen }) => {
                           className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
                           checked={Authority === "Sales"}
                         />
-                        <span>Sales</span>
+                        <span>{t("Sales")}</span>
                       </div>
                       <div
                         className="flex gap-x-3 items-center cursor-pointer"
@@ -422,7 +425,7 @@ const AddUser = ({ Open, setOpen }) => {
                           className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
                           checked={Authority === "Orders"}
                         />
-                        <span>Orders</span>
+                        <span>{t("Orders")}</span>
                       </div>
                     </div>
                   </div>

@@ -7,8 +7,12 @@ import { TbLogout } from "react-icons/tb";
 import Logout from "../Modals/Logout";
 import LoggingOut from "../Modals/LoggingOut";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import LanguageChangeBtn from "../buttons/LanguageChangeBtn";
 
 const OrderManagerNavbar = () => {
+  const [t, i18n] = useTranslation("global");
+
   const [activeNavItem, setActiveNavItem] = useState(""); // State to track the active navigation item
   const location = useLocation(); // Get the current location from react-router-dom
 
@@ -65,7 +69,7 @@ const OrderManagerNavbar = () => {
                 className={`text-[18px] font-[700] maxWeb1:text-[25px] maxWeb2:text-[30px] maxWeb3:text-[35px] maxWeb4:text-[40px]`}
                 onClick={() => handleNavItemClick("HOME")}
               >
-                HOME
+                {t("adminnav.home")}
               </Link>
               {activeNavItem === "HOME" && (
                 <div className="box-below-link active"></div>
@@ -78,7 +82,7 @@ const OrderManagerNavbar = () => {
                 className={`text-[18px] font-[700] maxWeb1:text-[25px] maxWeb2:text-[30px] maxWeb3:text-[35px] maxWeb4:text-[40px]`}
                 onClick={() => handleNavItemClick("ORDER REPORTS")}
               >
-                ORDER REPORTS
+                {t("adminnav.approved_reports")}
               </Link>
               {activeNavItem === "ORDER REPORTS" && (
                 <div className="box-below-link active"></div>
@@ -118,6 +122,7 @@ const OrderManagerNavbar = () => {
             >
               <TbLogout className="cursor-pointer maxWeb1:text-[2rem] maxWeb2:text-[2.3rem] maxWeb3:text-[2.9rem] maxWeb4:text-[2.6rem]" />
             </div>
+            <LanguageChangeBtn />
           </div>
         </div>
       </div>

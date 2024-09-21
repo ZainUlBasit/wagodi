@@ -19,8 +19,11 @@ import EditDuration from "../Modals/EditDuration";
 import EditStationLimit from "../Modals/EditStationLimit";
 import { TiEdit } from "react-icons/ti";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 export default function ControlSubscribersTable({ Data, Search, UpdateData }) {
+  const [t, i18n] = useTranslation("global");
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -57,7 +60,7 @@ export default function ControlSubscribersTable({ Data, Search, UpdateData }) {
                     }}
                   >
                     <div className="text-[14px] pt-[8px] pb-[5px]  maxWeb1:pb-[6px] maxWeb1:pt-[20px] maxWeb1:text-[23px] maxWeb2:text-[28px] maxWeb3:text-[34px] maxWeb4:text-[38px] maxWeb2:pb-[12px] maxWeb3:pb-[18px] maxWeb4:pb-[25px]">
-                      {ci.title}
+                      {t(`SubscriptionInfo.${ci.title}`)}
                     </div>
                   </TableCell>
                 );

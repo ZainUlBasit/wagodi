@@ -14,8 +14,10 @@ import SuccessToast from "../Toast/SuccessToast";
 import AddingLightLoader from "../Loaders/AddingLightLoader";
 import { fetchCompanyDetails } from "../../store/Slices/CompanySlice";
 import PageLoader from "../Loaders/PageLoader";
+import { useTranslation } from "react-i18next";
 
 const CompanyDetails = () => {
+  const [t, i18n] = useTranslation("global");
   // const [CompanyDataa, setCompanyDataa] = useState(null);
   const dispatch = useDispatch();
   const CompanyData = useSelector((state) => state.Company);
@@ -129,7 +131,7 @@ const CompanyDetails = () => {
         ) : (
           <>
             <div className="flex justify-between items-center mb-8 font-[600] font-[Quicksand] text-[1.8rem] px-5 max767:w-[90%] max767:px-0">
-              <div>Details</div>
+              <div>{t("Setting.Details")}</div>
               <div>
                 <FaRegEdit />
               </div>
@@ -138,35 +140,35 @@ const CompanyDetails = () => {
               {/* Left Side */}
               <div>
                 <AuthInput
-                  label={"Company Name"}
+                  label={t("Setting.CompanyName")}
                   placeholder={"Company 123"}
                   required={false}
                   Value={CompanyName}
                   setValue={setCompanyName}
                 />
                 <AuthInput
-                  label={"Email"}
+                  label={t("Setting.Email")}
                   placeholder={"123@gmail.com"}
                   required={false}
                   Value={Email}
                   setValue={setEmail}
                 />
                 <AuthInput
-                  label={"Phone Number"}
+                  label={t("Setting.PhoneNumber")}
                   placeholder={"1234567890"}
                   required={false}
                   Value={PhoneNumber}
                   setValue={setPhoneNumber}
                 />
                 <AuthInput
-                  label={"Commercial Registration Number"}
+                  label={t("Setting.CommercialRegistrationNumber")}
                   placeholder={"1234"}
                   required={false}
                   Value={CommercialRegistrationNumber}
                   setValue={setCommercialRegistrationNumber}
                 />
                 <AuthInput
-                  label={"Taxation Number"}
+                  label={t("Setting.TaxationNumber")}
                   placeholder={"1234"}
                   required={false}
                   Value={TaxationNumber}
@@ -176,7 +178,7 @@ const CompanyDetails = () => {
               {/* Right Side */}
               <div>
                 <AuthTextArea
-                  label={"Address"}
+                  label={t("Setting.Address")}
                   placeholder={
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis."
                   }
@@ -257,7 +259,7 @@ const CompanyDetails = () => {
                   // className={` bg-[#90898E] hover:bg-[#465462] rounded-[40px] text-white text-[1.2rem] font-[700] transition-all duration-500 ease-in-out`}
                   onClick={async () => handleSave()}
                 >
-                  Save
+                  {t("Setting.Save")}
                 </button>
               )}
             </div>

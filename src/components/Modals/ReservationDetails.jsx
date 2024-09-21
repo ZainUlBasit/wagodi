@@ -3,6 +3,7 @@ import CustomModal from "./CustomModal";
 import AuthInput from "../Input/AuthInput";
 import { ImCross } from "react-icons/im";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 const fuelTypeFunc = (type) => {
   switch (type) {
@@ -18,6 +19,7 @@ const fuelTypeFunc = (type) => {
 };
 
 const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
+  const [t, i18n] = useTranslation("global");
   const orderData = data[SelectedID];
   console.log(orderData);
   // const [OrderNumber, setOrderNumber] = useState();
@@ -39,7 +41,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
       <div className="pb-5">
         {/* title */}
         <div className="flex font-[Quicksand] font-[700] text-[1.5rem] py-6 pl-7">
-          Reservation Details
+          {t("ReservationColumns.ReservationDetails")}
           <div
             className="absolute right-4 border-2 p-2 rounded-full border-black hover:bg-black cursor-pointer"
             onMouseOver={() => setCursorOnCross(true)}
@@ -58,7 +60,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
           {/* Left Side */}
           <div className="flex flex-col">
             <AuthInput
-              label="Order Number"
+              label={t("ReservationColumns.orderNumber")}
               placeholder="50"
               required={false}
               Value={orderData.orderNumber}
@@ -66,7 +68,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
               readonly={true}
             />
             <AuthInput
-              label="Station Name"
+              label={t("ReservationColumns.stationName")}
               placeholder="Station Name"
               required={false}
               Value={orderData.station?.name}
@@ -74,7 +76,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
               readonly={true}
             />
             <AuthInput
-              label="Reservation Date"
+              label={t("ReservationColumns.reservationDate")}
               placeholder="Reservation Date"
               required={false}
               Value={moment(new Date(orderData.createdAt * 1000)).format(
@@ -84,7 +86,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
               readonly={true}
             />
             <AuthInput
-              label="Receipt Number"
+              label={t("ReservationColumns.receiptNumber")}
               placeholder="not specified"
               required={false}
               Value={orderData.reciept_number}
@@ -92,7 +94,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
               readonly={true}
             />
             <AuthInput
-              label="Paid Amount"
+              label={t("ReservationColumns.paidAmount")}
               placeholder="Add Amount..."
               required={false}
               Value={orderData.station.paid_amount}
@@ -100,7 +102,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
               readonly={true}
             />
             <AuthInput
-              label="Arrival Date"
+              label={t("ReservationColumns.arrivalDate")}
               placeholder="Add Expected Date..."
               required={false}
               Value={
@@ -125,7 +127,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
               readonly={true}
             />
             <AuthInput
-              label="Start Points"
+              label={t("ReservationColumns.startPoints")}
               placeholder="Select Start Point..."
               required={false}
               Value={orderData.from.name || "not specified"}
@@ -133,7 +135,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
               readonly={true}
             />
             <AuthInput
-              label="Add Tip"
+              label={t("ReservationColumns.addTip")}
               placeholder="None"
               required={false}
               Value={orderData.driverTip}
@@ -144,7 +146,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
           {/* Right Side */}
           <div className="flex flex-col">
             <AuthInput
-              label="Gas Type"
+              label={t("ReservationColumns.gasType")}
               placeholder="95"
               required={false}
               Value={fuelTypeFunc(orderData.fuel_type)}
@@ -152,7 +154,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
               readonly={true}
             />
             <AuthInput
-              label="UOM"
+              label={t("ReservationColumns.uom")}
               placeholder="Liters"
               required={false}
               Value={"Liters"}
@@ -160,7 +162,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
               readonly={true}
             />
             <AuthInput
-              label="Balance Volume"
+              label={t("ReservationColumns.balanceVolume")}
               placeholder="not specified"
               required={false}
               Value={orderData.station.value}
@@ -168,7 +170,7 @@ const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
               readonly={true}
             />
             <AuthInput
-              label="Require Volume"
+              label={t("ReservationColumns.requireVolume")}
               placeholder="not specified"
               required={false}
               Value={orderData.station.required_volume}

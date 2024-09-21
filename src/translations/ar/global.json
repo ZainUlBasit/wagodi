@@ -3,6 +3,9 @@
   "Drivers": "السائقين",
   "station_name": "اسم المحطة",
   "last_ordered": "آخر طلب",
+  "AllOrders": "جميع الطلبات",
+  "CreateOrder": "إنشاء طلب",
+  "CompaniesInformation": "معلومات الشركات",
   "adminnav": {
     "home": "الرئيسية",
     "ongoing_orders": "الطلبات الجارية",
@@ -10,7 +13,12 @@
     "users": "المستخدمون",
     "station": "المحطة",
     "statistics": "الإحصائيات",
-    "vendor": "البائع"
+    "vendor": "البائع",
+    "CompanyDetails": "تفاصيل الشركة",
+    "ChangePassword": "تغيير كلمة المرور",
+    "CompaniesInformation": "معلومات الشركات",
+    "SubscriptionRequests": "طلبات الاشتراك",
+    "ControlSubscribers": "التحكم في المشتركين"
   },
   "status": {
     "Healthy": "صحي",
@@ -45,6 +53,7 @@
   "approvedOrders": "الطلبات الموافق عليها",
   "orderReportsColumns": {
     "ReceiptNumber": "رقم الإيصال",
+    "ReceiptNo": "رقم الإيصال",
     "StationName": "اسم المحطة",
     "PaidAmount": "المبلغ المدفوع",
     "DriverName": "اسم السائق",
@@ -58,7 +67,8 @@
     "IssuedVolume": "الحجم الصادر",
     "ReceivedVolume": "الحجم المستلم",
     "DeliveredDateTime": "تاريخ ووقت التسليم",
-    "DeliverTime": "وقت التسليم"
+    "DeliverTime": "وقت التسليم",
+    "OrderNumber": "رقم الطلب"
   },
   "Role": "دور",
   "UsersColumns": {
@@ -142,5 +152,71 @@
     "Driver": "سائق",
     "StationManager": "مدير المحطة"
   },
-  "SelectRole": "اختر الدور"
+  "SelectRole": "اختر الدور",
+  "Setting": {
+    "Details": "التفاصيل",
+    "CompanyName": "اسم الشركة",
+    "Email": "البريد الإلكتروني",
+    "PhoneNumber": "رقم الهاتف",
+    "CommercialRegistrationNumber": "رقم التسجيل التجاري",
+    "TaxationNumber": "رقم الضريبة",
+    "Address": "العنوان",
+    "CompanyDetails": "تفاصيل الشركة",
+    "ChangePassword": "تغيير كلمة المرور",
+    "Logout": "تسجيل الخروج",
+    "Save": "حفظ"
+  },
+  "From": "من",
+  "To": "إلى",
+  "GeneralNotifications": "الإشعارات العامة",
+  "AddUser": "إضافة مستخدم",
+  "EditUser": "تعديل مستخدم",
+  "Password": "كلمة المرور",
+  "Sales": "المبيعات",
+  "AuthorityAndPrivileges": "السلطة والامتيازات",
+  "SelectStationName": "اختر اسم المحطة",
+  "SelectAuthorityAndPrivileges": "اختر السلطة والامتيازات",
+  "ReservationColumns": {
+    "orderNumber": "رقم الطلب",
+    "stationName": "اسم المحطة",
+    "reservationDate": "تاريخ الحجز",
+    "receiptNumber": "رقم الإيصال",
+    "paidAmount": "المبلغ المدفوع",
+    "arrivalDate": "تاريخ الوصول",
+    "startPoints": "نقاط البداية",
+    "addTip": "إضافة بقشيش",
+    "gasType": "نوع الوقود",
+    "uom": "وحدة القياس",
+    "balanceVolume": "حجم الرصيد",
+    "requireVolume": "الحجم المطلوب",
+    "ReservationDetails": "تفاصيل الحجز"
+  },
+  "CompanyInfoColumns": {
+    "View": "عرض",
+    "CompanyName": "اسم الشركة",
+    "NumberOfStations": "عدد المحطات",
+    "CompletedOrders": "الطلبات المكتملة",
+    "Earnings": "الأرباح",
+    "TopSellingStation": "أعلى محطة مبيعاً",
+    "Status": "الحالة"
+  },
+  "CompanyControls": {
+    "CompaniesInformation": "معلومات الشركات",
+    "SubscriptionRequests": "طلبات الاشتراك",
+    "ControlSubscribers": "التحكم في المشتركين"
+  },
+  "SubscriptionDetails": {
+    "CompanyName": "اسم الشركة",
+    "SubscriptionType": "نوع الاشتراك",
+    "NumberOfStations": "عدد المحطات",
+    "RequestNumber": "رقم الطلب",
+    "Price": "السعر",
+    "Status": "الحالة"
+  },
+  "SubscriptionInfo": {
+    "CompanyName": "اسم الشركة",
+    "NumberOfStations": "عدد المحطات",
+    "Duration": "المدة",
+    "StationLimit": "حد المحطات"
+  }
 }

@@ -5,8 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { SetSelectedOrder } from "../../store/Slices/SelectedOrder";
 import { useDispatch } from "react-redux";
 import { convertStatus } from "../../utility/utilityFunctions";
+import { useTranslation } from "react-i18next";
 
 const OrderDetail = ({ Order, Filter }) => {
+  const [t, i18n] = useTranslation("global");
   if (convertStatus(Order.status) !== Filter && Filter !== "All") return;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ const OrderDetail = ({ Order, Filter }) => {
         {/* Header (Station Name*/}
         <div className="flex justify-between items-center w-full px-4 pr-5 pb-[2px]">
           <div className="font-[Quicksand] font-[700] text-[1rem]">
-            Driver Name:{" "}
+            {t("orderReportsColumns.DriverName")}:{" "}
             <span className="font-[Quicksand] font-[400]">
               {Order.driverId?.name || "not assigned"}
             </span>
@@ -25,7 +27,7 @@ const OrderDetail = ({ Order, Filter }) => {
         </div>
         <div className="flex justify-between items-center w-full px-4 pr-5 pb-[2px]">
           <div className="font-[Quicksand] font-[700] text-[1rem]">
-            Station Name:{" "}
+            {t("orderReportsColumns.StationName")}:{" "}
             <span className="font-[Quicksand] font-[400]">
               {Order.station.name || "not specified"}
             </span>
@@ -33,7 +35,7 @@ const OrderDetail = ({ Order, Filter }) => {
         </div>
         {/* Middle (Last Order Detail) */}
         <div className="flex font-[Quicksand] font-[700] text-[1rem] gap-x-1 px-4 pb-[2px]">
-          Paid Amount:{" "}
+          {t("orderReportsColumns.PaidAmount")}:{" "}
           <span className="font-[Quicksand] font-[400]">
             {Number(Order.station.paid_amount).toFixed(2)}
           </span>
@@ -45,7 +47,7 @@ const OrderDetail = ({ Order, Filter }) => {
         {/* Footer (Detail) */}
         <div className="flex flex-col justify-center items-center py-5 pt-[6px] w-[100%] pb-1">
           <div className="font-[Quicksand] font-[700] text-[1rem]">
-            Receipt number:{" "}
+            {t("orderReportsColumns.ReceiptNumber")}:{" "}
             <span className="font-[300]">{Order.reciept_number}</span>
           </div>
         </div>

@@ -9,6 +9,7 @@ import CompaniesInfoTable from "../../components/Tables/CompaniesInfoTable";
 import { api } from "../../Https";
 import ErrorToast from "../../components/Toast/ErrorToast";
 import TableWrapper from "../../components/Tables/TableWrapper";
+import { useTranslation } from "react-i18next";
 
 const CompanyInfo = () => {
   const currentDate = new Date();
@@ -62,6 +63,7 @@ const CompanyInfo = () => {
     "November",
     "December",
   ];
+  const [t, i18n] = useTranslation("global");
 
   useEffect(() => {
     const fetchCompaniesData = async () => {
@@ -108,7 +110,7 @@ const CompanyInfo = () => {
         <div className="w-[90%] max-w-[1200px] maxWeb1:max-w-[1900px] maxWeb2:max-w-[2500px] maxWeb3:max-w-[3800px] maxWeb4:max-w-[3400px] flex justify-between mt-6 flex-wrap">
           {/* Left */}
           <div className="text-[30px] font-[Quicksand] font-[600] maxWeb1:text-[3rem] maxWeb2:text-[3rem] maxWeb3:text-[3rem] maxWeb4:text-[3rem]">
-            Companies Information
+            {t("CompaniesInformation")}
           </div>
           {/* Right */}
           <div className="flex items-center gap-x-4 flex-wrap">
@@ -117,10 +119,12 @@ const CompanyInfo = () => {
               onClick={handleClickMonth}
             >
               <p className="absolute top-[-11px] left-3 w-fit bg-white font-[Quicksand] text-[15px] font-bold">
-                Month
+                {t("Month")}
               </p>
               <div className="px-3 py-2 pr-10 border border-gray-300 rounded-[7.94px] w-full outline-none cursor-pointer">
-                {CurrentMonth === null ? "Select Month" : CurrentMonth}
+                {CurrentMonth === null
+                  ? "Select Month"
+                  : t(`Months.${CurrentMonth}`)}
               </div>
               <BsChevronDown className="flex absolute right-3 top-[.85rem]" />
             </div>
@@ -275,7 +279,7 @@ const CompanyInfo = () => {
                             className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
                             checked={CurrentMonth === month}
                           />
-                          <span>{month}</span>
+                          <span>{t(`Months.${month}`)}</span>
                         </div>
                       );
                     })}

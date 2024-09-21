@@ -3,6 +3,9 @@
   "Drivers": "Drivers",
   "station_name": "Station Name",
   "last_ordered": "Last Ordered",
+  "AllOrders": "All Orders",
+  "CreateOrder": "Create Order",
+  "CompaniesInformation": "Companies Information",
   "adminnav": {
     "home": "HOME",
     "ongoing_orders": "ONGOING ORDERS",
@@ -10,7 +13,9 @@
     "users": "USERS",
     "station": "STATION",
     "statistics": "STATISTICS",
-    "vendor": "VENDOR"
+    "vendor": "VENDOR",
+    "CompanyDetails": "Company Details",
+    "ChangePassword": "Change Password"
   },
   "status": {
     "Healthy": "Healthy",
@@ -45,6 +50,7 @@
   "approvedOrders": "Approved Orders",
   "orderReportsColumns": {
     "ReceiptNumber": "Receipt Number",
+    "ReceiptNo": "Receipt No",
     "StationName": "Station Name",
     "PaidAmount": "Paid Amount",
     "DriverName": "Driver Name",
@@ -58,7 +64,8 @@
     "IssuedVolume": "Issued Volume",
     "ReceivedVolume": "Received Volume",
     "DeliveredDateTime": "Delivered Date and Time",
-    "DeliverTime": "Delivery Time"
+    "DeliverTime": "Delivery Time",
+    "OrderNumber": "Order Number"
   },
   "Role": "Role",
   "UsersColumns": {
@@ -142,5 +149,71 @@
     "Driver": "Driver",
     "StationManager": "Station Manager"
   },
-  "SelectRole": "Select Role"
+  "SelectRole": "Select Role",
+  "Setting": {
+    "Details": "Details",
+    "CompanyName": "Company Name",
+    "Email": "Email",
+    "PhoneNumber": "Phone Number",
+    "CommercialRegistrationNumber": "Commercial Registration Number",
+    "TaxationNumber": "Taxation Number",
+    "Address": "Address",
+    "CompanyDetails": "Company Details",
+    "ChangePassword": "Change Password",
+    "Logout": "Logout",
+    "Save": "Save"
+  },
+  "From": "From",
+  "To": "To",
+  "GeneralNotifications": "General Notifications",
+  "AddUser": "Add User",
+  "EditUser": "Edit User",
+  "Password": "Password",
+  "Sales": "Sales",
+  "AuthorityAndPrivileges": "Authority and Privileges",
+  "SelectStationName": "Select Station Name",
+  "SelectAuthorityAndPrivileges": "Select Authority and Privileges",
+  "ReservationColumns": {
+    "orderNumber": "Order Number",
+    "stationName": "Station Name",
+    "reservationDate": "Reservation Date",
+    "receiptNumber": "Receipt Number",
+    "paidAmount": "Paid Amount",
+    "arrivalDate": "Arrival Date",
+    "startPoints": "Start Points",
+    "addTip": "Add Tip",
+    "gasType": "Gas Type",
+    "uom": "UOM",
+    "balanceVolume": "Balance Volume",
+    "requireVolume": "Require Volume",
+    "ReservationDetails": "Reservation Details"
+  },
+  "CompanyInfoColumns": {
+    "View": "View",
+    "CompanyName": "Company Name",
+    "NumberOfStations": "Number of Stations",
+    "CompletedOrders": "Completed Orders",
+    "Earnings": "Earnings",
+    "TopSellingStation": "Top Selling Station",
+    "Status": "Status"
+  },
+  "CompanyControls": {
+    "CompaniesInformation": "Companies Information",
+    "SubscriptionRequests": "Subscription Requests",
+    "ControlSubscribers": "Control Subscribers"
+  },
+  "SubscriptionDetails": {
+    "CompanyName": "Company Name",
+    "SubscriptionType": "Subscription Type",
+    "NumberOfStations": "Number of Stations",
+    "RequestNumber": "Request Number",
+    "Price": "Price",
+    "Status": "Status"
+  },
+  "SubscriptionInfo": {
+    "CompanyName": "Company Name",
+    "NumberOfStations": "Number of Stations",
+    "Duration": "Duration",
+    "StationLimit": "Station Limit"
+  }
 }

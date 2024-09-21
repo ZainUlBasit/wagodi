@@ -5,8 +5,11 @@ import PlacesAutocomplete, {
   getLatLng,
 } from "react-places-autocomplete";
 import { getCoordinates } from "./googlemap";
+import { useTranslation } from "react-i18next";
 
 const LocationSearchInput = ({ onSelect, CurrentValue }) => {
+  const [t, i18n] = useTranslation("global");
+
   const [address, setAddress] = useState("");
   const [SelectionDone, setSelectionDone] = useState(false);
 
@@ -49,7 +52,7 @@ const LocationSearchInput = ({ onSelect, CurrentValue }) => {
         <div>
           <div className="relative w-[297px] maxInputWidth font-[Quicksand]">
             <p className="absolute top-[-11px] left-3 w-fit bg-white h-[13px] text-[15px] font-bold InputLabel">
-              Address
+              {t(`Setting.Address`)}
             </p>
             <input
               {...getInputProps({

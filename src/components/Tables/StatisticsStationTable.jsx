@@ -28,7 +28,7 @@ export default function StatisticsStationTable({
           className={`relative text-center tracking-[1px] px-4 py-1 rounded-3xl font-[Quicksand] font-[700] bg-[#90898E] text-white no-underline text-#465462 cursor-pointer transition-all ease-in-out duration-500  border-2 border-solid border-[#90898E] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] hover:border-[#465462] active:scale-90 flex items-center gap-x-2 justify-center`}
           onClick={() => setOpenSendReport(!OpenSendReport)}
         >
-          Send Report
+          {t("SendReport")}
         </button>
       </div>
       <TableContainer component={Paper} className="fade-in">
