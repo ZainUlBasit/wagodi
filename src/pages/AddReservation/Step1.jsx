@@ -16,6 +16,7 @@ import { BsPlusCircle, BsTrash2Fill } from "react-icons/bs";
 import AddStationsReservation from "../../components/Modals/AddStationsReservation";
 import { Delete } from "@mui/icons-material";
 import { BiTrash } from "react-icons/bi";
+import { useTranslation } from "react-i18next";
 
 const Step1 = ({
   setCurrentTabNumber,
@@ -24,6 +25,7 @@ const Step1 = ({
   CurrentTabNumber,
   formik,
 }) => {
+  const [t, i18n] = useTranslation("global");
   const [StationName, setStationName] = useState("");
   const [ReservationDate, setReservationDate] = useState(
     moment(new Date()).format("YYYY-MM-DD")
@@ -116,7 +118,7 @@ const Step1 = ({
           /> */}
           <CustomInput
             name="res_date"
-            label={"Reservation Date"}
+            label={t("ReservationDetail.ReservationDate")}
             placeholder={"19-Sep-2023"}
             disabled={true}
             type="date"
@@ -128,7 +130,7 @@ const Step1 = ({
           />
           <CustomInput
             name="reciept_number"
-            label={"Receipt Number"}
+            label={t("ReservationDetail.ReceiptNumber")}
             placeholder={"Add Receipt number..."}
             type="text"
             value={formik.values.reciept_number}
@@ -146,8 +148,8 @@ const Step1 = ({
             setValue={setAddress}
           /> */}
           <CustomInput
-            name="arrival_date"
-            label={"Arrival Date"}
+            name={t("ReservationDetail.ArrivalDate")}
+            label={t("ReservationDetail.ArrivalDate")}
             placeholder={"19-Sep-2023"}
             type="datetime-local"
             value={formik.values.arrival_date}
@@ -158,7 +160,7 @@ const Step1 = ({
           />
           <CustomInput
             name="tip"
-            label={"Add Tip"}
+            label={t("ReservationDetail.AddTip")}
             placeholder={"Add Amount..."}
             type="number"
             value={formik.values.tip}
@@ -171,7 +173,7 @@ const Step1 = ({
         {/* right side */}
         <div className="flex flex-col gap-y-5">
           <AuthInputPopOver
-            label={"Start Point Type"}
+            label={t("ReservationDetail.StartPointType")}
             placeholder={"Select Start Point..."}
             Value={
               formik.values.from_option === 0
@@ -185,7 +187,7 @@ const Step1 = ({
           {(formik.values.from_option === 0 ||
             formik.values.from_option === 1) && (
             <AuthInputPopOver
-              label={"Start Point"}
+              label={t("ReservationDetail.StartPoint")}
               placeholder={
                 formik.values.from_option === 0
                   ? "Select Vendor..."
@@ -412,7 +414,7 @@ const Step1 = ({
               className="cursor-pointer flex items-center w-fit border-[1px] border-[#DCDCDC] py-[5px] px-[20px] pl-[10px] rounded-[7.94px] text-[13.9px]"
             >
               <FaPlus className="text-[#465462] text-[1.1rem] font-bold mr-5 ml-2" />
-              Add Buying Receipt
+              {t("ReservationDetail.AddBuyingReceipt")}
             </label>
             {/* <input
               id="file-input"
@@ -438,7 +440,7 @@ const Step1 = ({
               className="flex justify-between items-center"
               onClick={() => setSelectModal(true)}
             >
-              <div className="font-bold text-xl">Stations</div>
+              <div className="font-bold text-xl">{t("stations")}</div>
               <BsPlusCircle className="text-2xl rounded-full cursor-pointer" />
             </div>
             <div className="flex flex-col gap-y-4 mt-2 items-center font-[Quicksand] w-[297px] flex-wrap">

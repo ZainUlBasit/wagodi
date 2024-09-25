@@ -226,5 +226,15 @@
     "CommercialRegistrationNumber": "Commercial Registration Number",
     "TaxationNumber": "Taxation Number",
     "Address": "Address"
+  },
+  "ReservationDetail": {
+    "ReservationDate": "Reservation Date",
+    "ReceiptNumber": "Receipt Number",
+    "ArrivalDate": "Arrival Date",
+    "AddTip": "Add Tip",
+    "StartPointType": "Start Point Type",
+    "AddBuyingReceipt": "Add Buying Receipt",
+    "Stations": "Stations",
+    "StartPoint": "Start Point"
   }
 }

@@ -229,5 +229,15 @@
     "CommercialRegistrationNumber": "رقم السجل التجاري",
     "TaxationNumber": "الرقم الضريبي",
     "Address": "العنوان"
+  },
+  "ReservationDetail": {
+    "ReservationDate": "تاريخ الحجز",
+    "ReceiptNumber": "رقم الإيصال",
+    "ArrivalDate": "تاريخ الوصول",
+    "AddTip": "إضافة إكرامية",
+    "StartPointType": "نوع نقطة البداية",
+    "AddBuyingReceipt": "إضافة إيصال الشراء",
+    "Stations": "المحطات",
+    "StartPoint": "نقطة البداية"
   }
 }
