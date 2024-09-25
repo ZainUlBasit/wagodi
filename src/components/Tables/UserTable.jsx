@@ -75,11 +75,11 @@ export default function UserTable({
             {UserData?.data
               ?.filter((data) => {
                 const CurrentRole =
-                  Filter === "Administrator"
-                    ? 0
-                    : Filter === "Order Manager"
+                  Filter === "Company Admin"
+                    ? 1
+                    : Filter === "OrderManager"
                     ? 2
-                    : Filter === "Station Manager"
+                    : Filter === "StationManager"
                     ? 3
                     : Filter === "Driver"
                     ? 4

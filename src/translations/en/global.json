@@ -145,6 +145,7 @@
   "UserRole": {
     "All": "All",
     "Administrator": "Administrator",
+    "CompanyAdmin": "Company Admin",
     "OrderManager": "Order Manager",
     "Driver": "Driver",
     "StationManager": "Station Manager"

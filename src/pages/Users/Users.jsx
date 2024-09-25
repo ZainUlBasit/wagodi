@@ -129,14 +129,14 @@ const Users = () => {
                     </div>
                     <div
                       className="flex gap-x-3 items-center cursor-pointer"
-                      onClick={() => setFilter("Administrator")}
+                      onClick={() => setFilter("CompanyAdmin")}
                     >
                       <input
                         type="checkbox"
                         className="mr-1 appearance-none h-5 w-5 border border-gray-300 checked:bg-white rounded-full"
-                        checked={Filter === "Administrator"}
+                        checked={Filter === "CompanyAdmin"}
                       />
-                      <span>{t("UserRole.Administrator")}</span>
+                      <span>{t("UserRole.CompanyAdmin")}</span>
                     </div>
                     <div
                       className="flex gap-x-3 items-center cursor-pointer"

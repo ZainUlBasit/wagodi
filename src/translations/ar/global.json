@@ -148,6 +148,7 @@
   "UserRole": {
     "All": "الكل",
     "Administrator": "مدير النظام",
+    "CompanyAdmin": "مسؤول الشركة",
     "OrderManager": "مدير الطلبات",
     "Driver": "سائق",
     "StationManager": "مدير المحطة"
