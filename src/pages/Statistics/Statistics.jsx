@@ -489,18 +489,32 @@ const Statistics = () => {
             className=" px-3 py-2 border-2 border-black rounded-full hover:bg-black hover:text-white transition-all ease-in-out duration-500 cursor-pointer"
             onClick={() => {
               exportToExcel(
-                StationSaleStatsState.data.filter((dt) => {
-                  const searchLowerCase = SearchText.toLowerCase();
-                  const matchesSearch = dt.stationName
-                    .toLowerCase()
-                    .startsWith(searchLowerCase);
+                StationSaleStatsState.data
+                  .filter((dt) => {
+                    const searchLowerCase = SearchText.toLowerCase();
+                    const matchesSearch = dt.stationName
+                      .toLowerCase()
+                      .startsWith(searchLowerCase);
 
-                  const filterFuelType =
-                    CurrentFuelSales === "" ||
-                    CurrentFuelSales - 1 === dt.fuel_type;
+                    const filterFuelType =
+                      CurrentFuelSales === "" ||
+                      CurrentFuelSales - 1 === dt.fuel_type;
 
-                  return (SearchText === "" || matchesSearch) && filterFuelType;
-                }),
+                    return (
+                      (SearchText === "" || matchesSearch) && filterFuelType
+                    );
+                  })
+                  .map((dt) => {
+                    return {
+                      ...dt,
+                      start: moment(new Date(dt.start * 1000)).format(
+                        "DD/MMM/YYYY"
+                      ),
+                      end: moment(new Date(dt.end * 1000)).format(
+                        "DD/MMM/YYYY"
+                      ),
+                    };
+                  }),
                 `${moment(new Date()).format("DD/MMM/YYYY")}`
               );
             }}
