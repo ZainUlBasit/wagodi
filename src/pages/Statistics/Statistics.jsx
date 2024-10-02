@@ -38,6 +38,7 @@ import StationSaleDetailsTable from "../../components/Tables/StationSaleDetailsT
 import moment from "moment";
 import { fetchStationSalesStats } from "../../store/Slices/StationSaleStatsSlice";
 import { useTranslation } from "react-i18next";
+import exportToExcel from "../../utility/ExportToExcel";
 
 const Statistics = () => {
   const [t, i18n] = useTranslation("global");
@@ -480,6 +481,31 @@ const Statistics = () => {
                 </div>
               </Typography>
             </Popover>
+          </div>
+        </div>
+
+        <div className="w-full flex justify-end px-2 py-3">
+          <div
+            className=" px-3 py-2 border-2 border-black rounded-full hover:bg-black hover:text-white transition-all ease-in-out duration-500 cursor-pointer"
+            onClick={() => {
+              exportToExcel(
+                StationSaleStatsState.data.filter((dt) => {
+                  const searchLowerCase = SearchText.toLowerCase();
+                  const matchesSearch = dt.stationName
+                    .toLowerCase()
+                    .startsWith(searchLowerCase);
+
+                  const filterFuelType =
+                    CurrentFuelSales === "" ||
+                    CurrentFuelSales - 1 === dt.fuel_type;
+
+                  return (SearchText === "" || matchesSearch) && filterFuelType;
+                }),
+                `${moment(new Date()).format("DD/MMM/YYYY")}`
+              );
+            }}
+          >
+            Convert to Excel
           </div>
         </div>
 
