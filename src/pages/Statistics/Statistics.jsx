@@ -507,12 +507,18 @@ const Statistics = () => {
                   .map((dt) => {
                     return {
                       ...dt,
-                      start: moment(new Date(dt.start * 1000)).format(
-                        "DD/MMM/YYYY"
+                      fuel_type:
+                        row.fuel_type === 0
+                          ? "91"
+                          : row.fuel_type === 1
+                          ? "95"
+                          : row.fuel_type === 2
+                          ? "D"
+                          : "-",
+                      start: moment(new Date(row.start * 1000)).format(
+                        "hh:mm A"
                       ),
-                      end: moment(new Date(dt.end * 1000)).format(
-                        "DD/MMM/YYYY"
-                      ),
+                      end: moment(new Date(row.end * 1000)).format("hh:mm A"),
                     };
                   }),
                 `${moment(new Date()).format("DD/MMM/YYYY")}`
