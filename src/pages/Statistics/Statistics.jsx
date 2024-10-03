@@ -516,9 +516,11 @@ const Statistics = () => {
                           ? "D"
                           : "-",
                       start: moment(new Date(dt.start * 1000)).format(
-                        "hh:mm A"
+                        "DD/MM/YYYY hh:mm A"
                       ),
-                      end: moment(new Date(dt.end * 1000)).format("hh:mm A"),
+                      end: moment(new Date(dt.end * 1000)).format(
+                        "DD/MM/YYYY hh:mm A"
+                      ),
                     };
                   }),
                 `${moment(new Date()).format("DD/MMM/YYYY")}`
