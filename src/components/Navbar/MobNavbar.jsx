@@ -252,7 +252,7 @@ const MobNavbar = () => {
                       className="text-white w-full"
                       sx={{ fontFamily: "Quicksand", fontWeight: "bold" }}
                     >
-                      {text.title}
+                      {t(`adminnav.${text.title}`)}
                     </Typography>
                     <ListItemIcon className="flex justify-end">
                       <KeyboardArrowRightIcon className="text-white" />

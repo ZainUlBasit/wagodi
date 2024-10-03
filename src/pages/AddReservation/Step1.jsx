@@ -148,7 +148,7 @@ const Step1 = ({
             setValue={setAddress}
           /> */}
           <CustomInput
-            name={t("ReservationDetail.ArrivalDate")}
+            name={"arrival_date"}
             label={t("ReservationDetail.ArrivalDate")}
             placeholder={"19-Sep-2023"}
             type="datetime-local"
@@ -158,6 +158,7 @@ const Step1 = ({
             isError={formik.errors.arrival_date}
             errorMsg={formik.errors.arrival_date}
           />
+
           <CustomInput
             name="tip"
             label={t("ReservationDetail.AddTip")}

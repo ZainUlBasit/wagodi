@@ -12,6 +12,6 @@ export const MobNavData = [
 ];
 
 export const MobNavDataOrderManager = [
-  { title: "Home", link: "/home" },
-  { title: "ORDER REPORTS", link: "/order-manager-orders-report" },
+  { title: "home", link: "/home" },
+  { title: "approved_reports", link: "/order-manager-orders-report" },
 ];
