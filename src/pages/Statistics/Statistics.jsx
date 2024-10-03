@@ -508,17 +508,17 @@ const Statistics = () => {
                     return {
                       ...dt,
                       fuel_type:
-                        row.fuel_type === 0
+                        dt.fuel_type === 0
                           ? "91"
                           : row.fuel_type === 1
                           ? "95"
                           : row.fuel_type === 2
                           ? "D"
                           : "-",
-                      start: moment(new Date(row.start * 1000)).format(
+                      start: moment(new Date(dt.start * 1000)).format(
                         "hh:mm A"
                       ),
-                      end: moment(new Date(row.end * 1000)).format("hh:mm A"),
+                      end: moment(new Date(dt.end * 1000)).format("hh:mm A"),
                     };
                   }),
                 `${moment(new Date()).format("DD/MMM/YYYY")}`
