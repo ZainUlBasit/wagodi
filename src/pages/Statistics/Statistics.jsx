@@ -510,9 +510,9 @@ const Statistics = () => {
                       fuel_type:
                         dt.fuel_type === 0
                           ? "91"
-                          : row.fuel_type === 1
+                          : dt.fuel_type === 1
                           ? "95"
-                          : row.fuel_type === 2
+                          : dt.fuel_type === 2
                           ? "D"
                           : "-",
                       start: moment(new Date(dt.start * 1000)).format(
