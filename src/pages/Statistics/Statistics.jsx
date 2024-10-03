@@ -139,6 +139,8 @@ const Statistics = () => {
   const openChart2 = Boolean(anchorElChart2);
   const idChart2 = openChart2 ? "simple-popover" : undefined;
 
+  const [exporting, setExporting] = useState(false);
+
   function generateYears(startYear, endYear) {
     const years = [];
     for (let year = startYear; year <= endYear; year++) {
@@ -486,7 +488,7 @@ const Statistics = () => {
 
         <div className="w-full flex justify-end px-2 py-3">
           <div
-            className=" px-3 py-2 border-2 border-black rounded-full hover:bg-black hover:text-white transition-all ease-in-out duration-500 cursor-pointer"
+            className={`relative text-center text-lg tracking-[1px] no-underline text-[#fff] cursor-pointer transition-all ease-in-out duration-500 border-2 border-solid border-[#465462] hover:text-[white] shadow-[inset_0_0_0_0_#465462] hover:shadow-[inset_0_-100px_0_0_#465462] active:scale-90 px-4 py-[5px] rounded-full font-[Quicksand] font-[700] text-[1rem] bg-[#90898E] flex gap-x-6 items-center maxWeb1:text-[1.5rem] maxWeb2:text-[2rem] maxWeb3:text-[2.5rem] maxWeb4:text-[3rem]`}
             onClick={() => {
               exportToExcel(
                 StationSaleStatsState.data
@@ -527,7 +529,7 @@ const Statistics = () => {
               );
             }}
           >
-            Convert to Excel
+            Export to Excel
           </div>
         </div>
 
