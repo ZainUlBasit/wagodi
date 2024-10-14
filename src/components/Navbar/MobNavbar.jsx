@@ -382,3 +382,19 @@ const MobNavbar = () => {
 };
 
 export default MobNavbar;
+
+{
+  /* <div className="absolute right-5 top-5">
+            <input
+              type="checkbox"
+              id="can-scan"
+              name="can-scan"
+              checked={CanScan}
+              onChange={(e) => setCanScan(e.target.checked)}
+            />
+            <label htmlFor="can-scan" className="font-[Quicksand] font-bold">
+              {" "}
+              Can Scan
+            </label>
+          </div> */
+}

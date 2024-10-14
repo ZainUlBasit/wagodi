@@ -16,6 +16,7 @@ import AddingLightLoader from "../Loaders/AddingLightLoader";
 import LocationSearchInput from "../../utility/LocationSearchInput";
 import { BsSearch } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
+import "./InputStyle.css";
 
 const AddUser = ({ Open, setOpen }) => {
   const [t, i18n] = useTranslation("global");
@@ -35,6 +36,7 @@ const AddUser = ({ Open, setOpen }) => {
   const [Lat, setLat] = useState("");
   const [SearchPopOver, setSearchPopOver] = useState("");
   const [CanScan, setCanScan] = useState(false);
+  const [AutoFill, setAutoFill] = useState(false);
 
   const [anchorElRole, setAnchorElRole] = useState(null);
   const [anchorElStationName, setAnchorElStationName] = useState(null);
@@ -84,7 +86,7 @@ const AddUser = ({ Open, setOpen }) => {
       address: Address,
     };
     if (Role === "Station Manager" && Authority === "Orders") {
-      req_data = { ...req_data, canScan: CanScan };
+      req_data = { ...req_data, canScan: CanScan, autoFill: AutoFill };
     }
     req_data =
       Role === "Administrator" || Role === "Order Manager" || Role === "Driver"
@@ -175,21 +177,36 @@ const AddUser = ({ Open, setOpen }) => {
     <CustomModal open={Open} setOpen={Loading ? "" : setOpen}>
       <div className="relative">
         {Role === "Station Manager" && Authority === "Orders" && (
-          <div className="absolute right-5 top-5">
-            <input
-              type="checkbox"
-              id="can-scan"
-              name="can-scan"
-              checked={CanScan}
-              onChange={(e) => setCanScan(e.target.checked)}
-            />
-            <label htmlFor="can-scan" className="font-[Quicksand] font-bold">
-              {" "}
-              Can Scan
-            </label>
+          <div className="flex flex-col relative">
+            <div className="toggle-button-cover">
+              <div className="mt-5 -mr-10">Can Scan</div>
+              <div id="button-3" className="button r">
+                <input
+                  className="checkbox"
+                  type="checkbox"
+                  checked={CanScan}
+                  onChange={(e) => setCanScan(e.target.checked)}
+                />
+                <div className="knobs"></div>
+                <div className="layer"></div>
+              </div>
+            </div>
+            <div className="toggle-button-cover top-[50px]">
+              <div className="mt-5 -mr-10">Auto Fill</div>
+              <div id="button-3" className="button r">
+                <input
+                  className="checkbox"
+                  type="checkbox"
+                  checked={AutoFill}
+                  onChange={(e) => setAutoFill(e.target.checked)}
+                />
+                <div className="knobs"></div>
+                <div className="layer"></div>
+              </div>
+            </div>
           </div>
         )}
-        <h1 className="w-full text-center font-[700] text-3xl py-8 font-[Quicksand]">
+        <h1 className="w-full text-center font-[700] text-3xl py-10 font-[Quicksand]">
           {t("AddUser")}
         </h1>
         <div className="">
