@@ -196,32 +196,32 @@ const EditUser = ({ Open, setOpen, CurrentUser }) => {
     <CustomModal open={Open} setOpen={setOpen}>
       <div className="relative">
         {Role === "Station Manager" && Authority === "Order" && (
-          <div className="flex flex-col">
-            <div className="toggle-button-cover">
-              <div className="mt-5 -mr-10">Can Scan</div>
-              <div id="button-3" className="button r">
-                <input
-                  className="checkbox"
-                  type="checkbox"
-                  checked={CanScan}
-                  onChange={(e) => setCanScan(e.target.checked)}
-                />
-                <div className="knobs"></div>
-                <div className="layer"></div>
-              </div>
+          <div className="toggle-button-cover absolute top-0 right-0">
+            <div className="mt-5 -mr-10">Can Scan</div>
+            <div id="button-3" className="button r">
+              <input
+                className="checkbox"
+                type="checkbox"
+                checked={CanScan}
+                onChange={(e) => setCanScan(e.target.checked)}
+              />
+              <div className="knobs"></div>
+              <div className="layer"></div>
             </div>
-            <div className="toggle-button-cover">
-              <div className="mt-5 -mr-10">Auto Fill</div>
-              <div id="button-3" className="button r">
-                <input
-                  className="checkbox"
-                  type="checkbox"
-                  checked={AutoFill}
-                  onChange={(e) => setAutoFill(e.target.checked)}
-                />
-                <div className="knobs"></div>
-                <div className="layer"></div>
-              </div>
+          </div>
+        )}
+        {Role === "Station Manager" && Authority === "Order" && (
+          <div className="toggle-button-cover absolute top-0 left-10">
+            <div className="mt-5 -mr-10">Auto Fill</div>
+            <div id="button-3" className="button r">
+              <input
+                className="checkbox"
+                type="checkbox"
+                checked={AutoFill}
+                onChange={(e) => setAutoFill(e.target.checked)}
+              />
+              <div className="knobs"></div>
+              <div className="layer"></div>
             </div>
           </div>
         )}
