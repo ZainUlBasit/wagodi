@@ -219,7 +219,7 @@ export default function OngoingOrdersTable({
                         // className="cursor-pointer text-[#76808B] hover:text-black transition-all duration-500 ease-in-out"
                         onClick={() => {
                           setOpen(true);
-                          setCurrentID(i);
+                          setCurrentID(row._id);
                         }}
                       />
                     </span>

@@ -20,8 +20,7 @@ const fuelTypeFunc = (type) => {
 
 const ReservationDetails = ({ Open, setOpen, SelectedID, data }) => {
   const [t, i18n] = useTranslation("global");
-  const orderData = data[SelectedID];
-  console.log(orderData);
+  const orderData = data.filter((dt) => dt._id === SelectedID)[0];
   // const [OrderNumber, setOrderNumber] = useState();
   // const [StationName, setStationName] = useState("");
   // const [ReservationDetails, setReservationDetails] = useState("");
